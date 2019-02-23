@@ -12,7 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.wanou.framelibrary.R;
 import com.wanou.framelibrary.manager.ActivityManage;
+import com.wanou.framelibrary.weight.SimpleMultiStateView;
 
 /**
  * Author by wodx521
@@ -21,6 +23,7 @@ import com.wanou.framelibrary.manager.ActivityManage;
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
     protected Bundle mBundle;
+    SimpleMultiStateView mSimpleMultiStateView;
 
     public static void startActivity(Context context, Bundle bundle, Class<?> cls) {
         Intent intent = new Intent(context, cls);
@@ -66,6 +69,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         ActivityManage.getInstance().addActivity(this);
         setContentView(getResId());
         mBundle = getIntent().getBundleExtra("bundle");
+        initStateView();
         initView();
     }
 
@@ -94,6 +98,16 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         ActivityManage.getInstance().removeActivity(this);
     }
 
+    private void initStateView() {
+        if (mSimpleMultiStateView == null) return;
+        mSimpleMultiStateView.setEmptyResource(R.layout.view_empty)
+                .setRetryResource(R.layout.view_retry)
+                .setLoadingResource(R.layout.view_loading)
+                .setNoNetResource(R.layout.view_nonet)
+                .build()
+                .setonReLoadlistener(this::onRetry);
+    }
+
     protected void viewGone(View... views) {
         if (views != null && views.length > 0) {
             for (View view : views) {
@@ -116,6 +130,46 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
                 view.setVisibility(View.INVISIBLE);
             }
         }
+    }
+
+    @Override
+    public void showLoading() {
+        if (mSimpleMultiStateView != null) {
+            mSimpleMultiStateView.showLoadingView();
+        }
+    }
+
+    @Override
+    public void showSuccess() {
+        if (mSimpleMultiStateView != null) {
+            mSimpleMultiStateView.showContent();
+        }
+    }
+
+    @Override
+    public void showFaild() {
+        if (mSimpleMultiStateView != null) {
+            mSimpleMultiStateView.showErrorView();
+        }
+    }
+
+    @Override
+    public void showNoNet() {
+        if (mSimpleMultiStateView != null) {
+            mSimpleMultiStateView.showNoNetView();
+        }
+    }
+
+    @Override
+    public void onRetry() {
+        initDatas();
+    }
+
+    /**
+     * 初始化数据
+     */
+    public void initDatas() {
+
     }
 
 }

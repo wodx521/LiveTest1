@@ -28,7 +28,7 @@ public class RatioImageView extends android.support.v7.widget.AppCompatImageView
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RatioImageView);
 
-        mRatio = typedArray.getFloat(R.styleable.RatioImageView_ratio, 0f);
+        mRatio = typedArray.getFloat(R.styleable.RatioImageView_image_ratio, 0f);
         typedArray.recycle();
     }
 

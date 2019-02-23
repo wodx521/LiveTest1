@@ -62,3 +62,6 @@
 
 #取消该包名下所有类和子包混淆
 -keep class com.wanou.framelibrary.bean.** {*;}
+# 混淆动画
+-dontwarn com.airbnb.lottie.**
+-keep class com.airbnb.lottie.** {*;}

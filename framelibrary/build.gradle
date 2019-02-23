@@ -49,6 +49,6 @@ dependencies {
     api 'com.lzy.net:okrx2:2.0.2'
     api 'com.lzy.net:okserver:2.0.5'
     // 渲染动画
-    api 'com.airbnb.android:lottie:3.0.0-beta2'
+    api 'com.airbnb.android:lottie:2.7.0'
 }
 

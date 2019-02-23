@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_one"
+        android:icon="@drawable/selector_bottom_one"
+        android:title="@string/bottom_one" />
+
+    <item
+        android:id="@+id/navigation_two"
+        android:icon="@drawable/selector_bottom_two"
+        android:title="@string/bottom_two" />
+
+    <item
+        android:id="@+id/navigation_third"
+        android:icon="@drawable/selector_bottom_third"
+        android:title="@string/bottom_third" />
+
+    <item
+        android:id="@+id/navigation_four"
+        android:icon="@drawable/selector_bottom_four"
+        android:title="@string/bottom_four" />
+
+    <item
+        android:id="@+id/navigation_five"
+        android:icon="@drawable/selector_bottom_five"
+        android:title="@string/bottom_five" />
+</menu>
