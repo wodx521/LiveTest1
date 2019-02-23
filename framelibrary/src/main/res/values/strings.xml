@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FrameLibrary</string>
+    <string name="connect_fail">连接错误</string>
+    <string name="connect_out_time">连接超时</string>
+    <string name="server_error">服务器忙,稍后再试</string>
+    <string name="copy_success">复制成功</string>
+    <string name="copy_fail">复制失败</string>
+</resources>
