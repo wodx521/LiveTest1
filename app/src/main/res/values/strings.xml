@@ -9,4 +9,7 @@
     <string name="hint_user_name">请输入用户名</string>
     <string name="hint_password">请输入密码</string>
     <string name="login">登录</string>
+    <string name="live">直播</string>
+    <string name="radio">电台</string>
+    <string name="smallVideo">小视频</string>
 </resources>

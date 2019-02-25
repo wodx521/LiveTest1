@@ -9,11 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wanou.framelibrary.R;
+import com.wanou.framelibrary.weight.SimpleMultiStateView;
+
 /**
  * Author by wodx521
  * Date on 2018/11/10.
  */
 public abstract class BaseFragment extends Fragment implements BaseView {
+    SimpleMultiStateView mSimpleMultiStateView;
 
     public void startActivity(Fragment fragment, Bundle bundle, Class<?> cls) {
         Intent intent = new Intent(fragment.getActivity(), cls);
@@ -44,6 +48,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         initView(view);
+        initStateView();
         initData();
     }
 
@@ -82,5 +87,55 @@ public abstract class BaseFragment extends Fragment implements BaseView {
                 view.setVisibility(View.INVISIBLE);
             }
         }
+    }
+
+    private void initStateView() {
+        if (mSimpleMultiStateView == null) return;
+        mSimpleMultiStateView.setEmptyResource(R.layout.view_empty)
+                .setRetryResource(R.layout.view_retry)
+                .setLoadingResource(R.layout.view_loading)
+                .setNoNetResource(R.layout.view_nonet)
+                .build()
+                .setonReLoadlistener(this::onRetry);
+    }
+
+    @Override
+    public void showLoading() {
+        if (mSimpleMultiStateView != null) {
+            mSimpleMultiStateView.showLoadingView();
+        }
+    }
+
+    @Override
+    public void showSuccess() {
+        if (mSimpleMultiStateView != null) {
+            mSimpleMultiStateView.showContent();
+        }
+    }
+
+    @Override
+    public void showFaild() {
+        if (mSimpleMultiStateView != null) {
+            mSimpleMultiStateView.showErrorView();
+        }
+    }
+
+    @Override
+    public void showNoNet() {
+        if (mSimpleMultiStateView != null) {
+            mSimpleMultiStateView.showNoNetView();
+        }
+    }
+
+    @Override
+    public void onRetry() {
+        initDataOnUserVisible();
+    }
+
+    /**
+     * 初始化数据的空实现，fragment切换加载数据的时候重写
+     */
+    protected void initDataOnUserVisible() {
+
     }
 }

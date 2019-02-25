@@ -3,19 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/navigation_one"
-        android:icon="@drawable/bottom_one"
-        app:showAsAction="ifRoom"
+        android:icon="@drawable/selector_bottom_one"
         android:title="@string/bottom_one" />
 
     <item
         android:id="@+id/navigation_two"
-        android:icon="@drawable/bottom_two"
-        app:showAsAction="ifRoom"
+        android:icon="@drawable/selector_bottom_two"
         android:title="@string/bottom_two" />
 
     <item
         android:id="@+id/navigation_third"
-        android:icon="@drawable/bottom_third"
-        app:showAsAction="ifRoom"
+        android:icon="@drawable/selector_bottom_third"
         android:title="@string/bottom_third" />
 </menu>
