@@ -1,6 +1,7 @@
 package com.wanou.framelibrary.base;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
@@ -25,5 +26,10 @@ public abstract class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         // 防止销毁fragment
+    }
+
+    @Override
+    public Fragment getItem(int i) {
+        return list.get(i);
     }
 }
