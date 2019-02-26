@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.module.one_module.adapter.LiveListAdapter;
 import com.lairui.livetest1.module.one_module.presenter.RecommendPresenter;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 
@@ -24,12 +25,12 @@ public class RecommendFragment extends BaseMvpFragment<RecommendPresenter> {
     protected void initView(View view) {
         rvLiveList = view.findViewById(R.id.rvLiveList);
 
-//        rvLiveList.setAdapter();
     }
 
     @Override
     protected void initData() {
-
+        LiveListAdapter liveListAdapter = new LiveListAdapter(getActivity());
+        rvLiveList.setAdapter(liveListAdapter);
     }
 
     @Override

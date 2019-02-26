@@ -5,4 +5,20 @@
         <item>推荐</item>
         <item>小视频</item>
     </string-array>
+
+    <integer-array name="liveList">
+        <item>@drawable/ic_person_1</item>
+        <item>@drawable/ic_person_2</item>
+        <item>@drawable/ic_person_3</item>
+        <item>@drawable/ic_person_4</item>
+        <item>@drawable/ic_person_5</item>
+        <item>@drawable/ic_person_6</item>
+        <item>@drawable/ic_person_7</item>
+        <item>@drawable/ic_person_8</item>
+        <item>@drawable/ic_person_9</item>
+        <item>@drawable/ic_person_10</item>
+        <item>@drawable/ic_person_11</item>
+        <item>@drawable/ic_person_12</item>
+    </integer-array>
+
 </resources>
