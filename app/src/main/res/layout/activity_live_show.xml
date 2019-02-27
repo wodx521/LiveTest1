@@ -29,7 +29,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
-        <cn.rongcloud.chatroomdemo.ui.panel.CircleImageView
+        <com.lairui.livetest1.ui.panel.CircleImageView
             android:id="@+id/iv_host_header"
             android:layout_width="39dp"
             android:layout_height="39dp"
@@ -61,7 +61,7 @@
             android:textSize="11sp" />
     </RelativeLayout>
 
-    <cn.rongcloud.chatroomdemo.ui.panel.HorizontalListView
+    <com.lairui.livetest1.ui.panel.HorizontalListView
         android:id="@+id/gv_room_member"
         android:layout_width="200dp"
         android:layout_height="40dp"
@@ -74,7 +74,7 @@
         android:layout_height="200dp"
         android:layout_below="@id/layout_host" />
 
-    <cn.rongcloud.chatroomdemo.ui.gift.GiftView
+    <com.lairui.livetest1.ui.gift.GiftView
         android:id="@+id/giftView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,34 +92,34 @@
 
     <fragment
         android:id="@+id/bottom_bar"
-        android:name="cn.rongcloud.chatroomdemo.ui.panel.BottomPanelFragment"
+        android:name="com.lairui.livetest1.ui.panel.BottomPanelFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         tools:layout="@layout/fragment_bottombar" />
 
-    <cn.rongcloud.chatroomdemo.ui.panel.HostPanel
+    <com.lairui.livetest1.ui.panel.HostPanel
         android:id="@+id/host_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:visibility="gone" />
 
-    <cn.rongcloud.chatroomdemo.ui.panel.OnlineUserPanel
+    <com.lairui.livetest1.ui.panel.OnlineUserPanel
         android:id="@+id/online_user_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:visibility="gone" />
 
-    <cn.rongcloud.chatroomdemo.ui.panel.LoginPanel
+    <com.lairui.livetest1.ui.panel.LoginPanel
         android:id="@+id/login_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:visibility="gone" />
 
-    <cn.rongcloud.chatroomdemo.ui.like.HeartLayout
+    <com.lairui.livetest1.ui.like.HeartLayout
         android:id="@+id/heart_layout"
         android:layout_width="86dp"
         android:layout_height="match_parent"

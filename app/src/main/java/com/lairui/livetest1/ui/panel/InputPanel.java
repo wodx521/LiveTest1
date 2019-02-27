@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.lairui.livetest1.R;
 
-
 public class InputPanel extends LinearLayout {
 
     private final static String TAG = "InputPanel";

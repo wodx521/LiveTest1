@@ -58,7 +58,7 @@
     </LinearLayout>
 
 
-    <cn.rongcloud.chatroomdemo.ui.panel.EmojiBoard
+    <com.lairui.livetest1.ui.panel.EmojiBoard
         android:id="@+id/input_emoji_board"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

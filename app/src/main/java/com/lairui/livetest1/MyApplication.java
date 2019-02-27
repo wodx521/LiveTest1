@@ -3,6 +3,7 @@ package com.lairui.livetest1;
 import android.content.Context;
 
 import com.lairui.livetest1.app_constant.AppConstant;
+import com.lairui.livetest1.utils.ChatroomKit;
 import com.wanou.framelibrary.GlobalApplication;
 
 import io.rong.imlib.RongIMClient;
@@ -12,7 +13,7 @@ public class MyApplication extends GlobalApplication {
     public void onCreate() {
         super.onCreate();
         // 初始化融云sdk
-        RongIMClient.init(this, AppConstant.RONG_CLOUD_APP_KEY);
+        ChatroomKit.init(this, AppConstant.RONG_CLOUD_APP_KEY);
     }
 
     @Override

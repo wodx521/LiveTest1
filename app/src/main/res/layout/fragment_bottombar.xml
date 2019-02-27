@@ -42,17 +42,16 @@
             android:src="@drawable/chat_danmu" />
     </RelativeLayout>
 
-    <cn.rongcloud.chatroomdemo.ui.panel.InputPanel
+    <com.lairui.livetest1.ui.panel.InputPanel
         android:id="@+id/input_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-    <cn.rongcloud.chatroomdemo.ui.panel.GiftPanel
+    <com.lairui.livetest1.ui.panel.GiftPanel
         android:id="@+id/gift_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone" />
-
 
 </FrameLayout>

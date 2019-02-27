@@ -12,7 +12,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <cn.rongcloud.chatroomdemo.ui.panel.CircleImageView
+        <com.lairui.livetest1.ui.panel.CircleImageView
             android:id="@+id/iv_host_avatar"
             android:layout_width="39dp"
             android:layout_height="39dp"
@@ -84,6 +84,5 @@
         android:text="+ 关注"
         android:textColor="#ff0000"
         android:textSize="18sp" />
-
 
 </LinearLayout>

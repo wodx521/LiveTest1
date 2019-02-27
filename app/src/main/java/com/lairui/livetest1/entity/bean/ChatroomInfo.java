@@ -8,10 +8,15 @@ import android.net.Uri;
 
 public class ChatroomInfo {
 
+    // 直播间ID
     private String chatroomId;
+    // 直播间名称
     private String chatroomName;
+    // 直播间状态
     private String liveStatus;
+    // 在线人数
     private int onlineNum;
+    // 直播封面
     private Uri chatUri;
 
     public ChatroomInfo(String chatroomId, String chatroomName, String liveStatus, int onlineNum, Uri chatUri) {

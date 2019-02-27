@@ -5,14 +5,11 @@ import com.lairui.livetest1.module.one_module.presenter.LiveShowPresenter;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 
 public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> {
+    private String roomId;
+
     @Override
     protected LiveShowPresenter getPresenter() {
         return new LiveShowPresenter();
-    }
-
-    @Override
-    protected void initData() {
-
     }
 
     @Override
@@ -24,4 +21,13 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> {
     protected void initView() {
 
     }
+
+    @Override
+    protected void initData() {
+        if (mBundle != null) {
+            roomId = mBundle.getString("liveId");
+        }
+    }
+
+
 }
