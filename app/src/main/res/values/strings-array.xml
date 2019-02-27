@@ -6,19 +6,71 @@
         <item>小视频</item>
     </string-array>
 
-    <integer-array name="liveList">
-        <item>@drawable/ic_person_1</item>
-        <item>@drawable/ic_person_2</item>
-        <item>@drawable/ic_person_3</item>
-        <item>@drawable/ic_person_4</item>
-        <item>@drawable/ic_person_5</item>
-        <item>@drawable/ic_person_6</item>
-        <item>@drawable/ic_person_7</item>
-        <item>@drawable/ic_person_8</item>
-        <item>@drawable/ic_person_9</item>
-        <item>@drawable/ic_person_10</item>
-        <item>@drawable/ic_person_11</item>
-        <item>@drawable/ic_person_12</item>
-    </integer-array>
+    <string-array name="liveList">
+        <item>ic_person_1</item>
+        <item>ic_person_2</item>
+        <item>ic_person_3</item>
+        <item>ic_person_4</item>
+        <item>ic_person_5</item>
+        <item>ic_person_6</item>
+        <item>ic_person_7</item>
+        <item>ic_person_8</item>
+        <item>ic_person_9</item>
+        <item>ic_person_10</item>
+        <item>ic_person_11</item>
+        <item>ic_person_12</item>
+    </string-array>
 
+    <!--用户名-->
+    <string-array name="userNames">
+        <item>世悦</item>
+        <item>丹洁</item>
+        <item>玲娇</item>
+        <item>紫霞</item>
+        <item>雨茹</item>
+        <item>陈红</item>
+        <item>婧宁</item>
+        <item>小莉</item>
+        <item>华琳</item>
+        <item>熙玉</item>
+        <item>亚玲</item>
+        <item>文霞</item>
+    </string-array>
+    <!--城市-->
+    <string-array name="provices_name">
+        <item>湖南省</item>
+        <item>天津市</item>
+        <item>内蒙古自治区</item>
+        <item>安徽省</item>
+        <item>澳门特别行政区</item>
+        <item>北京市</item>
+        <item>黑龙江省</item>
+        <item>河北省</item>
+        <item>广东省</item>
+        <item>青海省</item>
+        <item>台湾省</item>
+        <item>上海市</item>
+        <item>广西壮族自治区</item>
+        <item>重庆市</item>
+        <item>吉林省</item>
+        <item>西藏自治区</item>
+        <item>香港特别行政区</item>
+        <item>山西省</item>
+        <item>甘肃省</item>
+        <item>云南省</item>
+        <item>辽宁省</item>
+        <item>浙江省</item>
+        <item>江西省</item>
+        <item>宁夏回族自治区</item>
+        <item>海南省</item>
+        <item>新疆维吾尔自治区</item>
+        <item>四川省</item>
+        <item>湖北省</item>
+        <item>福建省</item>
+        <item>陕西省</item>
+        <item>江苏省</item>
+        <item>山东省</item>
+        <item>河南省</item>
+        <item>贵州省</item>
+    </string-array>
 </resources>
