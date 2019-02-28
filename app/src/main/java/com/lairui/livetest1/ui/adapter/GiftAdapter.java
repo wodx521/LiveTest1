@@ -41,7 +41,10 @@ public class GiftAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return gifts.size();
+        if (gifts != null && gifts.size() > 0) {
+            return gifts.size();
+        }
+        return 0;
     }
 
     @Override

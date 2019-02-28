@@ -1,7 +1,6 @@
 package com.lairui.livetest1.module.one_module.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,13 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lairui.livetest1.R;
-import com.lairui.livetest1.entity.bean.ChatroomInfo;
+import com.lairui.livetest1.entity.bean.LiveRoomBean;
 import com.wanou.framelibrary.base.BaseRecycleViewAdapter;
 import com.wanou.framelibrary.glidetools.GlideApp;
 import com.wanou.framelibrary.utils.UiTools;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class LiveListAdapter extends BaseRecycleViewAdapter {
@@ -24,7 +22,7 @@ public class LiveListAdapter extends BaseRecycleViewAdapter {
     private String[] userArray;
     private String[] provicesArray;
     private Random random;
-    private ArrayList<ChatroomInfo> chatRoomList;
+    private List<LiveRoomBean> data;
 
     public LiveListAdapter(Context context) {
         super(context);
@@ -34,8 +32,8 @@ public class LiveListAdapter extends BaseRecycleViewAdapter {
         random = new Random(provicesArray.length);
     }
 
-    public void setData(ArrayList<ChatroomInfo> chatRoomList) {
-        this.chatRoomList = chatRoomList;
+    public void setData(List<LiveRoomBean> data) {
+        this.data = data;
         notifyDataSetChanged();
     }
 
@@ -52,23 +50,33 @@ public class LiveListAdapter extends BaseRecycleViewAdapter {
     @Override
     protected void bindClickListener(RecyclerView.ViewHolder viewHolder, int position) {
         LiveListViewHolder liveListViewHolder = (LiveListViewHolder) viewHolder;
-        ChatroomInfo chatroomInfo = chatRoomList.get(position);
-        String liveName = chatroomInfo.getLiveName();
-        Uri chatUri = chatroomInfo.getChatUri();
-        int onlineNum = chatroomInfo.getOnlineNum();
-        liveListViewHolder.tvUserName.setText(liveName);
-        liveListViewHolder.tvViewNumber.setText(onlineNum + "人");
+        LiveRoomBean liveRoomBean = data.get(position);
+        String title = liveRoomBean.getTitle();
+        String cover = liveRoomBean.getCover();
+        String notice = liveRoomBean.getNotice();
+        if (UiTools.noEmpty(title)) {
+            liveListViewHolder.tvUserName.setText(title);
+        } else {
+            liveListViewHolder.tvUserName.setText("");
+        }
+        if (UiTools.noEmpty(notice)) {
+            liveListViewHolder.tvViewNumber.setText(notice + "人");
+        } else {
+            liveListViewHolder.tvViewNumber.setText("0人");
+        }
         GlideApp.with(mContext)
-                .load(chatUri)
+                .load(cover)
+                .placeholder(R.drawable.ic_person_1)
+                .centerCrop()
                 .into(liveListViewHolder.ivCover);
-            liveListViewHolder.tvLocation.setText(provicesArray[random.nextInt(provicesArray.length)]);
+        liveListViewHolder.tvLocation.setText(provicesArray[random.nextInt(provicesArray.length)]);
 
     }
 
     @Override
     public int getItemCount() {
-        if (chatRoomList != null && chatRoomList.size() > 0) {
-            return chatRoomList.size();
+        if (data != null && data.size() > 0) {
+            return data.size();
         }
         return 0;
     }

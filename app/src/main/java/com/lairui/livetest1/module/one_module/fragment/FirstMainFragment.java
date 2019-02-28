@@ -12,6 +12,7 @@ import com.lairui.livetest1.fragmentfactory.HomeFragmentFactory;
 import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
 import com.lairui.livetest1.module.one_module.adapter.LiveClassificationAdapter;
 import com.lairui.livetest1.module.one_module.presenter.FirstPresenter;
+import com.lairui.livetest1.utils.DataInterface;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.utils.UiTools;
 
@@ -44,6 +45,7 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> {
 
     @Override
     protected void initData() {
+
         String[] stringArray = UiTools.getStringArray(R.array.liveClassification);
         for (String classificationName : stringArray) {
             tlClassification.addTab(tlClassification.newTab().setText(classificationName));

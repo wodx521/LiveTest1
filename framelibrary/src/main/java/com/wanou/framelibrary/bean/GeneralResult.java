@@ -12,7 +12,7 @@ public class GeneralResult<T> implements Serializable {
     private static final long serialVersionUID = 154307691161700036L;
     @SerializedName(value = "code", alternate = {"errorCode"})
     public int code;
-    @SerializedName(value = "msg", alternate = {"errorMsg"})
+    @SerializedName(value = "msg", alternate = {"errorMsg","status"})
     public String msg;
     @SerializedName(value = "data", alternate = {"token", "number"})
     public T data;

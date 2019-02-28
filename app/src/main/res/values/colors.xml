@@ -11,4 +11,6 @@
     <color name="colorGray1">#606060</color>
     <color name="transparent">#00000000</color>
     <color name="red">#ff0000</color>
+    <color name="color_black">#000000</color>
+    <color name="color_white">#FFFFFF</color>
 </resources>

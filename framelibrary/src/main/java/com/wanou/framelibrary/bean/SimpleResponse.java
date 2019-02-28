@@ -21,7 +21,7 @@ import java.io.Serializable;
 
 public class SimpleResponse implements Serializable {
     private static final long serialVersionUID = -7926151449712082529L;
-    @SerializedName(value = "code", alternate = {"errorCode"})
+    @SerializedName(value = "code", alternate = {"errorCode", "status"})
     public int code;
     @SerializedName(value = "msg", alternate = {"errorMsg"})
     public String msg;

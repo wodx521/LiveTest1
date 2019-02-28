@@ -20,6 +20,9 @@ import android.widget.TextView;
 
 import com.lairui.livetest1.R;
 
+/**
+ * 礼物视图View
+ */
 public class GiftFrameLayout extends FrameLayout {
 
     private LayoutInflater mInflater;
@@ -30,9 +33,7 @@ public class GiftFrameLayout extends FrameLayout {
     TextView anim_nickname, anim_sign;
     StrokeTextView anim_num;
 
-    /**
-     * 礼物数量的起始值
-     */
+    //礼物数量的起始值
     int starNum = 1;
     int repeatCount = 0;
     private boolean isShowing = false;
