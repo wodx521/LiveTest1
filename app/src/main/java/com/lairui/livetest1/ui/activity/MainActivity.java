@@ -62,7 +62,6 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> {
                         return true;
                     case R.id.navigation_third:
                         addFragment(2, title);
-
                         return true;
                     case R.id.navigation_four:
                         addFragment(3, title);
