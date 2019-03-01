@@ -1,7 +1,5 @@
 package com.lairui.livetest1.ui.activity;
 
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -12,15 +10,10 @@ import android.widget.ImageView;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
 import com.lairui.livetest1.presenter.MainPresenter;
-import com.lairui.livetest1.utils.ChatroomKit;
 import com.lairui.livetest1.widget.LiveDialog;
 import com.wanou.framelibrary.base.BaseMvpActivity;
-import com.wanou.framelibrary.utils.SpUtils;
 
 import java.util.List;
-
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.UserInfo;
 
 public class MainActivity extends BaseMvpActivity<MainPresenter> {
     private BottomNavigationView navigation;

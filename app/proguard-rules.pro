@@ -20,4 +20,6 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-
+# 阿里直播混淆
+-keep class com.alibaba.livecloud.** { *;}
+-keep class com.alivc.** { *;}
