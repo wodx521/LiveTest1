@@ -1,7 +1,8 @@
-package com.lairui.livetest1.module.three_module;
+package com.lairui.livetest1.module.three_module.fragment;
 
 import android.view.View;
 
+import com.lairui.livetest1.R;
 import com.lairui.livetest1.module.three_module.presenter.ThirdMainPresenter;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 
@@ -13,7 +14,7 @@ public class ThirdMainFragment extends BaseMvpFragment<ThirdMainPresenter> {
 
     @Override
     protected int getResId() {
-        return 0;
+        return R.layout.fragment_third_main;
     }
 
     @Override

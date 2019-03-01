@@ -3,7 +3,7 @@ package com.lairui.livetest1.fragmentfactory;
 import com.lairui.livetest1.module.five_module.FiveMainFragment;
 import com.lairui.livetest1.module.four_module.FourMainFragment;
 import com.lairui.livetest1.module.one_module.fragment.FirstMainFragment;
-import com.lairui.livetest1.module.three_module.ThirdMainFragment;
+import com.lairui.livetest1.module.three_module.fragment.ThirdMainFragment;
 import com.lairui.livetest1.module.two_module.SecondMainFragment;
 import com.wanou.framelibrary.base.BaseFragment;
 
