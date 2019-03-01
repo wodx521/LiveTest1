@@ -19,10 +19,12 @@
         android:id="@+id/navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        app:elevation="@dimen/dp_0"
+        app:itemBackground="@null"
         app:itemHorizontalTranslationEnabled="true"
         app:itemTextColor="@drawable/selector_bottom_text_color"
         app:labelVisibilityMode="labeled"
-        app:itemBackground="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,6 +53,4 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
     </android.support.constraint.ConstraintLayout>
-
-
 </android.support.constraint.ConstraintLayout>

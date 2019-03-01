@@ -1,21 +1,30 @@
 package com.lairui.livetest1.ui.activity;
 
+import android.Manifest;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
 import com.lairui.livetest1.presenter.MainPresenter;
-import com.lairui.livetest1.widget.LiveDialog;
 import com.wanou.framelibrary.base.BaseMvpActivity;
+import com.wanou.framelibrary.utils.LogUtils;
+import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.List;
 
-public class MainActivity extends BaseMvpActivity<MainPresenter> {
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.RuntimePermissions;
+
+@RuntimePermissions
+public class MainActivity extends BaseMvpActivity<MainPresenter> implements View.OnClickListener {
     private BottomNavigationView navigation;
     private ImageView ivMiddleMenu;
 
@@ -43,16 +52,16 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int itemId = menuItem.getItemId();
                 String title = menuItem.getTitle().toString();
-
                 switch (itemId) {
                     case R.id.navigation_one:
                         addFragment(0, title);
                         return true;
                     case R.id.navigation_two:
 //                        addFragment(1, title);
-                        LiveDialog liveDialog = new LiveDialog(MainActivity.this);
-                        liveDialog.showDialog();
-                        return true;
+//                        LiveDialog liveDialog = new LiveDialog(MainActivity.this);
+//                        liveDialog.showDialog();
+//                        startActivity(MainActivity.this, null, LiveActivity.class);
+                        return false;
                     case R.id.navigation_third:
                         addFragment(2, title);
                         return true;
@@ -69,6 +78,8 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> {
         });
         // 设置启动默认选中
         navigation.setSelectedItemId(R.id.navigation_one);
+        ivMiddleMenu.setOnClickListener(this);
+        MainActivityPermissionsDispatcher.applyPermissionsWithPermissionCheck(this);
     }
 
     private void addFragment(int position, String title) {
@@ -85,5 +96,32 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> {
             fragmentTransaction.show(MainFragmentFactory.getFragment(position));
         }
         fragmentTransaction.commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ivMiddleMenu:
+                startActivity(MainActivity.this, null, LiveActivity.class);
+                break;
+            default:
+        }
+    }
+
+
+    @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void applyPermissions() {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MainActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void deniedPermission() {
+        // todo 这个方法只有在全部权限被拒绝时才调用,
     }
 }
