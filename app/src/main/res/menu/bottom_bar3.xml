@@ -8,11 +8,11 @@
 
     <item
         android:id="@+id/navigation_two"
-        android:icon="@drawable/selector_bottom_two"
-        android:title="@string/bottom_two" />
+        android:icon="@null"
+        android:title="" />
 
     <item
         android:id="@+id/navigation_third"
-        android:icon="@drawable/selector_bottom_third"
-        android:title="@string/bottom_third" />
+        android:icon="@drawable/selector_bottom_five"
+        android:title="@string/bottom_five" />
 </menu>

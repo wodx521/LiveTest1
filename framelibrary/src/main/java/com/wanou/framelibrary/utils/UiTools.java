@@ -159,9 +159,11 @@ public class UiTools {
     public static String[] getStringArray(int resId) {
         return resources.getStringArray(resId);
     }
+
     public static int[] getIntArray(int resId) {
         return resources.getIntArray(resId);
     }
+
     /**
      * 获取资源id对应的Drawable对象
      *
@@ -174,6 +176,10 @@ public class UiTools {
         } else {
             return resources.getDrawable(resId);
         }
+    }
+
+    public static Float getDimen(int resId) {
+        return resources.getDimension(resId);
     }
 
     /**

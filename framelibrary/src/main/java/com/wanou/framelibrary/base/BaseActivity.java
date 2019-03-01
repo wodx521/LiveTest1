@@ -23,7 +23,7 @@ import com.wanou.framelibrary.weight.SimpleMultiStateView;
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
 
     protected Bundle mBundle;
-    SimpleMultiStateView mSimpleMultiStateView;
+    protected SimpleMultiStateView mSimpleMultiStateView;
 
     public static void startActivity(Context context, Bundle bundle, Class<?> cls) {
         Intent intent = new Intent(context, cls);
@@ -69,8 +69,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         ActivityManage.getInstance().addActivity(this);
         setContentView(getResId());
         mBundle = getIntent().getBundleExtra("bundle");
-        initStateView();
         initView();
+        initStateView();
     }
 
     @Override

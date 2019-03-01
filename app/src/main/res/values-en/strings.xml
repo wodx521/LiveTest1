@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">LiveTest1</string>
+	<string name="bottom_one">HOME</string>
+	<string name="bottom_two">NEARBY</string>
+	<string name="bottom_third">THIRD</string>
+	<string name="bottom_four">ATTENTION</string>
+	<string name="bottom_five">ME</string>
+	<string name="hint_user_name">Please enter user name</string>
+	<string name="hint_password">Please enter your password</string>
+	<string name="login">log in</string>
+	<string name="live">Live broadcast</string>
+	<string name="radio">Radio</string>
+	<string name="smallVideo">Small video</string>
+	<string name="clickRetry">Click Retry</string>
+	<string name="register">registered</string>
+</resources>

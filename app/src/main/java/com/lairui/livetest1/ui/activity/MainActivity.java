@@ -44,30 +44,6 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> {
 
     @Override
     protected void initData() {
-        // 本地存储token
-        String token = (String) SpUtils.get("token", "");
-        ChatroomKit.connect(token, new RongIMClient.ConnectCallback() {
-            @Override
-            public void onTokenIncorrect() {
-                // TODO: 2019/2/28 token过期,需要重新请求token
-                // 登录token过期重新登录
-                startActivity(MainActivity.this, null, LoginActivity.class);
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                Bundle bundle = new Bundle();
-                UserInfo userInfo = new UserInfo(s, "", Uri.parse(""));
-                bundle.putString("userId", s);
-                SpUtils.put("IMUserId", s);
-                ChatroomKit.setCurrentUser(userInfo);
-            }
-
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                // 登录token
-            }
-        });
         navigation.setItemIconTintList(null);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -80,11 +56,13 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> {
                         addFragment(0, title);
                         return true;
                     case R.id.navigation_two:
-                        addFragment(1, title);
-                        return true;
-                    case R.id.navigation_third:
+//                        addFragment(1, title);
                         LiveDialog liveDialog = new LiveDialog(MainActivity.this);
                         liveDialog.showDialog();
+                        return true;
+                    case R.id.navigation_third:
+                        addFragment(2, title);
+
                         return true;
                     case R.id.navigation_four:
                         addFragment(3, title);

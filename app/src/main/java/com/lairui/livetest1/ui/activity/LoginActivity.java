@@ -9,11 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.entity.bean.LoginBean;
 import com.lairui.livetest1.presenter.LoginPresenter;
 import com.lairui.livetest1.utils.ChatroomKit;
 import com.lzy.okgo.model.HttpParams;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.utils.SpUtils;
+import com.wanou.framelibrary.utils.UiTools;
 
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
@@ -23,6 +25,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
     private TextInputEditText etName;
     private TextInputEditText etPassword;
     private Button btnLogin;
+    private TextView tvOperate;
     private HttpParams httpParams = new HttpParams();
 
     @Override
@@ -37,6 +40,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
 
     @Override
     protected void initView() {
+//        mSimpleMultiStateView = findViewById(R.id.SimpleMultiStateView);
+        tvOperate = findViewById(R.id.tvOperate);
         tvToolbarTitle = findViewById(R.id.tv_toolbar_title);
         etName = findViewById(R.id.et_name);
         etPassword = findViewById(R.id.et_password);
@@ -44,31 +49,71 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
 
         tvToolbarTitle.setText(R.string.login);
         btnLogin.setOnClickListener(this);
+        viewVisible(tvOperate);
+        tvOperate.setText(R.string.register);
+        tvOperate.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
+        showSuccess();
+        String userName = (String) SpUtils.get("userName", "");
+        if (UiTools.noEmpty(userName)) {
+            etName.setText(userName);
+        }
+        String token = (String) SpUtils.get("token", "");
+        if (UiTools.noEmpty(token)) {
+            ChatroomKit.connect(token, new RongIMClient.ConnectCallback() {
+                @Override
+                public void onTokenIncorrect() {
+                    // TODO: 2019/2/28 token过期,需要重新请求token
+                }
 
+                @Override
+                public void onSuccess(String s) {
+                    Bundle bundle = new Bundle();
+                    UserInfo userInfo = new UserInfo(s, "", Uri.parse(""));
+                    bundle.putString("userId", s);
+                    SpUtils.put("IMUserId", s);
+                    ChatroomKit.setCurrentUser(userInfo);
+                    startActivity(LoginActivity.this, bundle, MainActivity.class);
+                    finish();
+                }
+
+                @Override
+                public void onError(RongIMClient.ErrorCode errorCode) {
+
+                }
+            });
+        }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
-                httpParams.put("operate", "liveGroup-getToken");
-                mPresenter.getToken(httpParams);
+                String userName = UiTools.getText(etName);
+                String password = UiTools.getText(etPassword);
+                if (UiTools.noEmpty(userName, password)) {
+                    httpParams.put("operate", "login");
+                    httpParams.put("username", userName);
+                    httpParams.put("password", password);
+                    mPresenter.login(httpParams);
+                }
+                break;
+            case R.id.tvOperate:
+                // 打开注册页面
+                startActivity(LoginActivity.this, null, RegisterActivity.class);
                 break;
             default:
         }
     }
+
     private static String TAG = "SplashActivity";
+
     public void getTokenSuccess(String token) {
-//        SpUtils.put("token", token);
-        String token1 = "b1cFvaYJKszUh9Ask1b0roXKuPFneKzNNfg0ckjJm/YnAS8qZ/HCYyueB0HkM60rkTqLs01+dun6DP39/AfIsA==";
-        String token2 = "oxzgGNh5dAnis+drf3yPSYXKuPFneKzNNfg0ckjJm/YnAS8qZ/HCY6gNtEPFqm8hoYIvB3O9/QVJflRUwMBCrw==";
-//        SpUtils.put("token", token1);
-        SpUtils.put("token", token2);
-        ChatroomKit.connect(token2, new RongIMClient.ConnectCallback() {
+        SpUtils.put("token", token);
+        ChatroomKit.connect(token, new RongIMClient.ConnectCallback() {
             @Override
             public void onTokenIncorrect() {
                 // TODO: 2019/2/28 token过期,需要重新请求token
@@ -95,7 +140,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
             @Override
             public void onChanged(ConnectionStatus status) {
                 switch (status) {
-
                     case CONNECTED://连接成功。
                         Log.i(TAG, "连接成功");
                         break;
@@ -111,8 +155,18 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
                     case KICKED_OFFLINE_BY_OTHER_CLIENT://用户账户在其他设备登录，本机会被踢掉线
                         Log.i(TAG, "用户账户在其他设备登录");
                         break;
+                    default:
                 }
             }
         });
+    }
+
+    public void loginSuccess(LoginBean loginBean) {
+        String phone = loginBean.getPhone();
+        SpUtils.put("phone", phone);
+        SpUtils.put("userName", UiTools.getText(etName));
+        httpParams.clear();
+        httpParams.put("operate", "liveGroup-getToken");
+        mPresenter.getToken(httpParams);
     }
 }

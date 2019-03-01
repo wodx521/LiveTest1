@@ -10,9 +10,9 @@ import java.io.Serializable;
  */
 public class GeneralResult<T> implements Serializable {
     private static final long serialVersionUID = 154307691161700036L;
-    @SerializedName(value = "code", alternate = {"errorCode"})
+    @SerializedName(value = "code", alternate = {"errorCode","status"})
     public int code;
-    @SerializedName(value = "msg", alternate = {"errorMsg","status"})
+    @SerializedName(value = "msg", alternate = {"errorMsg"})
     public String msg;
     @SerializedName(value = "data", alternate = {"token", "number"})
     public T data;

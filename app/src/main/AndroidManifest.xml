@@ -40,6 +40,7 @@
             <!--</intent-filter>-->
         </activity>
         <activity android:name=".module.one_module.activity.LiveShowActivity" />
+        <activity android:name=".ui.activity.RegisterActivity" />
 
 
     </application>

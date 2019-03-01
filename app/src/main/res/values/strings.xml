@@ -13,4 +13,8 @@
     <string name="radio">电台</string>
     <string name="smallVideo">小视频</string>
     <string name="clickRetry">点击重试</string>
+    <string name="register">注册</string>
+    <string name="hintPhone">请输入手机号</string>
+    <string name="hintVerificationCode">请输入验证码</string>
+    <string name="sendVerificationCode">发送验证码</string>
 </resources>
