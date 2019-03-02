@@ -12,6 +12,7 @@ import com.lairui.livetest1.entity.bean.LiveRoomBean;
 import com.lairui.livetest1.module.one_module.activity.LiveShowActivity;
 import com.lairui.livetest1.module.one_module.adapter.LiveListAdapter;
 import com.lairui.livetest1.module.one_module.presenter.RecommendPresenter;
+import com.lairui.livetest1.utils.ChatroomKit;
 import com.lairui.livetest1.utils.DataInterface;
 import com.lzy.okgo.model.HttpParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -120,5 +121,11 @@ public class RecommendFragment extends BaseMvpFragment<RecommendPresenter> {
         viewGone(srlRefresh);
         viewVisible(clError);
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ChatroomKit.logout();
     }
 }

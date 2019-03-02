@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -31,6 +32,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':framelibrary')
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'com.android.support:multidex:1.0.1'
     // SmartRefreshLayout刷新功能
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
@@ -40,4 +42,13 @@ dependencies {
 
     implementation "com.github.hotchemi:permissionsdispatcher:3.1.0"
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.1.0"
+
+    // GSYVideoPlayer 播放器添加
+    implementation ('com.shuyu:gsyVideoPlayer-java:6.0.3'){
+        exclude group: 'com.android.support'
+    }
+    //是否需要ExoPlayer模式
+//    implementation 'com.shuyu:GSYVideoPlayer-exo2:6.0.3'
+    //更多ijk的编码支持
+    implementation 'com.shuyu:gsyVideoPlayer-ex_so:6.0.3'
 }
