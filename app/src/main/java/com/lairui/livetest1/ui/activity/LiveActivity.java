@@ -66,6 +66,7 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
 
     @Override
     protected void initData() {
+
         mAlivcLivePushConfig = new AlivcLivePushConfig();
         //设置用户后台推流的图片
 //        mAlivcLivePushConfig.setPausePushImage();

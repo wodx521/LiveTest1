@@ -55,6 +55,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.LiveActivity" />
+        <activity android:name=".ui.activity.LivePlusActivity" />
 
 
     </application>

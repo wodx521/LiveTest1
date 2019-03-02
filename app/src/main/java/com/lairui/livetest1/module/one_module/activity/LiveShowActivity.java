@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.AdapterView;
@@ -47,11 +46,13 @@ import com.lairui.livetest1.ui.panel.LoginPanel;
 import com.lairui.livetest1.ui.panel.OnlineUserPanel;
 import com.lairui.livetest1.utils.ChatroomKit;
 import com.lairui.livetest1.utils.DataInterface;
+import com.lairui.livetest1.widget.LivePlayer;
 import com.lzy.okgo.model.HttpParams;
 import com.orzangleli.xdanmuku.DanmuContainerView;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+import com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -91,7 +92,7 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
     private Random random = new Random();
     private MemberAdapter memberAdapter;
     private ImageView btnHeart;
-    private StandardGSYVideoPlayer videoPlayer;
+    private LivePlayer videoPlayer;
     private OrientationUtils orientationUtils;
     private HttpParams httpParams = new HttpParams();
 
@@ -141,7 +142,6 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
     protected void initData() {
         if (mBundle != null) {
             roomId = mBundle.getString("liveId");
-
         }
         ChatroomKit.addEventHandler(handler);
         // 设置弹幕布局
@@ -217,16 +217,10 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
 
     private void initPlayser() {
         orientationUtils = new OrientationUtils(this, videoPlayer);
-        videoPlayer.setHideKey(true);
+//        videoPlayer.setHideKey(true);
+        // 禁用全屏滑动改变进度,声音等操作
 
-        //设置返回按键功能
-        videoPlayer.getBackButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
+        videoPlayer.setIsTouchWiget(false);
     }
 
     private void joinChatRoom(final String roomId) {
@@ -484,14 +478,12 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
     public void setAddress(LiveAddressBean liveAddressBean) {
         LiveAddressBean.PullBean pull = liveAddressBean.getPull();
         String rtmpurl = pull.getRtmpurl();
-        String url = "rtmp://192.168.199.216:1935/live/home";
-        videoPlayer.setUp(rtmpurl, false, "");
+        String url = "http://hdl.miaobolive.com/live/5ec2bd7c8f547254b720649b790d28dd.flv";
+        videoPlayer.setUp(url, false, "");
         videoPlayer.startPlayLogic();
     }
 
     public void setAddressError() {
-        String url = "rtmp://192.168.199.216:1935/live/home";
-        videoPlayer.setUp(url, false, "");
-        videoPlayer.startPlayLogic();
+
     }
 }

@@ -102,7 +102,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivMiddleMenu:
-                startActivity(MainActivity.this, null, LiveActivity.class);
+                startActivity(MainActivity.this, null, LivePlusActivity.class);
                 break;
             default:
         }
