@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,8 +13,6 @@ import com.lairui.livetest1.R;
 import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
 import com.lairui.livetest1.presenter.MainPresenter;
 import com.wanou.framelibrary.base.BaseMvpActivity;
-import com.wanou.framelibrary.utils.LogUtils;
-import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.List;
 
