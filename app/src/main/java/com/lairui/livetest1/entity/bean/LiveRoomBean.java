@@ -27,7 +27,7 @@ public class LiveRoomBean {
     //
     private String notice;
     // 状态
-    private int status;
+    private String status;
 
     public int getId() {
         return id;
@@ -85,11 +85,11 @@ public class LiveRoomBean {
         this.notice = notice;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

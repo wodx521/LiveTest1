@@ -1,6 +1,7 @@
 package com.lairui.livetest1.module.one_module.activity;
 
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.entity.bean.BanWarnMessage;
+import com.lairui.livetest1.entity.bean.LiveAddressBean;
 import com.lairui.livetest1.entity.bean.NeedLoginEvent;
 import com.lairui.livetest1.message.ChatroomBarrage;
 import com.lairui.livetest1.message.ChatroomFollow;
@@ -44,9 +46,16 @@ import com.lairui.livetest1.ui.panel.LoginPanel;
 import com.lairui.livetest1.ui.panel.OnlineUserPanel;
 import com.lairui.livetest1.utils.ChatroomKit;
 import com.lairui.livetest1.utils.DataInterface;
+import com.lairui.livetest1.widget.LivePlayer;
+import com.lzy.okgo.model.HttpParams;
 import com.orzangleli.xdanmuku.DanmuContainerView;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+import com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Random;
@@ -83,6 +92,9 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
     private Random random = new Random();
     private MemberAdapter memberAdapter;
     private ImageView btnHeart;
+    private LivePlayer videoPlayer;
+    private OrientationUtils orientationUtils;
+    private HttpParams httpParams = new HttpParams();
 
     @Override
     protected LiveShowPresenter getPresenter() {
@@ -96,6 +108,7 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
 
     @Override
     protected void initView() {
+        videoPlayer = findViewById(R.id.detail_player);
         background = findViewById(R.id.background);
         playerSurface = findViewById(R.id.player_surface);
         fake = findViewById(R.id.fake);
@@ -129,14 +142,10 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
     protected void initData() {
         if (mBundle != null) {
             roomId = mBundle.getString("liveId");
-
         }
         ChatroomKit.addEventHandler(handler);
         // 设置弹幕布局
         danmuContainerView.setAdapter(new DanmuAdapter(this));
-        // 设置聊天信息列表
-        chatListAdapter = new ChatListAdapter(this);
-        chatListView.setAdapter(chatListAdapter);
 
         // 初始化礼物控件
         giftView.setViewCount(2);
@@ -145,6 +154,13 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
         // 房间中成员列表
         memberAdapter = new MemberAdapter(this, DataInterface.getUserList(roomId), true);
         hlvMember.setAdapter(memberAdapter);
+
+        // 设置聊天信息列表
+        chatListAdapter = new ChatListAdapter(this);
+        chatListView.setAdapter(chatListAdapter);
+        ChatroomWelcome welcomeMessage = new ChatroomWelcome();
+        welcomeMessage.setId(ChatroomKit.getCurrentUser().getUserId());
+        ChatroomKit.sendMessage(welcomeMessage);
         // 设置发送监听
         bottomPanel.setInputPanelListener(new InputPanel.InputPanelListener() {
             @Override
@@ -193,10 +209,22 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
         });
 
         joinChatRoom(roomId);
+
+        initPlayser();
+        httpParams.put("operate", "roomGroup-liveAddress");
+        mPresenter.getLiveAddress(httpParams);
+    }
+
+    private void initPlayser() {
+        orientationUtils = new OrientationUtils(this, videoPlayer);
+//        videoPlayer.setHideKey(true);
+        // 禁用全屏滑动改变进度,声音等操作
+
+        videoPlayer.setIsTouchWiget(false);
     }
 
     private void joinChatRoom(final String roomId) {
-        ChatroomKit.joinChatRoom(roomId, -1, new RongIMClient.OperationCallback() {
+        ChatroomKit.joinChatRoom(roomId, 5, new RongIMClient.OperationCallback() {
             @Override
             public void onSuccess() {
 
@@ -247,12 +275,13 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
                 } else {
                     // 消息列表添加新消息
                     chatListAdapter.addMessage((io.rong.imlib.model.Message) msg.obj);
+
                     // 如果是欢迎消息
                     if (messageContent instanceof ChatroomWelcome) {
                         onlineNum++;
                         tvOnlineNum.setText(onlineNum + "");
                     } else if (messageContent instanceof ChatroomUserQuit) {
-                        // 推出直播间
+                        // 退出直播间
                         onlineNum--;
                         tvOnlineNum.setText(onlineNum + "");
                     } else if (messageContent instanceof ChatroomFollow) {
@@ -378,18 +407,83 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
         }, 500);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (!bottomPanel.onBackAction()) {
-            finish();
-            return;
-        }
-    }
-
     @Subscribe
     public void onEventMainThread(NeedLoginEvent event) {
         if (event.isNeedLogin()) {
             loginPanel.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        videoPlayer.onVideoPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        videoPlayer.onVideoResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        ChatroomKit.quitChatRoom(new RongIMClient.OperationCallback() {
+            @Override
+            public void onSuccess() {
+                ChatroomKit.removeEventHandler(handler);
+                if (DataInterface.isLoginStatus()) {
+                    Toast.makeText(LiveShowActivity.this, "退出聊天室成功", Toast.LENGTH_SHORT).show();
+
+                    ChatroomUserQuit userQuit = new ChatroomUserQuit();
+                    userQuit.setId(ChatroomKit.getCurrentUser().getUserId());
+                    ChatroomKit.sendMessage(userQuit);
+                }
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                ChatroomKit.removeEventHandler(handler);
+                Toast.makeText(LiveShowActivity.this, "退出聊天室失败! errorCode = " + errorCode, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+        GSYVideoManager.releaseAllVideos();
+        if (orientationUtils != null) {
+            orientationUtils.releaseListener();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //先返回正常状态
+        if (!bottomPanel.onBackAction()) {
+            finish();
+            return;
+        }
+        if (orientationUtils.getScreenType() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
+            videoPlayer.getFullscreenButton().performClick();
+            return;
+        }
+        //释放所有
+        videoPlayer.setVideoAllCallBack(null);
+        super.onBackPressed();
+    }
+
+    public void setAddress(LiveAddressBean liveAddressBean) {
+        LiveAddressBean.PullBean pull = liveAddressBean.getPull();
+        String rtmpurl = pull.getRtmpurl();
+        String url = "http://hdl.miaobolive.com/live/5ec2bd7c8f547254b720649b790d28dd.flv";
+        videoPlayer.setUp(url, false, "");
+        videoPlayer.startPlayLogic();
+    }
+
+    public void setAddressError() {
+
     }
 }
