@@ -24,6 +24,7 @@ import com.alivc.live.detect.TaoFaceFilter;
 import com.alivc.live.filter.TaoBeautyFilter;
 import com.alivc.live.pusher.AlivcLivePushConfig;
 import com.alivc.live.pusher.AlivcLivePusher;
+import com.alivc.live.pusher.AlivcResolutionEnum;
 import com.alivc.live.pusher.SurfaceStatus;
 import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
@@ -186,6 +187,7 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
     @Override
     protected void initData() {
         mAlivcLivePushConfig = new AlivcLivePushConfig();
+        mAlivcLivePushConfig.setResolution(AlivcResolutionEnum.RESOLUTION_SELFDEFINE);
         mAlivcLivePushConfig.setCameraType(CAMERA_TYPE_BACK);
         mAlivcLivePusher = new AlivcLivePusher();
         try {
