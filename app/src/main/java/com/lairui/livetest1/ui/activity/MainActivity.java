@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
 import com.lairui.livetest1.presenter.MainPresenter;
+import com.tencent.rtmp.TXLiveBase;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 
 import java.util.List;
@@ -77,6 +78,9 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
         navigation.setSelectedItemId(R.id.navigation_one);
         ivMiddleMenu.setOnClickListener(this);
         MainActivityPermissionsDispatcher.applyPermissionsWithPermissionCheck(this);
+
+        String sdkver = TXLiveBase.getSDKVersionStr();
+        Log.d("liteavsdk", "liteav sdk version is : " + sdkver);
     }
 
     private void addFragment(int position, String title) {
@@ -99,7 +103,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivMiddleMenu:
-                startActivity(MainActivity.this, null, LivePlusActivity.class);
+                startActivity(MainActivity.this, null, LivePushActivity1.class);
                 break;
             default:
         }

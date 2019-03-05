@@ -10,6 +10,11 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a"
+            // 如果您使用的是商业版，只能使用 armeabi 架构，即：
+            // abiFilters "armeabi",
+        }
     }
     buildTypes {
         release {
@@ -40,7 +45,9 @@ dependencies {
     implementation 'com.github.hust201010701:XDanmuku:-SNAPSHOT'
     implementation 'org.greenrobot:eventbus:3.1.1'
 
-    implementation "com.github.hotchemi:permissionsdispatcher:3.2.0"
+    implementation ('com.github.hotchemi:permissionsdispatcher:3.2.0'){
+        exclude group: 'com.android.support'
+    }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.2.0"
 
     // GSYVideoPlayer 播放器添加

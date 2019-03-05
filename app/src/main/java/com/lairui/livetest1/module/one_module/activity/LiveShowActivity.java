@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -50,10 +49,9 @@ import com.lairui.livetest1.widget.LivePlayer;
 import com.lzy.okgo.model.HttpParams;
 import com.orzangleli.xdanmuku.DanmuContainerView;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
-import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
-import com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer;
 import com.wanou.framelibrary.base.BaseMvpActivity;
+import com.wanou.framelibrary.utils.UiTools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -69,7 +67,6 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
     private String roomId;
     private Handler handler = new Handler(this);
     private RelativeLayout background;
-    private SurfaceView playerSurface;
     private ImageView fake;
     private RelativeLayout layoutHost;
     private CircleImageView ivHostHeader;
@@ -110,7 +107,6 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
     protected void initView() {
         videoPlayer = findViewById(R.id.detail_player);
         background = findViewById(R.id.background);
-        playerSurface = findViewById(R.id.player_surface);
         fake = findViewById(R.id.fake);
         layoutHost = findViewById(R.id.layout_host);
         ivHostHeader = findViewById(R.id.iv_host_header);
@@ -219,7 +215,9 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
         orientationUtils = new OrientationUtils(this, videoPlayer);
 //        videoPlayer.setHideKey(true);
         // 禁用全屏滑动改变进度,声音等操作
-
+        View view = UiTools.parseLayout(R.layout.layout_live_error);
+        videoPlayer.setThumbImageView(view);
+        videoPlayer.setThumbPlay(true);
         videoPlayer.setIsTouchWiget(false);
     }
 
@@ -478,9 +476,9 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
     public void setAddress(LiveAddressBean liveAddressBean) {
         LiveAddressBean.PullBean pull = liveAddressBean.getPull();
         String rtmpurl = pull.getRtmpurl();
-        String url = "http://hdl.miaobolive.com/live/5ec2bd7c8f547254b720649b790d28dd.flv";
-        videoPlayer.setUp(url, false, "");
+        videoPlayer.setUp(rtmpurl, false, "");
         videoPlayer.startPlayLogic();
+
     }
 
     public void setAddressError() {

@@ -1,6 +1,6 @@
 package com.lairui.livetest1.fragmentfactory;
 
-import com.lairui.livetest1.module.five_module.FiveMainFragment;
+import com.lairui.livetest1.module.five_module.fragment.FiveMainFragment;
 import com.lairui.livetest1.module.four_module.FourMainFragment;
 import com.lairui.livetest1.module.one_module.fragment.FirstMainFragment;
 import com.lairui.livetest1.module.three_module.fragment.ThirdMainFragment;

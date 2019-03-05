@@ -8,21 +8,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.alivc.component.custom.AlivcLivePushCustomDetect;
-import com.alivc.component.custom.AlivcLivePushCustomFilter;
 import com.alivc.live.detect.TaoFaceFilter;
 import com.alivc.live.filter.TaoBeautyFilter;
-import com.alivc.live.pusher.AlivcLivePushBGMListener;
+import com.alivc.live.pusher.AlivcLivePushCameraTypeEnum;
 import com.alivc.live.pusher.AlivcLivePushConfig;
-import com.alivc.live.pusher.AlivcLivePushError;
-import com.alivc.live.pusher.AlivcLivePushErrorListener;
-import com.alivc.live.pusher.AlivcLivePushInfoListener;
-import com.alivc.live.pusher.AlivcLivePushNetworkListener;
 import com.alivc.live.pusher.AlivcLivePusher;
-import com.alivc.live.pusher.AlivcPreviewDisplayMode;
 import com.alivc.live.pusher.SurfaceStatus;
+import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.entity.bean.LiveAddressBean;
 import com.lairui.livetest1.presenter.LivePresenter;
+import com.lzy.okgo.model.HttpParams;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 
 import java.io.File;
@@ -33,18 +29,17 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View.OnClickListener
-        , AlivcLivePushInfoListener, AlivcLivePushNetworkListener, AlivcLivePushBGMListener,
-        AlivcLivePushErrorListener {
+public class LiveActivity extends BaseMvpActivity<LivePresenter> {
     private EditText etLiveTitle;
     private TextView tvStartLive;
     private AlivcLivePushConfig mAlivcLivePushConfig;
     private AlivcLivePusher mAlivcLivePusher;
-    private SurfaceView surfaceView;
+    private SurfaceView mPreviewView;
     private boolean mAsync = false;
     private TaoBeautyFilter taoBeautyFilter;
     private TaoFaceFilter taoFaceFilter;
     private SurfaceStatus mSurfaceStatus = SurfaceStatus.UNINITED;
+    private HttpParams httpParams = new HttpParams();
 
     @Override
     protected LivePresenter getPresenter() {
@@ -58,275 +53,24 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
 
     @Override
     protected void initView() {
-        surfaceView = findViewById(R.id.surfaceView);
+        mPreviewView = findViewById(R.id.surfaceView);
         etLiveTitle = findViewById(R.id.etLiveTitle);
         tvStartLive = findViewById(R.id.tvStartLive);
-        surfaceView.getHolder().addCallback(mCallback);
+        mPreviewView.getHolder().addCallback(mCallback);
     }
 
     @Override
     protected void initData() {
-
         mAlivcLivePushConfig = new AlivcLivePushConfig();
-        //设置用户后台推流的图片
-//        mAlivcLivePushConfig.setPausePushImage();
-        //设置网络较差时推流的图片
-//        mAlivcLivePushConfig.setNetworkPoorPushImage("图片.png");
-        // 设置预览显示模式
-        mAlivcLivePushConfig.setPreviewDisplayMode(AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_ASPECT_FIT);
-
+        mAlivcLivePushConfig.setCameraType(AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK);
         mAlivcLivePusher = new AlivcLivePusher();
         try {
-            mAlivcLivePusher.init(getApplicationContext(), mAlivcLivePushConfig);
-            mAlivcLivePusher.setLivePushInfoListener(this);
-            mAlivcLivePusher.setLivePushNetworkListener(this);
-            mAlivcLivePusher.setLivePushBGMListener(this);
-            mAlivcLivePusher.setLivePushErrorListener(this);
-            mAlivcLivePusher.setLivePushBGMListener(this);
-
+            mAlivcLivePusher.init(MyApplication.getContext(), mAlivcLivePushConfig);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mAlivcLivePusher.setCustomDetect(new AlivcLivePushCustomDetect() {
-            @Override
-            public void customDetectCreate() {
-                taoFaceFilter = new TaoFaceFilter(getApplicationContext());
-                taoFaceFilter.customDetectCreate();
-            }
-
-            @Override
-            public long customDetectProcess(long data, int width, int height, int rotation, int format, long extra) {
-                if (taoFaceFilter != null) {
-                    return taoFaceFilter.customDetectProcess(data, width, height, rotation, format, extra);
-                }
-                return 0;
-            }
-
-            @Override
-            public void customDetectDestroy() {
-                if (taoFaceFilter != null) {
-                    taoFaceFilter.customDetectDestroy();
-                }
-            }
-        });
-        mAlivcLivePusher.setCustomFilter(new AlivcLivePushCustomFilter() {
-            @Override
-            public void customFilterCreate() {
-                taoBeautyFilter = new TaoBeautyFilter();
-                taoBeautyFilter.customFilterCreate();
-            }
-
-            @Override
-            public void customFilterUpdateParam(float fSkinSmooth, float fWhiten, float fWholeFacePink, float fThinFaceHorizontal, float fCheekPink, float fShortenFaceVertical, float fBigEye) {
-                if (taoBeautyFilter != null) {
-                    taoBeautyFilter.customFilterUpdateParam(fSkinSmooth, fWhiten, fWholeFacePink, fThinFaceHorizontal, fCheekPink, fShortenFaceVertical, fBigEye);
-                }
-            }
-
-            @Override
-            public void customFilterSwitch(boolean on) {
-                if (taoBeautyFilter != null) {
-                    taoBeautyFilter.customFilterSwitch(on);
-                }
-            }
-
-            @Override
-            public int customFilterProcess(int inputTexture, int textureWidth, int textureHeight, long extra) {
-                if (taoBeautyFilter != null) {
-                    return taoBeautyFilter.customFilterProcess(inputTexture, textureWidth, textureHeight, extra);
-                }
-                return inputTexture;
-            }
-
-            @Override
-            public void customFilterDestroy() {
-                if (taoBeautyFilter != null) {
-                    taoBeautyFilter.customFilterDestroy();
-                }
-                taoBeautyFilter = null;
-            }
-        });
-        if (mAsync) {
-            mAlivcLivePusher.startPreviewAysnc(surfaceView);
-        } else {
-            mAlivcLivePusher.startPreview(surfaceView);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tvStartLive:
-                // 开始直播按钮
-
-                break;
-            default:
-        }
-    }
-
-    @Override
-    public void onStarted() {
-
-    }
-
-    @Override
-    public void onStoped() {
-
-    }
-
-    @Override
-    public void onPaused() {
-
-    }
-
-    @Override
-    public void onResumed() {
-
-    }
-
-    @Override
-    public void onProgress(long l, long l1) {
-
-    }
-
-    @Override
-    public void onCompleted() {
-
-    }
-
-    @Override
-    public void onDownloadTimeout() {
-
-    }
-
-    @Override
-    public void onOpenFailed() {
-
-    }
-
-    @Override
-    public void onSystemError(AlivcLivePusher alivcLivePusher, AlivcLivePushError alivcLivePushError) {
-
-    }
-
-    @Override
-    public void onSDKError(AlivcLivePusher alivcLivePusher, AlivcLivePushError alivcLivePushError) {
-
-    }
-
-    @Override
-    public void onPreviewStarted(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onPreviewStoped(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onPushStarted(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onFirstAVFramePushed(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onPushPauesed(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onPushResumed(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onPushStoped(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onPushRestarted(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onFirstFramePreviewed(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onDropFrame(AlivcLivePusher alivcLivePusher, int i, int i1) {
-
-    }
-
-    @Override
-    public void onAdjustBitRate(AlivcLivePusher alivcLivePusher, int i, int i1) {
-
-    }
-
-    @Override
-    public void onAdjustFps(AlivcLivePusher alivcLivePusher, int i, int i1) {
-
-    }
-
-    @Override
-    public void onNetworkPoor(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onNetworkRecovery(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onReconnectStart(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onConnectionLost(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onReconnectFail(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onReconnectSucceed(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onSendDataTimeout(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onConnectFail(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public String onPushURLAuthenticationOverdue(AlivcLivePusher alivcLivePusher) {
-        return null;
-    }
-
-    @Override
-    public void onSendMessage(AlivcLivePusher alivcLivePusher) {
-
-    }
-
-    @Override
-    public void onPacketsLost(AlivcLivePusher alivcLivePusher) {
-
+        httpParams.put("operate", "roomGroup-liveAddress");
+        mPresenter.getPushAddress(httpParams);
     }
 
     SurfaceHolder.Callback mCallback = new SurfaceHolder.Callback() {
@@ -337,9 +81,9 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
                 if (mAlivcLivePusher != null) {
                     try {
                         if (mAsync) {
-                            mAlivcLivePusher.startPreviewAysnc(surfaceView);
+                            mAlivcLivePusher.startPreviewAysnc(mPreviewView);
                         } else {
-                            mAlivcLivePusher.startPreview(surfaceView);
+                            mAlivcLivePusher.startPreview(mPreviewView);
                         }
                         if (mAlivcLivePushConfig.isExternMainStream()) {
                             startYUV(getApplicationContext());
@@ -359,7 +103,7 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
         public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
             mSurfaceStatus = SurfaceStatus.CHANGED;
 //            if(mLivePushFragment != null) {
-//                mLivePushFragment.setSurfaceView(surfaceView);
+//                mLivePushFragment.setSurfaceView(mPreviewView);
 //            }
         }
 
@@ -368,7 +112,9 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
             mSurfaceStatus = SurfaceStatus.DESTROYED;
         }
     };
+
     private boolean videoThreadOn = false;
+    private boolean audioThreadOn = false;
 
     public void startYUV(final Context context) {
         new ScheduledThreadPoolExecutor(1, new ThreadFactory() {
@@ -417,6 +163,35 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        videoThreadOn = false;
+        audioThreadOn = false;
+        if (mAlivcLivePusher != null) {
+            try {
+                mAlivcLivePusher.destroy();
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
+        }
+        mPreviewView = null;
+        mAlivcLivePushConfig = null;
+        mAlivcLivePusher = null;
+        super.onDestroy();
+    }
+
+    public void setPushAddress(LiveAddressBean liveAddressBean) {
+        LiveAddressBean.PushBean push = liveAddressBean.getPush();
+        String rtmpurl = push.getRtmpurl();
+
+        tvStartLive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAlivcLivePusher.startPushAysnc(rtmpurl);
             }
         });
     }

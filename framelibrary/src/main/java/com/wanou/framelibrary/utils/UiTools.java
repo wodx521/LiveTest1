@@ -228,8 +228,8 @@ public class UiTools {
         return from.inflate(resLayout, root, false);
     }
 
-//    public static View parseLayout(int resLayout) {
-//        return View.inflate(context, resLayout, null);
-//    }
+    public static View parseLayout(int resLayout) {
+        return View.inflate(context, resLayout, null);
+    }
 
 }
