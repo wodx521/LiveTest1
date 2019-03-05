@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.entity.bean.BanWarnMessage;
 import com.lairui.livetest1.entity.bean.LiveAddressBean;
+import com.lairui.livetest1.entity.bean.LiveRoomBean;
 import com.lairui.livetest1.entity.bean.NeedLoginEvent;
 import com.lairui.livetest1.message.ChatroomBarrage;
 import com.lairui.livetest1.message.ChatroomFollow;
@@ -49,6 +50,7 @@ import com.lairui.livetest1.widget.LivePlayer;
 import com.lzy.okgo.model.HttpParams;
 import com.orzangleli.xdanmuku.DanmuContainerView;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
+import com.shuyu.gsyvideoplayer.utils.GSYVideoType;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.utils.UiTools;
@@ -92,6 +94,7 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
     private LivePlayer videoPlayer;
     private OrientationUtils orientationUtils;
     private HttpParams httpParams = new HttpParams();
+    private LiveRoomBean liveRoomBean;
 
     @Override
     protected LiveShowPresenter getPresenter() {
@@ -137,78 +140,80 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
     @Override
     protected void initData() {
         if (mBundle != null) {
-            roomId = mBundle.getString("liveId");
-        }
-        ChatroomKit.addEventHandler(handler);
-        // 设置弹幕布局
-        danmuContainerView.setAdapter(new DanmuAdapter(this));
+            liveRoomBean = mBundle.getParcelable("liveInfo");
+            assert liveRoomBean != null;
+            roomId = liveRoomBean.getId();
+            String rtmpurl = liveRoomBean.getPull().getRtmpurl();
+            ChatroomKit.addEventHandler(handler);
+            // 设置弹幕布局
+            danmuContainerView.setAdapter(new DanmuAdapter(this));
 
-        // 初始化礼物控件
-        giftView.setViewCount(2);
-        giftView.init();
+            // 初始化礼物控件
+            giftView.setViewCount(2);
+            giftView.init();
 
-        // 房间中成员列表
-        memberAdapter = new MemberAdapter(this, DataInterface.getUserList(roomId), true);
-        hlvMember.setAdapter(memberAdapter);
+            // 房间中成员列表
+            memberAdapter = new MemberAdapter(this, DataInterface.getUserList(roomId), true);
+            hlvMember.setAdapter(memberAdapter);
 
-        // 设置聊天信息列表
-        chatListAdapter = new ChatListAdapter(this);
-        chatListView.setAdapter(chatListAdapter);
-        ChatroomWelcome welcomeMessage = new ChatroomWelcome();
-        welcomeMessage.setId(ChatroomKit.getCurrentUser().getUserId());
-        ChatroomKit.sendMessage(welcomeMessage);
-        // 设置发送监听
-        bottomPanel.setInputPanelListener(new InputPanel.InputPanelListener() {
-            @Override
-            public void onSendClick(String text, int type) {
-                if (DataInterface.isBanStatus()) {
+
+            // 设置聊天信息列表
+            chatListAdapter = new ChatListAdapter(this);
+            chatListView.setAdapter(chatListAdapter);
+            ChatroomWelcome welcomeMessage = new ChatroomWelcome();
+            welcomeMessage.setId(ChatroomKit.getCurrentUser().getUserId());
+            ChatroomKit.sendMessage(welcomeMessage);
+            // 设置发送监听
+            bottomPanel.setInputPanelListener(new InputPanel.InputPanelListener() {
+                @Override
+                public void onSendClick(String text, int type) {
+                    if (DataInterface.isBanStatus()) {
+                        BanWarnMessage banWarnMessage = new BanWarnMessage();
+                        io.rong.imlib.model.Message message = io.rong.imlib.model.Message.obtain(ChatroomKit.getCurrentUser().getUserId(), Conversation.ConversationType.CHATROOM, banWarnMessage);
+                        chatListAdapter.addMessage(message);
+                        chatListAdapter.notifyDataSetChanged();
+                        return;
+                    }
+                    // 信息类型是文本类型
+                    if (type == InputPanel.TYPE_TEXTMESSAGE) {
+                        final TextMessage content = TextMessage.obtain(text);
+                        ChatroomKit.sendMessage(content);
+                    } else if (type == InputPanel.TYPE_BARRAGE) {
+                        // 信息类型是弹幕类型
+                        ChatroomBarrage barrage = new ChatroomBarrage();
+                        barrage.setContent(text);
+                        ChatroomKit.sendMessage(barrage);
+                    }
+
+                }
+            });
+            //  设置禁言
+            bottomPanel.setBanListener(new BottomPanelFragment.BanListener() {
+                @Override
+                public void addBanWarn() {
                     BanWarnMessage banWarnMessage = new BanWarnMessage();
                     io.rong.imlib.model.Message message = io.rong.imlib.model.Message.obtain(ChatroomKit.getCurrentUser().getUserId(), Conversation.ConversationType.CHATROOM, banWarnMessage);
                     chatListAdapter.addMessage(message);
                     chatListAdapter.notifyDataSetChanged();
-                    return;
                 }
-                // 信息类型是文本类型
-                if (type == InputPanel.TYPE_TEXTMESSAGE) {
-                    final TextMessage content = TextMessage.obtain(text);
-                    ChatroomKit.sendMessage(content);
-                } else if (type == InputPanel.TYPE_BARRAGE) {
-                    // 信息类型是弹幕类型
-                    ChatroomBarrage barrage = new ChatroomBarrage();
-                    barrage.setContent(text);
-                    ChatroomKit.sendMessage(barrage);
+            });
+            // 当前聊天室内用户列表
+            hlvMember.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    if (onlineUserPanel.getVisibility() == View.VISIBLE) {
+                        onlineUserPanel.setVisibility(View.GONE);
+                    } else {
+                        onlineUserPanel.setVisibility(View.VISIBLE);
+                    }
+                    hostPanel.setVisibility(View.GONE);
                 }
-
-            }
-        });
-        //  设置禁言
-        bottomPanel.setBanListener(new BottomPanelFragment.BanListener() {
-            @Override
-            public void addBanWarn() {
-                BanWarnMessage banWarnMessage = new BanWarnMessage();
-                io.rong.imlib.model.Message message = io.rong.imlib.model.Message.obtain(ChatroomKit.getCurrentUser().getUserId(), Conversation.ConversationType.CHATROOM, banWarnMessage);
-                chatListAdapter.addMessage(message);
-                chatListAdapter.notifyDataSetChanged();
-            }
-        });
-        // 当前聊天室内用户列表
-        hlvMember.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (onlineUserPanel.getVisibility() == View.VISIBLE) {
-                    onlineUserPanel.setVisibility(View.GONE);
-                } else {
-                    onlineUserPanel.setVisibility(View.VISIBLE);
-                }
-                hostPanel.setVisibility(View.GONE);
-            }
-        });
-
-        joinChatRoom(roomId);
-
-        initPlayser();
-        httpParams.put("operate", "roomGroup-liveAddress");
-        mPresenter.getLiveAddress(httpParams);
+            });
+            joinChatRoom(roomId);
+            initPlayser();
+            videoPlayer.setUp(rtmpurl, false, liveRoomBean.getTitle());
+            videoPlayer.startPlayLogic();
+        }
     }
 
     private void initPlayser() {
@@ -216,13 +221,15 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
 //        videoPlayer.setHideKey(true);
         // 禁用全屏滑动改变进度,声音等操作
         View view = UiTools.parseLayout(R.layout.layout_live_error);
+        GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_FULL);
         videoPlayer.setThumbImageView(view);
         videoPlayer.setThumbPlay(true);
+        videoPlayer.setAutoFullWithSize(true);
         videoPlayer.setIsTouchWiget(false);
     }
 
     private void joinChatRoom(final String roomId) {
-        ChatroomKit.joinChatRoom(roomId, 5, new RongIMClient.OperationCallback() {
+        ChatroomKit.joinChatRoom(roomId, -1, new RongIMClient.OperationCallback() {
             @Override
             public void onSuccess() {
 

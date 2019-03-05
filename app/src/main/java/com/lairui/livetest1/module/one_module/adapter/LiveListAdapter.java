@@ -17,18 +17,13 @@ import java.util.List;
 import java.util.Random;
 
 public class LiveListAdapter extends BaseRecycleViewAdapter {
-
-    private String[] strings;
-    private String[] userArray;
     private String[] provicesArray;
     private Random random;
     private List<LiveRoomBean> data;
 
     public LiveListAdapter(Context context) {
         super(context);
-        strings = UiTools.getStringArray(R.array.liveList);
         provicesArray = UiTools.getStringArray(R.array.provices_name);
-        userArray = UiTools.getStringArray(R.array.userNames);
         random = new Random(provicesArray.length);
     }
 
@@ -53,17 +48,12 @@ public class LiveListAdapter extends BaseRecycleViewAdapter {
         LiveRoomBean liveRoomBean = data.get(position);
         String title = liveRoomBean.getTitle();
         String cover = liveRoomBean.getCover();
-        String notice = liveRoomBean.getNotice();
         if (UiTools.noEmpty(title)) {
             liveListViewHolder.tvUserName.setText(title);
         } else {
             liveListViewHolder.tvUserName.setText("");
         }
-        if (UiTools.noEmpty(notice)) {
-            liveListViewHolder.tvViewNumber.setText(notice + "人");
-        } else {
-            liveListViewHolder.tvViewNumber.setText("0人");
-        }
+        liveListViewHolder.tvViewNumber.setText("0人");
         GlideApp.with(mContext)
                 .load(cover)
                 .placeholder(R.drawable.ic_person_1)

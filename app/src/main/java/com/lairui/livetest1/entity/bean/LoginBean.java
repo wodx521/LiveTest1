@@ -1,5 +1,7 @@
 package com.lairui.livetest1.entity.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 public class LoginBean {
 
     /**
@@ -12,6 +14,8 @@ public class LoginBean {
      * portrait : 、
      * alipay : null
      * sex : 保密
+     * "room_id": "",
+     * "token": "54Xz7g4RBOXIO8gh1V8/eNeVOL6pZW48Ae5nqY9D13menYVDJyAq9sZgfZodlq2xipG9X9tgqSssgKduzNc5dw=="
      */
 
     private int id;
@@ -23,6 +27,9 @@ public class LoginBean {
     private String portrait;
     private String alipay;
     private String sex;
+    @SerializedName("room_id")
+    private String roomId;
+    private String token;
 
     public int getId() {
         return id;
@@ -94,5 +101,21 @@ public class LoginBean {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

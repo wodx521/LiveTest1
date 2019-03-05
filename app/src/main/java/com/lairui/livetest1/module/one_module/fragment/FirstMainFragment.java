@@ -12,7 +12,6 @@ import com.lairui.livetest1.fragmentfactory.HomeFragmentFactory;
 import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
 import com.lairui.livetest1.module.one_module.adapter.LiveClassificationAdapter;
 import com.lairui.livetest1.module.one_module.presenter.FirstPresenter;
-import com.lairui.livetest1.utils.DataInterface;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.utils.UiTools;
 
@@ -50,10 +49,9 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> {
         for (String classificationName : stringArray) {
             tlClassification.addTab(tlClassification.newTab().setText(classificationName));
         }
-
         LiveClassificationAdapter liveClassificationAdapter = new LiveClassificationAdapter(getChildFragmentManager());
         liveClassificationAdapter.addFragment(HomeFragmentFactory.getFragment(0));
-        liveClassificationAdapter.addFragment(HomeFragmentFactory.getFragment(1));
+//        liveClassificationAdapter.addFragment(HomeFragmentFactory.getFragment(1));
         viewPager.setAdapter(liveClassificationAdapter);
         tlClassification.setupWithViewPager(viewPager);
     }

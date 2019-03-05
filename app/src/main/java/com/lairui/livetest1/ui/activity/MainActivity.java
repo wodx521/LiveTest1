@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -103,7 +104,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivMiddleMenu:
-                startActivity(MainActivity.this, null, LivePushActivity1.class);
+                startActivity(MainActivity.this, null, LiveActivity.class);
                 break;
             default:
         }

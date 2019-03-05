@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,37 +14,213 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/etLiveTitle"
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clPreviewControl"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/etLiveTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="添加一个直播标题吧"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/color_white"
+            app:layout_constraintBottom_toTopOf="@id/tvStartLive"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvStartLive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            android:text="开始直播"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_18"
+            app:layout_constraintBottom_toTopOf="@id/tvMoreSetting"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvMoreSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5"
+            android:text="更多设置"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_16"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <RelativeLayout
+        android:id="@+id/background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/fake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/fake_members"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/layout_host"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_giftlayout"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="gone">
+
+            <com.lairui.livetest1.ui.panel.CircleImageView
+                android:id="@+id/iv_host_header"
+                android:layout_width="39dp"
+                android:layout_height="39dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="3dp" />
+
+            <TextView
+                android:id="@+id/tv_holder_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@id/iv_host_header"
+                android:text="小海豚"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_room_onlive_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_holder_name"
+                android:layout_alignLeft="@id/tv_holder_name"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:text="580人"
+                android:textColor="#ffea79"
+                android:textSize="11sp" />
+        </RelativeLayout>
+
+        <com.lairui.livetest1.ui.panel.HorizontalListView
+            android:id="@+id/gv_room_member"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:visibility="gone" />
+
+        <com.orzangleli.xdanmuku.DanmuContainerView
+            android:id="@+id/danmuContainerView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/layout_host" />
+
+        <com.lairui.livetest1.ui.gift.GiftView
+            android:id="@+id/giftView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_host" />
+
+        <ListView
+            android:id="@+id/chat_listview"
+            android:layout_width="230dp"
+            android:layout_height="152dp"
+            android:layout_above="@+id/bottom_bar"
+            android:divider="@null"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none"
+            android:transcriptMode="alwaysScroll" />
+
+        <fragment
+            android:id="@+id/bottom_bar"
+            android:name="com.lairui.livetest1.ui.panel.BottomPanelFragment1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            tools:layout="@layout/fragment_bottombar1" />
+
+        <com.lairui.livetest1.ui.panel.HostPanel
+            android:id="@+id/host_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone" />
+
+        <com.lairui.livetest1.ui.panel.OnlineUserPanel
+            android:id="@+id/online_user_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone" />
+
+        <com.lairui.livetest1.ui.panel.LoginPanel
+            android:id="@+id/login_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone" />
+
+        <com.lairui.livetest1.ui.like.HeartLayout
+            android:id="@+id/heart_layout"
+            android:layout_width="86dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="4dp" />
+    </RelativeLayout>
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="添加一个直播标题吧"
-        android:textColor="@color/colorWhite"
-        android:textColorHint="@color/color_white"
-        app:layout_constraintBottom_toTopOf="@id/tvStartLive"
+        android:orientation="horizontal"
+        app:elevation="@dimen/dp_10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/tvStartLive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10"
-        android:text="开始直播"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/sp_18"
-        app:layout_constraintBottom_toTopOf="@id/tvMoreSetting"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/ivBeautyOnOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_beauty_on_off" />
 
-    <TextView
-        android:id="@+id/tvMoreSetting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp_5"
-        android:text="更多设置"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/sp_16"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        <ImageView
+            android:id="@+id/ivFlash0nOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_flash_on_off" />
+
+        <ImageView
+            android:id="@+id/ivCameraFountBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_camera_fount_back" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/close" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

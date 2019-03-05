@@ -1,6 +1,5 @@
 package com.lairui.livetest1.module.one_module.adapter;
 
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 
 import com.lairui.livetest1.R;
@@ -21,9 +20,9 @@ public class LiveClassificationAdapter extends BaseFragmentPagerAdapter {
         return stringArray.length;
     }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return stringArray[position];
-    }
+//    @Nullable
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        return stringArray[position];
+//    }
 }

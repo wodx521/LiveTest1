@@ -2,7 +2,7 @@ package com.lairui.livetest1.presenter;
 
 import com.google.gson.reflect.TypeToken;
 import com.lairui.livetest1.app_constant.AppConstant;
-import com.lairui.livetest1.entity.bean.LiveAddressBean;
+import com.lairui.livetest1.entity.bean.LivePushBean;
 import com.lairui.livetest1.ui.activity.LiveActivity;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.request.base.Request;
@@ -19,13 +19,13 @@ public class LivePresenter extends BasePresenterImpl<LiveActivity> {
         OkGoUtils.postRequest(AppConstant.BASE_URL, "pushaddress", httpParams, new CustomizeStringCallback() {
             @Override
             public Type getResultType() {
-                return new TypeToken<GeneralResult<LiveAddressBean>>() {
+                return new TypeToken<GeneralResult<LivePushBean>>() {
                 }.getType();
             }
 
             @Override
             public void onRequestSuccess(GeneralResult generalResult) {
-                LiveAddressBean liveAddressBean = (LiveAddressBean) generalResult.data;
+                LivePushBean liveAddressBean = (LivePushBean) generalResult.data;
                 mPresenterView.setPushAddress(liveAddressBean);
         }
 

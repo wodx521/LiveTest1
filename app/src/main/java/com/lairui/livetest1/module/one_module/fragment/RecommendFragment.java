@@ -108,7 +108,7 @@ public class RecommendFragment extends BaseMvpFragment<RecommendPresenter> {
                 if (RongIMClient.getInstance().getCurrentConnectionStatus() == RongIMClient.ConnectionStatusListener.ConnectionStatus.CONNECTED) {
                     bundle.clear();
                     LiveRoomBean liveRoomBean = tempLiveRoom.get(position);
-                    bundle.putString("liveId", liveRoomBean.getId() + "");
+                    bundle.putParcelable("liveInfo",liveRoomBean);
                     startActivity(RecommendFragment.this, bundle, LiveShowActivity.class);
                 } else {
                     UiTools.showToast("未连接");

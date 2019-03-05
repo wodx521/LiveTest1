@@ -1,8 +1,9 @@
 package com.lairui.livetest1.entity.bean;
 
-import com.google.gson.annotations.SerializedName;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class LiveRoomBean {
+public class LiveRoomBean implements Parcelable {
     /**
      * id : 1
      * uid : 2
@@ -13,52 +14,76 @@ public class LiveRoomBean {
      * notice : 212
      * status : 2
      */
-
-    private int id;
-    private int uid;
-    @SerializedName("log_id")
-    private String logId;
-    // 分类
-    private String category;
-    // 直播标题
+    // 房间id
+    private String id;
+    // 主播id
+    private String uid;
+    // 房间标题
     private String title;
     // 直播封面
     private String cover;
-    //
+    // 公告
     private String notice;
     // 状态
     private String status;
+    /**
+     * notice : null
+     * pull : {"rtmpurl":"rtmp://heh.push.htcrm.net/lairui/2121?auth_key=1551696493-0-0-2e1389e5fbb18480c191e79fb506021a","flvurl":"http://heh.push.htcrm.net/lairui/2121.flv?auth_key=1551696493-0-0-1884ff4408b2990c8254c554755a85e5","m398url":"http://heh.push.htcrm.net/lairui/2121.m3u8?auth_key=1551696493-0-0-ca1741efbde8f83a626cf049812945a7"}
+     */
+    private PullBean pull;
 
-    public int getId() {
+    protected LiveRoomBean(Parcel in) {
+        id = in.readString();
+        uid = in.readString();
+        title = in.readString();
+        cover = in.readString();
+        notice = in.readString();
+        status = in.readString();
+        pull = in.readParcelable(PullBean.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(uid);
+        dest.writeString(title);
+        dest.writeString(cover);
+        dest.writeString(notice);
+        dest.writeString(status);
+        dest.writeParcelable(pull, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<LiveRoomBean> CREATOR = new Creator<LiveRoomBean>() {
+        @Override
+        public LiveRoomBean createFromParcel(Parcel in) {
+            return new LiveRoomBean(in);
+        }
+
+        @Override
+        public LiveRoomBean[] newArray(int size) {
+            return new LiveRoomBean[size];
+        }
+    };
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(String uid) {
         this.uid = uid;
-    }
-
-    public String getLogId() {
-        return logId;
-    }
-
-    public void setLogId(String logId) {
-        this.logId = logId;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getTitle() {
@@ -91,5 +116,79 @@ public class LiveRoomBean {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public PullBean getPull() {
+        return pull;
+    }
+
+    public void setPull(PullBean pull) {
+        this.pull = pull;
+    }
+
+    public static class PullBean implements Parcelable {
+        /**
+         * rtmpurl : rtmp://heh.push.htcrm.net/lairui/2121?auth_key=1551696493-0-0-2e1389e5fbb18480c191e79fb506021a
+         * flvurl : http://heh.push.htcrm.net/lairui/2121.flv?auth_key=1551696493-0-0-1884ff4408b2990c8254c554755a85e5
+         * m398url : http://heh.push.htcrm.net/lairui/2121.m3u8?auth_key=1551696493-0-0-ca1741efbde8f83a626cf049812945a7
+         */
+
+        private String rtmpurl;
+        private String flvurl;
+        private String m398url;
+
+        protected PullBean(Parcel in) {
+            rtmpurl = in.readString();
+            flvurl = in.readString();
+            m398url = in.readString();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(rtmpurl);
+            dest.writeString(flvurl);
+            dest.writeString(m398url);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<PullBean> CREATOR = new Creator<PullBean>() {
+            @Override
+            public PullBean createFromParcel(Parcel in) {
+                return new PullBean(in);
+            }
+
+            @Override
+            public PullBean[] newArray(int size) {
+                return new PullBean[size];
+            }
+        };
+
+        public String getRtmpurl() {
+            return rtmpurl;
+        }
+
+        public void setRtmpurl(String rtmpurl) {
+            this.rtmpurl = rtmpurl;
+        }
+
+        public String getFlvurl() {
+            return flvurl;
+        }
+
+        public void setFlvurl(String flvurl) {
+            this.flvurl = flvurl;
+        }
+
+        public String getM398url() {
+            return m398url;
+        }
+
+        public void setM398url(String m398url) {
+            this.m398url = m398url;
+        }
     }
 }

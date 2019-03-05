@@ -12,7 +12,8 @@
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/layout_toolbar" />
+            layout="@layout/layout_toolbar"
+            android:visibility="gone" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/CardView"
@@ -106,7 +107,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableEnd="@drawable/arrow_right_gray"
-                            android:text="查看编辑主页" />
+                            android:text="查看编辑主页"
+                            android:visibility="gone" />
 
                     </LinearLayout>
                 </android.support.constraint.ConstraintLayout>
@@ -181,6 +183,7 @@
             android:id="@+id/tvRecord"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/color_white"
             android:drawableStart="@drawable/mine_history"
             android:drawablePadding="@dimen/dp_5"
             android:gravity="center_vertical"
@@ -195,6 +198,7 @@
             android:id="@+id/tvApprove"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/color_white"
             android:drawableStart="@drawable/mine_auth"
             android:drawablePadding="@dimen/dp_5"
             android:gravity="center_vertical"
@@ -209,6 +213,7 @@
             android:id="@+id/tvSetting"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/color_white"
             android:drawableStart="@drawable/mine_setting"
             android:drawablePadding="@dimen/dp_5"
             android:gravity="center_vertical"
@@ -218,6 +223,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvApprove" />
+
+        <TextView
+            android:id="@+id/tvExit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="退出登录"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSetting" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v4.widget.NestedScrollView>

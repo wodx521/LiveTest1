@@ -12,7 +12,7 @@ import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 
-public class LivePushActivity1 extends BaseMvpActivity<LivePushPresenter> {
+public class LivePushActivity extends BaseMvpActivity<LivePushPresenter> {
     private TXCloudVideoView videoView;
     private TXLivePushConfig mLivePushConfig;
     private TextView tvStartPush;

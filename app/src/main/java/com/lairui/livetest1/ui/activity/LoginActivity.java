@@ -40,7 +40,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
 
     @Override
     protected void initView() {
-//        mSimpleMultiStateView = findViewById(R.id.SimpleMultiStateView);
         tvOperate = findViewById(R.id.tvOperate);
         tvToolbarTitle = findViewById(R.id.tv_toolbar_title);
         etName = findViewById(R.id.et_name);
@@ -163,10 +162,60 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
 
     public void loginSuccess(LoginBean loginBean) {
         String phone = loginBean.getPhone();
+        String token = loginBean.getToken();
+        String roomId = loginBean.getRoomId();
         SpUtils.put("phone", phone);
         SpUtils.put("userName", UiTools.getText(etName));
-        httpParams.clear();
-        httpParams.put("operate", "liveGroup-getToken");
-        mPresenter.getToken(httpParams);
+        SpUtils.put("token", token);
+        SpUtils.put("roomId", roomId);
+        SpUtils.put("nickName", loginBean.getNickname());
+        SpUtils.put("userName", loginBean.getUsername());
+
+        ChatroomKit.connect(token, new RongIMClient.ConnectCallback() {
+            @Override
+            public void onTokenIncorrect() {
+                // TODO: 2019/2/28 token过期,需要重新请求token
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                Bundle bundle = new Bundle();
+                UserInfo userInfo = new UserInfo(s, "", Uri.parse(""));
+                bundle.putString("userId", s);
+                SpUtils.put("IMUserId", s);
+                ChatroomKit.setCurrentUser(userInfo);
+                startActivity(LoginActivity.this, bundle, MainActivity.class);
+                finish();
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+
+            }
+        });
+
+        RongIMClient.setConnectionStatusListener(new RongIMClient.ConnectionStatusListener() {
+            @Override
+            public void onChanged(ConnectionStatus status) {
+                switch (status) {
+                    case CONNECTED://连接成功。
+                        Log.i(TAG, "连接成功");
+                        break;
+                    case DISCONNECTED://断开连接。
+                        Log.i(TAG, "断开连接");
+                        break;
+                    case CONNECTING://连接中。
+                        Log.i(TAG, "连接中");
+                        break;
+                    case NETWORK_UNAVAILABLE://网络不可用。
+                        Log.i(TAG, "网络不可用");
+                        break;
+                    case KICKED_OFFLINE_BY_OTHER_CLIENT://用户账户在其他设备登录，本机会被踢掉线
+                        Log.i(TAG, "用户账户在其他设备登录");
+                        break;
+                    default:
+                }
+            }
+        });
     }
 }
