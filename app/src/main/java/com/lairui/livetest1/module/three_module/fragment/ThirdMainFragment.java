@@ -76,9 +76,8 @@ public class ThirdMainFragment extends BaseMvpFragment<ThirdMainPresenter> imple
         switch (v.getId()) {
             case R.id.tvExit:
                 startActivity(ThirdMainFragment.this, null, LoginActivity.class);
-                SpUtils.clear();
+                SpUtils.put("token","");
                 ActivityManage.getInstance().finishAll();
-                getActivity().finish();
                 break;
             default:
         }

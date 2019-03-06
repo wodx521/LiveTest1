@@ -24,7 +24,7 @@ import com.alivc.live.detect.TaoFaceFilter;
 import com.alivc.live.filter.TaoBeautyFilter;
 import com.alivc.live.pusher.AlivcLivePushConfig;
 import com.alivc.live.pusher.AlivcLivePusher;
-import com.alivc.live.pusher.AlivcResolutionEnum;
+import com.alivc.live.pusher.AlivcPreviewDisplayMode;
 import com.alivc.live.pusher.SurfaceStatus;
 import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
@@ -187,7 +187,10 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
     @Override
     protected void initData() {
         mAlivcLivePushConfig = new AlivcLivePushConfig();
-        mAlivcLivePushConfig.setResolution(AlivcResolutionEnum.RESOLUTION_SELFDEFINE);
+//        mAlivcLivePushConfig.setResolution(AlivcResolutionEnum.RESOLUTION_SELFDEFINE);
+//        mAlivcLivePushConfig.setPreviewDisplayMode(AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_SCALE_FILL);
+        // 设置预览铺满屏幕(不会影响推流码率问题)
+        mAlivcLivePushConfig.setPreviewDisplayMode(AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_ASPECT_FILL );
         mAlivcLivePushConfig.setCameraType(CAMERA_TYPE_BACK);
         mAlivcLivePusher = new AlivcLivePusher();
         try {
@@ -212,7 +215,8 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
         chatListAdapter = new ChatListAdapter(this);
         chatListView.setAdapter(chatListAdapter);
         ChatroomWelcome welcomeMessage = new ChatroomWelcome();
-        welcomeMessage.setId(ChatroomKit.getCurrentUser().getUserId());
+        String userName = (String) SpUtils.get("userName", "");
+        welcomeMessage.setId(userName);
         ChatroomKit.sendMessage(welcomeMessage);
         // 设置发送监听
         bottomPanel.setInputPanelListener(new InputPanel.InputPanelListener() {
@@ -220,7 +224,7 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
             public void onSendClick(String text, int type) {
                 if (DataInterface.isBanStatus()) {
                     BanWarnMessage banWarnMessage = new BanWarnMessage();
-                    io.rong.imlib.model.Message message = io.rong.imlib.model.Message.obtain(ChatroomKit.getCurrentUser().getUserId(), Conversation.ConversationType.CHATROOM, banWarnMessage);
+                    io.rong.imlib.model.Message message = io.rong.imlib.model.Message.obtain(userName, Conversation.ConversationType.CHATROOM, banWarnMessage);
                     chatListAdapter.addMessage(message);
                     chatListAdapter.notifyDataSetChanged();
                     return;
@@ -260,6 +264,9 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
                 hostPanel.setVisibility(View.GONE);
             }
         });
+
+        String roomId = (String) SpUtils.get("roomId", "");
+        joinChatRoom(roomId);
     }
 
     private void joinChatRoom(final String roomId) {
@@ -280,8 +287,8 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivBeautyOnOff:
-                ivBeautyOnOff.setSelected(!ivBeautyOnOff.isSelected());
                 mAlivcLivePusher.setBeautyOn(!ivBeautyOnOff.isSelected());
+                ivBeautyOnOff.setSelected(!ivBeautyOnOff.isSelected());
                 break;
             case R.id.ivFlash0nOff:
                 mAlivcLivePusher.setFlash(!ivFlash0nOff.isSelected());
@@ -464,7 +471,6 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
                 ChatroomKit.removeEventHandler(handler);
                 if (DataInterface.isLoginStatus()) {
                     Toast.makeText(LiveActivity.this, "退出聊天室成功", Toast.LENGTH_SHORT).show();
-
                     ChatroomUserQuit userQuit = new ChatroomUserQuit();
                     userQuit.setId(ChatroomKit.getCurrentUser().getUserId());
                     ChatroomKit.sendMessage(userQuit);
@@ -495,8 +501,7 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
         tvStartLive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String roomId = (String) SpUtils.get("roomId", "");
-                joinChatRoom(roomId);
+
                 viewVisible(background);
                 viewGone(tvStartLive, etLiveTitle);
                 mAlivcLivePusher.startPushAysnc(rtmpurl);

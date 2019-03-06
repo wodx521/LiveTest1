@@ -1,24 +1,20 @@
 package com.lairui.livetest1.ui.activity;
 
-import android.net.Uri;
-import android.os.Bundle;
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.LoginBean;
 import com.lairui.livetest1.presenter.LoginPresenter;
-import com.lairui.livetest1.utils.ChatroomKit;
 import com.lzy.okgo.model.HttpParams;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
-
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.UserInfo;
 
 public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements View.OnClickListener {
     private TextView tvToolbarTitle;
@@ -40,6 +36,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
 
     @Override
     protected void initView() {
+        mSimpleMultiStateView = findViewById(R.id.SimpleMultiStateView);
         tvOperate = findViewById(R.id.tvOperate);
         tvToolbarTitle = findViewById(R.id.tv_toolbar_title);
         etName = findViewById(R.id.et_name);
@@ -56,34 +53,9 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
     @Override
     protected void initData() {
         showSuccess();
-        String userName = (String) SpUtils.get("userName", "");
-        if (UiTools.noEmpty(userName)) {
-            etName.setText(userName);
-        }
-        String token = (String) SpUtils.get("token", "");
-        if (UiTools.noEmpty(token)) {
-            ChatroomKit.connect(token, new RongIMClient.ConnectCallback() {
-                @Override
-                public void onTokenIncorrect() {
-                    // TODO: 2019/2/28 token过期,需要重新请求token
-                }
-
-                @Override
-                public void onSuccess(String s) {
-                    Bundle bundle = new Bundle();
-                    UserInfo userInfo = new UserInfo(s, "", Uri.parse(""));
-                    bundle.putString("userId", s);
-                    SpUtils.put("IMUserId", s);
-                    ChatroomKit.setCurrentUser(userInfo);
-                    startActivity(LoginActivity.this, bundle, MainActivity.class);
-                    finish();
-                }
-
-                @Override
-                public void onError(RongIMClient.ErrorCode errorCode) {
-
-                }
-            });
+        String phone = (String) SpUtils.get("loginNumber", "");
+        if (UiTools.noEmpty(phone)) {
+            etName.setText(phone);
         }
     }
 
@@ -102,120 +74,41 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
                 break;
             case R.id.tvOperate:
                 // 打开注册页面
-                startActivity(LoginActivity.this, null, RegisterActivity.class);
+                startActivityForResult(LoginActivity.this, null, AppConstant.REGISTER, RegisterActivity.class);
                 break;
             default:
         }
     }
 
-    private static String TAG = "SplashActivity";
-
-    public void getTokenSuccess(String token) {
-        SpUtils.put("token", token);
-        ChatroomKit.connect(token, new RongIMClient.ConnectCallback() {
-            @Override
-            public void onTokenIncorrect() {
-                // TODO: 2019/2/28 token过期,需要重新请求token
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                Bundle bundle = new Bundle();
-                UserInfo userInfo = new UserInfo(s, "", Uri.parse(""));
-                bundle.putString("userId", s);
-                SpUtils.put("IMUserId", s);
-                ChatroomKit.setCurrentUser(userInfo);
-                startActivity(LoginActivity.this, bundle, MainActivity.class);
-                finish();
-            }
-
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-
-            }
-        });
-
-        RongIMClient.setConnectionStatusListener(new RongIMClient.ConnectionStatusListener() {
-            @Override
-            public void onChanged(ConnectionStatus status) {
-                switch (status) {
-                    case CONNECTED://连接成功。
-                        Log.i(TAG, "连接成功");
-                        break;
-                    case DISCONNECTED://断开连接。
-                        Log.i(TAG, "断开连接");
-                        break;
-                    case CONNECTING://连接中。
-                        Log.i(TAG, "连接中");
-                        break;
-                    case NETWORK_UNAVAILABLE://网络不可用。
-                        Log.i(TAG, "网络不可用");
-                        break;
-                    case KICKED_OFFLINE_BY_OTHER_CLIENT://用户账户在其他设备登录，本机会被踢掉线
-                        Log.i(TAG, "用户账户在其他设备登录");
-                        break;
-                    default:
-                }
-            }
-        });
-    }
+    private static String TAG = "LoginActivity";
 
     public void loginSuccess(LoginBean loginBean) {
         String phone = loginBean.getPhone();
         String token = loginBean.getToken();
         String roomId = loginBean.getRoomId();
         SpUtils.put("phone", phone);
-        SpUtils.put("userName", UiTools.getText(etName));
+        SpUtils.put("loginNumber", UiTools.getText(etName));
         SpUtils.put("token", token);
         SpUtils.put("roomId", roomId);
         SpUtils.put("nickName", loginBean.getNickname());
         SpUtils.put("userName", loginBean.getUsername());
+        startActivity(LoginActivity.this, null, MainActivity.class);
+        finish();
+    }
 
-        ChatroomKit.connect(token, new RongIMClient.ConnectCallback() {
-            @Override
-            public void onTokenIncorrect() {
-                // TODO: 2019/2/28 token过期,需要重新请求token
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case AppConstant.REGISTER:
+                    String phone = (String) SpUtils.get("loginNumber", "");
+                    if (UiTools.noEmpty(phone)) {
+                        etName.setText(phone);
+                    }
+                    break;
+                default:
             }
-
-            @Override
-            public void onSuccess(String s) {
-                Bundle bundle = new Bundle();
-                UserInfo userInfo = new UserInfo(s, "", Uri.parse(""));
-                bundle.putString("userId", s);
-                SpUtils.put("IMUserId", s);
-                ChatroomKit.setCurrentUser(userInfo);
-                startActivity(LoginActivity.this, bundle, MainActivity.class);
-                finish();
-            }
-
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-
-            }
-        });
-
-        RongIMClient.setConnectionStatusListener(new RongIMClient.ConnectionStatusListener() {
-            @Override
-            public void onChanged(ConnectionStatus status) {
-                switch (status) {
-                    case CONNECTED://连接成功。
-                        Log.i(TAG, "连接成功");
-                        break;
-                    case DISCONNECTED://断开连接。
-                        Log.i(TAG, "断开连接");
-                        break;
-                    case CONNECTING://连接中。
-                        Log.i(TAG, "连接中");
-                        break;
-                    case NETWORK_UNAVAILABLE://网络不可用。
-                        Log.i(TAG, "网络不可用");
-                        break;
-                    case KICKED_OFFLINE_BY_OTHER_CLIENT://用户账户在其他设备登录，本机会被踢掉线
-                        Log.i(TAG, "用户账户在其他设备登录");
-                        break;
-                    default:
-                }
-            }
-        });
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

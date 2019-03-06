@@ -11,6 +11,7 @@ import com.lairui.livetest1.presenter.RegisterPresenter;
 import com.lzy.okgo.model.HttpParams;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.utils.CountDownUtils;
+import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
 public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> implements View.OnClickListener {
@@ -67,7 +68,9 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     }
 
     public void registerSuccess() {
-
+        String phone = UiTools.getText(etPhone);
+        SpUtils.put("loginNumber",phone);
+        finish();
     }
 
     @Override
