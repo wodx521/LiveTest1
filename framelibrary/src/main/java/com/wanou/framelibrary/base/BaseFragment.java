@@ -60,10 +60,8 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        isHiddenListener(hidden);
-    }
 
-    protected abstract void isHiddenListener(boolean hidden);
+    }
 
     protected void viewGone(View... views) {
         if (views != null && views.length > 0) {

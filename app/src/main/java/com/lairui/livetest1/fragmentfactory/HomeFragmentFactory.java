@@ -1,5 +1,6 @@
 package com.lairui.livetest1.fragmentfactory;
 
+import com.lairui.livetest1.module.one_module.fragment.AttentionFragment;
 import com.lairui.livetest1.module.one_module.fragment.RecommendFragment;
 import com.lairui.livetest1.module.one_module.fragment.VideoFragment;
 import com.wanou.framelibrary.base.BaseFragment;
@@ -22,12 +23,20 @@ public class HomeFragmentFactory {
         } else {
             switch (position) {
                 case 0:
-                    baseFragment = new RecommendFragment();
+                    // 关注列表
+                    baseFragment = new AttentionFragment();
                     break;
                 case 1:
+                    // 热门列表
                     baseFragment = new VideoFragment();
                     break;
                 case 2:
+                    // 附近列表
+                    baseFragment = new VideoFragment();
+                    break;
+                case 3:
+                    // 推荐列表
+                    baseFragment = new RecommendFragment();
                     break;
                 default:
             }

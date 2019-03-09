@@ -38,7 +38,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
     protected void initView() {
         mSimpleMultiStateView = findViewById(R.id.SimpleMultiStateView);
         tvOperate = findViewById(R.id.tvOperate);
-        tvToolbarTitle = findViewById(R.id.tv_toolbar_title);
+        tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
         etName = findViewById(R.id.et_name);
         etPassword = findViewById(R.id.et_password);
         btnLogin = findViewById(R.id.btn_login);
@@ -56,6 +56,13 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
         String phone = (String) SpUtils.get("loginNumber", "");
         if (UiTools.noEmpty(phone)) {
             etName.setText(phone);
+        }
+
+        if (mBundle != null) {
+            int loginStatus = mBundle.getInt("loginStatus");
+//            if (loginStatus == 1) {
+//                OutTimeDialog.getDialog(LoginActivity.this, "", "");
+//            }
         }
     }
 

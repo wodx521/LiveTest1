@@ -27,8 +27,4 @@ public class VideoFragment extends BaseMvpFragment<VideoPresenter> {
 
     }
 
-    @Override
-    protected void isHiddenListener(boolean hidden) {
-
-    }
 }

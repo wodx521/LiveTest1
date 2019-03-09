@@ -27,9 +27,4 @@ public class SecondMainFragment extends BaseMvpFragment<SecondMainPresenter> {
     protected void initData() {
 
     }
-
-    @Override
-    protected void isHiddenListener(boolean hidden) {
-
-    }
 }

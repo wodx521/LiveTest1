@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     app:contentInsetStart="@dimen/dp_0">
 
     <ImageView
-        android:id="@+id/iv_back"
+        android:id="@+id/ivLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:padding="@dimen/dp_10"
-        android:src="@drawable/left_arrow"
-        android:visibility="invisible" />
+        android:padding="@dimen/dp_5"
+        android:src="@drawable/search_black"
+        android:visibility="gone" />
 
     <TextView
-        android:id="@+id/tv_toolbar_title"
+        android:id="@+id/tvToolbarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/color_black"
         android:textSize="18sp" />
 
     <TextView
@@ -29,12 +30,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:padding="@dimen/dp_5"
-        android:textSize="@dimen/sp_15"
         android:textColor="@color/color_white"
+        android:textSize="@dimen/sp_15"
         android:visibility="gone" />
 
     <ImageView
-        android:id="@+id/iv_setting"
+        android:id="@+id/ivRight1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -43,13 +44,12 @@
         android:visibility="gone" />
 
     <ImageView
-        android:id="@+id/ivSearch"
+        android:id="@+id/ivRight2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:adjustViewBounds="true"
         android:padding="@dimen/dp_10"
         android:visibility="gone" />
-
 
 </android.support.v7.widget.Toolbar>

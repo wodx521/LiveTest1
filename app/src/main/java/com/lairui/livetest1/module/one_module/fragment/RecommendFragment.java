@@ -76,10 +76,6 @@ public class RecommendFragment extends BaseMvpFragment<RecommendPresenter> {
         mPresenter.getLiveList(httpParams);
     }
 
-    @Override
-    protected void isHiddenListener(boolean hidden) {
-
-    }
 
     public void setLiveList(LiveListBean liveListBean) {
         viewGone(clError);

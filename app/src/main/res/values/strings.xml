@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">LiveTest1</string>
+    <string name="app_name">莱瑞直播</string>
 
     <string name="bottom_one">首页</string>
-    <string name="bottom_two">附近</string>
-    <string name="bottom_third">第三</string>
-    <string name="bottom_four">关注</string>
+    <string name="bottom_two">榜单</string>
+    <string name="bottom_third">直播</string>
+    <string name="bottom_four">小视频</string>
     <string name="bottom_five">我</string>
     <string name="hint_user_name">请输入用户名</string>
     <string name="hint_password">请输入密码</string>
@@ -17,7 +17,10 @@
     <string name="hintPhone">请输入手机号</string>
     <string name="hintVerificationCode">请输入验证码</string>
     <string name="sendVerificationCode">发送验证码</string>
-    <string name="waitMoment">主播暂时离开, 请稍等片刻...</string>
+    <string name="waitMoment">主播暂时离开, 请稍等片刻…</string>
     <string name="myAttention">我的关注</string>
     <string name="myFans">我的粉丝</string>
+    <string name="emptyContent">暂无任何内容</string>
+    <string name="errorNet">网络链接错误,点击重试</string>
+    <string name="inputSearch">请搜索用户名或ID</string>
 </resources>

@@ -8,6 +8,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,6 +36,8 @@ import permissions.dispatcher.RuntimePermissions;
 public class MainActivity extends BaseMvpActivity<MainPresenter> implements View.OnClickListener {
     private BottomNavigationView navigation;
     private ImageView ivMiddleMenu;
+    private Bundle bundle = new Bundle();
+    private double mTime;
 
     @Override
     protected int getResId() {
@@ -65,13 +68,11 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
                         addFragment(0, title);
                         return true;
                     case R.id.navigation_two:
-//                        addFragment(1, title);
-//                        LiveDialog liveDialog = new LiveDialog(MainActivity.this);
-//                        liveDialog.showDialog();
-//                        startActivity(MainActivity.this, null, LiveActivity.class);
-                        return false;
+                        addFragment(1, title);
+                        return true;
                     case R.id.navigation_third:
-                        addFragment(2, title);
+//                        addFragment(2, title);
+                        MainActivityPermissionsDispatcher.applyPermissionsWithPermissionCheck(MainActivity.this);
                         return true;
                     case R.id.navigation_four:
                         addFragment(3, title);
@@ -95,6 +96,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
                 public void onTokenIncorrect() {
                     // TODO: 2019/2/28 token过期,需要重新请求token
 //                OutTimeDialog.getDialog(MainActivity.this, "登录超时", "是否重新登录?");
+                    UiTools.showToast("token过期了");
                 }
 
                 @Override
@@ -129,11 +131,13 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
                             break;
                         case KICKED_OFFLINE_BY_OTHER_CLIENT://用户账户在其他设备登录，本机会被踢掉线
                             LogUtils.i("用户账户在其他设备登录");
-                        UiTools.showToast("用户账户在其他设备登录");
-                        SpUtils.put("token", "");
-                        ChatroomKit.logout();
-                        ActivityManage.getInstance().finishAll();
-                        startActivity(MainActivity.this, null, LoginActivity.class);
+                            UiTools.showToast("用户账户在其他设备登录");
+                            SpUtils.put("token", "");
+                            ChatroomKit.logout();
+                            ActivityManage.getInstance().finishAll();
+                            bundle.clear();
+                            bundle.putInt("loginStatus",1);
+                            startActivity(MainActivity.this, bundle, LoginActivity.class);
 //                            OutTimeDialog.getDialog(MainActivity.this, "用户账户在其他设备登录", "是否重新登录?");
                             break;
                         default:
@@ -148,6 +152,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
         String sdkver = TXLiveBase.getSDKVersionStr();
         Log.d("liteavsdk", "liteav sdk version is : " + sdkver);
     }
+
 
     private void addFragment(int position, String title) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -164,6 +169,8 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
         }
         fragmentTransaction.commitAllowingStateLoss();
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -192,5 +199,20 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
     void deniedPermission() {
         // todo 这个方法只有在全部权限被拒绝时才调用,
         UiTools.showToast("权限被拒绝,无法正常开启直播");
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mTime) > 1000) {
+                UiTools.showToast("再按一次退出程序");
+                mTime = System.currentTimeMillis();
+            } else {
+                ChatroomKit.logout();
+                ActivityManage.getInstance().finishAll();
+            }
+            return true;
+        }
+        return super.onKeyUp(keyCode, event);
     }
 }

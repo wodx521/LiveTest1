@@ -54,17 +54,18 @@ public abstract class CustomizeStringCallback extends StringCallback {
     public void onError(Response<String> response) {
         Throwable exception = response.getException();
         exception.printStackTrace();
+        SimpleResponse simpleResponse = null;
         if (exception instanceof UnknownHostException || exception instanceof ConnectException) {
             UiTools.showToast(UiTools.getString(R.string.connect_fail));
         } else if (exception instanceof SocketTimeoutException) {
             UiTools.showToast(UiTools.getString(R.string.connect_out_time));
         } else if (exception instanceof IllegalAccessException) {
             UiTools.showToast(exception.getMessage());
-            SimpleResponse simpleResponse = GsonUtils.fromJson(response.body(), SimpleResponse.class);
-            onRequestError(simpleResponse);
+            simpleResponse = GsonUtils.fromJson(response.body(), SimpleResponse.class);
         } else {
             UiTools.showToast(UiTools.getString(R.string.server_error));
         }
+        onRequestError(simpleResponse);
     }
 
     @Override

@@ -2,8 +2,10 @@
 <resources>
 
     <string-array name="liveClassification">
-        <item>推荐</item>
-        <!--<item>小视频</item>-->
+        <item>关注</item>
+        <!--<item>热门</item>-->
+        <!--<item>附近</item>-->
+        <!--<item>推荐</item>-->
     </string-array>
 
     <string-array name="liveList">

@@ -21,14 +21,13 @@
         android:layout_height="wrap_content"
         android:background="@color/color_white"
         app:elevation="@dimen/dp_0"
-        app:itemBackground="@null"
         app:itemHorizontalTranslationEnabled="true"
         app:itemTextColor="@drawable/selector_bottom_text_color"
-        app:labelVisibilityMode="labeled"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_bar3" />
+        app:menu="@menu/bottom_bar5" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"

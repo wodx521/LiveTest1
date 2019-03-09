@@ -27,8 +27,4 @@ public class FourMainFragment extends BaseMvpFragment<FourMainPresenter> {
 
     }
 
-    @Override
-    protected void isHiddenListener(boolean hidden) {
-
-    }
 }

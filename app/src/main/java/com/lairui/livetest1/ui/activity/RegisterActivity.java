@@ -39,8 +39,8 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     @Override
     protected void initView() {
         mSimpleMultiStateView = findViewById(R.id.SimpleMultiStateView);
-        ivBack = findViewById(R.id.iv_back);
-        tvToolbarTitle = findViewById(R.id.tv_toolbar_title);
+        ivBack = findViewById(R.id.ivLeft);
+        tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
         etName = findViewById(R.id.et_name);
         etPassword = findViewById(R.id.et_password);
         etPhone = findViewById(R.id.etPhone);
@@ -78,7 +78,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
         httpParams.clear();
         String phone = UiTools.getText(etPhone);
         switch (v.getId()) {
-            case R.id.iv_back:
+            case R.id.ivLeft:
                 finish();
                 break;
             case R.id.tvSendVerCode:
