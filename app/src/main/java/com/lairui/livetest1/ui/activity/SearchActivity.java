@@ -16,6 +16,9 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wanou.framelibrary.base.BaseMvpActivity;
+import com.wanou.framelibrary.base.BaseRecycleViewAdapter;
+import com.wanou.framelibrary.bean.SimpleResponse;
+import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.ArrayList;
@@ -91,6 +94,7 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
 
     @Override
     public void onClick(View v) {
+        String token = (String) SpUtils.get("token", "");
         switch (v.getId()) {
             case R.id.ivBack:
                 finish();
@@ -107,6 +111,7 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
                     page = 0;
                     httpParams.put("operate", "userGroup-user");
                     httpParams.put("page", page);
+                    httpParams.put("token", token);
                     if (UiTools.noEmpty(UiTools.getText(etSearchLive))) {
                         httpParams.put("key", UiTools.getText(etSearchLive));
                     } else {
@@ -130,10 +135,12 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
         srlRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshLayout) {
+                String token = (String) SpUtils.get("token", "");
                 page = currentPage + 1;
                 httpParams.put("operate", "userGroup-user");
                 httpParams.put("key", UiTools.getText(etSearchLive));
                 httpParams.put("page", page);
+                httpParams.put("token", token);
                 mPresenter.getSearchList(httpParams);
             }
 
@@ -148,5 +155,19 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
         tempData.addAll(data);
         searchListAdapter.setSearchListBeanList(data);
 
+        searchListAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(View view, int position) {
+
+            }
+        });
+    }
+
+    public void setSearchError(SimpleResponse simpleResponse) {
+        if (simpleResponse != null) {
+            if (simpleResponse.code == -1) {
+                startActivity(SearchActivity.this, null, LoginActivity.class);
+            }
+        }
     }
 }

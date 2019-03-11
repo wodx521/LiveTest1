@@ -36,7 +36,7 @@ public class SearchPresenter extends BasePresenterImpl<SearchActivity> {
 
             @Override
             public void onRequestError(SimpleResponse simpleResponse) {
-
+                mPresenterView.setSearchError(simpleResponse);
             }
 
             @Override

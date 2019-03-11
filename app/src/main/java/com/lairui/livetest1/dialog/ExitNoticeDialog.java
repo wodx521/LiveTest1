@@ -19,7 +19,7 @@ import com.wanou.framelibrary.utils.UiTools;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OutTimeDialog {
+public class ExitNoticeDialog {
     private static List<Dialog> dialogList = new ArrayList<>();
 
     public static void getDialog(Activity activity, String notice, String notice1) {

@@ -4,31 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/layout_toolbar" />
-
     <android.support.design.widget.TabLayout
-        android:id="@+id/tlClassification"
-        android:layout_width="0dp"
+        android:id="@+id/tlRankingDetail"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolBar" />
+        android:background="@color/color_white" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/vpIncome"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tlClassification" />
-
-    <include
-        layout="@layout/layout_error_net_view"
-        android:visibility="gone" />
-
-    <include
-        layout="@layout/layout_loading_view"
-        android:visibility="gone" />
+        app:layout_constraintTop_toBottomOf="@id/tlRankingDetail" />
 </android.support.constraint.ConstraintLayout>

@@ -89,13 +89,13 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
         navigation.setSelectedItemId(R.id.navigation_one);
         ivMiddleMenu.setOnClickListener(this);
 //        MainActivityPermissionsDispatcher.applyPermissionsWithPermissionCheck(this);
-        String token = (String) SpUtils.get("token", "");
-        if (UiTools.noEmpty(token)) {
-            ChatroomKit.connect(token, new RongIMClient.ConnectCallback() {
+        String imtoken = (String) SpUtils.get("imtoken", "");
+        if (UiTools.noEmpty(imtoken)) {
+            ChatroomKit.connect(imtoken, new RongIMClient.ConnectCallback() {
                 @Override
                 public void onTokenIncorrect() {
                     // TODO: 2019/2/28 token过期,需要重新请求token
-//                OutTimeDialog.getDialog(MainActivity.this, "登录超时", "是否重新登录?");
+//                ExitNoticeDialog.getDialog(MainActivity.this, "登录超时", "是否重新登录?");
                     UiTools.showToast("token过期了");
                 }
 
@@ -138,7 +138,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
                             bundle.clear();
                             bundle.putInt("loginStatus",1);
                             startActivity(MainActivity.this, bundle, LoginActivity.class);
-//                            OutTimeDialog.getDialog(MainActivity.this, "用户账户在其他设备登录", "是否重新登录?");
+//                            ExitNoticeDialog.getDialog(MainActivity.this, "用户账户在其他设备登录", "是否重新登录?");
                             break;
                         default:
                     }

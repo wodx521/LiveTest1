@@ -30,6 +30,13 @@ public class LoginBean {
     @SerializedName("room_id")
     private String roomId;
     private String token;
+    private String imtoken;
+    /**
+     * email : null
+     * alipay : null
+     * room_id : 100007
+     * imtoken : OiTaI9VwlHRd8pQpqWQBXNeVOL6pZW48Ae5nqY9D13ltTy1B0ygVmLxYu2U/lERqVgcLscE6l4AsgKduzNc5dw==
+     */
 
     public int getId() {
         return id;
@@ -117,5 +124,13 @@ public class LoginBean {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getImtoken() {
+        return imtoken;
+    }
+
+    public void setImtoken(String imtoken) {
+        this.imtoken = imtoken;
     }
 }

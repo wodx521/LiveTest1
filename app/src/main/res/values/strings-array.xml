@@ -75,4 +75,15 @@
         <item>河南省</item>
         <item>贵州省</item>
     </string-array>
+
+    <string-array name="Ranking">
+        <item>收入榜</item>
+        <item>消费榜</item>
+    </string-array>
+
+    <string-array name="RankingCategory">
+        <item>日榜</item>
+        <item>月榜</item>
+        <item>总榜</item>
+    </string-array>
 </resources>

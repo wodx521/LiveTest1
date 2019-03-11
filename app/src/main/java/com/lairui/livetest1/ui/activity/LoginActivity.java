@@ -61,7 +61,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
         if (mBundle != null) {
             int loginStatus = mBundle.getInt("loginStatus");
 //            if (loginStatus == 1) {
-//                OutTimeDialog.getDialog(LoginActivity.this, "", "");
+//                ExitNoticeDialog.getDialog(LoginActivity.this, "", "");
 //            }
         }
     }
@@ -93,9 +93,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
         String phone = loginBean.getPhone();
         String token = loginBean.getToken();
         String roomId = loginBean.getRoomId();
+        String imtoken = loginBean.getImtoken();
         SpUtils.put("phone", phone);
         SpUtils.put("loginNumber", UiTools.getText(etName));
         SpUtils.put("token", token);
+        SpUtils.put("imtoken", imtoken);
         SpUtils.put("roomId", roomId);
         SpUtils.put("nickName", loginBean.getNickname());
         SpUtils.put("userName", loginBean.getUsername());

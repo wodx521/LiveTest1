@@ -1,28 +1,37 @@
 package com.lairui.livetest1.module.one_module.adapter;
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 
-import com.lairui.livetest1.R;
+import com.lairui.livetest1.entity.bean.CategoryBean;
 import com.wanou.framelibrary.base.BaseFragmentPagerAdapter;
-import com.wanou.framelibrary.utils.UiTools;
+
+import java.util.List;
 
 public class LiveClassificationAdapter extends BaseFragmentPagerAdapter {
 
-    private String[] stringArray;
+    private List<CategoryBean> categoryListBean;
 
     public LiveClassificationAdapter(FragmentManager fm) {
         super(fm);
-        stringArray = UiTools.getStringArray(R.array.liveClassification);
+    }
+
+    public void setCategoryListBean(List<CategoryBean> categoryListBean) {
+        this.categoryListBean = categoryListBean;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return stringArray.length;
+        if (categoryListBean != null && categoryListBean.size() > 0) {
+            return categoryListBean.size();
+        }
+        return 0;
     }
 
-//    @Nullable
-//    @Override
-//    public CharSequence getPageTitle(int position) {
-//        return stringArray[position];
-//    }
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return categoryListBean.get(position).getName();
+    }
 }

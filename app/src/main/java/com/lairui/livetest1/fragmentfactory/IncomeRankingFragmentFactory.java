@@ -1,10 +1,6 @@
 package com.lairui.livetest1.fragmentfactory;
 
-import com.lairui.livetest1.module.five_module.fragment.FiveMainFragment;
-import com.lairui.livetest1.module.four_module.FourMainFragment;
-import com.lairui.livetest1.module.one_module.fragment.FirstMainFragment;
-import com.lairui.livetest1.module.three_module.fragment.ThirdMainFragment;
-import com.lairui.livetest1.module.two_module.fragment.SecondMainFragment;
+import com.lairui.livetest1.module.two_module.fragment.IncomeDayFragment;
 import com.wanou.framelibrary.base.BaseFragment;
 
 import java.util.HashMap;
@@ -13,7 +9,7 @@ import java.util.HashMap;
  * @author wodx521
  * @date on 2018/8/17
  */
-public class MainFragmentFactory {
+public class IncomeRankingFragmentFactory {
     public static HashMap<Integer, BaseFragment> fragmentMainMap = new HashMap<>();
 
     public static BaseFragment getFragment(int position) {
@@ -25,19 +21,16 @@ public class MainFragmentFactory {
         } else {
             switch (position) {
                 case 0:
-                    baseFragment = new FirstMainFragment();
+                    // 关注列表
+                    baseFragment = new IncomeDayFragment();
                     break;
                 case 1:
-                    baseFragment = new SecondMainFragment();
+                    // 热门列表
+//                    baseFragment = new IncomeWeekFragment();
                     break;
                 case 2:
-                    baseFragment = new ThirdMainFragment();
-                    break;
-                case 3:
-                    baseFragment = new FourMainFragment();
-                    break;
-                case 4:
-                    baseFragment = new FiveMainFragment();
+                    // 热门列表
+//                    baseFragment = new IncomeTotalFragment();
                     break;
                 default:
             }
