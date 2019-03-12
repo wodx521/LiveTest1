@@ -31,7 +31,7 @@ public class AttentionFragment extends BaseMvpFragment<AttentionPresenter> {
     private SmartRefreshLayout srlRefresh;
     private RecyclerView rvLiveList;
     private TextView tvErrorNet;
-    private ConstraintLayout clErrorNet, clEmpty, clLoading;
+    private ConstraintLayout clError, clEmpty, clLoading;
     private HttpParams httpParams = new HttpParams();
     private List<LiveRoomBean> tempLiveRoom = new ArrayList<>();
     private Bundle bundle = new Bundle();
@@ -51,11 +51,11 @@ public class AttentionFragment extends BaseMvpFragment<AttentionPresenter> {
     protected void initView(View view) {
         srlRefresh = view.findViewById(R.id.srlRefresh);
         rvLiveList = view.findViewById(R.id.rvLiveList);
-        clErrorNet = view.findViewById(R.id.clErrorNet);
+        clError = view.findViewById(R.id.clError);
         clEmpty = view.findViewById(R.id.clEmpty);
         clLoading = view.findViewById(R.id.clLoading);
         tvErrorNet = view.findViewById(R.id.tvErrorNet);
-        viewGone(srlRefresh, clErrorNet, clEmpty);
+        viewGone(srlRefresh, clError, clEmpty);
         viewVisible(clLoading);
 
     }
@@ -79,7 +79,7 @@ public class AttentionFragment extends BaseMvpFragment<AttentionPresenter> {
     }
 
     public void setLiveList(LiveListBean liveListBean) {
-        viewGone(clLoading, clErrorNet, clEmpty);
+        viewGone(clLoading, clError, clEmpty);
         viewVisible(srlRefresh);
         int lastPage = liveListBean.getLastPage();
         int currentPage = liveListBean.getCurrentPage();
@@ -121,11 +121,11 @@ public class AttentionFragment extends BaseMvpFragment<AttentionPresenter> {
     public void getLiveError(SimpleResponse simpleResponse) {
         if (simpleResponse == null) {
             viewGone(clLoading, clEmpty, srlRefresh);
-            viewVisible(clErrorNet);
-            clErrorNet.setOnClickListener(new View.OnClickListener() {
+            viewVisible(clError);
+            clError.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    viewGone(clErrorNet, clEmpty, srlRefresh);
+                    viewGone(clError, clEmpty, srlRefresh);
                     viewVisible(clLoading);
                     getLiveRoom();
                 }

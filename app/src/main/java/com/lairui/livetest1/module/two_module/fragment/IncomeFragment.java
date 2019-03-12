@@ -1,17 +1,24 @@
 package com.lairui.livetest1.module.two_module.fragment;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lairui.livetest1.R;
-import com.lairui.livetest1.module.two_module.adapter.IncomeAdapter;
+import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.module.two_module.presenter.IncomePresenter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.wanou.framelibrary.base.BaseMvpFragment;
+import com.wanou.framelibrary.utils.UiTools;
 
 public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
     private TabLayout tlRankingDetail;
-    private ViewPager vpIncome;
+    private SmartRefreshLayout srlRefresh;
+    private RecyclerView rvRanking;
+    private ConstraintLayout clLoading;
+    private ConstraintLayout clError;
+    private ConstraintLayout clEmpty;
 
     @Override
     protected IncomePresenter getPresenter() {
@@ -26,16 +33,42 @@ public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
     @Override
     protected void initView(View view) {
         tlRankingDetail = view.findViewById(R.id.tlRankingDetail);
-        vpIncome = view.findViewById(R.id.vpIncome);
+        srlRefresh = view.findViewById(R.id.srlRefresh);
+        rvRanking = view.findViewById(R.id.rvRanking);
+        clLoading = view.findViewById(R.id.clLoading);
+        clError = view.findViewById(R.id.clError);
+        clEmpty = view.findViewById(R.id.clEmpty);
 
+        viewVisible(clLoading);
+        viewGone(clEmpty,clError,srlRefresh);
     }
 
     @Override
     protected void initData() {
-        IncomeAdapter incomeAdapter = new IncomeAdapter(getChildFragmentManager());
-//        incomeAdapter.addFragment(new DayRankingIncomeFragment());
+        String[] stringArray = UiTools.getStringArray(R.array.RankingCategory);
+        for (String tabContent : stringArray) {
+            tlRankingDetail.addTab(tlRankingDetail.newTab().setText(tabContent));
+        }
 
-        vpIncome.setAdapter(incomeAdapter);
-        tlRankingDetail.setupWithViewPager(vpIncome);
+        tlRankingDetail.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
+
+    public void setRankingBean(RankingBean rankingBean) {
+
     }
 }

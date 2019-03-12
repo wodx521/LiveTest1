@@ -29,7 +29,6 @@ public class SecondFragmentFactory {
                     // 热门列表
                     baseFragment = new ConsumptionFragment();
                     break;
-
                 default:
             }
             fragmentMainMap.put(position, baseFragment);

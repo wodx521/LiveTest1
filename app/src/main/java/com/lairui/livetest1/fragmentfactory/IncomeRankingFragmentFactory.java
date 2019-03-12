@@ -21,15 +21,15 @@ public class IncomeRankingFragmentFactory {
         } else {
             switch (position) {
                 case 0:
-                    // 关注列表
+                    // 日榜
                     baseFragment = new IncomeDayFragment();
                     break;
                 case 1:
-                    // 热门列表
+                    // 月榜
 //                    baseFragment = new IncomeWeekFragment();
                     break;
                 case 2:
-                    // 热门列表
+                    // 总榜
 //                    baseFragment = new IncomeTotalFragment();
                     break;
                 default:

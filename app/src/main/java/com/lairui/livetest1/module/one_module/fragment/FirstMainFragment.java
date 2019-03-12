@@ -29,7 +29,7 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
     private TextView tvToolbarTitle;
     private ImageView ivRight1;
     private ImageView ivRight2;
-    private ConstraintLayout clErrorNet;
+    private ConstraintLayout clError;
     private ConstraintLayout clLoading;
     private HttpParams httpParams = new HttpParams();
 
@@ -51,7 +51,7 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
         ivRight2 = view.findViewById(R.id.ivRight2);
         tlClassification = view.findViewById(R.id.tlClassification);
         viewPager = view.findViewById(R.id.viewPager);
-        clErrorNet = view.findViewById(R.id.clErrorNet);
+        clError = view.findViewById(R.id.clError);
         clLoading = view.findViewById(R.id.clLoading);
 
         tvToolbarTitle.setText(R.string.bottom_one);
@@ -60,7 +60,7 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
         ivRight2.setImageResource(R.drawable.notice);
 
         viewVisible(ivLeft, clLoading);
-        viewGone(clErrorNet);
+        viewGone(clError);
         ivLeft.setOnClickListener(this);
     }
 
@@ -100,7 +100,7 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
     }
 
     public void setCategory(List<CategoryBean> categoryListBean) {
-        viewGone(clLoading, clErrorNet);
+        viewGone(clLoading, clError);
         LiveClassificationAdapter liveClassificationAdapter = new LiveClassificationAdapter(getChildFragmentManager());
         liveClassificationAdapter.setCategoryListBean(categoryListBean);
 
@@ -119,12 +119,12 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
 
     public void setCategoryError() {
         viewGone(clLoading,tlClassification);
-        viewVisible(clErrorNet);
-        clErrorNet.setOnClickListener(new View.OnClickListener() {
+        viewVisible(clError);
+        clError.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewVisible(clLoading);
-                viewGone(clErrorNet,tlClassification);
+                viewGone(clError,tlClassification);
                 initData();
             }
         });
