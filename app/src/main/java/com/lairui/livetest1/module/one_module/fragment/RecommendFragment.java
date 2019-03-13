@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.entity.bean.LiveListBean;
@@ -31,7 +30,6 @@ import io.rong.imlib.RongIMClient;
 public class RecommendFragment extends BaseMvpFragment<RecommendPresenter> {
     private RecyclerView rvLiveList;
     private ConstraintLayout clError;
-    private Button btRetry;
     private SmartRefreshLayout srlRefresh;
     private LiveListAdapter liveListAdapter;
     private Bundle bundle = new Bundle();
@@ -52,7 +50,6 @@ public class RecommendFragment extends BaseMvpFragment<RecommendPresenter> {
     protected void initView(View view) {
         rvLiveList = view.findViewById(R.id.rvLiveList);
         clError = view.findViewById(R.id.clError);
-        btRetry = view.findViewById(R.id.bt_retry);
         srlRefresh = view.findViewById(R.id.srlRefresh);
 
         viewGone(srlRefresh, clError);
