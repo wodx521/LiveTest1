@@ -27,6 +27,7 @@ public class FourMainPresenter extends BasePresenterImpl<FourMainFragment> {
             @Override
             public void onRequestSuccess(GeneralResult generalResult) {
                 List<VideoBean> videoBeanList = (List<VideoBean>) generalResult.data;
+                mPresenterView.setVideoSuccess(videoBeanList);
             }
 
             @Override

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+        android:id="@+id/gsyVideoPlayer"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_250"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/gsyVideoPlayer">
+
+        <com.lairui.livetest1.ui.panel.CircleImageView
+            android:id="@+id/ivAuthorIcon"
+            android:layout_width="@dimen/dp_37"
+            android:layout_height="@dimen/dp_37"
+            android:src="@drawable/chatroom_01"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAuthorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:padding="@dimen/dp_5"
+            android:textColor="@color/color_black"
+            app:layout_constraintStart_toEndOf="@id/ivAuthorIcon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvVideoDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_5"
+            android:padding="@dimen/dp_5"
+            android:textColor="@color/colorGray1"
+            app:layout_constraintStart_toEndOf="@id/ivAuthorIcon"
+            app:layout_constraintTop_toBottomOf="@id/tvAuthorName" />
+
+        <TextView
+            android:id="@+id/tvVideoWatch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_5"
+            android:drawableStart="@drawable/video_user_dynamics"
+            android:drawablePadding="@dimen/dp_5"
+            android:padding="@dimen/dp_5"
+            android:text="0"
+            android:textColor="@color/colorGray1"
+            app:layout_constraintBottom_toBottomOf="@id/tvAuthorName"
+            app:layout_constraintEnd_toStartOf="@id/cbVideoPraise"
+            app:layout_constraintTop_toTopOf="@id/tvAuthorName"
+            app:layout_goneMarginRight="@dimen/dp_5"
+            tools:ignore="RtlHardcoded" />
+
+        <CheckBox
+            android:id="@+id/cbVideoPraise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_5"
+            android:button="@null"
+            android:drawableStart="@drawable/selector_favorite_check"
+            android:drawablePadding="@dimen/dp_5"
+            android:padding="@dimen/dp_5"
+            android:text="0"
+            android:textColor="@color/colorGray1"
+            app:layout_constraintBottom_toBottomOf="@id/tvAuthorName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvAuthorName" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvCommentList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clAuthor" />
+
+</android.support.constraint.ConstraintLayout>

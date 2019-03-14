@@ -2,7 +2,7 @@ package com.lairui.livetest1.entity.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-public class VideoBean{
+public class VideoBean {
 
     /**
      * id : 1
@@ -17,15 +17,23 @@ public class VideoBean{
      */
 
     private int id;
+    // 用户id
     private int userid;
+    // 用户标题
     private String title;
+    // 视频地址
     private String video;
+    // 点赞信息
     private PraiseBean praise;
+    // 创建时间
     @SerializedName("create_time")
     private String createTime;
+    // 更新时间
     @SerializedName("update_time")
     private String updateTime;
+    // 用户昵称
     private String nickname;
+    // 用户头像
     private String portrait;
 
     public int getId() {

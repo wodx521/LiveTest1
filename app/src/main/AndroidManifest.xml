@@ -63,6 +63,7 @@
         <activity android:name=".ui.activity.LiveActivity" />
         <activity android:name=".ui.activity.LivePushActivity" />
         <activity android:name=".ui.activity.SearchActivity" />
+        <activity android:name=".module.four_module.activity.VideoDetailActivity" />
 
 
     </application>
