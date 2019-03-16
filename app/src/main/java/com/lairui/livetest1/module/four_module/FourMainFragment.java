@@ -12,16 +12,18 @@ import com.lairui.livetest1.entity.bean.VideoBean;
 import com.lairui.livetest1.module.four_module.activity.VideoDetailActivity;
 import com.lairui.livetest1.module.four_module.adapter.VideoAdapter;
 import com.lairui.livetest1.module.four_module.presenter.FourMainPresenter;
+import com.lairui.livetest1.ui.activity.SearchActivity;
 import com.lzy.okgo.model.HttpParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.base.BaseRecycleViewAdapter;
+import com.wanou.framelibrary.utils.SpUtils;
 
 import java.util.List;
 
-public class FourMainFragment extends BaseMvpFragment<FourMainPresenter> {
+public class FourMainFragment extends BaseMvpFragment<FourMainPresenter> implements View.OnClickListener {
     private ImageView ivLeft;
     private TextView tvToolbarTitle;
     private ImageView ivRight1;
@@ -54,9 +56,15 @@ public class FourMainFragment extends BaseMvpFragment<FourMainPresenter> {
         clEmpty = view.findViewById(R.id.clEmpty);
         clError = view.findViewById(R.id.clError);
         clLoading = view.findViewById(R.id.clLoading);
-
+        srlRefresh.setEnableLoadMore(false);
         viewGone(clEmpty, clError, srlRefresh);
-        viewVisible(clLoading);
+        viewVisible(clLoading, ivLeft, ivRight1);
+        tvToolbarTitle.setText(R.string.smallVideo);
+        ivLeft.setImageResource(R.drawable.search_black);
+        ivRight1.setImageResource(R.drawable.notice);
+
+        ivLeft.setOnClickListener(this);
+        ivRight1.setOnClickListener(this);
     }
 
     @Override
@@ -81,24 +89,49 @@ public class FourMainFragment extends BaseMvpFragment<FourMainPresenter> {
     }
 
     private void getVideo() {
+        String token = (String) SpUtils.get("token", "");
         httpParams.clear();
         httpParams.put("operate", "videoGroup-videoList");
+        httpParams.put("token", token);
         mPresenter.getVideoList(httpParams);
     }
 
     public void setVideoSuccess(List<VideoBean> videoBeanList) {
         viewGone(clEmpty, clError, clLoading);
         viewVisible(srlRefresh);
-
         videoAdapter.setData(videoBeanList);
-
         videoAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position) {
                 bundle.clear();
-
+                VideoBean videoBean = videoBeanList.get(position);
+                bundle.putParcelable("videoBean", videoBean);
                 startActivity(FourMainFragment.this, bundle, VideoDetailActivity.class);
             }
         });
+    }
+
+    public void setVideoError() {
+        viewGone(clEmpty, clLoading, srlRefresh);
+        viewVisible(clError);
+        clError.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getVideo();
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ivLeft:
+                startActivity(FourMainFragment.this,null,SearchActivity.class);
+                break;
+            case R.id.ivRight1:
+
+                break;
+            default:
+        }
     }
 }

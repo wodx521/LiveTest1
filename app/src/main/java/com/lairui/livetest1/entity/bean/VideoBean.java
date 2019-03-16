@@ -1,8 +1,11 @@
 package com.lairui.livetest1.entity.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class VideoBean {
+public class VideoBean implements Parcelable {
 
     /**
      * id : 1
@@ -35,6 +38,46 @@ public class VideoBean {
     private String nickname;
     // 用户头像
     private String portrait;
+
+    protected VideoBean(Parcel in) {
+        id = in.readInt();
+        userid = in.readInt();
+        title = in.readString();
+        video = in.readString();
+        createTime = in.readString();
+        updateTime = in.readString();
+        nickname = in.readString();
+        portrait = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(userid);
+        dest.writeString(title);
+        dest.writeString(video);
+        dest.writeString(createTime);
+        dest.writeString(updateTime);
+        dest.writeString(nickname);
+        dest.writeString(portrait);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<VideoBean> CREATOR = new Creator<VideoBean>() {
+        @Override
+        public VideoBean createFromParcel(Parcel in) {
+            return new VideoBean(in);
+        }
+
+        @Override
+        public VideoBean[] newArray(int size) {
+            return new VideoBean[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -108,29 +151,57 @@ public class VideoBean {
         this.portrait = portrait;
     }
 
-    public static class PraiseBean {
+    public static class PraiseBean implements Parcelable {
         /**
          * user_array : [1,2]
          * num : 2
          */
+        @SerializedName("user_array")
+        private String userArray;
+        private String num;
 
-        private String user_array;
-        private int num;
-
-        public String getUser_array() {
-            return user_array;
+        protected PraiseBean(Parcel in) {
+            userArray = in.readString();
+            num = in.readString();
         }
 
-        public void setUser_array(String user_array) {
-            this.user_array = user_array;
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(userArray);
+            dest.writeString(num);
         }
 
-        public int getNum() {
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<PraiseBean> CREATOR = new Creator<PraiseBean>() {
+            @Override
+            public PraiseBean createFromParcel(Parcel in) {
+                return new PraiseBean(in);
+            }
+
+            @Override
+            public PraiseBean[] newArray(int size) {
+                return new PraiseBean[size];
+            }
+        };
+
+        public String getNum() {
             return num;
         }
 
-        public void setNum(int num) {
+        public void setNum(String num) {
             this.num = num;
+        }
+
+        public String getUserArray() {
+            return userArray;
+        }
+
+        public void setUserArray(String userArray) {
+            this.userArray = userArray;
         }
     }
 }

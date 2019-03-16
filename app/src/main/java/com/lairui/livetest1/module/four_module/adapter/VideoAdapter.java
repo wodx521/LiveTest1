@@ -46,13 +46,18 @@ public class VideoAdapter extends BaseRecycleViewAdapter {
         // 头像
         String portrait = videoBean.getPortrait();
         String nickname = videoBean.getNickname();
-
+        VideoBean.PraiseBean praise = videoBean.getPraise();
+        String num = praise.getNum();
         if (UiTools.noEmpty(nickname)) {
             videoViewHolder.tvVideoAuthor.setText(nickname);
         }else{
             videoViewHolder.tvVideoAuthor.setText("");
         }
-
+        if (UiTools.noEmpty(num)) {
+            videoViewHolder.tvWatchNumber.setText(num);
+        }else{
+            videoViewHolder.tvWatchNumber.setText("0");
+        }
         GlideApp.with(MyApplication.getContext())
                 .load(portrait)
                 .placeholder(R.drawable.chatroom_01)

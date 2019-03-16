@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.bean.SimpleResponse;
+import com.wanou.framelibrary.manager.ActivityManage;
 import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
@@ -153,6 +154,7 @@ public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
         if (simpleResponse != null) {
             if (simpleResponse.code == -1) {
                 startActivity(IncomeFragment.this, null, LoginActivity.class);
+                ActivityManage.getInstance().finishAll();
             }
         } else {
             viewVisible(clError);

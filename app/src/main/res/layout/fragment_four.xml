@@ -27,7 +27,6 @@
             app:spanCount="2" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
-
     <include
         layout="@layout/layout_empty_view"
         android:visibility="gone" />

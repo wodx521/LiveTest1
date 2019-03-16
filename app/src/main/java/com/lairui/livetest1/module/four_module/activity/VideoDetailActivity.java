@@ -7,10 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.entity.bean.VideoBean;
 import com.lairui.livetest1.module.four_module.presenter.VideoDetailPresenter;
 import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 import com.wanou.framelibrary.base.BaseMvpActivity;
+import com.wanou.framelibrary.utils.UiTools;
 
 public class VideoDetailActivity extends BaseMvpActivity<VideoDetailPresenter> implements View.OnClickListener {
     private ImageView ivLeft;
@@ -46,12 +48,32 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailPresenter> i
         tvVideoWatch = findViewById(R.id.tvVideoWatch);
         cbVideoPraise = findViewById(R.id.cbVideoPraise);
         rvCommentList = findViewById(R.id.rvCommentList);
+
         tvToolbarTitle.setText(R.string.videoDetail);
+        viewVisible(ivLeft);
+        ivLeft.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
-
+        if (mBundle != null) {
+            VideoBean videoBean = mBundle.getParcelable("videoBean");
+            if (videoBean != null) {
+                String nickname = videoBean.getNickname();
+                VideoBean.PraiseBean praise = videoBean.getPraise();
+                String num = praise.getNum();
+                if (UiTools.noEmpty(nickname)) {
+                    tvAuthorName.setText(nickname);
+                } else {
+                    tvAuthorName.setText("");
+                }
+                if (UiTools.noEmpty(num)) {
+                    tvVideoWatch.setText(num);
+                } else {
+                    tvVideoWatch.setText("0");
+                }
+            }
+        }
     }
 
 
