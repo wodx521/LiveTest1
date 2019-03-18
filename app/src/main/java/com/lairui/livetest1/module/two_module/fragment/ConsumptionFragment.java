@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.bean.SimpleResponse;
+import com.wanou.framelibrary.manager.ActivityManage;
 import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
@@ -161,6 +162,8 @@ public class ConsumptionFragment extends BaseMvpFragment<ConsumptionPresenter> {
         if (simpleResponse != null) {
             if (simpleResponse.code == -1) {
                 startActivity(ConsumptionFragment.this, null, LoginActivity.class);
+                SpUtils.put("token","");
+                ActivityManage.getInstance().finishAll();
             }
         } else {
             viewVisible(clError);

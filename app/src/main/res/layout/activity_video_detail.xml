@@ -12,18 +12,22 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_250"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBar" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/clAuthor"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/gsyVideoPlayer">
 
         <com.lairui.livetest1.ui.panel.CircleImageView
             android:id="@+id/ivAuthorIcon"
-            android:layout_width="@dimen/dp_37"
-            android:layout_height="@dimen/dp_37"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
             android:src="@drawable/chatroom_01"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,9 +91,66 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvCommentList"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/clSendComment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clAuthor" />
+        app:layout_constraintTop_toBottomOf="@id/clAuthor"
+        app:layout_goneMarginBottom="@dimen/dp_5" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/clSendComment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/etCommentContent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="@dimen/dp_3"
+            android:layout_weight="3"
+            android:background="@drawable/shape_gray_round5"
+            android:maxLines="5"
+            android:padding="@dimen/dp_5"
+            android:textSize="@dimen/sp_14"
+            android:hint="@string/inputComment"
+            android:textColorHint="@color/colorGray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline5"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tvSendComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_3"
+            android:layout_weight="1"
+            android:background="@drawable/shape_black_bg_round5"
+            android:gravity="center"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="@string/sendComment"
+            android:textColor="@color/color_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline5" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.70" />
+    </android.support.constraint.ConstraintLayout>
+
 
 </android.support.constraint.ConstraintLayout>

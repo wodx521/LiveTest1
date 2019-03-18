@@ -18,7 +18,7 @@ public class LoginBean {
      * "token": "54Xz7g4RBOXIO8gh1V8/eNeVOL6pZW48Ae5nqY9D13menYVDJyAq9sZgfZodlq2xipG9X9tgqSssgKduzNc5dw=="
      */
 
-    private int id;
+    private String id;
     private String phone;
     private String email;
     private String invite;
@@ -38,11 +38,11 @@ public class LoginBean {
      * imtoken : OiTaI9VwlHRd8pQpqWQBXNeVOL6pZW48Ae5nqY9D13ltTy1B0ygVmLxYu2U/lERqVgcLscE6l4AsgKduzNc5dw==
      */
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

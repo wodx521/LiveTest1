@@ -94,7 +94,9 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
         String token = loginBean.getToken();
         String roomId = loginBean.getRoomId();
         String imtoken = loginBean.getImtoken();
+        String id = loginBean.getId();
         SpUtils.put("phone", phone);
+        SpUtils.put("userId", id);
         SpUtils.put("loginNumber", UiTools.getText(etName));
         SpUtils.put("token", token);
         SpUtils.put("imtoken", imtoken);

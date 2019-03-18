@@ -24,4 +24,6 @@
     <string name="errorNet">网络链接错误,点击重试</string>
     <string name="inputSearch">请搜索用户名或ID</string>
     <string name="videoDetail">小视频详情</string>
+    <string name="inputComment">请输入你的评论内容</string>
+    <string name="sendComment">发送评论</string>
 </resources>

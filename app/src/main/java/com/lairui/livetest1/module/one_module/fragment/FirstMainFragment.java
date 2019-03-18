@@ -19,7 +19,9 @@ import com.lairui.livetest1.ui.activity.SearchActivity;
 import com.lzy.okgo.model.HttpParams;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.utils.SpUtils;
+import com.wanou.framelibrary.utils.UiTools;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implements View.OnClickListener {
@@ -32,6 +34,7 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
     private ConstraintLayout clError;
     private ConstraintLayout clLoading;
     private HttpParams httpParams = new HttpParams();
+    private List<CategoryBean> categoryTemp = new ArrayList<>();
 
     @Override
     protected FirstPresenter getPresenter() {
@@ -67,6 +70,7 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
     @Override
     protected void initData() {
         httpParams.clear();
+        categoryTemp.clear();
         String token = (String) SpUtils.get("token", "");
         httpParams.put("operate", "roomGroup-categoryList");
         httpParams.put("token", token);
@@ -102,15 +106,24 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
     public void setCategory(List<CategoryBean> categoryListBean) {
         viewGone(clLoading, clError);
         LiveClassificationAdapter liveClassificationAdapter = new LiveClassificationAdapter(getChildFragmentManager());
-        liveClassificationAdapter.setCategoryListBean(categoryListBean);
 
-        if (categoryListBean != null && categoryListBean.size() > 0) {
+        String[] stringArray = UiTools.getStringArray(R.array.liveClassification);
+        for (int i = 0; i < stringArray.length; i++) {
+            CategoryBean categoryBean = new CategoryBean();
+            categoryBean.setId(i);
+            categoryBean.setName(stringArray[i]);
+            categoryTemp.add(categoryBean);
+        }
+        categoryTemp.addAll(categoryListBean);
+        liveClassificationAdapter.setCategoryListBean(categoryTemp);
+        if (categoryTemp != null && categoryTemp.size() > 0) {
             viewVisible(tlClassification);
-            for (CategoryBean categoryBean : categoryListBean) {
+            for (CategoryBean categoryBean : categoryTemp) {
                 tlClassification.addTab(tlClassification.newTab().setText(categoryBean.getName()));
             }
-            liveClassificationAdapter.addFragment(HomeFragmentFactory.getFragment(0));
-            liveClassificationAdapter.addFragment(HomeFragmentFactory.getFragment(1));
+            for (int i = 0; i < categoryTemp.size(); i++) {
+                liveClassificationAdapter.addFragment(HomeFragmentFactory.getFragment(i));
+            }
         }
         viewPager.setAdapter(liveClassificationAdapter);
         tlClassification.setupWithViewPager(viewPager);
@@ -118,13 +131,13 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
     }
 
     public void setCategoryError() {
-        viewGone(clLoading,tlClassification);
+        viewGone(clLoading, tlClassification);
         viewVisible(clError);
         clError.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewVisible(clLoading);
-                viewGone(clError,tlClassification);
+                viewGone(clError, tlClassification);
                 initData();
             }
         });

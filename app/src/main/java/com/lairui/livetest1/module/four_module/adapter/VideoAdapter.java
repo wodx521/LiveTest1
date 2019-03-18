@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.app_constant.AppConstant;
+import com.lairui.livetest1.entity.bean.PraiseBean;
 import com.lairui.livetest1.entity.bean.VideoBean;
 import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.wanou.framelibrary.base.BaseRecycleViewAdapter;
@@ -46,7 +48,7 @@ public class VideoAdapter extends BaseRecycleViewAdapter {
         // 头像
         String portrait = videoBean.getPortrait();
         String nickname = videoBean.getNickname();
-        VideoBean.PraiseBean praise = videoBean.getPraise();
+        PraiseBean praise = videoBean.getPraise();
         String num = praise.getNum();
         if (UiTools.noEmpty(nickname)) {
             videoViewHolder.tvVideoAuthor.setText(nickname);
@@ -59,13 +61,13 @@ public class VideoAdapter extends BaseRecycleViewAdapter {
             videoViewHolder.tvWatchNumber.setText("0");
         }
         GlideApp.with(MyApplication.getContext())
-                .load(portrait)
+                .load(AppConstant.BASE_URL+portrait)
                 .placeholder(R.drawable.chatroom_01)
                 .error(R.drawable.chatroom_01)
                 .into(videoViewHolder.ivVideoAuthor);
 
         GlideApp.with(MyApplication.getContext())
-                .load("")
+                .load(AppConstant.BASE_URL+"")
                 .placeholder(R.drawable.chatroom_01)
                 .error(R.drawable.chatroom_01)
                 .into(videoViewHolder.ivVideoCover);

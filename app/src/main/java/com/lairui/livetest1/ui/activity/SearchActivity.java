@@ -18,6 +18,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.base.BaseRecycleViewAdapter;
 import com.wanou.framelibrary.bean.SimpleResponse;
+import com.wanou.framelibrary.manager.ActivityManage;
 import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
@@ -167,6 +168,8 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
         if (simpleResponse != null) {
             if (simpleResponse.code == -1) {
                 startActivity(SearchActivity.this, null, LoginActivity.class);
+                SpUtils.put("token","");
+                ActivityManage.getInstance().finishAll();
             }
         }
     }

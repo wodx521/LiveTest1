@@ -38,6 +38,10 @@ public class HomeFragmentFactory {
                     // 推荐列表
                     baseFragment = new RecommendFragment();
                     break;
+                case 4:
+                    // 推荐列表
+                    baseFragment = new RecommendFragment();
+                    break;
                 default:
             }
             fragmentMainMap.put(position, baseFragment);

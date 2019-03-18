@@ -3,8 +3,8 @@
 
     <string-array name="liveClassification">
         <item>关注</item>
-        <!--<item>热门</item>-->
-        <!--<item>附近</item>-->
+        <item>热门</item>
+        <item>附近</item>
         <!--<item>推荐</item>-->
     </string-array>
 

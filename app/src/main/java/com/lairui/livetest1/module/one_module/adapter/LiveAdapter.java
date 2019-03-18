@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.LiveRoomBean;
 import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.wanou.framelibrary.base.BaseRecycleViewAdapter;
@@ -56,12 +57,12 @@ public class LiveAdapter extends BaseRecycleViewAdapter {
         liveViewHolder.tvLiveStatus.setText(status);
 
         GlideApp.with(MyApplication.getContext())
-                .load("")
+                .load(AppConstant.BASE_URL+"")
                 .placeholder(R.drawable.chatroom_01)
                 .error(R.drawable.chatroom_01)
                 .into(liveViewHolder.ivUserIcon);
         GlideApp.with(MyApplication.getContext())
-                .load(liveRoomBean.getCover())
+                .load(AppConstant.BASE_URL+liveRoomBean.getCover())
                 .placeholder(R.drawable.default_cover)
                 .error(R.drawable.default_cover)
                 .centerCrop()
