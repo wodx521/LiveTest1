@@ -103,6 +103,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
         SpUtils.put("roomId", roomId);
         SpUtils.put("nickName", loginBean.getNickname());
         SpUtils.put("userName", loginBean.getUsername());
+        SpUtils.put("sex", loginBean.getSex());
         startActivity(LoginActivity.this, null, MainActivity.class);
         finish();
     }

@@ -10,30 +10,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include layout="@layout/layout_toolbar" />
-
         <ImageView
             android:id="@+id/ivBg"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="W,1:1.5"
+            android:scaleType="fitXY"
+            android:src="@drawable/shape_gray5_round5"
+            app:layout_constraintBottom_toTopOf="@+id/textView5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <include layout="@layout/layout_toolbar" />
 
         <com.lairui.livetest1.ui.panel.CircleImageView
             android:id="@+id/ivUserIcon"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_margin="@dimen/dp_5"
             app:layout_constraintDimensionRatio="W,1:1"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline7"
             app:layout_constraintStart_toEndOf="@id/guideline6"
             app:layout_constraintTop_toBottomOf="@id/toolBar" />
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/clInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivUserIcon">
@@ -42,7 +46,6 @@
                 android:id="@+id/tvUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="游客:12345"
                 android:textColor="@color/color_white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -51,26 +54,209 @@
                 android:id="@+id/ivGender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_male"
+                android:layout_marginStart="@dimen/dp_5"
+                android:src="@drawable/ic_female"
                 app:layout_constraintStart_toEndOf="@id/tvUserName"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivRank"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/rank_1"
+                app:layout_constraintBottom_toBottomOf="@id/ivGender"
+                app:layout_constraintDimensionRatio="W,3:1"
+                app:layout_constraintStart_toEndOf="@id/ivGender"
+                app:layout_constraintTop_toTopOf="@id/ivGender" />
+
+            <ImageView
+                android:id="@+id/ivEdit"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/me_btn_edit"
+                app:layout_constraintBottom_toBottomOf="@id/ivRank"
+                app:layout_constraintDimensionRatio="W,1:1"
+                app:layout_constraintStart_toEndOf="@id/ivRank"
+                app:layout_constraintTop_toTopOf="@id/ivRank" />
         </android.support.constraint.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/tvSignature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5"
+            android:text="TA好像忘记签名了"
+            android:textColor="@color/color_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clInfo" />
+
+        <TextView
+            android:id="@+id/tvAccountNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_5"
+            android:text="账号:12345"
+            android:textColor="@color/color_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSignature" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_10"
+            android:background="@drawable/shape_white_bg_fillet5"
+            android:paddingTop="@dimen/dp_5"
+            android:paddingBottom="@dimen/dp_5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAccountNumber">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_5"
+                android:text="@string/replay"
+                android:textColor="@color/colorGray"
+                app:layout_constraintEnd_toStartOf="@id/guideline8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_5"
+                android:text="@string/smallVideo"
+                android:textColor="@color/colorGray"
+                app:layout_constraintEnd_toStartOf="@id/guideline9"
+                app:layout_constraintStart_toEndOf="@id/guideline8"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_5"
+                android:text="@string/attention"
+                android:textColor="@color/colorGray"
+                app:layout_constraintEnd_toStartOf="@id/guideline10"
+                app:layout_constraintStart_toEndOf="@id/guideline9"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_5"
+                android:text="@string/fans"
+                android:textColor="@color/colorGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline10"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvReplay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_5"
+                android:text="0"
+                android:textColor="@color/color_black"
+                app:layout_constraintEnd_toStartOf="@id/guideline8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView1" />
+
+            <TextView
+                android:id="@+id/tvSmallVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_5"
+                android:text="0"
+                android:textColor="@color/color_black"
+                app:layout_constraintEnd_toStartOf="@id/guideline9"
+                app:layout_constraintStart_toEndOf="@id/guideline8"
+                app:layout_constraintTop_toBottomOf="@id/textView2" />
+
+            <TextView
+                android:id="@+id/tvAttention"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_5"
+                android:text="0"
+                android:textColor="@color/color_black"
+                app:layout_constraintEnd_toStartOf="@id/guideline10"
+                app:layout_constraintStart_toEndOf="@id/guideline9"
+                app:layout_constraintTop_toBottomOf="@id/textView3" />
+
+            <TextView
+                android:id="@+id/tvFans"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_5"
+                android:text="0"
+                android:textColor="@color/color_black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline10"
+                app:layout_constraintTop_toBottomOf="@id/textView4" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.25" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.50" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.75" />
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="@id/constraintLayout3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/constraintLayout3" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvMine"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp_10"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout3" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.37" />
+            app:layout_constraintGuide_percent="0.40" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.63" />
-
+            app:layout_constraintGuide_percent="0.60" />
 
     </android.support.constraint.ConstraintLayout>
 

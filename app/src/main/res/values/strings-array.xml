@@ -86,4 +86,40 @@
         <item>月榜</item>
         <item>总榜</item>
     </string-array>
+
+    <string-array name="mine">
+        <item>账户</item>
+        <item>收益</item>
+        <item>直播间收支记录</item>
+        <item>送出</item>
+        <item>等级</item>
+        <item>认证</item>
+        <item>印票贡献榜</item>
+        <item>分享收益</item>
+        <item>商品管理</item>
+        <item>我的订单</item>
+        <item>我的购物车</item>
+        <item>我的竞拍</item>
+        <item>竞拍管理</item>
+        <item>我的小店</item>
+        <item>设置</item>
+    </string-array>
+
+    <string-array name="mineContent">
+        <item>0钻石</item>
+        <item>0印票</item>
+        <item></item>
+        <item>0钻石</item>
+        <item>0级</item>
+        <item>未认证</item>
+        <item></item>
+        <item></item>
+        <item>0个商品</item>
+        <item>0个订单</item>
+        <item>0个商品</item>
+        <item>0个竞拍</item>
+        <item>0个竞拍</item>
+        <item>0个商品</item>
+        <item></item>
+    </string-array>
 </resources>

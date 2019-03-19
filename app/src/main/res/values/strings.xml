@@ -26,4 +26,11 @@
     <string name="videoDetail">小视频详情</string>
     <string name="inputComment">请输入你的评论内容</string>
     <string name="sendComment">发送评论</string>
+    <string name="replay">回播</string>
+    <string name="attention">关注</string>
+    <string name="fans">粉丝</string>
+    <string name="account">账户</string>
+    <string name="defaultDiamond">0钻石</string>
+    <string name="income">收益</string>
+    <string name="defaultTicket">0印票</string>
 </resources>
