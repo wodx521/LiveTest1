@@ -1,5 +1,8 @@
 package com.lairui.livetest1.module.five_module.fragment;
 
+import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -10,15 +13,15 @@ import android.widget.TextView;
 import com.bumptech.glide.request.RequestOptions;
 import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.UserAccountInfo;
 import com.lairui.livetest1.entity.jsonparam.BaseParams;
+import com.lairui.livetest1.module.five_module.activity.AccountInfoEditActivity;
 import com.lairui.livetest1.module.five_module.adapter.MineAdapter;
 import com.lairui.livetest1.module.five_module.presenter.FiveMainPresenter1;
-import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.glidetools.GlideApp;
-import com.wanou.framelibrary.manager.ActivityManage;
 import com.wanou.framelibrary.utils.GsonUtils;
 import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
@@ -33,6 +36,12 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
     private RecyclerView rvMine;
     private BaseParams baseParams = new BaseParams();
     private Toolbar toolBar;
+    private ConstraintLayout clLoading;
+    private NestedScrollView sclAllView;
+    private ConstraintLayout clError;
+    private MineAdapter mineAdapter;
+    private Bundle bundle = new Bundle();
+    private UserAccountInfo userInfo;
 
     @Override
     protected FiveMainPresenter1 getPresenter() {
@@ -56,6 +65,7 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
         ivGender = view.findViewById(R.id.ivGender);
         ivRank = view.findViewById(R.id.ivRank);
         ivEdit = view.findViewById(R.id.ivEdit);
+        clError = view.findViewById(R.id.clError);
         tvSignature = view.findViewById(R.id.tvSignature);
         tvAccountNumber = view.findViewById(R.id.tvAccountNumber);
         tvReplay = view.findViewById(R.id.tvReplay);
@@ -63,22 +73,24 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
         tvAttention = view.findViewById(R.id.tvAttention);
         tvFans = view.findViewById(R.id.tvFans);
         rvMine = view.findViewById(R.id.rvMine);
+        clLoading = view.findViewById(R.id.clLoading);
         rvMine.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         toolBar.setBackgroundColor(UiTools.getColor(R.color.transparent));
         ivLeft.setImageResource(R.drawable.search_white);
         ivRight1.setImageResource(R.drawable.private_chat_white);
         tvToolbarTitle.setText(R.string.bottom_five);
-        viewVisible(ivLeft, ivRight1);
+        viewVisible(ivLeft, ivRight1, clLoading);
+        sclAllView = view.findViewById(R.id.sclAllView);
+
+        ivEdit.setOnClickListener(this);
+
+        viewGone(clError, sclAllView);
     }
 
     @Override
     protected void initData() {
-        String nickName = (String) SpUtils.get("nickName", "");
-        String userName = (String) SpUtils.get("userName", "");
-
-        MineAdapter mineAdapter = new MineAdapter(getActivity());
+        mineAdapter = new MineAdapter(getActivity());
         rvMine.setAdapter(mineAdapter);
-        getUserInfo();
     }
 
     private void getUserInfo() {
@@ -88,20 +100,30 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
         mPresenter.getUserInfo(GsonUtils.toJson(baseParams));
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        UiTools.showToast("" + getUserVisibleHint());
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tvExit:
-                startActivity(FiveMainFragment1.this, null, LoginActivity.class);
-                SpUtils.put("token", "");
-                ActivityManage.getInstance().finishAll();
+            case R.id.ivEdit:
+                bundle.clear();
+                if (userInfo != null) {
+                    bundle.putParcelable("userInfo",userInfo);
+                    startActivityForResult(FiveMainFragment1.this, bundle, AppConstant.EDIT_INFO, AccountInfoEditActivity.class);
+                }
                 break;
             default:
         }
     }
 
     public void setUserInfo(UserAccountInfo userInfo) {
+        this.userInfo = userInfo;
+        viewGone(clError, clLoading);
+        viewVisible(sclAllView);
         String portrait = userInfo.getPortrait();
         GlideApp.with(MyApplication.getContext())
                 .load(portrait)
@@ -131,7 +153,22 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
 
     }
 
-    public void setUserInfoError(String json) {
+    @Override
+    public void onResume() {
+        getUserInfo();
+        super.onResume();
+    }
 
+    public void setUserInfoError(String json) {
+        viewGone(sclAllView, clLoading);
+        viewVisible(clError);
+        clError.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewGone(sclAllView, clError);
+                viewVisible(clLoading);
+                mPresenter.getUserInfo(json);
+            }
+        });
     }
 }

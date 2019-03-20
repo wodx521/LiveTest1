@@ -9,4 +9,7 @@ public class AppConstant {
     public static final String BASE_URL = "http://192.168.1.109:86";
 //    public static final String BASE_URL = "http://live.qilinpz.com";
     public static final int REGISTER = 1;
+    public static final int EDIT_INFO = 2;
+    public static final int CHANG_INFO = 3;
+    public static final int REQUEST_CODE_CHOOSE = 4;
 }

@@ -42,11 +42,12 @@ public class MineAdapter extends BaseRecycleViewAdapter {
         mineViewHolder.tv1.setText(stringArray[position]);
         mineViewHolder.tv1.setCompoundDrawablesRelativeWithIntrinsicBounds(mineIcon[position], 0, 0, 0);
         mineViewHolder.tv2.setText(stringContent[position]);
-        if (position == 2) {
-            mineViewHolder.tv2.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0);
+        if (position == 3) {
+            mineViewHolder.tv2.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.arrow_right_gray_place, 0);
         } else {
             mineViewHolder.tv2.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.arrow_right_gray, 0);
         }
+
     }
 
     @Override

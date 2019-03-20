@@ -1,6 +1,9 @@
 package com.lairui.livetest1.entity.bean;
 
-public class UserAccountInfo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class UserAccountInfo implements Parcelable {
     /**
      * id : 20
      * phone : 13200000005
@@ -30,6 +33,48 @@ public class UserAccountInfo {
     private String sex;
     // 级别
     private String grade;
+
+    protected UserAccountInfo(Parcel in) {
+        id = in.readString();
+        phone = in.readString();
+        email = in.readString();
+        integral = in.readString();
+        nickname = in.readString();
+        portrait = in.readString();
+        alipay = in.readString();
+        sex = in.readString();
+        grade = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(phone);
+        dest.writeString(email);
+        dest.writeString(integral);
+        dest.writeString(nickname);
+        dest.writeString(portrait);
+        dest.writeString(alipay);
+        dest.writeString(sex);
+        dest.writeString(grade);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<UserAccountInfo> CREATOR = new Creator<UserAccountInfo>() {
+        @Override
+        public UserAccountInfo createFromParcel(Parcel in) {
+            return new UserAccountInfo(in);
+        }
+
+        @Override
+        public UserAccountInfo[] newArray(int size) {
+            return new UserAccountInfo[size];
+        }
+    };
 
     public String getId() {
         return id;

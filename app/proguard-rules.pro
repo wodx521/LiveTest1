@@ -41,3 +41,5 @@
     public <init>(android.content.Context, android.util.AttributeSet);
     public <init>(android.content.Context, android.util.AttributeSet, int);
 }
+
+-dontwarn com.squareup.picasso.**
