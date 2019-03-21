@@ -9,10 +9,9 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
 
 public class ChoosePicture {
-
     public static void choosePicture(Activity activity) {
         Matisse.from(activity)
-                .choose(MimeType.ofImage())
+                .choose(MimeType.ofAll())
                 // 计数
                 .countable(true)
                 // 选择图片数量

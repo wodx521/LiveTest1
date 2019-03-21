@@ -25,7 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     protected Bundle mBundle;
     protected SimpleMultiStateView mSimpleMultiStateView;
 
-    public static void startActivity(Context context, Bundle bundle, Class<?> cls) {
+    public void startActivity(Context context, Bundle bundle, Class<?> cls) {
         Intent intent = new Intent(context, cls);
         if (bundle != null) {
             intent.putExtra("bundle", bundle);
@@ -33,7 +33,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         context.startActivity(intent);
     }
 
-    public static void compatStartActivity(Context context, Bundle intentBundle, Bundle bundle, Class<?> cls) {
+    public void compatStartActivity(Context context, Bundle intentBundle, Bundle bundle, Class<?> cls) {
         Intent intent = new Intent(context, cls);
         if (intentBundle != null) {
             intent.putExtra("bundle", intentBundle);
@@ -41,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         ActivityCompat.startActivity(context, intent, bundle);
     }
 
-    public static void startActivityForResult(Context context, Bundle bundle, int requestCode, Class<?> cls) {
+    public void startActivityForResult(Context context, Bundle bundle, int requestCode, Class<?> cls) {
         Intent intent = new Intent(context, cls);
         if (bundle != null) {
             intent.putExtra("bundle", bundle);
@@ -51,7 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         }
     }
 
-    public static void compatStartActivityForResult(Context context, Bundle intentBundle, Bundle bundle, int requestCode, Class<?> cls) {
+    public void compatStartActivityForResult(Context context, Bundle intentBundle, Bundle bundle, int requestCode, Class<?> cls) {
         Intent intent = new Intent(context, cls);
         if (intentBundle != null) {
             intent.putExtra("bundle", intentBundle);

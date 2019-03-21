@@ -4,10 +4,13 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
 import com.wanou.framelibrary.base.BaseRecycleViewAdapter;
+import com.wanou.framelibrary.glidetools.GlideApp;
 import com.wanou.framelibrary.utils.UiTools;
 
 public class MineAdapter extends BaseRecycleViewAdapter {
@@ -39,8 +42,10 @@ public class MineAdapter extends BaseRecycleViewAdapter {
     @Override
     protected void bindClickListener(RecyclerView.ViewHolder viewHolder, int position) {
         MineViewHolder mineViewHolder = (MineViewHolder) viewHolder;
+        GlideApp.with(MyApplication.getContext())
+                .load(mineIcon[position])
+                .into(mineViewHolder.iv1);
         mineViewHolder.tv1.setText(stringArray[position]);
-        mineViewHolder.tv1.setCompoundDrawablesRelativeWithIntrinsicBounds(mineIcon[position], 0, 0, 0);
         mineViewHolder.tv2.setText(stringContent[position]);
         if (position == 3) {
             mineViewHolder.tv2.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.arrow_right_gray_place, 0);
@@ -58,9 +63,11 @@ public class MineAdapter extends BaseRecycleViewAdapter {
     static class MineViewHolder extends RecyclerView.ViewHolder {
         private TextView tv1;
         private TextView tv2;
+        private ImageView iv1;
 
         public MineViewHolder(@NonNull View itemView) {
             super(itemView);
+            iv1 = itemView.findViewById(R.id.iv1);
             tv1 = itemView.findViewById(R.id.tv1);
             tv2 = itemView.findViewById(R.id.tv2);
         }

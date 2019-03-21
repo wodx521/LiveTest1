@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -34,9 +35,10 @@
                 android:layout_height="0dp"
                 android:layout_margin="@dimen/dp_5"
                 app:layout_constraintDimensionRatio="W,1:1"
-                app:layout_constraintEnd_toStartOf="@id/guideline7"
-                app:layout_constraintStart_toEndOf="@id/guideline6"
-                app:layout_constraintTop_toBottomOf="@id/toolBar" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolBar"
+                app:layout_constraintWidth_percent="0.2" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/clInfo"
@@ -59,6 +61,7 @@
                     android:id="@+id/ivGender"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/dp_5"
                     android:adjustViewBounds="true"
                     android:src="@drawable/ic_female"
                     app:layout_constraintBottom_toBottomOf="@id/tvUserName"
@@ -251,19 +254,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constraintLayout3" />
 
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.40" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.60" />
 
         </android.support.constraint.ConstraintLayout>
 

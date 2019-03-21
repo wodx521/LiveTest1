@@ -4,16 +4,17 @@ import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.module.five_module.presenter.ChangeAvatarPresenter;
 import com.lairui.livetest1.utils.ChoosePicture;
 import com.wanou.framelibrary.base.BaseMvpActivity;
+import com.wanou.framelibrary.glidetools.GlideApp;
 import com.wanou.framelibrary.utils.UiTools;
 import com.zhihu.matisse.Matisse;
 
@@ -53,7 +54,14 @@ public class ChangeAvatarActivity extends BaseMvpActivity<ChangeAvatarPresenter>
 
     @Override
     protected void initData() {
-
+        if (mBundle != null) {
+            String userIconUrl = mBundle.getString("userIconUrl", "");
+            GlideApp.with(MyApplication.getContext())
+                    .load(userIconUrl)
+                    .placeholder(R.drawable.ic_head)
+                    .error(R.drawable.ic_head)
+                    .into(ivImage);
+        }
     }
 
     @Override
@@ -79,10 +87,12 @@ public class ChangeAvatarActivity extends BaseMvpActivity<ChangeAvatarPresenter>
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppConstant.REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             mSelected = Matisse.obtainResult(data);
-            Log.d("Matisse", "mSelected: " + mSelected);
+            Uri uri = mSelected.get(0);
+            GlideApp.with(MyApplication.getContext())
+                    .load(uri)
+                    .into(ivImage);
         }
     }
-
 
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void requestStorage() {

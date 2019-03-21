@@ -17,8 +17,10 @@ import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.UserAccountInfo;
 import com.lairui.livetest1.entity.jsonparam.BaseParams;
 import com.lairui.livetest1.module.five_module.activity.AccountInfoEditActivity;
+import com.lairui.livetest1.module.five_module.activity.ChangeAvatarActivity;
 import com.lairui.livetest1.module.five_module.adapter.MineAdapter;
 import com.lairui.livetest1.module.five_module.presenter.FiveMainPresenter1;
+import com.lairui.livetest1.ui.activity.SearchActivity;
 import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.glidetools.GlideApp;
@@ -42,6 +44,7 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
     private MineAdapter mineAdapter;
     private Bundle bundle = new Bundle();
     private UserAccountInfo userInfo;
+    private String portrait;
 
     @Override
     protected FiveMainPresenter1 getPresenter() {
@@ -83,6 +86,7 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
         sclAllView = view.findViewById(R.id.sclAllView);
 
         ivEdit.setOnClickListener(this);
+        ivUserIcon.setOnClickListener(this);
 
         viewGone(clError, sclAllView);
     }
@@ -103,7 +107,6 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        UiTools.showToast("" + getUserVisibleHint());
     }
 
     @Override
@@ -116,6 +119,14 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
                     startActivityForResult(FiveMainFragment1.this, bundle, AppConstant.EDIT_INFO, AccountInfoEditActivity.class);
                 }
                 break;
+            case R.id.ivUserIcon:
+                bundle.clear();
+                bundle.putString("userIconUrl",portrait);
+                startActivityForResult(FiveMainFragment1.this, bundle, AppConstant.CHANG_INFO, ChangeAvatarActivity.class);
+                break;
+            case R.id.ivLeft:
+                startActivity(FiveMainFragment1.this, null, SearchActivity.class);
+                break;
             default:
         }
     }
@@ -124,7 +135,7 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
         this.userInfo = userInfo;
         viewGone(clError, clLoading);
         viewVisible(sclAllView);
-        String portrait = userInfo.getPortrait();
+        portrait = userInfo.getPortrait();
         GlideApp.with(MyApplication.getContext())
                 .load(portrait)
                 .placeholder(R.drawable.shape_gray5_round5)

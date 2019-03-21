@@ -136,7 +136,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
                             ChatroomKit.logout();
                             ActivityManage.getInstance().finishAll();
                             bundle.clear();
-                            bundle.putInt("loginStatus",1);
+                            bundle.putInt("loginStatus", 1);
                             startActivity(MainActivity.this, bundle, LoginActivity.class);
 //                            ExitNoticeDialog.getDialog(MainActivity.this, "用户账户在其他设备登录", "是否重新登录?");
                             break;
@@ -159,17 +159,19 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
         Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(title);
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
         for (Fragment fragment : fragments) {
+            fragment.setUserVisibleHint(false);
             fragmentTransaction.hide(fragment);
         }
         if (fragmentByTag != null) {
+            fragmentByTag.setUserVisibleHint(true);
             fragmentTransaction.show(fragmentByTag);
         } else {
+            MainFragmentFactory.getFragment(position).setUserVisibleHint(true);
             fragmentTransaction.add(R.id.fl_container, MainFragmentFactory.getFragment(position), title);
             fragmentTransaction.show(MainFragmentFactory.getFragment(position));
         }
         fragmentTransaction.commitAllowingStateLoss();
     }
-
 
 
     @Override

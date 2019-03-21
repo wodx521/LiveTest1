@@ -34,9 +34,10 @@
             android:layout_marginTop="@dimen/dp_10"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/guideline12"
-            app:layout_constraintStart_toStartOf="@id/guideline11"
-            app:layout_constraintTop_toBottomOf="@id/ivImage">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivImage"
+            app:layout_constraintWidth_percent="0.5">
 
             <TextView
                 android:id="@+id/tvChooseAlbum"
@@ -44,12 +45,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_black_bg_round20"
                 android:gravity="center"
-                android:padding="@dimen/dp_5"
+                android:padding="@dimen/dp_10"
                 android:text="从相册选择"
                 android:textColor="@color/color_white"
                 app:layout_constraintBottom_toTopOf="@id/tvChooseCamera"
-                app:layout_constraintEnd_toEndOf="@id/guideline12"
-                app:layout_constraintStart_toStartOf="@id/guideline11"
                 app:layout_constraintTop_toBottomOf="@id/ivImage" />
 
             <TextView
@@ -59,28 +58,11 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@drawable/shape_black_bg_round20"
                 android:gravity="center"
-                android:padding="@dimen/dp_5"
+                android:padding="@dimen/dp_10"
                 android:text="拍照"
                 android:textColor="@color/color_white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/guideline12"
-                app:layout_constraintStart_toStartOf="@id/guideline11"
                 app:layout_constraintTop_toBottomOf="@id/tvChooseAlbum" />
         </LinearLayout>
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.25" />
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.75" />
-
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -75,6 +75,7 @@
         <activity android:name=".module.four_module.activity.VideoDetailActivity" />
         <activity android:name=".module.five_module.activity.AccountInfoEditActivity" />
         <activity android:name=".module.five_module.activity.ChangeAvatarActivity" />
+        <activity android:name=".module.five_module.activity.EditNickActivity" />
 
     </application>
 
