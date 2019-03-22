@@ -51,4 +51,5 @@
     <string name="level">等级</string>
     <string name="approve">认证</string>
     <string name="ticketList">印票贡献榜</string>
+    <string name="editNick">编辑昵称</string>
 </resources>

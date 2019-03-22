@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <EditText
+        android:id="@+id/etNickName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_5"
+        android:background="@drawable/shape_white_bg_fillet5"
+        android:maxLength="16"
+        android:padding="@dimen/dp_5"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBar" />
+
+    <ImageView
+        android:id="@+id/ivClear"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/dp_5"
+        android:src="@drawable/edit_clear"
+        app:layout_constraintBottom_toBottomOf="@id/etNickName"
+        app:layout_constraintEnd_toEndOf="@id/etNickName"
+        app:layout_constraintTop_toTopOf="@id/etNickName" />
+
+    <TextView
+        android:id="@+id/tvInputCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="0/16"
+        android:textColor="@color/colorGray3"
+        app:layout_constraintEnd_toEndOf="@id/etNickName"
+        app:layout_constraintTop_toBottomOf="@id/etNickName" />
+
+    <TextView
+        android:id="@+id/tvChangeNotice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:text="昵称可免费修改一次，超过次数将收取5钻石"
+        android:textColor="@color/colorGray3"
+        app:layout_constraintStart_toStartOf="@id/etNickName"
+        app:layout_constraintTop_toBottomOf="@id/tvInputCount" />
+
+</android.support.constraint.ConstraintLayout>
