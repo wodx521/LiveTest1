@@ -36,6 +36,13 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
     private TextView tvToolbarTitle, tvUserName, tvSignature, tvAccountNumber, tvReplay,
             tvSmallVideo, tvAttention, tvFans;
     private RecyclerView rvMine;
+    private TextView tvContent4, tvContent5, tvContent6, tvContent7, tvContent8, tvContent9,
+            tvContent10, tvContent11, tvContent12, tvContent13, tvContent14, tvContent15,
+            tvContent16, tvContent17, tvContent18;
+    private ConstraintLayout constraintLayout4, constraintLayout5, constraintLayout6,
+            constraintLayout7, constraintLayout8, constraintLayout9, constraintLayout10,
+            constraintLayout11, constraintLayout12, constraintLayout13, constraintLayout14,
+            constraintLayout15, constraintLayout16, constraintLayout17, constraintLayout18;
     private BaseParams baseParams = new BaseParams();
     private Toolbar toolBar;
     private ConstraintLayout clLoading;
@@ -77,6 +84,38 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
         tvFans = view.findViewById(R.id.tvFans);
         rvMine = view.findViewById(R.id.rvMine);
         clLoading = view.findViewById(R.id.clLoading);
+
+        constraintLayout4 = view.findViewById(R.id.constraintLayout4);
+        tvContent4 = view.findViewById(R.id.tvContent4);
+        constraintLayout5 = view.findViewById(R.id.constraintLayout5);
+        tvContent5 = view.findViewById(R.id.tvContent5);
+        constraintLayout6 = view.findViewById(R.id.constraintLayout6);
+        tvContent6 = view.findViewById(R.id.tvContent6);
+        constraintLayout7 = view.findViewById(R.id.constraintLayout7);
+        tvContent7 = view.findViewById(R.id.tvContent7);
+        constraintLayout8 = view.findViewById(R.id.constraintLayout8);
+        tvContent8 = view.findViewById(R.id.tvContent8);
+        constraintLayout9 = view.findViewById(R.id.constraintLayout9);
+        tvContent9 = view.findViewById(R.id.tvContent9);
+        constraintLayout10 = view.findViewById(R.id.constraintLayout10);
+        tvContent10 = view.findViewById(R.id.tvContent10);
+        constraintLayout11 = view.findViewById(R.id.constraintLayout11);
+        tvContent11 = view.findViewById(R.id.tvContent11);
+        constraintLayout12 = view.findViewById(R.id.constraintLayout12);
+        tvContent12 = view.findViewById(R.id.tvContent12);
+        constraintLayout13 = view.findViewById(R.id.constraintLayout13);
+        tvContent13 = view.findViewById(R.id.tvContent13);
+        constraintLayout14 = view.findViewById(R.id.constraintLayout14);
+        tvContent14 = view.findViewById(R.id.tvContent14);
+        constraintLayout15 = view.findViewById(R.id.constraintLayout15);
+        tvContent15 = view.findViewById(R.id.tvContent15);
+        constraintLayout16 = view.findViewById(R.id.constraintLayout16);
+        tvContent16 = view.findViewById(R.id.tvContent16);
+        constraintLayout17 = view.findViewById(R.id.constraintLayout17);
+        tvContent17 = view.findViewById(R.id.tvContent17);
+        constraintLayout18 = view.findViewById(R.id.constraintLayout18);
+        tvContent18 = view.findViewById(R.id.tvContent18);
+
         rvMine.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         toolBar.setBackgroundColor(UiTools.getColor(R.color.transparent));
         ivLeft.setImageResource(R.drawable.search_white);
@@ -87,6 +126,21 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
 
         ivEdit.setOnClickListener(this);
         ivUserIcon.setOnClickListener(this);
+        constraintLayout4.setOnClickListener(this);
+        constraintLayout5.setOnClickListener(this);
+        constraintLayout6.setOnClickListener(this);
+        constraintLayout7.setOnClickListener(this);
+        constraintLayout8.setOnClickListener(this);
+        constraintLayout9.setOnClickListener(this);
+        constraintLayout10.setOnClickListener(this);
+        constraintLayout11.setOnClickListener(this);
+        constraintLayout12.setOnClickListener(this);
+        constraintLayout13.setOnClickListener(this);
+        constraintLayout14.setOnClickListener(this);
+        constraintLayout15.setOnClickListener(this);
+        constraintLayout16.setOnClickListener(this);
+        constraintLayout17.setOnClickListener(this);
+        constraintLayout18.setOnClickListener(this);
 
         viewGone(clError, sclAllView);
     }
@@ -115,17 +169,62 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
             case R.id.ivEdit:
                 bundle.clear();
                 if (userInfo != null) {
-                    bundle.putParcelable("userInfo",userInfo);
+                    bundle.putParcelable("userInfo", userInfo);
                     startActivityForResult(FiveMainFragment1.this, bundle, AppConstant.EDIT_INFO, AccountInfoEditActivity.class);
                 }
                 break;
             case R.id.ivUserIcon:
                 bundle.clear();
-                bundle.putString("userIconUrl",portrait);
+                bundle.putString("userIconUrl", portrait);
                 startActivityForResult(FiveMainFragment1.this, bundle, AppConstant.CHANG_INFO, ChangeAvatarActivity.class);
                 break;
             case R.id.ivLeft:
                 startActivity(FiveMainFragment1.this, null, SearchActivity.class);
+                break;
+            case R.id.constraintLayout4:
+
+                break;
+            case R.id.constraintLayout5:
+
+                break;
+            case R.id.constraintLayout6:
+
+                break;
+            case R.id.constraintLayout7:
+
+                break;
+            case R.id.constraintLayout8:
+
+                break;
+            case R.id.constraintLayout9:
+
+                break;
+            case R.id.constraintLayout10:
+
+                break;
+            case R.id.constraintLayout11:
+
+                break;
+            case R.id.constraintLayout12:
+
+                break;
+            case R.id.constraintLayout13:
+
+                break;
+            case R.id.constraintLayout14:
+
+                break;
+            case R.id.constraintLayout15:
+
+                break;
+            case R.id.constraintLayout16:
+
+                break;
+            case R.id.constraintLayout17:
+
+                break;
+            case R.id.constraintLayout18:
+
                 break;
             default:
         }

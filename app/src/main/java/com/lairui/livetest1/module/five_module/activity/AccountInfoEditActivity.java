@@ -126,7 +126,7 @@ public class AccountInfoEditActivity extends BaseMvpActivity<AccountInfoEditPres
                 startActivityForResult(AccountInfoEditActivity.this, bundle, AppConstant.CHANG_INFO, EditNickActivity.class);
                 break;
             case R.id.linearLayout3:
-
+                startActivityForResult(AccountInfoEditActivity.this, bundle, AppConstant.CHANG_INFO, RechargeActivity.class);
                 break;
             case R.id.linearLayout4:
 

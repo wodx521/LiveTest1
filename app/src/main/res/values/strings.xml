@@ -29,10 +29,8 @@
     <string name="replay">回播</string>
     <string name="attention">关注</string>
     <string name="fans">粉丝</string>
-    <string name="account">账户</string>
     <string name="accountNumber">账号</string>
     <string name="defaultDiamond">0钻石</string>
-    <string name="income">收益</string>
     <string name="defaultTicket">0印票</string>
     <string name="avatar">头像</string>
     <string name="nickName">昵称</string>
@@ -46,10 +44,29 @@
     <string name="editInfo">编辑</string>
     <string name="save">保存</string>
     <string name="noEmpty">昵称不能为空</string>
+    <string name="editNick">编辑昵称</string>
+    <string name="accountBalance">账户余额:</string>
+
+
+    <string name="account">账户</string>
+    <string name="income">收益</string>
     <string name="liveRecord">直播间收支记录</string>
     <string name="sendOut">送出</string>
     <string name="level">等级</string>
     <string name="approve">认证</string>
-    <string name="ticketList">印票贡献榜</string>
-    <string name="editNick">编辑昵称</string>
+    <string name="ticketList">水滴贡献榜</string>
+    <string name="shareIncome">分享收益</string>
+    <string name="commodityManager">商品管理</string>
+    <string name="myOrder">我的订单</string>
+    <string name="shoppingCart">我的购物车</string>
+    <string name="myAuction">我的竞拍</string>
+    <string name="auctionManager">竞拍管理</string>
+    <string name="myShop">我的小店</string>
+    <string name="setting">设置</string>
+    <string name="noApprove">未认证</string>
+    <string name="choosePayMethod">请选择支付方式</string>
+    <string name="alipay">支付宝</string>
+    <string name="wechat">微信</string>
+    <string name="recharge">充值</string>
+    <string name="customAmount">其他金额:￥</string>
 </resources>
