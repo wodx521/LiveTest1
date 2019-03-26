@@ -1,6 +1,8 @@
 package com.lairui.livetest1.fragmentfactory;
 
 import com.lairui.livetest1.module.two_module.fragment.IncomeDayFragment;
+import com.lairui.livetest1.module.two_module.fragment.IncomeTotalFragment;
+import com.lairui.livetest1.module.two_module.fragment.IncomeWeekFragment;
 import com.wanou.framelibrary.base.BaseFragment;
 
 import java.util.HashMap;
@@ -26,11 +28,11 @@ public class IncomeRankingFragmentFactory {
                     break;
                 case 1:
                     // 月榜
-//                    baseFragment = new IncomeWeekFragment();
+                    baseFragment = new IncomeWeekFragment();
                     break;
                 case 2:
                     // 总榜
-//                    baseFragment = new IncomeTotalFragment();
+                    baseFragment = new IncomeTotalFragment();
                     break;
                 default:
             }

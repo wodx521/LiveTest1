@@ -18,6 +18,7 @@ import com.lairui.livetest1.entity.bean.UserAccountInfo;
 import com.lairui.livetest1.entity.jsonparam.BaseParams;
 import com.lairui.livetest1.module.five_module.activity.AccountInfoEditActivity;
 import com.lairui.livetest1.module.five_module.activity.ChangeAvatarActivity;
+import com.lairui.livetest1.module.five_module.activity.RechargeActivity;
 import com.lairui.livetest1.module.five_module.adapter.MineAdapter;
 import com.lairui.livetest1.module.five_module.presenter.FiveMainPresenter1;
 import com.lairui.livetest1.ui.activity.SearchActivity;
@@ -182,7 +183,8 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
                 startActivity(FiveMainFragment1.this, null, SearchActivity.class);
                 break;
             case R.id.constraintLayout4:
-
+                bundle.clear();
+                startActivityForResult(FiveMainFragment1.this, bundle, AppConstant.CHANG_INFO, RechargeActivity.class);
                 break;
             case R.id.constraintLayout5:
 
@@ -239,7 +241,7 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
                 .load(portrait)
                 .placeholder(R.drawable.shape_gray5_round5)
                 .error(R.drawable.shape_gray5_round5)
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 1)))
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
                 .into(ivBg);
 
         GlideApp.with(MyApplication.getContext())

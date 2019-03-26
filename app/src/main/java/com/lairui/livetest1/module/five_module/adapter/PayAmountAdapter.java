@@ -39,11 +39,11 @@ public class PayAmountAdapter extends BaseRecycleViewAdapter {
     protected void bindClickListener(RecyclerView.ViewHolder viewHolder, int position) {
         PayAmountViewHolder payAmountViewHolder = (PayAmountViewHolder) viewHolder;
         String pay = payAmount[position];
-        payAmountViewHolder.tvArrival1.setText(Integer.parseInt(pay) * 10 + "");
+        payAmountViewHolder.tvArrival1.setText(UiTools.formatNumber(Double.parseDouble(pay) * 10, "#.##"));
         if ("wechat".equals(type)) {
-            payAmountViewHolder.tvPayAmount1.setText("微信钻石" + Integer.parseInt(pay) * 10);
+            payAmountViewHolder.tvPayAmount1.setText("微信钻石" + UiTools.formatNumber(Double.parseDouble(pay) * 10, "#.##"));
         } else {
-            payAmountViewHolder.tvPayAmount1.setText("支付宝钻石" + Integer.parseInt(pay) * 10);
+            payAmountViewHolder.tvPayAmount1.setText("支付宝钻石" + UiTools.formatNumber(Double.parseDouble(pay) * 10, "#.##"));
         }
         payAmountViewHolder.tvSpent.setText(pay);
     }

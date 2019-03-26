@@ -1,235 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <include layout="@layout/layout_toolbar" />
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout19"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@color/color_white"
-        android:padding="@dimen/dp_10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolBar">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/accountBalance"
-            android:textColor="@color/color_black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include layout="@layout/layout_toolbar" />
 
-        <ImageView
-            android:id="@+id/ivDiamond"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout19"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/dp_5"
-            android:src="@drawable/ic_diamond"
-            app:layout_constraintBottom_toBottomOf="@id/textView6"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintStart_toEndOf="@id/textView6"
-            app:layout_constraintTop_toTopOf="@id/textView6" />
-
-        <TextView
-            android:id="@+id/tvBalance"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_5"
-            android:text="0"
-            android:textColor="@color/color_black"
-            app:layout_constraintBottom_toBottomOf="@id/textView6"
-            app:layout_constraintStart_toEndOf="@id/ivDiamond"
-            app:layout_constraintTop_toTopOf="@id/textView6" />
-    </android.support.constraint.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@color/color_white"
-        android:padding="@dimen/dp_10"
-        android:text="@string/choosePayMethod"
-        android:textColor="@color/color_black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout19" />
-
-    <RadioGroup
-        android:id="@+id/rgPayMethod"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/color_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView8">
-
-        <RadioButton
-            android:id="@+id/rbWechat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:button="@null"
-            android:drawableStart="@drawable/pic_wechat"
-            android:drawableEnd="@drawable/selector_checkbox"
-            android:drawablePadding="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/color_white"
             android:padding="@dimen/dp_10"
-            android:text="@string/wechat" />
-
-
-        <RadioButton
-            android:id="@+id/rbAlipay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:button="@null"
-            android:drawableStart="@drawable/pic_alipay"
-            android:drawableEnd="@drawable/selector_checkbox"
-            android:drawablePadding="@dimen/dp_5"
-            android:padding="@dimen/dp_10"
-            android:text="@string/alipay" />
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@color/color_white"
-        android:padding="@dimen/dp_10"
-        android:text="@string/choosePayMethod"
-        android:textColor="@color/color_black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rgPayMethod" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvPayAmount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout20" />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout20"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/color_white"
-        android:padding="@dimen/dp_10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView9">
-
-        <TextView
-            android:id="@+id/tvArrival1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_diamond"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:text="1999"
-            android:textColor="@color/color_black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvPayAmount1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_5"
-            android:text="支付宝10(赠送999钻石)"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvArrival1" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_press"
-            android:paddingLeft="@dimen/dp_15"
-            android:paddingTop="@dimen/dp_5"
-            android:paddingRight="@dimen/dp_15"
-            android:paddingBottom="@dimen/dp_5"
-            android:text="0.01"
-            android:textColor="@drawable/selector_press_color"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolBar">
 
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/accountBalance"
+                android:textColor="@color/color_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rvPayAmount">
+            <ImageView
+                android:id="@+id/ivDiamond"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/dp_5"
+                android:src="@drawable/ic_diamond"
+                app:layout_constraintBottom_toBottomOf="@id/textView6"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toEndOf="@id/textView6"
+                app:layout_constraintTop_toTopOf="@id/textView6" />
+
+            <TextView
+                android:id="@+id/tvBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_5"
+                android:text="0"
+                android:textColor="@color/color_black"
+                app:layout_constraintBottom_toBottomOf="@id/textView6"
+                app:layout_constraintStart_toEndOf="@id/ivDiamond"
+                app:layout_constraintTop_toTopOf="@id/textView6" />
+        </android.support.constraint.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/customAmount"
-            android:textColor="@color/color_black"
-            app:layout_constraintBottom_toBottomOf="@id/etCustomAmount"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/etCustomAmount" />
-
-        <EditText
-            android:id="@+id/etCustomAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_gray4_frame_round5"
-            android:hint="123213"
-            android:maxLength="6"
-            android:padding="@dimen/dp_5"
-            android:textColor="@color/color_black"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/textView10"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
+            android:id="@+id/textView8"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="@dimen/dp_5"
-            android:src="@drawable/ic_diamond"
-            app:layout_constraintBottom_toBottomOf="@id/tvDiamondNumber"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/tvDiamondNumber"
-            app:layout_constraintTop_toTopOf="@id/tvDiamondNumber" />
-
-        <TextView
-            android:id="@+id/tvDiamondNumber"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:text="10101"
-            android:textColor="@color/colorGray"
-            app:layout_constraintBottom_toBottomOf="@id/etCustomAmount"
-            app:layout_constraintEnd_toStartOf="@id/tvRecharge"
-            app:layout_constraintTop_toTopOf="@id/etCustomAmount" />
-
-        <TextView
-            android:id="@+id/tvRecharge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_press"
-            android:paddingLeft="@dimen/dp_15"
-            android:paddingTop="@dimen/dp_5"
-            android:paddingRight="@dimen/dp_15"
-            android:paddingBottom="@dimen/dp_5"
-            android:text="@string/recharge"
-            android:textColor="@drawable/selector_press_color"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/color_white"
+            android:padding="@dimen/dp_10"
+            android:text="@string/choosePayMethod"
+            android:textColor="@color/color_black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout19" />
 
-</android.support.constraint.ConstraintLayout>
+        <RadioGroup
+            android:id="@+id/rgPayMethod"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView8">
+
+            <RadioButton
+                android:id="@+id/rbWechat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:button="@null"
+                android:drawableStart="@drawable/pic_wechat"
+                android:drawableEnd="@drawable/selector_checkbox"
+                android:drawablePadding="@dimen/dp_5"
+                android:padding="@dimen/dp_10"
+                android:text="@string/wechat" />
+
+            <RadioButton
+                android:id="@+id/rbAlipay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:button="@null"
+                android:drawableStart="@drawable/pic_alipay"
+                android:drawableEnd="@drawable/selector_checkbox"
+                android:drawablePadding="@dimen/dp_5"
+                android:padding="@dimen/dp_10"
+                android:text="@string/alipay" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/color_white"
+            android:padding="@dimen/dp_10"
+            android:text="@string/choosePayAmount"
+            android:textColor="@color/color_black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rgPayMethod" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvPayAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout20" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout20"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/color_white"
+            android:padding="@dimen/dp_10"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView9">
+
+            <TextView
+                android:id="@+id/tvArrival1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_diamond"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="1999"
+                android:textColor="@color/color_black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPayAmount1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:text="支付宝10(赠送999钻石)"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvArrival1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_press"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_5"
+                android:text="0.01"
+                android:textColor="@drawable/selector_press_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvPayAmount">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/customAmount"
+                android:textColor="@color/color_black"
+                app:layout_constraintBottom_toBottomOf="@id/etCustomAmount"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/etCustomAmount" />
+
+            <EditText
+                android:id="@+id/etCustomAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_gray4_frame_round5"
+                android:inputType="number"
+                android:maxLength="6"
+                android:padding="@dimen/dp_5"
+                android:textColor="@color/color_black"
+                android:textSize="14sp"
+                app:layout_constraintDimensionRatio="H,1:3"
+                app:layout_constraintStart_toEndOf="@id/textView10"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:src="@drawable/ic_diamond"
+                app:layout_constraintBottom_toBottomOf="@id/tvDiamondNumber"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@id/tvDiamondNumber"
+                app:layout_constraintTop_toTopOf="@id/tvDiamondNumber" />
+
+            <TextView
+                android:id="@+id/tvDiamondNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:text="0"
+                android:textColor="@color/colorGray"
+                app:layout_constraintBottom_toBottomOf="@id/etCustomAmount"
+                app:layout_constraintEnd_toStartOf="@id/tvRecharge"
+                app:layout_constraintTop_toTopOf="@id/etCustomAmount" />
+
+            <TextView
+                android:id="@+id/tvRecharge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_press"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_5"
+                android:text="@string/recharge"
+                android:textColor="@drawable/selector_press_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>

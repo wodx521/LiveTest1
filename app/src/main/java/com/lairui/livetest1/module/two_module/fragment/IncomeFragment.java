@@ -2,6 +2,7 @@ package com.lairui.livetest1.module.two_module.fragment;
 
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -30,6 +31,7 @@ public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
     private RecyclerView rvRanking;
     private ConstraintLayout clLoading;
     private ConstraintLayout clError;
+    private ViewPager vpIncome;
     private ConstraintLayout clEmpty;
     private HttpParams httpParams = new HttpParams();
     private int page = 0;
@@ -49,6 +51,7 @@ public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
 
     @Override
     protected void initView(View view) {
+        vpIncome = view.findViewById(R.id.vpIncome);
         tlRankingDetail = view.findViewById(R.id.tlRankingDetail);
         srlRefresh = view.findViewById(R.id.srlRefresh);
         rvRanking = view.findViewById(R.id.rvRanking);
@@ -62,7 +65,7 @@ public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        setUserVisibleHint(!hidden);
+
     }
 
     @Override
@@ -119,6 +122,7 @@ public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
                 getIncomeList(tlRankingDetail.getSelectedTabPosition(), page);
             }
         });
+
     }
 
     private void getIncomeList(int tabPosition, int page) {

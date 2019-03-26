@@ -17,11 +17,84 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvRanking"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+            android:layout_height="match_parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout21"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.lairui.livetest1.ui.panel.CircleImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/chatroom_01"
+                    app:layout_constraintBottom_toBottomOf="@id/ivFirst"
+                    app:layout_constraintEnd_toEndOf="@id/ivFirst"
+                    app:layout_constraintStart_toStartOf="@id/ivFirst"
+                    app:layout_constraintTop_toTopOf="@id/ivFirst" />
+
+                <com.lairui.livetest1.ui.panel.CircleImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/chatroom_01"
+                    app:layout_constraintBottom_toBottomOf="@id/ivThird"
+                    app:layout_constraintEnd_toEndOf="@id/ivThird"
+                    app:layout_constraintStart_toStartOf="@id/ivThird"
+                    app:layout_constraintTop_toTopOf="@id/ivThird" />
+
+                <com.lairui.livetest1.ui.panel.CircleImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:src="@drawable/chatroom_01"
+                    app:layout_constraintBottom_toBottomOf="@id/ivSecond"
+                    app:layout_constraintEnd_toEndOf="@id/ivSecond"
+                    app:layout_constraintStart_toStartOf="@id/ivSecond"
+                    app:layout_constraintTop_toTopOf="@id/ivSecond" />
+
+                <ImageView
+                    android:id="@+id/ivFirst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_live_ranking_list_header_first"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_live_ranking_list_header_second"
+                    app:layout_constraintBottom_toBottomOf="@id/ivFirst"
+                    app:layout_constraintEnd_toStartOf="@id/ivFirst" />
+
+                <ImageView
+                    android:id="@+id/ivThird"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_live_ranking_list_header_third"
+                    app:layout_constraintBottom_toBottomOf="@id/ivFirst"
+                    app:layout_constraintStart_toEndOf="@id/ivFirst" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvRanking"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/constraintLayout21" />
+
+        </android.support.constraint.ConstraintLayout>
+
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <include

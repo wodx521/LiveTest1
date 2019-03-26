@@ -10,6 +10,7 @@ import com.lairui.livetest1.R;
 import com.lairui.livetest1.fragmentfactory.SecondFragmentFactory;
 import com.lairui.livetest1.module.two_module.presenter.SecondMainPresenter;
 import com.lairui.livetest1.ui.activity.SearchActivity;
+import com.wanou.framelibrary.base.BaseFragment;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.utils.UiTools;
 
@@ -83,13 +84,17 @@ public class SecondMainFragment extends BaseMvpFragment<SecondMainPresenter> imp
         Fragment fragmentByTag = getChildFragmentManager().findFragmentByTag(title);
         List<Fragment> fragments = getChildFragmentManager().getFragments();
         for (Fragment fragment : fragments) {
+            fragment.setUserVisibleHint(false);
             fragmentTransaction.hide(fragment);
         }
         if (fragmentByTag != null) {
+            fragmentByTag.setUserVisibleHint(true);
             fragmentTransaction.show(fragmentByTag);
         } else {
-            fragmentTransaction.add(R.id.flRanking, SecondFragmentFactory.getFragment(position), title);
-            fragmentTransaction.show(SecondFragmentFactory.getFragment(position));
+            BaseFragment fragment = SecondFragmentFactory.getFragment(position);
+            fragment.setUserVisibleHint(true);
+            fragmentTransaction.add(R.id.flRanking, fragment, title);
+            fragmentTransaction.show(fragment);
         }
         fragmentTransaction.commit();
     }

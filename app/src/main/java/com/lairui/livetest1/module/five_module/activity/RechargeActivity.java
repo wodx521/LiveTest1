@@ -1,5 +1,6 @@
 package com.lairui.livetest1.module.five_module.activity;
 
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.module.five_module.adapter.PayAmountAdapter;
 import com.lairui.livetest1.module.five_module.presenter.RechargePresenter;
+import com.lairui.livetest1.utils.CustomTextChange;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.base.BaseRecycleViewAdapter;
 import com.wanou.framelibrary.utils.UiTools;
@@ -22,7 +24,6 @@ public class RechargeActivity extends BaseMvpActivity<RechargePresenter> impleme
     private RecyclerView rvPayAmount;
     private TextView tvToolbarTitle, tvBalance, tvArrival1, tvPayAmount1, tvDiamondNumber,
             tvRecharge;
-    ;
     private EditText etCustomAmount;
     private PayAmountAdapter payAmountAdapter;
 
@@ -64,8 +65,10 @@ public class RechargeActivity extends BaseMvpActivity<RechargePresenter> impleme
 
     @Override
     protected void initData() {
+        rbWechat.performClick();
         payAmountAdapter = new PayAmountAdapter(this);
         rvPayAmount.setAdapter(payAmountAdapter);
+        rvPayAmount.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
 
         payAmountAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
             @Override
@@ -76,6 +79,17 @@ public class RechargeActivity extends BaseMvpActivity<RechargePresenter> impleme
                 }
                 if (rbAlipay.isChecked()) {
                     UiTools.showToast("支付宝支付" + tvSpent.getText());
+                }
+            }
+        });
+
+        etCustomAmount.addTextChangedListener(new CustomTextChange() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (UiTools.noEmpty(s.toString())) {
+                    tvDiamondNumber.setText(UiTools.formatNumber((Double.parseDouble(s.toString()) * 10), "#.##"));
+                } else {
+                    tvDiamondNumber.setText("0");
                 }
             }
         });
