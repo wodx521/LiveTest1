@@ -51,7 +51,7 @@ public class AccountInfoEditActivity extends BaseMvpActivity<AccountInfoEditPres
         linearLayout3 = findViewById(R.id.linearLayout3);
         tvAccountNumber = findViewById(R.id.tvAccountNumber);
         linearLayout4 = findViewById(R.id.linearLayout4);
-        ivGender = findViewById(R.id.ivGender);
+        ivGender = findViewById(R.id.ivSecondGender);
         linearLayout5 = findViewById(R.id.linearLayout5);
         tvSignature = findViewById(R.id.tvSignature);
         linearLayout6 = findViewById(R.id.linearLayout6);

@@ -26,9 +26,9 @@
                 android:id="@+id/text_input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_16"
-                android:layout_marginTop="@dimen/dp_16"
-                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
                 app:counterEnabled="true"
                 app:counterMaxLength="11"
                 app:counterOverflowTextAppearance="@style/ErrorTextInputAppTheme"
@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_user"
-                    android:drawablePadding="@dimen/dp_4"
+                    android:drawablePadding="4dp"
                     android:gravity="center_vertical"
                     android:hint="@string/hint_user_name" />
 
@@ -50,8 +50,8 @@
                 android:id="@+id/text_input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_16"
-                android:layout_marginRight="@dimen/dp_16"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 app:errorTextAppearance="@style/ErrorTextInputAppTheme"
                 app:hintTextAppearance="@style/HintTextInputAppTheme"
                 app:passwordToggleEnabled="true">
@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_password"
-                    android:drawablePadding="@dimen/dp_4"
+                    android:drawablePadding="4dp"
                     android:gravity="center_vertical"
                     android:hint="@string/hint_password"
                     android:inputType="textPassword" />
@@ -72,11 +72,11 @@
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_16"
+                android:layout_margin="16dp"
                 android:background="@color/colorPrimary"
                 android:text="@string/login"
                 android:textColor="@color/color_black"
-                android:textSize="@dimen/sp_18" />
+                android:textSize="18sp" />
         </LinearLayout>
     </com.wanou.framelibrary.weight.SimpleMultiStateView>
 </android.support.constraint.ConstraintLayout>

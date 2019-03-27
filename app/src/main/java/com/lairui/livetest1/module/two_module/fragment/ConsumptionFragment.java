@@ -146,11 +146,6 @@ public class ConsumptionFragment extends BaseMvpFragment<ConsumptionPresenter> {
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        setUserVisibleHint(!hidden);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         if (!isHidden() && getUserVisibleHint()) {

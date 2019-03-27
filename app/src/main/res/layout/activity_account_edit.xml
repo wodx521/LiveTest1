@@ -16,10 +16,10 @@
             android:id="@+id/linearLayout1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="10dp"
             android:background="@color/color_white"
             android:gravity="center_vertical"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolBar">
@@ -38,8 +38,8 @@
 
             <com.lairui.livetest1.ui.panel.CircleImageView
                 android:id="@+id/ivUserIcon"
-                android:layout_width="@dimen/dp_50"
-                android:layout_height="@dimen/dp_50"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:text="@string/avatar"
                 android:textColor="@color/colorGray" />
         </LinearLayout>
@@ -48,17 +48,17 @@
             android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="10dp"
             android:background="@color/color_white"
             android:gravity="center_vertical"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearLayout1">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_50"
+                android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:text="@string/nickName"
                 android:textColor="@color/color_black"
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableEnd="@drawable/arrow_right_gray"
-                android:drawablePadding="@dimen/dp_5"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical" />
 
         </LinearLayout>
@@ -95,14 +95,14 @@
             android:layout_height="wrap_content"
             android:background="@color/color_white"
             android:gravity="center_vertical"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view1">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_50"
+                android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:text="@string/accountNumber"
                 android:textColor="@color/color_black"
@@ -118,7 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableEnd="@drawable/arrow_right_gray_place"
-                android:drawablePadding="@dimen/dp_5"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical" />
 
         </LinearLayout>
@@ -138,14 +138,14 @@
             android:layout_height="wrap_content"
             android:background="@color/color_white"
             android:gravity="center_vertical"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view2">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_50"
+                android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:text="@string/gender"
                 android:textColor="@color/color_black"
@@ -157,10 +157,10 @@
                 android:layout_weight="1" />
 
             <ImageView
-                android:id="@+id/ivGender"
+                android:id="@+id/ivSecondGender"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:drawablePadding="@dimen/dp_5"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical"
                 android:src="@drawable/ic_female" />
 
@@ -181,14 +181,14 @@
             android:layout_height="wrap_content"
             android:background="@color/color_white"
             android:gravity="center_vertical"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view3">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_50"
+                android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:text="@string/signature"
                 android:textColor="@color/color_black"
@@ -204,7 +204,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableEnd="@drawable/arrow_right_gray"
-                android:drawablePadding="@dimen/dp_5"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical" />
         </LinearLayout>
 
@@ -212,17 +212,17 @@
             android:id="@+id/linearLayout6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginTop="10dp"
             android:background="@color/color_white"
             android:gravity="center_vertical"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linearLayout5">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_50"
+                android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:text="@string/birthday"
                 android:textColor="@color/color_black"
@@ -238,7 +238,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableEnd="@drawable/arrow_right_gray"
-                android:drawablePadding="@dimen/dp_5"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical" />
         </LinearLayout>
 
@@ -257,14 +257,14 @@
             android:layout_height="wrap_content"
             android:background="@color/color_white"
             android:gravity="center_vertical"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view4">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_50"
+                android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:text="@string/emotion"
                 android:textColor="@color/color_black"
@@ -280,7 +280,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableEnd="@drawable/arrow_right_gray"
-                android:drawablePadding="@dimen/dp_5"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical" />
         </LinearLayout>
 
@@ -299,14 +299,14 @@
             android:layout_height="wrap_content"
             android:background="@color/color_white"
             android:gravity="center_vertical"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view5">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_50"
+                android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:text="@string/hometown"
                 android:textColor="@color/color_black"
@@ -322,7 +322,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableEnd="@drawable/arrow_right_gray"
-                android:drawablePadding="@dimen/dp_5"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical" />
         </LinearLayout>
 
@@ -341,14 +341,14 @@
             android:layout_height="wrap_content"
             android:background="@color/color_white"
             android:gravity="center_vertical"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view6">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_50"
+                android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:text="@string/career"
                 android:textColor="@color/color_black"
@@ -364,7 +364,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:drawableEnd="@drawable/arrow_right_gray"
-                android:drawablePadding="@dimen/dp_5"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical" />
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>

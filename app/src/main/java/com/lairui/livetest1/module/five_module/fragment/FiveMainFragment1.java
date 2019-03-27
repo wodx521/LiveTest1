@@ -73,8 +73,8 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
         toolBar = view.findViewById(R.id.toolBar);
         ivUserIcon = view.findViewById(R.id.ivUserIcon);
         tvUserName = view.findViewById(R.id.tvUserName);
-        ivGender = view.findViewById(R.id.ivGender);
-        ivRank = view.findViewById(R.id.ivRank);
+        ivGender = view.findViewById(R.id.ivSecondGender);
+        ivRank = view.findViewById(R.id.ivSecondLevel);
         ivEdit = view.findViewById(R.id.ivEdit);
         clError = view.findViewById(R.id.clError);
         tvSignature = view.findViewById(R.id.tvSignature);

@@ -92,7 +92,7 @@ public class SearchListAdapter extends BaseRecycleViewAdapter {
             super(itemView);
             ivUserIcon = itemView.findViewById(R.id.ivUserIcon);
             tvUserName = itemView.findViewById(R.id.tvUserName);
-            ivGender = itemView.findViewById(R.id.ivGender);
+            ivGender = itemView.findViewById(R.id.ivSecondGender);
             ivFollow = itemView.findViewById(R.id.ivFollow);
             tvUserDes = itemView.findViewById(R.id.tvUserDes);
         }

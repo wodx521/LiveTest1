@@ -24,11 +24,11 @@
 
     <style name="HintTextInputAppTheme" parent="Base.TextAppearance.AppCompat.Caption">
         <item name="android:textColor">@color/colorGray1</item>
-        <item name="android:textSize">@dimen/sp_13</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="ErrorTextInputAppTheme" parent="Base.TextAppearance.AppCompat.Caption">
         <item name="android:textColor">@color/red</item>
-        <item name="android:textSize">@dimen/sp_13</item>
+        <item name="android:textSize">13sp</item>
     </style>
 </resources>

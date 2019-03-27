@@ -22,7 +22,7 @@
         android:id="@+id/tvErrorNet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dp_10"
+        android:padding="10dp"
         android:text="@string/errorNet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

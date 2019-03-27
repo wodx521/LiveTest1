@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
-    app:contentInsetStart="@dimen/dp_0">
+    app:contentInsetStart="0dp">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="@dimen/dp_5"
-        android:paddingEnd="@dimen/dp_5">
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp">
 
         <ImageView
             android:id="@+id/ivLeft"
@@ -19,7 +19,7 @@
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             android:src="@drawable/search_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
@@ -40,7 +40,7 @@
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
-            android:padding="@dimen/dp_10"
+            android:padding="10dp"
             android:src="@drawable/notice"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"

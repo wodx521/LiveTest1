@@ -2,6 +2,7 @@ package com.lairui.livetest1.fragmentfactory;
 
 import com.lairui.livetest1.module.two_module.fragment.ConsumptionFragment;
 import com.lairui.livetest1.module.two_module.fragment.IncomeFragment;
+import com.lairui.livetest1.module.two_module.fragment.IncomeFragment1;
 import com.wanou.framelibrary.base.BaseFragment;
 
 import java.util.HashMap;
@@ -22,11 +23,11 @@ public class SecondFragmentFactory {
         } else {
             switch (position) {
                 case 0:
-                    // 关注列表
-                    baseFragment = new IncomeFragment();
+                    // 收入榜
+                    baseFragment = new IncomeFragment1();
                     break;
                 case 1:
-                    // 热门列表
+                    // 消费榜
                     baseFragment = new ConsumptionFragment();
                     break;
                 default:

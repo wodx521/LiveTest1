@@ -29,58 +29,207 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.lairui.livetest1.ui.panel.CircleImageView
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:src="@drawable/chatroom_01"
-                    app:layout_constraintBottom_toBottomOf="@id/ivFirst"
-                    app:layout_constraintEnd_toEndOf="@id/ivFirst"
-                    app:layout_constraintStart_toStartOf="@id/ivFirst"
-                    app:layout_constraintTop_toTopOf="@id/ivFirst" />
-
-                <com.lairui.livetest1.ui.panel.CircleImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:src="@drawable/chatroom_01"
-                    app:layout_constraintBottom_toBottomOf="@id/ivThird"
-                    app:layout_constraintEnd_toEndOf="@id/ivThird"
-                    app:layout_constraintStart_toStartOf="@id/ivThird"
-                    app:layout_constraintTop_toTopOf="@id/ivThird" />
-
-                <com.lairui.livetest1.ui.panel.CircleImageView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:src="@drawable/chatroom_01"
-                    app:layout_constraintBottom_toBottomOf="@id/ivSecond"
-                    app:layout_constraintEnd_toEndOf="@id/ivSecond"
-                    app:layout_constraintStart_toStartOf="@id/ivSecond"
-                    app:layout_constraintTop_toTopOf="@id/ivSecond" />
-
-                <ImageView
-                    android:id="@+id/ivFirst"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_live_ranking_list_header_first"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/guideline6"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.lairui.livetest1.ui.panel.CircleImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/chatroom_01"
+                        app:layout_constraintBottom_toBottomOf="@id/ivSecondIcon"
+                        app:layout_constraintEnd_toEndOf="@id/ivSecondIcon"
+                        app:layout_constraintStart_toStartOf="@id/ivSecondIcon"
+                        app:layout_constraintTop_toTopOf="@id/ivSecondIcon"
+                        app:layout_constraintWidth_percent="0.5" />
+
+                    <ImageView
+                        android:id="@+id/ivSecondIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:src="@drawable/ic_live_ranking_list_header_second"
+                        app:layout_constraintBottom_toTopOf="@id/tvSecondUser"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvSecondUser"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text="12312313213131"
+                        android:textColor="@color/color_black"
+                        app:layout_constraintEnd_toStartOf="@id/ivSecondGender"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivSecondIcon" />
+
+                    <ImageView
+                        android:id="@+id/ivSecondGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_female"
+                        app:layout_constraintBottom_toBottomOf="@id/tvSecondUser"
+                        app:layout_constraintEnd_toStartOf="@id/ivSecondLevel"
+                        app:layout_constraintStart_toEndOf="@id/tvSecondUser"
+                        app:layout_constraintTop_toTopOf="@id/tvSecondUser" />
+
+                    <ImageView
+                        android:id="@+id/ivSecondLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/rank_1"
+                        app:layout_constraintBottom_toBottomOf="@id/tvSecondUser"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivSecondGender"
+                        app:layout_constraintTop_toTopOf="@id/tvSecondUser" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="15dp"
+                    app:layout_constraintEnd_toStartOf="@id/guideline7"
+                    app:layout_constraintStart_toEndOf="@id/guideline6"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivFirstIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:src="@drawable/ic_live_ranking_list_header_first"
+                        app:layout_constraintBottom_toTopOf="@id/tvFirstUser"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvFirstUser"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text="12312313213131"
+                        android:textColor="@color/color_black"
+                        app:layout_constraintEnd_toStartOf="@id/ivFirstGender"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivFirstIcon" />
+
+                    <ImageView
+                        android:id="@+id/ivFirstGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_female"
+                        app:layout_constraintBottom_toBottomOf="@id/tvFirstUser"
+                        app:layout_constraintEnd_toStartOf="@id/ivFirstLevel"
+                        app:layout_constraintStart_toEndOf="@id/tvFirstUser"
+                        app:layout_constraintTop_toTopOf="@id/tvFirstUser" />
+
+                    <ImageView
+                        android:id="@+id/ivFirstLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/rank_1"
+                        app:layout_constraintBottom_toBottomOf="@id/tvFirstUser"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivFirstGender"
+                        app:layout_constraintTop_toTopOf="@id/tvFirstUser" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toEndOf="@id/guideline7">
 
-                <ImageView
-                    android:id="@+id/ivSecond"
+                    <com.lairui.livetest1.ui.panel.CircleImageView
+                        android:layout_width=""
+                        android:layout_height="" />
+
+                    <ImageView
+                        android:id="@+id/ivThirdIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:src="@drawable/ic_live_ranking_list_header_third"
+                        app:layout_constraintBottom_toTopOf="@id/tvThirdUser"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvThirdUser"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text="12312313213131"
+                        android:textColor="@color/color_black"
+                        app:layout_constraintEnd_toStartOf="@id/ivThirdGender"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivThirdIcon" />
+
+                    <ImageView
+                        android:id="@+id/ivThirdGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/ic_female"
+                        app:layout_constraintBottom_toBottomOf="@id/tvThirdUser"
+                        app:layout_constraintEnd_toStartOf="@id/ivThirdLevel"
+                        app:layout_constraintStart_toEndOf="@id/tvThirdUser"
+                        app:layout_constraintTop_toTopOf="@id/tvThirdUser" />
+
+                    <ImageView
+                        android:id="@+id/ivThirdLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/rank_1"
+                        app:layout_constraintBottom_toBottomOf="@id/tvThirdUser"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivThirdGender"
+                        app:layout_constraintTop_toTopOf="@id/tvThirdUser" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_live_ranking_list_header_second"
-                    app:layout_constraintBottom_toBottomOf="@id/ivFirst"
-                    app:layout_constraintEnd_toStartOf="@id/ivFirst" />
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.33" />
 
-                <ImageView
-                    android:id="@+id/ivThird"
+                <android.support.constraint.Guideline
+                    android:id="@+id/guideline7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_live_ranking_list_header_third"
-                    app:layout_constraintBottom_toBottomOf="@id/ivFirst"
-                    app:layout_constraintStart_toEndOf="@id/ivFirst" />
-
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.67" />
             </android.support.constraint.ConstraintLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -92,7 +241,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constraintLayout21" />
-
         </android.support.constraint.ConstraintLayout>
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dp_5">
+    android:layout_margin="5dp">
 
     <ImageView
         android:id="@+id/ivVideoCover"
@@ -20,16 +20,16 @@
         android:id="@+id/tvVideoAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10"
+        android:layout_margin="10dp"
         android:textColor="@color/color_white"
         app:layout_constraintBottom_toTopOf="@id/ivVideoAuthor"
         app:layout_constraintStart_toStartOf="@id/ivVideoCover" />
 
     <com.lairui.livetest1.ui.panel.CircleImageView
         android:id="@+id/ivVideoAuthor"
-        android:layout_width="@dimen/dp_30"
-        android:layout_height="@dimen/dp_30"
-        android:layout_margin="@dimen/dp_10"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="@id/ivVideoCover"
         app:layout_constraintStart_toStartOf="@id/ivVideoCover" />
 
@@ -37,14 +37,14 @@
         android:id="@+id/tvWatchNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/shape_gray3_round20"
         android:drawableStart="@drawable/small_video_list_video"
-        android:drawablePadding="@dimen/dp_5"
-        android:paddingStart="@dimen/dp_10"
-        android:paddingTop="@dimen/dp_5"
-        android:paddingEnd="@dimen/dp_10"
-        android:paddingBottom="@dimen/dp_5"
+        android:drawablePadding="5dp"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
         android:text="0"
         android:textColor="@color/color_white"
         app:layout_constraintBottom_toBottomOf="@id/ivVideoAuthor"

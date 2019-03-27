@@ -18,8 +18,6 @@ import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.List;
 
-import static io.rong.imlib.statistics.UserData.phone;
-
 public class RankingAdapter extends BaseRecycleViewAdapter {
     private List<RankingBean.ListBean> list;
 
@@ -85,7 +83,7 @@ public class RankingAdapter extends BaseRecycleViewAdapter {
             super(itemView);
             ivUserIcon = itemView.findViewById(R.id.ivUserIcon);
             tvUserName = itemView.findViewById(R.id.tvUserName);
-            ivGender = itemView.findViewById(R.id.ivGender);
+            ivGender = itemView.findViewById(R.id.ivSecondGender);
             tvUserDes = itemView.findViewById(R.id.tvUserDes);
         }
     }

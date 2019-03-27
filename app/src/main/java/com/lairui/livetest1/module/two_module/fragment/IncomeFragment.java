@@ -65,7 +65,7 @@ public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-
+        UiTools.showToast("income"+getUserVisibleHint());
     }
 
     @Override
