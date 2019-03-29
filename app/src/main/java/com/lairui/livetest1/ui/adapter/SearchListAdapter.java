@@ -67,7 +67,7 @@ public class SearchListAdapter extends BaseRecycleViewAdapter {
             @Override
             public void onClick(View v) {
                 if (followClickListener != null) {
-                    followClickListener.onFollowClick(position);
+                    followClickListener.onFollowClick(v, position);
                 }
             }
         });
@@ -98,8 +98,8 @@ public class SearchListAdapter extends BaseRecycleViewAdapter {
         }
     }
 
-    interface FollowClickListener {
-        void onFollowClick(int position);
+    public interface FollowClickListener {
+        void onFollowClick(View v, int position);
     }
 
     FollowClickListener followClickListener;

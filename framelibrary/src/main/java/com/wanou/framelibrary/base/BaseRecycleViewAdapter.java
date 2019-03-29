@@ -13,6 +13,7 @@ public abstract class BaseRecycleViewAdapter extends RecyclerView.Adapter<Recycl
     protected Context mContext;
     protected LayoutInflater inflater;
     protected int defItem = -1;
+    private View view;
 
     public BaseRecycleViewAdapter(Context context) {
         this.mContext = context;
@@ -22,7 +23,7 @@ public abstract class BaseRecycleViewAdapter extends RecyclerView.Adapter<Recycl
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = inflater.inflate(getItemRes(), viewGroup, false);
+        view = inflater.inflate(getItemRes(), viewGroup, false);
         return getViewHolder(view);
     }
 

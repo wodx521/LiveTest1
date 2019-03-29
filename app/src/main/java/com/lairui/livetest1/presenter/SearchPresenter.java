@@ -1,5 +1,7 @@
 package com.lairui.livetest1.presenter;
 
+import android.view.View;
+
 import com.google.gson.reflect.TypeToken;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
@@ -13,8 +15,11 @@ import com.wanou.framelibrary.bean.GeneralResult;
 import com.wanou.framelibrary.bean.SimpleResponse;
 import com.wanou.framelibrary.okgoutil.CustomizeStringCallback;
 import com.wanou.framelibrary.okgoutil.OkGoUtils;
+import com.wanou.framelibrary.utils.UiTools;
+import com.wanou.framelibrary.weight.LoadingDialog;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 public class SearchPresenter extends BasePresenterImpl<SearchActivity> {
 
@@ -54,4 +59,36 @@ public class SearchPresenter extends BasePresenterImpl<SearchActivity> {
         });
     }
 
+    public void setAttention(String httpParams, View v) {
+        OkGoUtils.postRequest(AppConstant.BASE_URL, "attention", httpParams, new CustomizeStringCallback() {
+            @Override
+            public Type getResultType() {
+                return new TypeToken<GeneralResult<List<Void>>>() {
+                }.getType();
+            }
+
+            @Override
+            public void onRequestSuccess(GeneralResult generalResult) {
+                if (UiTools.noEmpty(generalResult.msg)) {
+                    UiTools.showToast(generalResult.msg);
+                }
+                v.setSelected(!v.isSelected());
+            }
+
+            @Override
+            public void onRequestError(SimpleResponse simpleResponse) {
+                mPresenterView.setAttentionError(simpleResponse);
+            }
+
+            @Override
+            public void onRequestStart(Request<String, ? extends Request> request) {
+                LoadingDialog.getDialog(mPresenterView, "");
+            }
+
+            @Override
+            public void onRequestFinish() {
+                LoadingDialog.dismiss();
+            }
+        });
+    }
 }

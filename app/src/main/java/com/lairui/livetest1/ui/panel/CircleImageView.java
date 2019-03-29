@@ -33,7 +33,6 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
     private final Matrix mShaderMatrix = new Matrix();
     private final Paint mBitmapPaint = new Paint();
     private final Paint mBorderPaint = new Paint();
-
     private int mBorderColor = DEFAULT_BORDER_COLOR;
     private int mBorderWidth = DEFAULT_BORDER_WIDTH;
 
@@ -73,6 +72,15 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
             setup();
             mSetupPending = false;
         }
+    }
+
+    private RectF calculateBounds() {
+        int i = getWidth() - getPaddingLeft() - getPaddingRight();
+        int j = getHeight() - getPaddingTop() - getPaddingBottom();
+        int k = Math.min(i, j);
+        float f1 = getPaddingLeft() + (i - k) / 2.0F;
+        float f2 = getPaddingTop() + (j - k) / 2.0F;
+        return new RectF(f1, f2, f1 + k, f2 + k);
     }
 
     @Override
@@ -201,7 +209,7 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
         mBitmapHeight = mBitmap.getHeight();
         mBitmapWidth = mBitmap.getWidth();
 
-        mBorderRect.set(0, 0, getWidth(), getHeight());
+        mBorderRect.set(calculateBounds());
         mBorderRadius = Math.min((mBorderRect.height() - mBorderWidth) / 2, (mBorderRect.width() - mBorderWidth) / 2);
 
         mDrawableRect.set(mBorderWidth, mBorderWidth, mBorderRect.width() - mBorderWidth, mBorderRect.height() - mBorderWidth);

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
 import com.lairui.livetest1.module.two_module.presenter.ConsumptionPresenter;
@@ -74,7 +75,7 @@ public class ConsumptionFragment extends BaseMvpFragment<ConsumptionPresenter> {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 long l = System.currentTimeMillis();
-                if ((l - mTime) > 1000) {
+                if ((l - mTime) > AppConstant.CLICK_TIME_OUT) {
                     mTime = l;
                     int position = tab.getPosition();
                     tempList.clear();
@@ -90,7 +91,7 @@ public class ConsumptionFragment extends BaseMvpFragment<ConsumptionPresenter> {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 long l = System.currentTimeMillis();
-                if ((l - mTime) > 1000) {
+                if ((l - mTime) > AppConstant.CLICK_TIME_OUT) {
                     mTime = l;
                     int position = tab.getPosition();
                     tempList.clear();

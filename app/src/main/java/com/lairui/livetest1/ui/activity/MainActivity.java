@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
 import com.lairui.livetest1.presenter.MainPresenter;
 import com.lairui.livetest1.utils.ChatroomKit;
@@ -206,7 +207,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if ((System.currentTimeMillis() - mTime) > 1000) {
+            if ((System.currentTimeMillis() - mTime) > AppConstant.CLICK_TIME_OUT) {
                 UiTools.showToast("再按一次退出程序");
                 mTime = System.currentTimeMillis();
             } else {

@@ -9,9 +9,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/color_white"
-        app:contentInsetEnd="16dp"
+        app:contentInsetEnd="10dp"
+        app:contentInsetStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,22 +21,21 @@
 
             <ImageView
                 android:id="@+id/ivBack"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:contentDescription="@null"
-                android:padding="5dp"
+                android:padding="8dp"
                 android:src="@drawable/arrow_left_main_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/etSearchLive"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/shape_white_gray1_round20"
                 android:gravity="center"
                 android:hint="@string/inputSearch"
@@ -61,15 +62,15 @@
 
             <ImageView
                 android:id="@+id/ivSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/search_black"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:contentDescription="@null"
+                android:padding="8dp"
+                android:src="@drawable/search_black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
-
     </android.support.v7.widget.Toolbar>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout

@@ -30,7 +30,20 @@ public class LiveRoomBean implements Parcelable {
      * notice : null
      * pull : {"rtmpurl":"rtmp://heh.push.htcrm.net/lairui/2121?auth_key=1551696493-0-0-2e1389e5fbb18480c191e79fb506021a","flvurl":"http://heh.push.htcrm.net/lairui/2121.flv?auth_key=1551696493-0-0-1884ff4408b2990c8254c554755a85e5","m398url":"http://heh.push.htcrm.net/lairui/2121.m3u8?auth_key=1551696493-0-0-ca1741efbde8f83a626cf049812945a7"}
      */
+    // 推流地址
     private PullBean pull;
+    /**
+     * portrait : http://192.168.1.106:86/static/img/12.png
+     * userNum : 0
+     * city : 郑州
+     */
+    // 头像地址
+    private String portrait;
+    // 用户数
+    private String userNum;
+    // 所在城市
+    private String city;
+
 
     protected LiveRoomBean(Parcel in) {
         id = in.readString();
@@ -40,6 +53,9 @@ public class LiveRoomBean implements Parcelable {
         notice = in.readString();
         status = in.readString();
         pull = in.readParcelable(PullBean.class.getClassLoader());
+        portrait = in.readString();
+        userNum = in.readString();
+        city = in.readString();
     }
 
     @Override
@@ -51,6 +67,9 @@ public class LiveRoomBean implements Parcelable {
         dest.writeString(notice);
         dest.writeString(status);
         dest.writeParcelable(pull, flags);
+        dest.writeString(portrait);
+        dest.writeString(userNum);
+        dest.writeString(city);
     }
 
     @Override
@@ -124,6 +143,30 @@ public class LiveRoomBean implements Parcelable {
 
     public void setPull(PullBean pull) {
         this.pull = pull;
+    }
+
+    public String getPortrait() {
+        return portrait;
+    }
+
+    public void setPortrait(String portrait) {
+        this.portrait = portrait;
+    }
+
+    public String getUserNum() {
+        return userNum;
+    }
+
+    public void setUserNum(String userNum) {
+        this.userNum = userNum;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public static class PullBean implements Parcelable {

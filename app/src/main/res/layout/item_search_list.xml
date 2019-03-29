@@ -4,35 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_white"
-    android:padding="5dp">
+    android:paddingLeft="5dp"
+    android:paddingTop="10dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="10dp">
 
     <com.lairui.livetest1.ui.panel.CircleImageView
         android:id="@+id/ivUserIcon"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:src="@drawable/chatroom_01"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivFollow"
-        android:layout_width="wrap_content"
+        android:layout_width="45dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
-        android:background="@drawable/selector_follow"
-        app:layout_constraintBottom_toBottomOf="@id/ivUserIcon"
+        android:contentDescription="@null"
+        android:padding="3dp"
+        android:src="@drawable/selector_follow"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ivUserIcon" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/ivFollow"
-        app:layout_constraintStart_toEndOf="@id/ivUserIcon">
+        app:layout_constraintStart_toEndOf="@id/ivUserIcon"
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -47,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:gravity="center_vertical"
-                android:text="测试1"
+                android:text=""
                 android:textColor="@color/color_black" />
 
             <ImageView

@@ -78,6 +78,8 @@ public class IncomeFragment1 extends BaseMvpFragment<IncomePresenter1> {
                 addFragment(tab.getPosition(), tab.getText().toString());
             }
         });
+
+        tlRankingDetail.getTabAt(0).select();
     }
 
     private void addFragment(int position, String title) {

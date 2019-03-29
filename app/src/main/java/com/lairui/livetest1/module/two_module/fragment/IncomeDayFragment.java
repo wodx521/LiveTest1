@@ -1,6 +1,7 @@
 package com.lairui.livetest1.module.two_module.fragment;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuffXfermode;
@@ -21,6 +22,7 @@ import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
 import com.lairui.livetest1.module.two_module.presenter.IncomeDayPresenter;
 import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.ui.panel.CircleImageView;
+import com.lairui.livetest1.utils.AlphaFilter;
 import com.lzy.okgo.model.HttpParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -59,7 +61,6 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
     private List<RankingBean.ListBean> tempList = new ArrayList<>();
     private RankingAdapter rankingAdapter;
 
-
     @Override
     protected IncomeDayPresenter getPresenter() {
         return new IncomeDayPresenter();
@@ -73,19 +74,6 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
     @Override
     protected void initView(View view) {
         srlRefresh = view.findViewById(R.id.srlRefresh);
-        constraintLayout21 = view.findViewById(R.id.constraintLayout21);
-        ivSecondIcon = view.findViewById(R.id.ivSecondIcon);
-        tvSecondUser = view.findViewById(R.id.tvSecondUser);
-        ivSecondGender = view.findViewById(R.id.ivSecondGender);
-        ivSecondLevel = view.findViewById(R.id.ivSecondLevel);
-        ivFirstIcon = view.findViewById(R.id.ivFirstIcon);
-        tvFirstUser = view.findViewById(R.id.tvFirstUser);
-        ivFirstGender = view.findViewById(R.id.ivFirstGender);
-        ivFirstLevel = view.findViewById(R.id.ivFirstLevel);
-        ivThirdIcon = view.findViewById(R.id.ivThirdIcon);
-        tvThirdUser = view.findViewById(R.id.tvThirdUser);
-        ivThirdGender = view.findViewById(R.id.ivThirdGender);
-        ivThirdLevel = view.findViewById(R.id.ivThirdLevel);
         rvRanking = view.findViewById(R.id.rvRanking);
         clLoading = view.findViewById(R.id.clLoading);
         clError = view.findViewById(R.id.clError);
@@ -136,11 +124,44 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
         int totalPage = Integer.parseInt(pageNum);
         srlRefresh.setEnableLoadMore(page < totalPage);
         List<RankingBean.ListBean> list = rankingBean.getList();
+        if (list.size() > 3) {
+            List<RankingBean.ListBean> listBeans = list.subList(0, 3);
+            List<RankingBean.ListBean> listBeans1 = list.subList(3, list.size());
+            tempList.addAll(listBeans1);
+            for (int i = 0; i < listBeans.size(); i++) {
+                RankingBean.ListBean.UidBean uid = listBeans.get(i).getUid();
+                if (i == 0) {
+                    tvFirstUser.setText(uid.getNickname());
+                    String sex = uid.getSex();
+                    if ("男".equals(sex)) {
+                        ivFirstGender.setSelected(false);
+                    }else{
+                        ivFirstGender.setSelected(true);
+                    }
+                }
+                if (i == 1) {
+                    tvSecondUser.setText(uid.getNickname());
+                    String sex = uid.getSex();
+                    if ("男".equals(sex)) {
+                        ivSecondGender.setSelected(false);
+                    }else{
+                        ivSecondGender.setSelected(true);
+                    }
+                }
+                if (i == 2) {
+                    tvThirdUser.setText(uid.getNickname());
+                    String sex = uid.getSex();
+                    if ("男".equals(sex)) {
+                        ivThirdGender.setSelected(false);
+                    }else{
+                        ivThirdGender.setSelected(true);
+                    }
+                }
+            }
+        }
 
-        GlideApp.with(MyApplication.getContext())
-                .load("")
-                .fitCenter()
-                .into(ivFirstIcon);
+
+
 
         tempList.addAll(list);
         rankingAdapter.setList(tempList);

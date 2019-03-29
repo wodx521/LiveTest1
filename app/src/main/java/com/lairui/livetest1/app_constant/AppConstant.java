@@ -12,4 +12,6 @@ public class AppConstant {
     public static final int EDIT_INFO = 2;
     public static final int CHANG_INFO = 3;
     public static final int REQUEST_CODE_CHOOSE = 4;
+
+    public static final int CLICK_TIME_OUT = 1000;
 }

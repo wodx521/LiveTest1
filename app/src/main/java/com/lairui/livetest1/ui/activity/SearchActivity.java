@@ -1,5 +1,6 @@
 package com.lairui.livetest1.ui.activity;
 
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -8,9 +9,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.SearchListBean;
+import com.lairui.livetest1.entity.jsonparam.AttentionParams;
 import com.lairui.livetest1.presenter.SearchPresenter;
 import com.lairui.livetest1.ui.adapter.SearchListAdapter;
+import com.lairui.livetest1.utils.CustomTextChange;
 import com.lzy.okgo.model.HttpParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -19,6 +23,7 @@ import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.base.BaseRecycleViewAdapter;
 import com.wanou.framelibrary.bean.SimpleResponse;
 import com.wanou.framelibrary.manager.ActivityManage;
+import com.wanou.framelibrary.utils.GsonUtils;
 import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
@@ -37,6 +42,7 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
     private SearchListAdapter searchListAdapter;
     private int page = 0;
     private long time = 0;
+    private AttentionParams attentionParams = new AttentionParams();
 
     @Override
     protected SearchPresenter getPresenter() {
@@ -56,7 +62,7 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
         ivSearch = findViewById(R.id.ivSearch);
         srlRefresh = findViewById(R.id.srlRefresh);
         rvSearchList = findViewById(R.id.rvSearchList);
-
+        rvSearchList.addItemDecoration(new DividerItemDecoration(SearchActivity.this, DividerItemDecoration.VERTICAL));
         ivBack.setOnClickListener(this);
         ivClear.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
@@ -66,29 +72,16 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
     protected void initData() {
         searchListAdapter = new SearchListAdapter(this);
         rvSearchList.setAdapter(searchListAdapter);
-        if (UiTools.noEmpty(UiTools.getText(etSearchLive))) {
-            srlRefresh.setEnableRefresh(true);
-        } else {
-            srlRefresh.setEnableRefresh(false);
-        }
-        etSearchLive.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+        etSearchLive.addTextChangedListener(new CustomTextChange() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0 && UiTools.noEmpty(s.toString())) {
                     viewVisible(ivClear);
+                    srlRefresh.setEnableRefresh(true);
                 } else {
                     viewInvisible(ivClear);
+                    srlRefresh.setEnableRefresh(false);
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
             }
         });
     }
@@ -96,17 +89,17 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
     @Override
     public void onClick(View v) {
         String token = (String) SpUtils.get("token", "");
-        switch (v.getId()) {
-            case R.id.ivBack:
-                finish();
-                break;
-            case R.id.ivClear:
-                etSearchLive.setText("");
-                break;
-            case R.id.ivSearch:
-                long currentTime = System.currentTimeMillis();
-                if ((currentTime - time) > 1000) {
-                    time = currentTime;
+        long currentTime = System.currentTimeMillis();
+        if ((currentTime - time) > AppConstant.CLICK_TIME_OUT) {
+            time = currentTime;
+            switch (v.getId()) {
+                case R.id.ivBack:
+                    finish();
+                    break;
+                case R.id.ivClear:
+                    etSearchLive.setText("");
+                    break;
+                case R.id.ivSearch:
                     tempData.clear();
                     httpParams.clear();
                     page = 0;
@@ -119,16 +112,16 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
                         httpParams.put("key", "");
                     }
                     mPresenter.getSearchList(httpParams);
-                }
-                break;
-            default:
+                    break;
+                default:
+            }
         }
     }
 
     public void setSearchSuccess(SearchListBean searchListBean) {
         int currentPage = searchListBean.getCurrentPage();
         int lastPage = searchListBean.getLastPage();
-        if (currentPage <= lastPage) {
+        if (currentPage < lastPage) {
             srlRefresh.setEnableLoadMore(true);
         } else {
             srlRefresh.setEnableLoadMore(false);
@@ -154,12 +147,24 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
 
         List<SearchListBean.DataBean> data = searchListBean.getData();
         tempData.addAll(data);
-        searchListAdapter.setSearchListBeanList(data);
+        searchListAdapter.setSearchListBeanList(tempData);
 
         searchListAdapter.setOnItemClickListener(new BaseRecycleViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClickListener(View view, int position) {
+                // TODO: 2019/3/29 搜索条目点击
 
+            }
+        });
+
+        searchListAdapter.setFollowClickListener(new SearchListAdapter.FollowClickListener() {
+            @Override
+            public void onFollowClick(View v, int position) {
+                String token = (String) SpUtils.get("token", "");
+                SearchListBean.DataBean dataBean = tempData.get(position);
+                attentionParams.anchorUid = "";
+                attentionParams.token = token;
+                mPresenter.setAttention(GsonUtils.toJson(attentionParams), v);
             }
         });
     }
@@ -168,9 +173,17 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
         if (simpleResponse != null) {
             if (simpleResponse.code == -1) {
                 startActivity(SearchActivity.this, null, LoginActivity.class);
-                SpUtils.put("token","");
+                SpUtils.put("token", "");
                 ActivityManage.getInstance().finishAll();
             }
         }
+    }
+
+    public void setAttentionSuccess() {
+
+    }
+
+    public void setAttentionError(SimpleResponse simpleResponse) {
+
     }
 }

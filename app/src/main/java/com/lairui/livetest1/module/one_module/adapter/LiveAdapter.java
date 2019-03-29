@@ -14,6 +14,7 @@ import com.lairui.livetest1.entity.bean.LiveRoomBean;
 import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.wanou.framelibrary.base.BaseRecycleViewAdapter;
 import com.wanou.framelibrary.glidetools.GlideApp;
+import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.List;
 
@@ -45,24 +46,34 @@ public class LiveAdapter extends BaseRecycleViewAdapter {
         LiveRoomBean liveRoomBean = tempLiveRoom.get(position);
         String status = liveRoomBean.getStatus();
         String title = liveRoomBean.getTitle();
+        String city = liveRoomBean.getCity();
+        String userNum = liveRoomBean.getUserNum();
+        String portrait = liveRoomBean.getPortrait();
         // 主播大致位置
-        liveViewHolder.tvUserLocation.setText("");
-        liveViewHolder.tvUserLocation.setVisibility(View.GONE);
+        if (UiTools.noEmpty(city)) {
+            liveViewHolder.tvUserLocation.setText(city);
+        } else {
+            liveViewHolder.tvUserLocation.setText("");
+        }
         // 观众数
-        liveViewHolder.tvViewerNumber.setText("");
-        liveViewHolder.tvViewerNumber.setVisibility(View.GONE);
+        if (UiTools.noEmpty(userNum)) {
+            String string = UiTools.getString(R.string.defaultScanNum);
+            liveViewHolder.tvViewerNumber.setText(string.replace("0", userNum));
+        } else {
+            liveViewHolder.tvViewerNumber.setText(R.string.defaultScanNum);
+        }
         // 主播名称
         liveViewHolder.tvUserName.setText(title);
         // 直播状态
         liveViewHolder.tvLiveStatus.setText(status);
 
         GlideApp.with(MyApplication.getContext())
-                .load(AppConstant.BASE_URL+"")
+                .load(portrait)
                 .placeholder(R.drawable.chatroom_01)
                 .error(R.drawable.chatroom_01)
                 .into(liveViewHolder.ivUserIcon);
         GlideApp.with(MyApplication.getContext())
-                .load(AppConstant.BASE_URL+liveRoomBean.getCover())
+                .load(liveRoomBean.getCover())
                 .placeholder(R.drawable.default_cover)
                 .error(R.drawable.default_cover)
                 .centerCrop()
