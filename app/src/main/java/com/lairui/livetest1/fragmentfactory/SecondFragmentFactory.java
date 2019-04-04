@@ -1,6 +1,9 @@
 package com.lairui.livetest1.fragmentfactory;
 
+import android.util.SparseArray;
+
 import com.lairui.livetest1.module.two_module.fragment.ConsumptionFragment;
+import com.lairui.livetest1.module.two_module.fragment.ConsumptionFragment1;
 import com.lairui.livetest1.module.two_module.fragment.IncomeFragment;
 import com.lairui.livetest1.module.two_module.fragment.IncomeFragment1;
 import com.wanou.framelibrary.base.BaseFragment;
@@ -12,7 +15,7 @@ import java.util.HashMap;
  * @date on 2018/8/17
  */
 public class SecondFragmentFactory {
-    public static HashMap<Integer, BaseFragment> fragmentMainMap = new HashMap<>();
+    public static SparseArray<BaseFragment> fragmentMainMap = new SparseArray<>();
 
     public static BaseFragment getFragment(int position) {
         BaseFragment baseFragment = null;
@@ -28,7 +31,7 @@ public class SecondFragmentFactory {
                     break;
                 case 1:
                     // 消费榜
-                    baseFragment = new ConsumptionFragment();
+                    baseFragment = new ConsumptionFragment1();
                     break;
                 default:
             }

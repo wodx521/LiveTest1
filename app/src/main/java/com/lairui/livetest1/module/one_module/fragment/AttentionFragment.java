@@ -2,6 +2,7 @@ package com.lairui.livetest1.module.one_module.fragment;
 
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.TabLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class AttentionFragment extends BaseMvpFragment<AttentionPresenter> {
     private List<LiveRoomBean> tempLiveRoom = new ArrayList<>();
     private Bundle bundle = new Bundle();
     private LiveAdapter liveAdapter;
+    private TabLayout tabLayout;
 
     @Override
     protected AttentionPresenter getPresenter() {
@@ -57,15 +59,15 @@ public class AttentionFragment extends BaseMvpFragment<AttentionPresenter> {
         tvErrorNet = view.findViewById(R.id.tvErrorNet);
         viewGone(srlRefresh, clError, clEmpty);
         viewVisible(clLoading);
-
     }
 
     @Override
     protected void initData() {
+        tabLayout = getParentFragment().getView().findViewById(R.id.tlClassification);
         liveAdapter = new LiveAdapter(getActivity());
         rvLiveList.setAdapter(liveAdapter);
         tempLiveRoom.clear();
-        getLiveRoom();
+//        getLiveRoom();
 
         // todo 正常使用需要删除
         DataInterface.initUserInfo();
@@ -74,8 +76,24 @@ public class AttentionFragment extends BaseMvpFragment<AttentionPresenter> {
 
     private void getLiveRoom() {
         httpParams.clear();
-        httpParams.put("operate", "roomGroup-list");
+        httpParams.put("operate", "roomGroup-categoryRoom");
+        httpParams.put("category", tabLayout.getSelectedTabPosition() + 1 + "");
         mPresenter.getLiveList(httpParams);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (!hidden) {
+            onResume();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getUserVisibleHint()) {
+            getLiveRoom();
+        }
     }
 
     public void setLiveList(LiveListBean liveListBean) {

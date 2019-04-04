@@ -14,7 +14,7 @@ import java.util.List;
  * Date on 2018/12/27.
  */
 public abstract class BaseFragmentPagerAdapter extends FragmentPagerAdapter {
-    protected List<BaseFragment> list = new ArrayList<>();
+    public List<BaseFragment> list = new ArrayList<>();
 
     public BaseFragmentPagerAdapter(FragmentManager fm) {
         super(fm);

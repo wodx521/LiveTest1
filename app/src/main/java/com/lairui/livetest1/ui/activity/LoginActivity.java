@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lairui.livetest1.R;
@@ -21,6 +22,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
     private TextInputEditText etName;
     private TextInputEditText etPassword;
     private Button btnLogin;
+    private ImageView ivLeft;
     private TextView tvOperate;
     private HttpParams httpParams = new HttpParams();
 
@@ -42,7 +44,8 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
         etName = findViewById(R.id.et_name);
         etPassword = findViewById(R.id.et_password);
         btnLogin = findViewById(R.id.btn_login);
-
+        ivLeft = findViewById(R.id.ivLeft);
+        viewVisible(ivLeft);
         tvToolbarTitle.setText(R.string.login);
         btnLogin.setOnClickListener(this);
         viewVisible(tvOperate);

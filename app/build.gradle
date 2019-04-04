@@ -64,4 +64,7 @@ dependencies {
     implementation('com.zhihu.android:matisse:0.5.2-beta3') {
         exclude group: 'com.android.support'
     }
+
+    // agentweb 改良的 WebView 控件
+    implementation 'com.just.agentweb:agentweb:4.0.2'
 }

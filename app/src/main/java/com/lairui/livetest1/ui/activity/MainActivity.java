@@ -18,6 +18,7 @@ import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
 import com.lairui.livetest1.presenter.MainPresenter;
 import com.lairui.livetest1.utils.ChatroomKit;
+import com.lairui.livetest1.widget.LiveDialog;
 import com.tencent.rtmp.TXLiveBase;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.manager.ActivityManage;
@@ -72,7 +73,6 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
                         addFragment(1, title);
                         return true;
                     case R.id.navigation_third:
-//                        addFragment(2, title);
                         MainActivityPermissionsDispatcher.applyPermissionsWithPermissionCheck(MainActivity.this);
                         return true;
                     case R.id.navigation_four:
@@ -89,14 +89,12 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
         // 设置启动默认选中
         navigation.setSelectedItemId(R.id.navigation_one);
         ivMiddleMenu.setOnClickListener(this);
-//        MainActivityPermissionsDispatcher.applyPermissionsWithPermissionCheck(this);
         String imtoken = (String) SpUtils.get("imtoken", "");
         if (UiTools.noEmpty(imtoken)) {
             ChatroomKit.connect(imtoken, new RongIMClient.ConnectCallback() {
                 @Override
                 public void onTokenIncorrect() {
                     // TODO: 2019/2/28 token过期,需要重新请求token
-//                ExitNoticeDialog.getDialog(MainActivity.this, "登录超时", "是否重新登录?");
                     UiTools.showToast("token过期了");
                 }
 
@@ -139,7 +137,6 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
                             bundle.clear();
                             bundle.putInt("loginStatus", 1);
                             startActivity(MainActivity.this, bundle, LoginActivity.class);
-//                            ExitNoticeDialog.getDialog(MainActivity.this, "用户账户在其他设备登录", "是否重新登录?");
                             break;
                         default:
                     }
@@ -174,13 +171,28 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
         fragmentTransaction.commitAllowingStateLoss();
     }
 
+    private boolean isLive = true;
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivMiddleMenu:
-                MainActivityPermissionsDispatcher.applyPermissionsWithPermissionCheck(this);
-//                startActivity(MainActivity.this, null, LiveActivity.class);
+                LiveDialog liveDialog = new LiveDialog(MainActivity.this);
+                liveDialog.showDialog();
+                liveDialog.setViewOnClickListener(new LiveDialog.ViewOnClickListener() {
+                    @Override
+                    public void onLiveClick() {
+                        isLive = true;
+                        MainActivityPermissionsDispatcher.applyPermissionsWithPermissionCheck(MainActivity.this);
+                    }
+
+                    @Override
+                    public void onVideoClick() {
+                        isLive = false;
+                        MainActivityPermissionsDispatcher.applyPermissionsWithPermissionCheck(MainActivity.this);
+                    }
+                });
+
                 break;
             default:
         }
@@ -189,7 +201,18 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void applyPermissions() {
-        startActivity(MainActivity.this, null, LiveActivity.class);
+        if (isLive) {
+            boolean isAgreeProtocol = (boolean) SpUtils.get("isAgreeProtocol", false);
+            if (!isAgreeProtocol) {
+                bundle.clear();
+                bundle.putString("url", "https://www.baidu.com");
+                startActivity(MainActivity.this, bundle, LiveProtocolActivity.class);
+            } else {
+                startActivity(MainActivity.this, null, LiveActivity1.class);
+            }
+        } else {
+            UiTools.showToast("进入录制小视频页面");
+        }
     }
 
     @Override
@@ -201,7 +224,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
     @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void deniedPermission() {
         // todo 这个方法只有在全部权限被拒绝时才调用,
-        UiTools.showToast("权限被拒绝,无法正常开启直播");
+        UiTools.showToast("权限被拒绝,无法正常使用");
     }
 
     @Override

@@ -71,4 +71,9 @@
     <string name="recharge">充值</string>
     <string name="customAmount">其他金额:￥</string>
     <string name="defaultScanNum">0人在看</string>
+    <string name="female">女</string>
+    <string name="male">男</string>
+    <string name="earnings">获得%s印票</string>
+    <string name="agree_protocol">已阅读并同意</string>
+    <string name="privateSetting">私密</string>
 </resources>

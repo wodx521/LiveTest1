@@ -70,13 +70,16 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.RegisterActivity" />
         <activity android:name=".ui.activity.LiveActivity" />
-        <activity android:name=".ui.activity.LivePushActivity" />
+        <activity android:name=".module.three_module.activity.LivePushActivity" />
         <activity android:name=".ui.activity.SearchActivity" />
         <activity android:name=".module.four_module.activity.VideoDetailActivity" />
         <activity android:name=".module.five_module.activity.AccountInfoEditActivity" />
         <activity android:name=".module.five_module.activity.ChangeAvatarActivity" />
         <activity android:name=".module.five_module.activity.EditNickActivity" />
         <activity android:name=".module.five_module.activity.RechargeActivity" />
+        <activity android:name=".ui.activity.LiveProtocolActivity" />
+        <activity android:name=".ui.activity.LiveActivity1" />
+        <activity android:name=".ui.activity.LivePrepareActivity" />
 
     </application>
 

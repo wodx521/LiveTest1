@@ -8,6 +8,7 @@ import android.view.View;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
+import com.lairui.livetest1.module.two_module.adapter.RankingAdapter1;
 import com.lairui.livetest1.module.two_module.presenter.IncomeWeekPresenter;
 import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.ui.panel.CircleImageView;
@@ -84,12 +85,10 @@ public class IncomeWeekFragment extends BaseMvpFragment<IncomeWeekPresenter> {
 
     private void getIncomeList(int page) {
         httpParams.clear();
-        String token = (String) SpUtils.get("token", "");
         httpParams.put("operate", "ranklistGroup-getList");
         httpParams.put("type", "2");
         httpParams.put("way", "1");
         httpParams.put("page", page);
-        httpParams.put("token", token);
         mPresenter.getRankingList(httpParams);
     }
 

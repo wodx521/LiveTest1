@@ -4,14 +4,16 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.entity.bean.RankingBean;
+import com.lairui.livetest1.entity.jsonparam.RankBeanParams;
 import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
-import com.lairui.livetest1.module.two_module.adapter.RankingAdapter1;
-import com.lairui.livetest1.module.two_module.presenter.IncomeTotalPresenter;
+import com.lairui.livetest1.module.two_module.presenter.ConsumptionDayPresenter;
+import com.lairui.livetest1.module.two_module.presenter.IncomeDayPresenter;
 import com.lairui.livetest1.ui.activity.LoginActivity;
-import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.lzy.okgo.model.HttpParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -19,28 +21,39 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.bean.SimpleResponse;
 import com.wanou.framelibrary.manager.ActivityManage;
-import com.wanou.framelibrary.utils.SpUtils;
+import com.wanou.framelibrary.utils.GsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
+public class ConsumptionDayFragment extends BaseMvpFragment<ConsumptionDayPresenter> {
     private SmartRefreshLayout srlRefresh;
-    private CircleImageView civFirst;
-    private CircleImageView civSecond;
-    private CircleImageView civThird;
     private RecyclerView rvRanking;
     private ConstraintLayout clLoading;
     private ConstraintLayout clError;
     private ConstraintLayout clEmpty;
+    private ConstraintLayout constraintLayout21;
+    private ImageView ivSecondIcon;
+    private TextView tvSecondUser;
+    private ImageView ivSecondGender;
+    private ImageView ivSecondLevel;
+    private ImageView ivFirstIcon;
+    private TextView tvFirstUser;
+    private ImageView ivFirstGender;
+    private ImageView ivFirstLevel;
+    private ImageView ivThirdIcon;
+    private TextView tvThirdUser;
+    private ImageView ivThirdGender;
+    private ImageView ivThirdLevel;
     private HttpParams httpParams = new HttpParams();
     private int page = 1;
     private List<RankingBean.ListBean> tempList = new ArrayList<>();
     private RankingAdapter rankingAdapter;
+    private RankBeanParams rankBeanParams = new RankBeanParams();
 
     @Override
-    protected IncomeTotalPresenter getPresenter() {
-        return new IncomeTotalPresenter();
+    protected ConsumptionDayPresenter getPresenter() {
+        return new ConsumptionDayPresenter();
     }
 
     @Override
@@ -83,14 +96,12 @@ public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
     }
 
     private void getIncomeList(int page) {
-        httpParams.clear();
-        httpParams.put("operate", "ranklistGroup-getList");
-        httpParams.put("type", "3");
-        httpParams.put("way", "1");
-        httpParams.put("page", page);
-        mPresenter.getRankingList(httpParams);
-    }
+        rankBeanParams.type = "1";
+        rankBeanParams.way = "2";
+        rankBeanParams.page = page + "";
 
+        mPresenter.getRankingList(GsonUtils.toJson(rankBeanParams));
+    }
 
     public void setRankingBean(RankingBean rankingBean) {
         viewVisible(srlRefresh);
@@ -99,6 +110,43 @@ public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
         int totalPage = Integer.parseInt(pageNum);
         srlRefresh.setEnableLoadMore(page < totalPage);
         List<RankingBean.ListBean> list = rankingBean.getList();
+        if (list.size() > 3) {
+            List<RankingBean.ListBean> listBeans = list.subList(0, 3);
+            List<RankingBean.ListBean> listBeans1 = list.subList(3, list.size());
+            tempList.addAll(listBeans1);
+            for (int i = 0; i < listBeans.size(); i++) {
+                RankingBean.ListBean.UidBean uid = listBeans.get(i).getUid();
+                if (i == 0) {
+                    tvFirstUser.setText(uid.getNickname());
+                    String sex = uid.getSex();
+                    if ("男".equals(sex)) {
+                        ivFirstGender.setSelected(false);
+                    } else {
+                        ivFirstGender.setSelected(true);
+                    }
+                }
+                if (i == 1) {
+                    tvSecondUser.setText(uid.getNickname());
+                    String sex = uid.getSex();
+                    if ("男".equals(sex)) {
+                        ivSecondGender.setSelected(false);
+                    } else {
+                        ivSecondGender.setSelected(true);
+                    }
+                }
+                if (i == 2) {
+                    tvThirdUser.setText(uid.getNickname());
+                    String sex = uid.getSex();
+                    if ("男".equals(sex)) {
+                        ivThirdGender.setSelected(false);
+                    } else {
+                        ivThirdGender.setSelected(true);
+                    }
+                }
+            }
+        }
+
+
         tempList.addAll(list);
         rankingAdapter.setList(tempList);
         if (tempList != null && tempList.size() > 0) {
@@ -110,10 +158,10 @@ public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
         }
     }
 
-    public void setRankingError(SimpleResponse simpleResponse, HttpParams httpParams) {
+    public void setRankingError(SimpleResponse simpleResponse, String httpParams) {
         if (simpleResponse != null) {
             if (simpleResponse.code == -1) {
-                startActivity(IncomeTotalFragment.this, null, LoginActivity.class);
+                startActivity(ConsumptionDayFragment.this, null, LoginActivity.class);
                 ActivityManage.getInstance().finishAll();
             }
         } else {
@@ -137,4 +185,25 @@ public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
         }
         super.onResume();
     }
+
+//    //bmp原图(前景) bm资源图片(背景)
+//    private void addFrameToImage(Bitmap bm) {
+//        Bitmap drawBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
+//        canvas = new Canvas(drawBitmap);
+//        paint = new Paint();
+//        canvas.drawBitmap(bmp, 0, 0, paint);
+//        paint.setXfermode(new PorterDuffXfermode(android.
+//                graphics.PorterDuff.Mode.LIGHTEN));
+//        //对边框进行缩放
+//        int w = bm.getWidth();
+//        int h = bm.getHeight();
+//        //缩放比 如果图片尺寸超过边框尺寸 会自动匹配
+//        float scaleX = bmp.getWidth() * 1F / w;
+//        float scaleY = bmp.getHeight() * 1F / h;
+//        Matrix matrix = new Matrix();
+//        matrix.postScale(scaleX, scaleY);   //缩放图片
+//        Bitmap copyBitmap = Bitmap.createBitmap(bm, 0, 0, w, h, matrix, true);
+//        canvas.drawBitmap(copyBitmap, 0, 0, paint);
+//        imageShow.setImageBitmap(drawBitmap);
+//    }
 }

@@ -1,11 +1,11 @@
-package com.lairui.livetest1.ui.activity;
+package com.lairui.livetest1.module.three_module.activity;
 
 import android.view.View;
 import android.widget.TextView;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.entity.bean.LiveAddressBean;
-import com.lairui.livetest1.presenter.LivePushPresenter;
+import com.lairui.livetest1.module.three_module.presenter.LivePushPresenter;
 import com.lzy.okgo.model.HttpParams;
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;

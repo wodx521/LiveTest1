@@ -4,7 +4,8 @@ import com.google.gson.reflect.TypeToken;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.RankingBean;
-import com.lairui.livetest1.module.two_module.fragment.IncomeDayFragment;
+import com.lairui.livetest1.module.two_module.fragment.ConsumptionWeekFragment;
+import com.lairui.livetest1.module.two_module.fragment.IncomeWeekFragment;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.request.base.Request;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -16,10 +17,10 @@ import com.wanou.framelibrary.okgoutil.OkGoUtils;
 
 import java.lang.reflect.Type;
 
-public class IncomeDayPresenter extends BasePresenterImpl<IncomeDayFragment> {
+public class ConsumptionWeekPresenter extends BasePresenterImpl<ConsumptionWeekFragment> {
     private SmartRefreshLayout srlRefresh;
 
-    public void getRankingList(String httpParams) {
+    public void getRankingList(HttpParams httpParams) {
         OkGoUtils.postRequest(AppConstant.BASE_URL, "RankingList", httpParams, new CustomizeStringCallback() {
             @Override
             public Type getResultType() {
@@ -52,4 +53,5 @@ public class IncomeDayPresenter extends BasePresenterImpl<IncomeDayFragment> {
             }
         });
     }
+
 }

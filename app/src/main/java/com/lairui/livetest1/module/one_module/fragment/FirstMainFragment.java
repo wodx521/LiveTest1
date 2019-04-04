@@ -11,12 +11,14 @@ import android.widget.TextView;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.entity.bean.CategoryBean;
+import com.lairui.livetest1.fragmentfactory.ConsumptionFactory;
 import com.lairui.livetest1.fragmentfactory.HomeFragmentFactory;
 import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
 import com.lairui.livetest1.module.one_module.adapter.LiveClassificationAdapter;
 import com.lairui.livetest1.module.one_module.presenter.FirstPresenter;
 import com.lairui.livetest1.ui.activity.SearchActivity;
 import com.lzy.okgo.model.HttpParams;
+import com.wanou.framelibrary.base.BaseFragment;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
@@ -71,26 +73,8 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
     protected void initData() {
         httpParams.clear();
         categoryTemp.clear();
-        String token = (String) SpUtils.get("token", "");
         httpParams.put("operate", "roomGroup-categoryList");
-        httpParams.put("token", token);
         mPresenter.getCategoryList(httpParams);
-    }
-
-    private void addFragment(int position, String title) {
-        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-        Fragment fragmentByTag = getChildFragmentManager().findFragmentByTag(title);
-        List<Fragment> fragments = getChildFragmentManager().getFragments();
-        for (Fragment fragment : fragments) {
-            fragmentTransaction.hide(fragment);
-        }
-        if (fragmentByTag != null) {
-            fragmentTransaction.show(fragmentByTag);
-        } else {
-            fragmentTransaction.add(R.id.fl_container, MainFragmentFactory.getFragment(position), title);
-            fragmentTransaction.show(MainFragmentFactory.getFragment(position));
-        }
-        fragmentTransaction.commitAllowingStateLoss();
     }
 
     @Override
@@ -106,11 +90,10 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
     public void setCategory(List<CategoryBean> categoryListBean) {
         viewGone(clLoading, clError);
         LiveClassificationAdapter liveClassificationAdapter = new LiveClassificationAdapter(getChildFragmentManager());
-
         String[] stringArray = UiTools.getStringArray(R.array.liveClassification);
         for (int i = 0; i < stringArray.length; i++) {
             CategoryBean categoryBean = new CategoryBean();
-            categoryBean.setId(i);
+            categoryBean.setId(i + 1);
             categoryBean.setName(stringArray[i]);
             categoryTemp.add(categoryBean);
         }
@@ -122,12 +105,29 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
                 tlClassification.addTab(tlClassification.newTab().setText(categoryBean.getName()));
             }
             for (int i = 0; i < categoryTemp.size(); i++) {
-                liveClassificationAdapter.addFragment(HomeFragmentFactory.getFragment(i));
+                AttentionFragment attentionFragment = new AttentionFragment();
+                attentionFragment.setUserVisibleHint(false);
+                liveClassificationAdapter.addFragment(attentionFragment);
             }
         }
-        viewPager.setAdapter(liveClassificationAdapter);
-        tlClassification.setupWithViewPager(viewPager);
-//        viewGone(tlClassification);
+
+        tlClassification.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                addFragment(tab.getPosition(), tab.getText().toString());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                addFragment(tab.getPosition(), tab.getText().toString());
+            }
+        });
+        tlClassification.getTabAt(0).select();
     }
 
     public void setCategoryError() {
@@ -141,5 +141,25 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
                 initData();
             }
         });
+    }
+
+    private void addFragment(int position, String title) {
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        Fragment fragmentByTag = getChildFragmentManager().findFragmentByTag(title);
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            fragment.setUserVisibleHint(false);
+            fragmentTransaction.hide(fragment);
+        }
+        if (fragmentByTag != null) {
+            fragmentByTag.setUserVisibleHint(true);
+            fragmentTransaction.show(fragmentByTag);
+        } else {
+            BaseFragment fragment = HomeFragmentFactory.getFragment(position);
+            fragment.setUserVisibleHint(true);
+            fragmentTransaction.add(R.id.fl_container, fragment, title);
+            fragmentTransaction.show(fragment);
+        }
+        fragmentTransaction.commit();
     }
 }

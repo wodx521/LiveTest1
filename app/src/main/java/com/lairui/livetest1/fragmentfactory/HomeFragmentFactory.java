@@ -21,29 +21,7 @@ public class HomeFragmentFactory {
         if (baseFragment != null) {
             return baseFragment;
         } else {
-            switch (position) {
-                case 0:
-                    // 关注列表
-                    baseFragment = new AttentionFragment();
-                    break;
-                case 1:
-                    // 热门列表
-                    baseFragment = new VideoFragment();
-                    break;
-                case 2:
-                    // 附近列表
-                    baseFragment = new VideoFragment();
-                    break;
-                case 3:
-                    // 推荐列表
-                    baseFragment = new RecommendFragment();
-                    break;
-                case 4:
-                    // 推荐列表
-                    baseFragment = new RecommendFragment();
-                    break;
-                default:
-            }
+            baseFragment = new AttentionFragment();
             fragmentMainMap.put(position, baseFragment);
             return baseFragment;
         }

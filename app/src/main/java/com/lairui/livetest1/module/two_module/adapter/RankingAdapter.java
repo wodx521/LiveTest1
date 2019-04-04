@@ -45,6 +45,7 @@ public class RankingAdapter extends BaseRecycleViewAdapter {
         RankingViewHolder rankingViewHolder = (RankingViewHolder) viewHolder;
         RankingBean.ListBean listBean = list.get(position);
         RankingBean.ListBean.UidBean uid = listBean.getUid();
+        String total = listBean.getTotal();
         String nickname = uid.getNickname();
         String portrait = uid.getPortrait();
         String sex = uid.getSex();
@@ -53,6 +54,7 @@ public class RankingAdapter extends BaseRecycleViewAdapter {
         } else {
             rankingViewHolder.ivGender.setImageResource(R.drawable.selected_female);
         }
+        rankingViewHolder.tvUserDes.setText(UiTools.getString(R.string.earnings).replace("%s", total));
         GlideApp.with(MyApplication.getContext())
                 .load(AppConstant.BASE_URL + portrait)
                 .placeholder(R.drawable.chatroom_01)
@@ -63,6 +65,7 @@ public class RankingAdapter extends BaseRecycleViewAdapter {
         } else {
             rankingViewHolder.tvUserName.setText("");
         }
+        rankingViewHolder.tvRanking.setText(position + 1 + "");
     }
 
     @Override
@@ -78,9 +81,11 @@ public class RankingAdapter extends BaseRecycleViewAdapter {
         private TextView tvUserName;
         private ImageView ivGender;
         private TextView tvUserDes;
+        private TextView tvRanking;
 
         public RankingViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvRanking = itemView.findViewById(R.id.tvRanking);
             ivUserIcon = itemView.findViewById(R.id.ivUserIcon);
             tvUserName = itemView.findViewById(R.id.tvUserName);
             ivGender = itemView.findViewById(R.id.ivSecondGender);

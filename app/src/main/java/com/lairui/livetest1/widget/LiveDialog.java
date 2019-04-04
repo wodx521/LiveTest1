@@ -64,9 +64,8 @@ public class LiveDialog extends AlertDialog implements OnClickListener {
         View view = View.inflate(mContext, R.layout.dialog_live, null);
         rootView = view.findViewById(R.id.contentView);
         linearAction = view.findViewById(R.id.ll_action);
-        view.findViewById(R.id.tv_live).setOnClickListener(this);
-//        view.findViewById(R.id.tv_audio).setOnClickListener(this);
-        view.findViewById(R.id.tv_video).setOnClickListener(this);
+        view.findViewById(R.id.rlLive).setOnClickListener(this);
+        view.findViewById(R.id.rlVideo).setOnClickListener(this);
         view.findViewById(R.id.ll_close).setOnClickListener(this);
         this.setContentView(view);
     }
@@ -77,17 +76,17 @@ public class LiveDialog extends AlertDialog implements OnClickListener {
             case R.id.ll_close:
                 closeAnimation(linearAction);
                 break;
-            case R.id.tv_live:
-                UiTools.showToast(R.string.live);
-                closeAnimation(linearAction);
+            case R.id.rlLive:
+                if (viewOnClickListener != null) {
+                    viewOnClickListener.onLiveClick();
+                    closeAnimation(linearAction);
+                }
                 break;
-//            case R.id.tv_audio:
-//                UiTools.showToast(R.string.radio);
-//                closeAnimation(linearAction);
-//                break;
-            case R.id.tv_video:
-                UiTools.showToast(R.string.smallVideo);
-                closeAnimation(linearAction);
+            case R.id.rlVideo:
+                if (viewOnClickListener != null) {
+                    viewOnClickListener.onVideoClick();
+                    closeAnimation(linearAction);
+                }
                 break;
             default:
         }
@@ -175,5 +174,17 @@ public class LiveDialog extends AlertDialog implements OnClickListener {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(aLong -> dismiss());
         }
+    }
+
+    public interface ViewOnClickListener {
+        void onLiveClick();
+
+        void onVideoClick();
+    }
+
+    ViewOnClickListener viewOnClickListener;
+
+    public void setViewOnClickListener(ViewOnClickListener viewOnClickListener) {
+        this.viewOnClickListener = viewOnClickListener;
     }
 }

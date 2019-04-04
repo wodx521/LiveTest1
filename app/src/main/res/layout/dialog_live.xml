@@ -31,42 +31,56 @@
         android:orientation="horizontal"
         android:paddingBottom="10dp">
 
-
-        <TextView
-            android:id="@+id/tv_live"
+        <RelativeLayout
+            android:id="@+id/rlLive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/main_shortvideo_live"
-            android:gravity="center"
-            android:text="@string/live"
-            android:textColor="@color/colorGray1"
-            android:textSize="15sp" />
+            android:layout_marginTop="40dp"
+            android:layout_weight="1">
 
-        <!--<TextView-->
-            <!--android:id="@+id/tv_audio"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:drawableTop="@drawable/main_audio_live"-->
-            <!--android:gravity="center"-->
-            <!--android:text="@string/radio"-->
-            <!--android:textColor="@color/colorGray1"-->
-            <!--android:textSize="15sp"-->
-            <!--android:visibility="gone" />-->
+            <ImageView
+                android:id="@+id/ivLive"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/qk_ic_create_live" />
 
-        <TextView
-            android:id="@+id/tv_video"
+            <TextView
+                android:id="@+id/tv_live"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivLive"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/live"
+                android:textColor="@color/colorGray1"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlVideo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/main_shortvideo_live"
-            android:gravity="center"
-            android:text="@string/smallVideo"
-            android:textColor="@color/colorGray1"
-            android:textSize="15sp" />
+            android:layout_marginTop="40dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ivVideo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/qk_ic_create_video" />
+
+            <TextView
+                android:id="@+id/tvVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivVideo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/smallVideo"
+                android:textColor="@color/colorGray1"
+                android:textSize="15sp" />
+        </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

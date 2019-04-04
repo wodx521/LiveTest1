@@ -18,7 +18,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.entity.bean.RankingBean;
+import com.lairui.livetest1.entity.jsonparam.RankBeanParams;
 import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
+import com.lairui.livetest1.module.two_module.adapter.RankingAdapter1;
 import com.lairui.livetest1.module.two_module.presenter.IncomeDayPresenter;
 import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.ui.panel.CircleImageView;
@@ -31,6 +33,7 @@ import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.bean.SimpleResponse;
 import com.wanou.framelibrary.glidetools.GlideApp;
 import com.wanou.framelibrary.manager.ActivityManage;
+import com.wanou.framelibrary.utils.GsonUtils;
 import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
@@ -43,23 +46,10 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
     private ConstraintLayout clLoading;
     private ConstraintLayout clError;
     private ConstraintLayout clEmpty;
-    private ConstraintLayout constraintLayout21;
-    private ImageView ivSecondIcon;
-    private TextView tvSecondUser;
-    private ImageView ivSecondGender;
-    private ImageView ivSecondLevel;
-    private ImageView ivFirstIcon;
-    private TextView tvFirstUser;
-    private ImageView ivFirstGender;
-    private ImageView ivFirstLevel;
-    private ImageView ivThirdIcon;
-    private TextView tvThirdUser;
-    private ImageView ivThirdGender;
-    private ImageView ivThirdLevel;
-    private HttpParams httpParams = new HttpParams();
     private int page = 1;
     private List<RankingBean.ListBean> tempList = new ArrayList<>();
     private RankingAdapter rankingAdapter;
+    private RankBeanParams rankBeanParams = new RankBeanParams();
 
     @Override
     protected IncomeDayPresenter getPresenter() {
@@ -106,14 +96,11 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
     }
 
     private void getIncomeList(int page) {
-        httpParams.clear();
-        String token = (String) SpUtils.get("token", "");
-        httpParams.put("operate", "ranklistGroup-getList");
-        httpParams.put("type", "1");
-        httpParams.put("way", "1");
-        httpParams.put("page", page);
-        httpParams.put("token", token);
-        mPresenter.getRankingList(httpParams);
+        rankBeanParams.type = "1";
+        rankBeanParams.way = "1";
+        rankBeanParams.page = page+"";
+
+        mPresenter.getRankingList(GsonUtils.toJson(rankBeanParams));
     }
 
 
@@ -124,45 +111,6 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
         int totalPage = Integer.parseInt(pageNum);
         srlRefresh.setEnableLoadMore(page < totalPage);
         List<RankingBean.ListBean> list = rankingBean.getList();
-        if (list.size() > 3) {
-            List<RankingBean.ListBean> listBeans = list.subList(0, 3);
-            List<RankingBean.ListBean> listBeans1 = list.subList(3, list.size());
-            tempList.addAll(listBeans1);
-            for (int i = 0; i < listBeans.size(); i++) {
-                RankingBean.ListBean.UidBean uid = listBeans.get(i).getUid();
-                if (i == 0) {
-                    tvFirstUser.setText(uid.getNickname());
-                    String sex = uid.getSex();
-                    if ("男".equals(sex)) {
-                        ivFirstGender.setSelected(false);
-                    }else{
-                        ivFirstGender.setSelected(true);
-                    }
-                }
-                if (i == 1) {
-                    tvSecondUser.setText(uid.getNickname());
-                    String sex = uid.getSex();
-                    if ("男".equals(sex)) {
-                        ivSecondGender.setSelected(false);
-                    }else{
-                        ivSecondGender.setSelected(true);
-                    }
-                }
-                if (i == 2) {
-                    tvThirdUser.setText(uid.getNickname());
-                    String sex = uid.getSex();
-                    if ("男".equals(sex)) {
-                        ivThirdGender.setSelected(false);
-                    }else{
-                        ivThirdGender.setSelected(true);
-                    }
-                }
-            }
-        }
-
-
-
-
         tempList.addAll(list);
         rankingAdapter.setList(tempList);
         if (tempList != null && tempList.size() > 0) {
@@ -174,7 +122,7 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
         }
     }
 
-    public void setRankingError(SimpleResponse simpleResponse, HttpParams httpParams) {
+    public void setRankingError(SimpleResponse simpleResponse, String httpParams) {
         if (simpleResponse != null) {
             if (simpleResponse.code == -1) {
                 startActivity(IncomeDayFragment.this, null, LoginActivity.class);

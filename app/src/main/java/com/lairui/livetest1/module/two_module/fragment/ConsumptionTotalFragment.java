@@ -8,7 +8,7 @@ import android.view.View;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
-import com.lairui.livetest1.module.two_module.adapter.RankingAdapter1;
+import com.lairui.livetest1.module.two_module.presenter.ConsumptionTotalPresenter;
 import com.lairui.livetest1.module.two_module.presenter.IncomeTotalPresenter;
 import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.ui.panel.CircleImageView;
@@ -19,16 +19,12 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.bean.SimpleResponse;
 import com.wanou.framelibrary.manager.ActivityManage;
-import com.wanou.framelibrary.utils.SpUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
+public class ConsumptionTotalFragment extends BaseMvpFragment<ConsumptionTotalPresenter> {
     private SmartRefreshLayout srlRefresh;
-    private CircleImageView civFirst;
-    private CircleImageView civSecond;
-    private CircleImageView civThird;
     private RecyclerView rvRanking;
     private ConstraintLayout clLoading;
     private ConstraintLayout clError;
@@ -39,8 +35,8 @@ public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
     private RankingAdapter rankingAdapter;
 
     @Override
-    protected IncomeTotalPresenter getPresenter() {
-        return new IncomeTotalPresenter();
+    protected ConsumptionTotalPresenter getPresenter() {
+        return new ConsumptionTotalPresenter();
     }
 
     @Override
@@ -86,7 +82,7 @@ public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
         httpParams.clear();
         httpParams.put("operate", "ranklistGroup-getList");
         httpParams.put("type", "3");
-        httpParams.put("way", "1");
+        httpParams.put("way", "2");
         httpParams.put("page", page);
         mPresenter.getRankingList(httpParams);
     }
@@ -113,7 +109,7 @@ public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
     public void setRankingError(SimpleResponse simpleResponse, HttpParams httpParams) {
         if (simpleResponse != null) {
             if (simpleResponse.code == -1) {
-                startActivity(IncomeTotalFragment.this, null, LoginActivity.class);
+                startActivity(ConsumptionTotalFragment.this, null, LoginActivity.class);
                 ActivityManage.getInstance().finishAll();
             }
         } else {

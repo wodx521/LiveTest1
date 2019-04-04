@@ -14,7 +14,6 @@ import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.ui.panel.CircleImageView;
-import com.wanou.framelibrary.base.BaseRecycleViewAdapter;
 import com.wanou.framelibrary.glidetools.GlideApp;
 import com.wanou.framelibrary.utils.UiTools;
 
@@ -32,6 +31,11 @@ public class RankingAdapter1 extends RecyclerView.Adapter {
         inflater = LayoutInflater.from(mContext);
     }
 
+    public void setList(List<RankingBean.ListBean> list) {
+        this.list = list;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemViewType(int position) {
         if (position > 2) {
@@ -45,25 +49,84 @@ public class RankingAdapter1 extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view;
         if (i == ITEM_TYPE1) {
-            view = inflater.inflate(R.layout.ranking_title_layout, viewGroup, false);
-            return null;
-        } else {
             view = inflater.inflate(R.layout.item_ranking, viewGroup, false);
-            return null;
+            return new RankingNormalViewHolder(view);
+        } else {
+            view = inflater.inflate(R.layout.ranking_title_layout, viewGroup, false);
+            return new RankingTitleViewHolder(view);
         }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
+        int itemViewType = getItemViewType(position);
+        RankingBean.ListBean listBean = list.get(position);
+        String total = listBean.getTotal();
+        RankingBean.ListBean.UidBean uid = listBean.getUid();
+        String nickname = uid.getNickname();
+        String portrait = uid.getPortrait();
+        String sex = uid.getSex();
+        if (itemViewType == ITEM_TYPE1) {
+            RankingNormalViewHolder rankingNormalViewHolder = (RankingNormalViewHolder) viewHolder;
+            if (UiTools.getString(R.string.male).equals(sex)) {
+                rankingNormalViewHolder.ivGender.setImageResource(R.drawable.ic_male);
+            } else {
+                rankingNormalViewHolder.ivGender.setImageResource(R.drawable.ic_female);
+            }
+            rankingNormalViewHolder.tvUserDes.setText(UiTools.getString(R.string.earnings).replace("%s", total));
+            rankingNormalViewHolder.tvUserName.setText(nickname);
+            GlideApp.with(MyApplication.getContext())
+                    .load(AppConstant.BASE_URL + portrait)
+                    .placeholder(R.drawable.chatroom_01)
+                    .error(R.drawable.chatroom_01)
+                    .into(rankingNormalViewHolder.ivUserIcon);
+        } else {
+            RankingTitleViewHolder rankingTitleViewHolder = (RankingTitleViewHolder) viewHolder;
+            if (position == 0) {
+                if (UiTools.getString(R.string.male).equals(sex)) {
+                    rankingTitleViewHolder.ivFirstGender.setImageResource(R.drawable.ic_male);
+                } else {
+                    rankingTitleViewHolder.ivFirstGender.setImageResource(R.drawable.ic_female);
+                }
+                rankingTitleViewHolder.tvFirstName.setText(nickname);
+                GlideApp.with(MyApplication.getContext())
+                        .load(AppConstant.BASE_URL + portrait)
+                        .placeholder(R.drawable.chatroom_01)
+                        .error(R.drawable.chatroom_01)
+                        .into(rankingTitleViewHolder.civFirst);
+                rankingTitleViewHolder.tvFirstGet.setText(UiTools.getString(R.string.earnings).replace("%s", total));
+            } else if (position == 1) {
+                if (UiTools.getString(R.string.male).equals(sex)) {
+                    rankingTitleViewHolder.ivSecondGender.setImageResource(R.drawable.ic_male);
+                } else {
+                    rankingTitleViewHolder.ivSecondGender.setImageResource(R.drawable.ic_female);
+                }
+                rankingTitleViewHolder.tvSecondName.setText(nickname);
+                GlideApp.with(MyApplication.getContext())
+                        .load(AppConstant.BASE_URL + portrait)
+                        .placeholder(R.drawable.chatroom_01)
+                        .error(R.drawable.chatroom_01)
+                        .into(rankingTitleViewHolder.civSecond);
+                rankingTitleViewHolder.tvSecondGet.setText(UiTools.getString(R.string.earnings).replace("%s", total));
+            } else {
+                if (UiTools.getString(R.string.male).equals(sex)) {
+                    rankingTitleViewHolder.ivFirstGender.setImageResource(R.drawable.ic_male);
+                } else {
+                    rankingTitleViewHolder.ivFirstGender.setImageResource(R.drawable.ic_female);
+                }
+                rankingTitleViewHolder.tvThirdName.setText(nickname);
+                GlideApp.with(MyApplication.getContext())
+                        .load(AppConstant.BASE_URL + portrait)
+                        .placeholder(R.drawable.chatroom_01)
+                        .error(R.drawable.chatroom_01)
+                        .into(rankingTitleViewHolder.civThird);
+                rankingTitleViewHolder.tvThirdGet.setText(UiTools.getString(R.string.earnings).replace("%s", total));
+            }
+
+        }
+
 
     }
-
-
-    public void setList(List<RankingBean.ListBean> list) {
-        this.list = list;
-        notifyDataSetChanged();
-    }
-
 
     @Override
     public int getItemCount() {
@@ -73,18 +136,45 @@ public class RankingAdapter1 extends RecyclerView.Adapter {
         return 0;
     }
 
-    static class RankingViewHolder extends RecyclerView.ViewHolder {
+    static class RankingNormalViewHolder extends RecyclerView.ViewHolder {
         private CircleImageView ivUserIcon;
         private TextView tvUserName;
         private ImageView ivGender;
         private TextView tvUserDes;
 
-        public RankingViewHolder(@NonNull View itemView) {
+        public RankingNormalViewHolder(@NonNull View itemView) {
             super(itemView);
             ivUserIcon = itemView.findViewById(R.id.ivUserIcon);
             tvUserName = itemView.findViewById(R.id.tvUserName);
             ivGender = itemView.findViewById(R.id.ivSecondGender);
             tvUserDes = itemView.findViewById(R.id.tvUserDes);
+        }
+    }
+
+    static class RankingTitleViewHolder extends RecyclerView.ViewHolder {
+        private CircleImageView civFirst, civSecond, civThird;
+        private ImageView ivSecondGender, ivSecondLevel, ivFirstGender, ivFirstLevel,
+                ivThirdGender, ivThirdLevel;
+        private TextView tvSecondName, tvSecondGet, tvFirstName, tvFirstGet, tvThirdName,
+                tvThirdGet;
+
+        public RankingTitleViewHolder(@NonNull View itemView) {
+            super(itemView);
+            civFirst = itemView.findViewById(R.id.civFirst);
+            civSecond = itemView.findViewById(R.id.civSecond);
+            civThird = itemView.findViewById(R.id.civThird);
+            tvSecondName = itemView.findViewById(R.id.tvSecondName);
+            ivSecondGender = itemView.findViewById(R.id.ivSecondGender);
+            ivSecondLevel = itemView.findViewById(R.id.ivSecondLevel);
+            tvSecondGet = itemView.findViewById(R.id.tvSecondGet);
+            tvFirstName = itemView.findViewById(R.id.tvFirstName);
+            ivFirstGender = itemView.findViewById(R.id.ivFirstGender);
+            ivFirstLevel = itemView.findViewById(R.id.ivFirstLevel);
+            tvFirstGet = itemView.findViewById(R.id.tvFirstGet);
+            tvThirdName = itemView.findViewById(R.id.tvThirdName);
+            ivThirdGender = itemView.findViewById(R.id.ivThirdGender);
+            ivThirdLevel = itemView.findViewById(R.id.ivThirdLevel);
+            tvThirdGet = itemView.findViewById(R.id.tvThirdGet);
         }
     }
 
