@@ -181,6 +181,7 @@ public class ConsumptionDayFragment extends BaseMvpFragment<ConsumptionDayPresen
     @Override
     public void onResume() {
         if (getUserVisibleHint()) {
+            tempList.clear();
             getIncomeList(page);
         }
         super.onResume();

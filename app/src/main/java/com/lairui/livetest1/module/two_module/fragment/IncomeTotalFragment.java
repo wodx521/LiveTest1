@@ -133,6 +133,7 @@ public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
     @Override
     public void onResume() {
         if (getUserVisibleHint()) {
+            tempList.clear();
             getIncomeList(page);
         }
         super.onResume();

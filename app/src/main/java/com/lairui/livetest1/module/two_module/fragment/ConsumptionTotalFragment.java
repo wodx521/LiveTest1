@@ -95,7 +95,15 @@ public class ConsumptionTotalFragment extends BaseMvpFragment<ConsumptionTotalPr
         int totalPage = Integer.parseInt(pageNum);
         srlRefresh.setEnableLoadMore(page < totalPage);
         List<RankingBean.ListBean> list = rankingBean.getList();
-        tempList.addAll(list);
+        if (list.size() > 3) {
+            List<RankingBean.ListBean> listBeans = list.subList(3, list.size());
+            tempList.addAll(listBeans);
+        }
+        for (int i = 0; i < list.size(); i++) {
+            if (i < 3) {
+
+            }
+        }
         rankingAdapter.setList(tempList);
         if (tempList != null && tempList.size() > 0) {
             viewVisible(rvRanking);
@@ -129,6 +137,7 @@ public class ConsumptionTotalFragment extends BaseMvpFragment<ConsumptionTotalPr
     @Override
     public void onResume() {
         if (getUserVisibleHint()) {
+            tempList.clear();
             getIncomeList(page);
         }
         super.onResume();

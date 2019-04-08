@@ -133,6 +133,7 @@ public class ConsumptionWeekFragment extends BaseMvpFragment<ConsumptionWeekPres
     @Override
     public void onResume() {
         if (getUserVisibleHint()) {
+            tempList.clear();
             getIncomeList(page);
         }
         super.onResume();

@@ -76,4 +76,8 @@
     <string name="earnings">获得%s印票</string>
     <string name="agree_protocol">已阅读并同意</string>
     <string name="privateSetting">私密</string>
+    <string name="choose_category">选择分类</string>
+    <string name="titleTips">给直播写个标题吧</string>
+    <string name="choose_cover">修改封面</string>
+    <string name="startLive">开始直播</string>
 </resources>

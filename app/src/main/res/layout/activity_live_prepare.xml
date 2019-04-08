@@ -1,19 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGray5">
+    android:background="@color/colorGray5"
+    android:fillViewport="true"
+    android:padding="10dp">
 
-    <CheckBox
-        android:id="@+id/cbRoomLock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@null"
-        android:drawableStart="@drawable/selector_room_lock"
-        android:drawablePadding="5dp"
-        android:text="@string/privateSetting"
-        android:textColor="@drawable/selector_room_lock_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/clTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread">
+
+            <CheckBox
+                android:id="@+id/cbRoomLock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:drawableStart="@drawable/selector_room_lock"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:text="@string/privateSetting"
+                android:textColor="@drawable/selector_room_lock_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_selection_sort"
+                app:layout_constraintBottom_toBottomOf="@id/tvChooseSort"
+                app:layout_constraintStart_toEndOf="@id/cbRoomLock"
+                app:layout_constraintTop_toTopOf="@id/tvChooseSort" />
+
+            <TextView
+                android:id="@+id/tvChooseSort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:drawablePadding="5dp"
+                android:text="@string/choose_category"
+                android:textColor="@color/color_white"
+                app:layout_constraintStart_toEndOf="@id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_white_close"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+        <EditText
+            android:id="@+id/etLiveTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="@string/titleTips"
+            android:textColor="@color/colorWhite"
+            android:textColorHint="@color/colorWhite"
+            android:textCursorDrawable="@drawable/shape_cursor"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/llAddImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clTitle" />
+
+        <LinearLayout
+            android:id="@+id/llAddImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/textView11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etLiveTitle">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.wanou.framelibrary.weight.RatioImageView
+                android:id="@+id/ivAddImage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_add_image"
+                app:image_ratio="1"
+                app:layout_constraintBottom_toTopOf="@id/textView11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etLiveTitle" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/choose_cover"
+            android:textColor="@color/color_white"
+            app:layout_constraintBottom_toTopOf="@id/hsvShareChoose"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llAddImage" />
+
+        <HorizontalScrollView
+            android:id="@+id/hsvShareChoose"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@id/tvStartLive"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView11">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cbQQ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableTop="@drawable/selector_share_qq"
+                    android:padding="10dp"
+                    android:text="" />
+
+                <CheckBox
+                    android:id="@+id/cbWechat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableTop="@drawable/selector_share_wechat"
+                    android:padding="10dp"
+                    android:text="" />
+
+                <CheckBox
+                    android:id="@+id/cbMoments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableTop="@drawable/selector_share_moments"
+                    android:padding="10dp"
+                    android:text="" />
+
+                <CheckBox
+                    android:id="@+id/cbWeibo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableTop="@drawable/selector_share_qqzone"
+                    android:padding="10dp"
+                    android:text="" />
+
+
+                <CheckBox
+                    android:id="@+id/cbQQZone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:drawableTop="@drawable/selector_share_weibo"
+                    android:padding="10dp"
+                    android:text="" />
+
+            </RadioGroup>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/tvStartLive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/shape_white_transparent_round20"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/startLive"
+            android:textColor="@color/color_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/hsvShareChoose" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>

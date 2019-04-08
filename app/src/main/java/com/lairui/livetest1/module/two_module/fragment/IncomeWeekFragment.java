@@ -134,6 +134,7 @@ public class IncomeWeekFragment extends BaseMvpFragment<IncomeWeekPresenter> {
     @Override
     public void onResume() {
         if (getUserVisibleHint()) {
+            tempList.clear();
             getIncomeList(page);
         }
         super.onResume();

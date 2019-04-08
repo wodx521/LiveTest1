@@ -45,7 +45,25 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
     private RecyclerView rvRanking;
     private ConstraintLayout clLoading;
     private ConstraintLayout clError;
+    private ConstraintLayout constraintRankTitle;
     private ConstraintLayout clEmpty;
+    private CircleImageView civFirst;
+    private CircleImageView civSecond;
+    private CircleImageView civThird;
+    private TextView tvSecondName;
+    private ImageView ivSecondGender;
+    private ImageView ivSecondLevel;
+    private TextView tvSecondGet;
+    private TextView tvFirstName;
+    private ImageView ivFirstGender;
+    private ImageView ivFirstLevel;
+    private TextView tvFirstGet;
+    private TextView tvThirdName;
+    private ImageView ivThirdGender;
+    private ImageView ivThirdLevel;
+    private TextView tvThirdGet;
+
+
     private int page = 1;
     private List<RankingBean.ListBean> tempList = new ArrayList<>();
     private RankingAdapter rankingAdapter;
@@ -64,10 +82,26 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
     @Override
     protected void initView(View view) {
         srlRefresh = view.findViewById(R.id.srlRefresh);
+        constraintRankTitle = view.findViewById(R.id.constraintRankTitle);
         rvRanking = view.findViewById(R.id.rvRanking);
         clLoading = view.findViewById(R.id.clLoading);
         clError = view.findViewById(R.id.clError);
         clEmpty = view.findViewById(R.id.clEmpty);
+        civFirst = view.findViewById(R.id.civFirst);
+        civSecond = view.findViewById(R.id.civSecond);
+        civThird = view.findViewById(R.id.civThird);
+        tvSecondName = view.findViewById(R.id.tvSecondName);
+        ivSecondGender = view.findViewById(R.id.ivSecondGender);
+        ivSecondLevel = view.findViewById(R.id.ivSecondLevel);
+        tvSecondGet = view.findViewById(R.id.tvSecondGet);
+        tvFirstName = view.findViewById(R.id.tvFirstName);
+        ivFirstGender = view.findViewById(R.id.ivFirstGender);
+        ivFirstLevel = view.findViewById(R.id.ivFirstLevel);
+        tvFirstGet = view.findViewById(R.id.tvFirstGet);
+        tvThirdName = view.findViewById(R.id.tvThirdName);
+        ivThirdGender = view.findViewById(R.id.ivThirdGender);
+        ivThirdLevel = view.findViewById(R.id.ivThirdLevel);
+        tvThirdGet = view.findViewById(R.id.tvThirdGet);
 
         viewGone(clError, clEmpty);
         viewVisible(clLoading);
@@ -98,7 +132,7 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
     private void getIncomeList(int page) {
         rankBeanParams.type = "1";
         rankBeanParams.way = "1";
-        rankBeanParams.page = page+"";
+        rankBeanParams.page = page + "";
 
         mPresenter.getRankingList(GsonUtils.toJson(rankBeanParams));
     }
@@ -114,12 +148,15 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
         tempList.addAll(list);
         rankingAdapter.setList(tempList);
         if (tempList != null && tempList.size() > 0) {
+
             viewVisible(rvRanking);
             viewGone(clEmpty);
         } else {
             viewVisible(clEmpty);
-            viewGone(rvRanking);
+            viewGone(rvRanking, constraintRankTitle);
         }
+
+
     }
 
     public void setRankingError(SimpleResponse simpleResponse, String httpParams) {
@@ -145,29 +182,9 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
     @Override
     public void onResume() {
         if (getUserVisibleHint()) {
+            tempList.clear();
             getIncomeList(page);
         }
         super.onResume();
     }
-
-//    //bmp原图(前景) bm资源图片(背景)
-//    private void addFrameToImage(Bitmap bm) {
-//        Bitmap drawBitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
-//        canvas = new Canvas(drawBitmap);
-//        paint = new Paint();
-//        canvas.drawBitmap(bmp, 0, 0, paint);
-//        paint.setXfermode(new PorterDuffXfermode(android.
-//                graphics.PorterDuff.Mode.LIGHTEN));
-//        //对边框进行缩放
-//        int w = bm.getWidth();
-//        int h = bm.getHeight();
-//        //缩放比 如果图片尺寸超过边框尺寸 会自动匹配
-//        float scaleX = bmp.getWidth() * 1F / w;
-//        float scaleY = bmp.getHeight() * 1F / h;
-//        Matrix matrix = new Matrix();
-//        matrix.postScale(scaleX, scaleY);   //缩放图片
-//        Bitmap copyBitmap = Bitmap.createBitmap(bm, 0, 0, w, h, matrix, true);
-//        canvas.drawBitmap(copyBitmap, 0, 0, paint);
-//        imageShow.setImageBitmap(drawBitmap);
-//    }
 }
