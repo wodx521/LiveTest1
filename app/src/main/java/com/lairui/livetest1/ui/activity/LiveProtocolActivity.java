@@ -82,7 +82,7 @@ public class LiveProtocolActivity extends BaseMvpActivity<LiveProtocolPresenter>
                 break;
             case R.id.tvAgree:
                 SpUtils.put("isAgreeProtocol",true);
-                startActivity(LiveProtocolActivity.this, null, LiveActivity1.class);
+                startActivity(LiveProtocolActivity.this, null, LivePrepareActivity.class);
                 finish();
                 break;
             default:

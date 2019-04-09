@@ -7,21 +7,26 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.entity.jsonparam.RankBeanParams;
 import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
 import com.lairui.livetest1.module.two_module.presenter.ConsumptionDayPresenter;
 import com.lairui.livetest1.module.two_module.presenter.IncomeDayPresenter;
 import com.lairui.livetest1.ui.activity.LoginActivity;
+import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.lzy.okgo.model.HttpParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.bean.SimpleResponse;
+import com.wanou.framelibrary.glidetools.GlideApp;
 import com.wanou.framelibrary.manager.ActivityManage;
 import com.wanou.framelibrary.utils.GsonUtils;
+import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,22 +34,12 @@ import java.util.List;
 public class ConsumptionDayFragment extends BaseMvpFragment<ConsumptionDayPresenter> {
     private SmartRefreshLayout srlRefresh;
     private RecyclerView rvRanking;
-    private ConstraintLayout clLoading;
-    private ConstraintLayout clError;
-    private ConstraintLayout clEmpty;
-    private ConstraintLayout constraintLayout21;
-    private ImageView ivSecondIcon;
-    private TextView tvSecondUser;
-    private ImageView ivSecondGender;
-    private ImageView ivSecondLevel;
-    private ImageView ivFirstIcon;
-    private TextView tvFirstUser;
-    private ImageView ivFirstGender;
-    private ImageView ivFirstLevel;
-    private ImageView ivThirdIcon;
-    private TextView tvThirdUser;
-    private ImageView ivThirdGender;
-    private ImageView ivThirdLevel;
+    private ConstraintLayout clLoading, clError, constraintRankTitle, clEmpty;
+    private CircleImageView civFirst, civSecond, civThird;
+    private ImageView ivSecondGender, ivSecondLevel, ivFirstGender, ivThirdGender,
+            ivFirstLevel, ivThirdLevel;
+    private TextView tvSecondName, tvSecondGet, tvFirstName, tvFirstGet, tvThirdName,
+            tvThirdGet;
     private HttpParams httpParams = new HttpParams();
     private int page = 1;
     private List<RankingBean.ListBean> tempList = new ArrayList<>();
@@ -64,12 +59,28 @@ public class ConsumptionDayFragment extends BaseMvpFragment<ConsumptionDayPresen
     @Override
     protected void initView(View view) {
         srlRefresh = view.findViewById(R.id.srlRefresh);
+        constraintRankTitle = view.findViewById(R.id.constraintRankTitle);
         rvRanking = view.findViewById(R.id.rvRanking);
         clLoading = view.findViewById(R.id.clLoading);
         clError = view.findViewById(R.id.clError);
         clEmpty = view.findViewById(R.id.clEmpty);
+        civFirst = view.findViewById(R.id.civFirst);
+        civSecond = view.findViewById(R.id.civSecond);
+        civThird = view.findViewById(R.id.civThird);
+        tvSecondName = view.findViewById(R.id.tvSecondName);
+        ivSecondGender = view.findViewById(R.id.ivSecondGender);
+        ivSecondLevel = view.findViewById(R.id.ivSecondLevel);
+        tvSecondGet = view.findViewById(R.id.tvSecondGet);
+        tvFirstName = view.findViewById(R.id.tvFirstName);
+        ivFirstGender = view.findViewById(R.id.ivFirstGender);
+        ivFirstLevel = view.findViewById(R.id.ivFirstLevel);
+        tvFirstGet = view.findViewById(R.id.tvFirstGet);
+        tvThirdName = view.findViewById(R.id.tvThirdName);
+        ivThirdGender = view.findViewById(R.id.ivThirdGender);
+        ivThirdLevel = view.findViewById(R.id.ivThirdLevel);
+        tvThirdGet = view.findViewById(R.id.tvThirdGet);
 
-        viewGone(clError, clEmpty);
+        viewGone(clError, clEmpty,constraintRankTitle);
         viewVisible(clLoading);
     }
 
@@ -110,51 +121,71 @@ public class ConsumptionDayFragment extends BaseMvpFragment<ConsumptionDayPresen
         int totalPage = Integer.parseInt(pageNum);
         srlRefresh.setEnableLoadMore(page < totalPage);
         List<RankingBean.ListBean> list = rankingBean.getList();
-        if (list.size() > 3) {
-            List<RankingBean.ListBean> listBeans = list.subList(0, 3);
-            List<RankingBean.ListBean> listBeans1 = list.subList(3, list.size());
-            tempList.addAll(listBeans1);
-            for (int i = 0; i < listBeans.size(); i++) {
-                RankingBean.ListBean.UidBean uid = listBeans.get(i).getUid();
-                if (i == 0) {
-                    tvFirstUser.setText(uid.getNickname());
-                    String sex = uid.getSex();
-                    if ("男".equals(sex)) {
-                        ivFirstGender.setSelected(false);
-                    } else {
-                        ivFirstGender.setSelected(true);
-                    }
-                }
-                if (i == 1) {
-                    tvSecondUser.setText(uid.getNickname());
-                    String sex = uid.getSex();
-                    if ("男".equals(sex)) {
-                        ivSecondGender.setSelected(false);
-                    } else {
-                        ivSecondGender.setSelected(true);
-                    }
-                }
-                if (i == 2) {
-                    tvThirdUser.setText(uid.getNickname());
-                    String sex = uid.getSex();
-                    if ("男".equals(sex)) {
-                        ivThirdGender.setSelected(false);
-                    } else {
-                        ivThirdGender.setSelected(true);
-                    }
-                }
-            }
-        }
-
-
         tempList.addAll(list);
-        rankingAdapter.setList(tempList);
         if (tempList != null && tempList.size() > 0) {
+            if (tempList.size() > 0) {
+                RankingBean.ListBean listBean = tempList.get(0);
+                String total = listBean.getTotal();
+                RankingBean.ListBean.UidBean uid = listBean.getUid();
+                tvFirstName.setText(uid.getNickname());
+                String portrait = uid.getPortrait();
+                String sex = uid.getSex();
+                GlideApp.with(MyApplication.getContext())
+                        .load(AppConstant.BASE_URL + portrait)
+                        .placeholder(R.drawable.chatroom_01)
+                        .error(R.drawable.chatroom_01)
+                        .into(civFirst);
+                if ("男".equals(sex)) {
+                    ivFirstGender.setImageResource(R.drawable.selected_male);
+                } else {
+                    ivFirstGender.setImageResource(R.drawable.selected_female);
+                }
+                tvFirstGet.setText(UiTools.getString(R.string.earnings).replace("%s", total));
+            }
+
+            if (tempList.size() > 1) {
+                RankingBean.ListBean listBean = tempList.get(1);
+                String totalSecond = listBean.getTotal();
+                RankingBean.ListBean.UidBean uidSecond = listBean.getUid();
+                tvSecondName.setText(uidSecond.getNickname());
+                GlideApp.with(MyApplication.getContext())
+                        .load(AppConstant.BASE_URL + uidSecond.getPortrait())
+                        .placeholder(R.drawable.chatroom_01)
+                        .error(R.drawable.chatroom_01)
+                        .into(civSecond);
+                if ("男".equals(uidSecond.getSex())) {
+                    ivSecondGender.setImageResource(R.drawable.selected_male);
+                } else {
+                    ivSecondGender.setImageResource(R.drawable.selected_female);
+                }
+                tvSecondGet.setText(UiTools.getString(R.string.earnings).replace("%s", totalSecond));
+            }
+
+            if (tempList.size() > 2) {
+                RankingBean.ListBean listBean = tempList.get(2);
+                String totalSecond = listBean.getTotal();
+                RankingBean.ListBean.UidBean uidSecond = listBean.getUid();
+                tvThirdName.setText(uidSecond.getNickname());
+                GlideApp.with(MyApplication.getContext())
+                        .load(AppConstant.BASE_URL + uidSecond.getPortrait())
+                        .placeholder(R.drawable.chatroom_01)
+                        .error(R.drawable.chatroom_01)
+                        .into(civThird);
+                if ("男".equals(uidSecond.getSex())) {
+                    ivThirdGender.setImageResource(R.drawable.selected_male);
+                } else {
+                    ivThirdGender.setImageResource(R.drawable.selected_female);
+                }
+                tvThirdGet.setText(UiTools.getString(R.string.earnings).replace("%s", totalSecond));
+            }
+            if (tempList.size() > 3) {
+                rankingAdapter.setList(tempList.subList(3, tempList.size()));
+            }
             viewVisible(rvRanking);
             viewGone(clEmpty);
         } else {
             viewVisible(clEmpty);
-            viewGone(rvRanking);
+            viewGone(rvRanking, constraintRankTitle);
         }
     }
 

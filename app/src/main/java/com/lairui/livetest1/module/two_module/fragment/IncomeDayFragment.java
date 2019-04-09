@@ -17,6 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.BitmapDrawableTransformation;
 import com.bumptech.glide.request.RequestOptions;
 import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.entity.jsonparam.RankBeanParams;
 import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
@@ -43,25 +44,12 @@ import java.util.List;
 public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
     private SmartRefreshLayout srlRefresh;
     private RecyclerView rvRanking;
-    private ConstraintLayout clLoading;
-    private ConstraintLayout clError;
-    private ConstraintLayout constraintRankTitle;
-    private ConstraintLayout clEmpty;
-    private CircleImageView civFirst;
-    private CircleImageView civSecond;
-    private CircleImageView civThird;
-    private TextView tvSecondName;
-    private ImageView ivSecondGender;
-    private ImageView ivSecondLevel;
-    private TextView tvSecondGet;
-    private TextView tvFirstName;
-    private ImageView ivFirstGender;
-    private ImageView ivFirstLevel;
-    private TextView tvFirstGet;
-    private TextView tvThirdName;
-    private ImageView ivThirdGender;
-    private ImageView ivThirdLevel;
-    private TextView tvThirdGet;
+    private ConstraintLayout clLoading, clError, constraintRankTitle, clEmpty;
+    private CircleImageView civFirst, civSecond, civThird;
+    private ImageView ivSecondGender, ivSecondLevel, ivFirstGender, ivThirdGender,
+            ivFirstLevel, ivThirdLevel;
+    private TextView tvSecondName, tvSecondGet, tvFirstName, tvFirstGet, tvThirdName,
+            tvThirdGet;
 
 
     private int page = 1;
@@ -103,7 +91,7 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
         ivThirdLevel = view.findViewById(R.id.ivThirdLevel);
         tvThirdGet = view.findViewById(R.id.tvThirdGet);
 
-        viewGone(clError, clEmpty);
+        viewGone(clError, clEmpty,constraintRankTitle);
         viewVisible(clLoading);
     }
 
@@ -146,17 +134,71 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
         srlRefresh.setEnableLoadMore(page < totalPage);
         List<RankingBean.ListBean> list = rankingBean.getList();
         tempList.addAll(list);
-        rankingAdapter.setList(tempList);
         if (tempList != null && tempList.size() > 0) {
+            if (tempList.size() > 0) {
+                RankingBean.ListBean listBean = tempList.get(0);
+                String total = listBean.getTotal();
+                RankingBean.ListBean.UidBean uid = listBean.getUid();
+                tvFirstName.setText(uid.getNickname());
+                String portrait = uid.getPortrait();
+                String sex = uid.getSex();
+                GlideApp.with(MyApplication.getContext())
+                        .load(AppConstant.BASE_URL + portrait)
+                        .placeholder(R.drawable.chatroom_01)
+                        .error(R.drawable.chatroom_01)
+                        .into(civFirst);
+                if ("男".equals(sex)) {
+                    ivFirstGender.setImageResource(R.drawable.selected_male);
+                } else {
+                    ivFirstGender.setImageResource(R.drawable.selected_female);
+                }
+                tvFirstGet.setText(UiTools.getString(R.string.earnings).replace("%s", total));
+            }
 
-            viewVisible(rvRanking);
+            if (tempList.size() > 1) {
+                RankingBean.ListBean listBean = tempList.get(1);
+                String totalSecond = listBean.getTotal();
+                RankingBean.ListBean.UidBean uidSecond = listBean.getUid();
+                tvSecondName.setText(uidSecond.getNickname());
+                GlideApp.with(MyApplication.getContext())
+                        .load(AppConstant.BASE_URL + uidSecond.getPortrait())
+                        .placeholder(R.drawable.chatroom_01)
+                        .error(R.drawable.chatroom_01)
+                        .into(civSecond);
+                if ("男".equals(uidSecond.getSex())) {
+                    ivSecondGender.setImageResource(R.drawable.selected_male);
+                } else {
+                    ivSecondGender.setImageResource(R.drawable.selected_female);
+                }
+                tvSecondGet.setText(UiTools.getString(R.string.earnings).replace("%s", totalSecond));
+            }
+
+            if (tempList.size() > 2) {
+                RankingBean.ListBean listBean = tempList.get(2);
+                String totalSecond = listBean.getTotal();
+                RankingBean.ListBean.UidBean uidSecond = listBean.getUid();
+                tvThirdName.setText(uidSecond.getNickname());
+                GlideApp.with(MyApplication.getContext())
+                        .load(AppConstant.BASE_URL + uidSecond.getPortrait())
+                        .placeholder(R.drawable.chatroom_01)
+                        .error(R.drawable.chatroom_01)
+                        .into(civThird);
+                if ("男".equals(uidSecond.getSex())) {
+                    ivThirdGender.setImageResource(R.drawable.selected_male);
+                } else {
+                    ivThirdGender.setImageResource(R.drawable.selected_female);
+                }
+                tvThirdGet.setText(UiTools.getString(R.string.earnings).replace("%s", totalSecond));
+            }
+            if (tempList.size() > 3) {
+                rankingAdapter.setList(tempList.subList(3, tempList.size()));
+            }
+            viewVisible(rvRanking,constraintRankTitle);
             viewGone(clEmpty);
         } else {
             viewVisible(clEmpty);
             viewGone(rvRanking, constraintRankTitle);
         }
-
-
     }
 
     public void setRankingError(SimpleResponse simpleResponse, String httpParams) {

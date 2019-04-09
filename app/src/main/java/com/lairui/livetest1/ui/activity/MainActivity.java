@@ -208,7 +208,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
                 bundle.putString("url", "https://www.baidu.com");
                 startActivity(MainActivity.this, bundle, LiveProtocolActivity.class);
             } else {
-                startActivity(MainActivity.this, null, LiveActivity1.class);
+                startActivity(MainActivity.this, null, LivePrepareActivity.class);
             }
         } else {
             UiTools.showToast("进入录制小视频页面");

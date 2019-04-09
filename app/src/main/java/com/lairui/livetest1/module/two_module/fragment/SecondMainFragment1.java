@@ -1,5 +1,6 @@
 package com.lairui.livetest1.module.two_module.fragment;
 
+import android.nfc.Tag;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -49,25 +50,15 @@ public class SecondMainFragment1 extends BaseMvpFragment<SecondMainPresenter1> i
 
     @Override
     protected void initData() {
-        RankingPagerAdapter rankingPagerAdapter = new RankingPagerAdapter(getChildFragmentManager());
         stringArray = UiTools.getStringArray(R.array.Ranking);
-        for (int i = 0; i < stringArray.length; i++) {
-            rankingPagerAdapter.addFragment(SecondFragmentFactory.getFragment(i));
+        for (String aStringArray : stringArray) {
+            tlRanking.addTab(tlRanking.newTab().setText(aStringArray));
         }
-        vpRanking.setAdapter(rankingPagerAdapter);
-        tlRanking.setupWithViewPager(vpRanking);
-        SecondFragmentFactory.getFragment(tlRanking.getSelectedTabPosition()).setUserVisibleHint(true);
 
         tlRanking.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                for (int i = 0; i < stringArray.length; i++) {
-                    if (tab.getPosition() == i) {
-                        SecondFragmentFactory.getFragment(tab.getPosition()).setUserVisibleHint(true);
-                    } else {
-                        SecondFragmentFactory.getFragment(tab.getPosition()).setUserVisibleHint(false);
-                    }
-                }
+                addFragment(tab.getPosition(), tab.getText().toString());
             }
 
             @Override
@@ -77,9 +68,10 @@ public class SecondMainFragment1 extends BaseMvpFragment<SecondMainPresenter1> i
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                addFragment(tab.getPosition(), tab.getText().toString());
             }
         });
+        tlRanking.getTabAt(0).select();
     }
 
     @Override

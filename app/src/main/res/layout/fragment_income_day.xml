@@ -22,7 +22,6 @@
             android:layout_height="match_parent">
 
             <include
-                android:id="@+id/clRankingTitle"
                 layout="@layout/ranking_title_layout" />
 
             <android.support.v7.widget.RecyclerView

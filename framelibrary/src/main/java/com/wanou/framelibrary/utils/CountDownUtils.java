@@ -22,8 +22,8 @@ public class CountDownUtils {
      * @param second   需要设置的倒计时秒数
      * @param textView 倒计时运行时需要设置文本变化的控件TextView或者Button
      */
-    public static void getTimer(long second, TextView textView, String finishText) {
-        CountDownTimer countDownTimer = new CountDownTimer(second * 1000 + 1500, 1000) {
+    public static void getTimer(double second, TextView textView, String finishText) {
+        CountDownTimer countDownTimer = new CountDownTimer((long) (second * 1000 + 1500), 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 long remainingSecond = millisUntilFinished / 1000 - 1;

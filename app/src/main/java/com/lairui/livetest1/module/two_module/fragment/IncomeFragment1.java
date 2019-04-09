@@ -1,32 +1,18 @@
 package com.lairui.livetest1.module.two_module.fragment;
 
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.fragmentfactory.IncomeRankingFragmentFactory;
-import com.lairui.livetest1.fragmentfactory.SecondFragmentFactory;
-import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
-import com.lairui.livetest1.module.two_module.adapter.RankingPagerListAdapter;
-import com.lairui.livetest1.module.two_module.presenter.IncomePresenter;
 import com.lairui.livetest1.module.two_module.presenter.IncomePresenter1;
-import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lzy.okgo.model.HttpParams;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wanou.framelibrary.base.BaseFragment;
 import com.wanou.framelibrary.base.BaseMvpFragment;
-import com.wanou.framelibrary.bean.SimpleResponse;
-import com.wanou.framelibrary.manager.ActivityManage;
-import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.ArrayList;

@@ -35,15 +35,7 @@ public class FirstPresenter extends BasePresenterImpl<FirstMainFragment> {
 
             @Override
             public void onRequestError(SimpleResponse simpleResponse) {
-                if (simpleResponse != null) {
-                    if (simpleResponse.code == -1) {
-                        mPresenterView.startActivity(mPresenterView, null, LoginActivity.class);
-                        SpUtils.put("token","");
-                        ActivityManage.getInstance().finishAll();
-                    }
-                }else{
-                    mPresenterView.setCategoryError();
-                }
+                mPresenterView.setCategoryError();
             }
 
             @Override

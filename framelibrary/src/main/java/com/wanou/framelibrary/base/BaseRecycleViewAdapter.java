@@ -38,6 +38,8 @@ public abstract class BaseRecycleViewAdapter extends RecyclerView.Adapter<Recycl
             } else {
                 holder.itemView.setSelected(false);
             }
+        }else{
+            holder.itemView.setSelected(false);
         }
         bindClickListener(holder, position);
     }
