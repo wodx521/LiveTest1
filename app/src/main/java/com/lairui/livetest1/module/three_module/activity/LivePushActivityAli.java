@@ -42,7 +42,7 @@ import com.lairui.livetest1.message.ChatroomUserBlock;
 import com.lairui.livetest1.message.ChatroomUserQuit;
 import com.lairui.livetest1.message.ChatroomUserUnBan;
 import com.lairui.livetest1.message.ChatroomWelcome;
-import com.lairui.livetest1.module.three_module.presenter.LivePresenter1;
+import com.lairui.livetest1.module.three_module.presenter.LivePushPresenterAli;
 import com.lairui.livetest1.ui.adapter.ChatListAdapter;
 import com.lairui.livetest1.ui.adapter.MemberAdapter;
 import com.lairui.livetest1.ui.danmu.DanmuAdapter;
@@ -89,7 +89,7 @@ import static com.alivc.live.pusher.AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRON
 /**
  * 阿里云直播sdk 配置
  */
-public class LivePushActivityAli extends BaseMvpActivity<LivePresenter1> implements View.OnClickListener, Handler.Callback {
+public class LivePushActivityAli extends BaseMvpActivity<LivePushPresenterAli> implements View.OnClickListener, Handler.Callback {
     long banStartTime = 0;
     long currentTime = 0;
     int clickCount = 0;
@@ -176,8 +176,8 @@ public class LivePushActivityAli extends BaseMvpActivity<LivePresenter1> impleme
     private boolean audioThreadOn = false;
 
     @Override
-    protected LivePresenter1 getPresenter() {
-        return new LivePresenter1();
+    protected LivePushPresenterAli getPresenter() {
+        return new LivePushPresenterAli();
     }
 
     @Override
@@ -194,7 +194,9 @@ public class LivePushActivityAli extends BaseMvpActivity<LivePresenter1> impleme
         } catch (Exception e) {
             e.printStackTrace();
         }
+        String token = (String) SpUtils.get("token", "");
         httpParams.put("operate", "roomGroup-start");
+        httpParams.put("token", token);
         mPresenter.getPushAddress(httpParams);
         ChatroomKit.addEventHandler(handler);
         // 设置弹幕布局

@@ -2,6 +2,10 @@ package com.lairui.livetest1.entity.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+
+@Entity
 public class LoginBean {
 
     /**
@@ -17,8 +21,10 @@ public class LoginBean {
      * "room_id": "",
      * "token": "54Xz7g4RBOXIO8gh1V8/eNeVOL6pZW48Ae5nqY9D13menYVDJyAq9sZgfZodlq2xipG9X9tgqSssgKduzNc5dw=="
      */
-
-    private String id;
+    @Id
+    public long mainId;
+    @SerializedName("id")
+    private String userId;
     private String phone;
     private String email;
     private String invite;
@@ -32,6 +38,14 @@ public class LoginBean {
     private String token;
     private String imtoken;
 
+    public String getUserId() {
+        return userId == null ? "" : userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     /**
      * email : null
      * alipay : null
@@ -39,16 +53,10 @@ public class LoginBean {
      * imtoken : OiTaI9VwlHRd8pQpqWQBXNeVOL6pZW48Ae5nqY9D13ltTy1B0ygVmLxYu2U/lERqVgcLscE6l4AsgKduzNc5dw==
      */
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getPhone() {
-        return phone;
+        return phone == null ? "" : phone;
     }
 
     public void setPhone(String phone) {
@@ -56,7 +64,7 @@ public class LoginBean {
     }
 
     public String getEmail() {
-        return email;
+        return email == null ? "" : email;
     }
 
     public void setEmail(String email) {
@@ -64,7 +72,7 @@ public class LoginBean {
     }
 
     public String getInvite() {
-        return invite;
+        return invite == null ? "" : invite;
     }
 
     public void setInvite(String invite) {
@@ -72,7 +80,7 @@ public class LoginBean {
     }
 
     public String getNickname() {
-        return nickname;
+        return nickname == null ? "" : nickname;
     }
 
     public void setNickname(String nickname) {
@@ -80,7 +88,7 @@ public class LoginBean {
     }
 
     public String getUsername() {
-        return username;
+        return username == null ? "" : username;
     }
 
     public void setUsername(String username) {
@@ -88,7 +96,7 @@ public class LoginBean {
     }
 
     public String getPortrait() {
-        return portrait;
+        return portrait == null ? "" : portrait;
     }
 
     public void setPortrait(String portrait) {
@@ -96,7 +104,7 @@ public class LoginBean {
     }
 
     public String getAlipay() {
-        return alipay;
+        return alipay == null ? "" : alipay;
     }
 
     public void setAlipay(String alipay) {
@@ -104,7 +112,7 @@ public class LoginBean {
     }
 
     public String getSex() {
-        return sex;
+        return sex == null ? "" : sex;
     }
 
     public void setSex(String sex) {
@@ -112,7 +120,7 @@ public class LoginBean {
     }
 
     public String getRoomId() {
-        return roomId;
+        return roomId == null ? "" : roomId;
     }
 
     public void setRoomId(String roomId) {
@@ -120,7 +128,7 @@ public class LoginBean {
     }
 
     public String getToken() {
-        return token;
+        return token == null ? "" : token;
     }
 
     public void setToken(String token) {
@@ -128,7 +136,7 @@ public class LoginBean {
     }
 
     public String getImtoken() {
-        return imtoken;
+        return imtoken == null ? "" : imtoken;
     }
 
     public void setImtoken(String imtoken) {

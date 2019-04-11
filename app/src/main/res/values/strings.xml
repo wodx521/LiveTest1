@@ -87,4 +87,11 @@
     <string name="weiboShare">微博分享已开启</string>
     <string name="chooseCategory">请选择分类</string>
     <string name="inputLiveTitle">请输入直播标题</string>
+    <string name="accountSafe">账号安全</string>
+    <string name="banList">黑名单</string>
+    <string name="pushManager">推送管理</string>
+    <string name="helpFeedback">帮助与反馈</string>
+    <string name="update">检查更新</string>
+    <string name="aboutUs">关于我们</string>
+    <string name="exitLogin">退出登录</string>
 </resources>

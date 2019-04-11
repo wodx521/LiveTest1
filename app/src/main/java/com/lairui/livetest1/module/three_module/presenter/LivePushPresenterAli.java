@@ -14,7 +14,7 @@ import com.wanou.framelibrary.okgoutil.OkGoUtils;
 
 import java.lang.reflect.Type;
 
-public class LivePresenter1 extends BasePresenterImpl<LivePushActivityAli> {
+public class LivePushPresenterAli extends BasePresenterImpl<LivePushActivityAli> {
     public void getPushAddress(HttpParams httpParams) {
         OkGoUtils.postRequest(AppConstant.BASE_URL, "pushaddress", httpParams, new CustomizeStringCallback() {
             @Override

@@ -1,0 +1,83 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:804097840218367288",
+      "lastPropertyId": "13:3550681287405268439",
+      "name": "LoginBean",
+      "properties": [
+        {
+          "id": "1:5062324748886589837",
+          "name": "id"
+        },
+        {
+          "id": "2:8441309832222130069",
+          "name": "userId"
+        },
+        {
+          "id": "3:94357652602510331",
+          "name": "phone"
+        },
+        {
+          "id": "4:1612816215185123925",
+          "name": "email"
+        },
+        {
+          "id": "5:5844545161602525689",
+          "name": "invite"
+        },
+        {
+          "id": "6:6058985680522380281",
+          "name": "nickname"
+        },
+        {
+          "id": "7:7505018238510790304",
+          "name": "username"
+        },
+        {
+          "id": "8:3511469807342484746",
+          "name": "portrait"
+        },
+        {
+          "id": "9:4418958737882955199",
+          "name": "alipay"
+        },
+        {
+          "id": "10:4406667030394723997",
+          "name": "sex"
+        },
+        {
+          "id": "11:8805111075720211613",
+          "name": "roomId"
+        },
+        {
+          "id": "12:8467943380006999554",
+          "name": "token"
+        },
+        {
+          "id": "13:3550681287405268439",
+          "name": "imtoken"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:4529763546896703490",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [
+    4529763546896703490
+  ],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    77452209699518936,
+    6321603580289620374
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

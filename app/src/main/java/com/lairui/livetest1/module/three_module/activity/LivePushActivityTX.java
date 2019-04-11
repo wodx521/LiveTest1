@@ -68,8 +68,6 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenter> {
         tvStartPush.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String rtmpUrl = "rtmp://192.168.199.216:1935/live/home";
-//                String rtmpUrl = "rtmp://heh.play.htcrm.net/lairui/100004?auth_key=1551666659-0-0-c8166e4ac31091184fbf16ad0e1bd0d7";
                 mLivePusher.startPusher(rtmpurl);
             }
         });

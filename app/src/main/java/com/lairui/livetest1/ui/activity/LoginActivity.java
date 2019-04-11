@@ -12,10 +12,13 @@ import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.LoginBean;
 import com.lairui.livetest1.presenter.LoginPresenter;
+import com.lairui.livetest1.utils.ObjectBox;
 import com.lzy.okgo.model.HttpParams;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
+
+import io.objectbox.Box;
 
 public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements View.OnClickListener {
     private static String TAG = "LoginActivity";
@@ -96,7 +99,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
         String token = loginBean.getToken();
         String roomId = loginBean.getRoomId();
         String imtoken = loginBean.getImtoken();
-        String id = loginBean.getId();
+        String id = loginBean.getUserId();
         SpUtils.put("phone", phone);
         SpUtils.put("userId", id);
         SpUtils.put("loginNumber", UiTools.getText(etName));
@@ -106,6 +109,9 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
         SpUtils.put("nickName", loginBean.getNickname());
         SpUtils.put("userName", loginBean.getUsername());
         SpUtils.put("sex", loginBean.getSex());
+        Box<LoginBean> loginBeanBox = ObjectBox.getBoxStore().boxFor(LoginBean.class);
+        long storeId = loginBeanBox.put(loginBean);
+
         startActivity(LoginActivity.this, null, MainActivity.class);
         finish();
     }

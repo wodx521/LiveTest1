@@ -1,5 +1,6 @@
 package com.lairui.livetest1.module.five_module.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.NestedScrollView;
@@ -10,6 +11,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CenterInside;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.request.RequestOptions;
 import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
@@ -19,6 +25,7 @@ import com.lairui.livetest1.entity.jsonparam.BaseParams;
 import com.lairui.livetest1.module.five_module.activity.AccountInfoEditActivity;
 import com.lairui.livetest1.module.five_module.activity.ChangeAvatarActivity;
 import com.lairui.livetest1.module.five_module.activity.RechargeActivity;
+import com.lairui.livetest1.module.five_module.activity.SettingActivity;
 import com.lairui.livetest1.module.five_module.adapter.MineAdapter;
 import com.lairui.livetest1.module.five_module.presenter.FiveMainPresenter1;
 import com.lairui.livetest1.ui.activity.SearchActivity;
@@ -30,6 +37,8 @@ import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
+import jp.wasabeef.glide.transformations.CropTransformation;
+import jp.wasabeef.glide.transformations.gpu.ToonFilterTransformation;
 
 public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> implements View.OnClickListener {
     private ImageView ivLeft, ivRight1, ivBg, ivGender, ivRank, ivEdit;
@@ -219,7 +228,7 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
 
                 break;
             case R.id.constraintLayout18:
-
+                startActivity(FiveMainFragment1.this, null, SettingActivity.class);
                 break;
             default:
         }
@@ -230,11 +239,14 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
         viewGone(clError, clLoading);
         viewVisible(sclAllView);
         portrait = userInfo.getPortrait();
+        ivBg.measure(View.MeasureSpec.UNSPECIFIED,View.MeasureSpec.UNSPECIFIED);
+        int measuredWidth = ivBg.getMeasuredWidth();
+        int measuredHeight = ivBg.getMeasuredHeight();
         GlideApp.with(MyApplication.getContext())
                 .load(portrait)
                 .placeholder(R.drawable.shape_gray5_round5)
                 .error(R.drawable.shape_gray5_round5)
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation()))
+                .apply(RequestOptions.bitmapTransform(new MultiTransformation<>(new FitCenter(),new BlurTransformation(25))))
                 .into(ivBg);
 
         GlideApp.with(MyApplication.getContext())

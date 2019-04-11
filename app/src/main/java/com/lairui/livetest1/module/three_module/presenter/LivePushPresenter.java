@@ -16,7 +16,6 @@ import java.lang.reflect.Type;
 
 public class LivePushPresenter extends BasePresenterImpl<LivePushActivityTX> {
 
-
     public void getPushAddress(HttpParams httpParams) {
         OkGoUtils.postRequest(AppConstant.BASE_URL, "pushaddress", httpParams, new CustomizeStringCallback() {
             @Override

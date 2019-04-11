@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_toolbar" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout19"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolBar">
+
+        <TextView
+            android:id="@+id/tv19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/accountSafe"
+            android:textColor="@color/color_black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvContent19"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/colorGray5"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv19"
+            app:layout_constraintEnd_toStartOf="@id/iv19_1"
+            app:layout_constraintTop_toTopOf="@id/tv19" />
+
+        <ImageView
+            android:id="@+id/iv19_1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/arrow_right_gray"
+            app:layout_constraintBottom_toBottomOf="@id/tv19"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv19" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout20"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout19">
+
+        <TextView
+            android:id="@+id/tv20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/banList"
+            android:textColor="@color/color_black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvContent20"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/colorGray5"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv20"
+            app:layout_constraintEnd_toStartOf="@id/iv20_1"
+            app:layout_constraintTop_toTopOf="@id/tv20" />
+
+        <ImageView
+            android:id="@+id/iv20_1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/arrow_right_gray"
+            app:layout_constraintBottom_toBottomOf="@id/tv20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv20" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout21"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout20">
+
+        <TextView
+            android:id="@+id/tv21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/pushManager"
+            android:textColor="@color/color_black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvContent21"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/colorGray5"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv21"
+            app:layout_constraintEnd_toStartOf="@id/iv21_1"
+            app:layout_constraintTop_toTopOf="@id/tv21" />
+
+        <ImageView
+            android:id="@+id/iv21_1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/arrow_right_gray"
+            app:layout_constraintBottom_toBottomOf="@id/tv21"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv21" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout22"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout21">
+
+        <TextView
+            android:id="@+id/tv22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/helpFeedback"
+            android:textColor="@color/color_black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvContent22"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/colorGray5"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv22"
+            app:layout_constraintEnd_toStartOf="@id/iv22_1"
+            app:layout_constraintTop_toTopOf="@id/tv22" />
+
+        <ImageView
+            android:id="@+id/iv22_1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/arrow_right_gray"
+            app:layout_constraintBottom_toBottomOf="@id/tv22"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv22" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout23"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout22">
+
+        <TextView
+            android:id="@+id/tv23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/update"
+            android:textColor="@color/color_black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvContent23"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/colorGray5"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv23"
+            app:layout_constraintEnd_toStartOf="@id/iv23_1"
+            app:layout_constraintTop_toTopOf="@id/tv23" />
+
+        <ImageView
+            android:id="@+id/iv23_1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/arrow_right_gray"
+            app:layout_constraintBottom_toBottomOf="@id/tv23"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv23" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout24"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout23">
+
+        <TextView
+            android:id="@+id/tv24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/aboutUs"
+            android:textColor="@color/color_black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvContent24"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/colorGray5"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv24"
+            app:layout_constraintEnd_toStartOf="@id/iv24_1"
+            app:layout_constraintTop_toTopOf="@id/tv24" />
+
+        <ImageView
+            android:id="@+id/iv24_1"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/arrow_right_gray"
+            app:layout_constraintBottom_toBottomOf="@id/tv24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv24" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvSetting"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvExit" />
+
+    <TextView
+        android:id="@+id/tvExit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_white"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/exitLogin"
+        android:textColor="@color/light_red"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout24" />
+</android.support.constraint.ConstraintLayout>
