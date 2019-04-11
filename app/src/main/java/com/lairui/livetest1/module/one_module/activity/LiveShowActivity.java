@@ -66,6 +66,9 @@ import io.rong.imlib.model.MessageContent;
 import io.rong.message.TextMessage;
 
 public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> implements Handler.Callback, View.OnClickListener {
+    long banStartTime = 0;
+    long currentTime = 0;
+    int clickCount = 0;
     private String roomId;
     private Handler handler = new Handler(this);
     private RelativeLayout background;
@@ -99,42 +102,6 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
     @Override
     protected LiveShowPresenter getPresenter() {
         return new LiveShowPresenter();
-    }
-
-    @Override
-    protected int getResId() {
-        return R.layout.activity_live_show;
-    }
-
-    @Override
-    protected void initView() {
-        videoPlayer = findViewById(R.id.detail_player);
-        background = findViewById(R.id.background);
-        fake = findViewById(R.id.fake);
-        layoutHost = findViewById(R.id.layout_host);
-        ivHostHeader = findViewById(R.id.iv_host_header);
-        tvHolderName = findViewById(R.id.tv_holder_name);
-        tvOnlineNum = findViewById(R.id.tv_room_onlive_people);
-        hlvMember = findViewById(R.id.gv_room_member);
-        giftView = findViewById(R.id.giftView);
-        danmuContainerView = findViewById(R.id.danmuContainerView);
-        chatListView = findViewById(R.id.chat_listview);
-        bottomPanel = (BottomPanelFragment) getSupportFragmentManager().findFragmentById(R.id.bottom_bar);
-        btnHeart = bottomPanel.getView().findViewById(R.id.btn_heart);
-        // 当前房间用户信息视图
-        hostPanel = findViewById(R.id.host_panel);
-        // 在线用户列表
-        onlineUserPanel = findViewById(R.id.online_user_panel);
-        // 如果未登录,登录视图
-        loginPanel = findViewById(R.id.login_panel);
-        // 点赞效果视图
-        heartLayout = findViewById(R.id.heart_layout);
-        // 当前用户信息点击事件
-        background.setOnClickListener(this);
-        // 点赞功能点击事件
-        btnHeart.setOnClickListener(this);
-        // 点击查看当前账户信息
-        layoutHost.setOnClickListener(this);
     }
 
     @Override
@@ -216,18 +183,6 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
         }
     }
 
-    private void initPlayser() {
-        orientationUtils = new OrientationUtils(this, videoPlayer);
-//        videoPlayer.setHideKey(true);
-        // 禁用全屏滑动改变进度,声音等操作
-        View view = UiTools.parseLayout(R.layout.layout_live_error);
-        GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_FULL);
-        videoPlayer.setThumbImageView(view);
-        videoPlayer.setThumbPlay(true);
-        videoPlayer.setAutoFullWithSize(true);
-        videoPlayer.setIsTouchWiget(false);
-    }
-
     private void joinChatRoom(final String roomId) {
         ChatroomKit.joinChatRoom(roomId, -1, new RongIMClient.OperationCallback() {
             @Override
@@ -242,7 +197,50 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
         });
     }
 
-    long banStartTime = 0;
+    private void initPlayser() {
+        orientationUtils = new OrientationUtils(this, videoPlayer);
+//        videoPlayer.setHideKey(true);
+        // 禁用全屏滑动改变进度,声音等操作
+        View view = UiTools.parseLayout(R.layout.layout_live_error);
+        GSYVideoType.setShowType(GSYVideoType.SCREEN_TYPE_FULL);
+        videoPlayer.setThumbImageView(view);
+        videoPlayer.setThumbPlay(true);
+        videoPlayer.setAutoFullWithSize(true);
+        videoPlayer.setIsTouchWiget(false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        ChatroomKit.quitChatRoom(new RongIMClient.OperationCallback() {
+            @Override
+            public void onSuccess() {
+                ChatroomKit.removeEventHandler(handler);
+                if (DataInterface.isLoginStatus()) {
+                    Toast.makeText(LiveShowActivity.this, "退出聊天室成功", Toast.LENGTH_SHORT).show();
+
+                    ChatroomUserQuit userQuit = new ChatroomUserQuit();
+                    userQuit.setId(ChatroomKit.getCurrentUser().getUserId());
+                    ChatroomKit.sendMessage(userQuit);
+                }
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                ChatroomKit.removeEventHandler(handler);
+                Toast.makeText(LiveShowActivity.this, "退出聊天室失败! errorCode = " + errorCode, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+        GSYVideoManager.releaseAllVideos();
+        if (orientationUtils != null) {
+            orientationUtils.releaseListener();
+        }
+        super.onDestroy();
+    }
 
     @Override
     public boolean handleMessage(Message msg) {
@@ -355,9 +353,6 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
         }, duration * 1000 * 60);
     }
 
-    long currentTime = 0;
-    int clickCount = 0;
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -432,39 +427,6 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
     }
 
     @Override
-    protected void onDestroy() {
-        ChatroomKit.quitChatRoom(new RongIMClient.OperationCallback() {
-            @Override
-            public void onSuccess() {
-                ChatroomKit.removeEventHandler(handler);
-                if (DataInterface.isLoginStatus()) {
-                    Toast.makeText(LiveShowActivity.this, "退出聊天室成功", Toast.LENGTH_SHORT).show();
-
-                    ChatroomUserQuit userQuit = new ChatroomUserQuit();
-                    userQuit.setId(ChatroomKit.getCurrentUser().getUserId());
-                    ChatroomKit.sendMessage(userQuit);
-                }
-            }
-
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                ChatroomKit.removeEventHandler(handler);
-                Toast.makeText(LiveShowActivity.this, "退出聊天室失败! errorCode = " + errorCode, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
-        GSYVideoManager.releaseAllVideos();
-        if (orientationUtils != null) {
-            orientationUtils.releaseListener();
-        }
-        super.onDestroy();
-    }
-
-    @Override
     public void onBackPressed() {
         //先返回正常状态
         if (!bottomPanel.onBackAction()) {
@@ -478,6 +440,42 @@ public class LiveShowActivity extends BaseMvpActivity<LiveShowPresenter> impleme
         //释放所有
         videoPlayer.setVideoAllCallBack(null);
         super.onBackPressed();
+    }
+
+    @Override
+    protected int getResId() {
+        return R.layout.activity_live_show;
+    }
+
+    @Override
+    protected void initView() {
+        videoPlayer = findViewById(R.id.detail_player);
+        background = findViewById(R.id.background);
+        fake = findViewById(R.id.fake);
+        layoutHost = findViewById(R.id.layout_host);
+        ivHostHeader = findViewById(R.id.iv_host_header);
+        tvHolderName = findViewById(R.id.tv_holder_name);
+        tvOnlineNum = findViewById(R.id.tv_room_onlive_people);
+        hlvMember = findViewById(R.id.gv_room_member);
+        giftView = findViewById(R.id.giftView);
+        danmuContainerView = findViewById(R.id.danmuContainerView);
+        chatListView = findViewById(R.id.chat_listview);
+        bottomPanel = (BottomPanelFragment) getSupportFragmentManager().findFragmentById(R.id.bottom_bar);
+        btnHeart = bottomPanel.getView().findViewById(R.id.btn_heart);
+        // 当前房间用户信息视图
+        hostPanel = findViewById(R.id.host_panel);
+        // 在线用户列表
+        onlineUserPanel = findViewById(R.id.online_user_panel);
+        // 如果未登录,登录视图
+        loginPanel = findViewById(R.id.login_panel);
+        // 点赞效果视图
+        heartLayout = findViewById(R.id.heart_layout);
+        // 当前用户信息点击事件
+        background.setOnClickListener(this);
+        // 点赞功能点击事件
+        btnHeart.setOnClickListener(this);
+        // 点击查看当前账户信息
+        layoutHost.setOnClickListener(this);
     }
 
     public void setAddress(LiveAddressBean liveAddressBean) {

@@ -37,6 +37,10 @@ public class PathAnimator extends AbstractPathAnimator {
         mHandler = new Handler(Looper.getMainLooper());
     }
 
+    private static float scale(double a, double b, double c, double d, double e) {
+        return (float) ((a - b) / (c - b) * (e - d) + d);
+    }
+
     @Override
     public void start(final View child, final ViewGroup parent) {
         parent.addView(child, new ViewGroup.LayoutParams(mConfig.heartWidth, mConfig.heartHeight));
@@ -44,6 +48,11 @@ public class PathAnimator extends AbstractPathAnimator {
         anim.setDuration(mConfig.animDuration);
         anim.setInterpolator(new LinearInterpolator());
         anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mCounter.incrementAndGet();
+            }
+
             @Override
             public void onAnimationEnd(Animation animation) {
                 mHandler.post(new Runnable() {
@@ -58,11 +67,6 @@ public class PathAnimator extends AbstractPathAnimator {
             @Override
             public void onAnimationRepeat(Animation animation) {
 
-            }
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-                mCounter.incrementAndGet();
             }
         });
         anim.setInterpolator(new LinearInterpolator());
@@ -98,10 +102,6 @@ public class PathAnimator extends AbstractPathAnimator {
             mView.setScaleY(scale);
             transformation.setAlpha(1.0F - factor);
         }
-    }
-
-    private static float scale(double a, double b, double c, double d, double e) {
-        return (float) ((a - b) / (c - b) * (e - d) + d);
     }
 }
 

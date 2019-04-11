@@ -7,8 +7,6 @@ import com.lairui.livetest1.module.two_module.fragment.IncomeTotalFragment;
 import com.lairui.livetest1.module.two_module.fragment.IncomeWeekFragment;
 import com.wanou.framelibrary.base.BaseFragment;
 
-import java.util.HashMap;
-
 /**
  * @author wodx521
  * @date on 2018/8/17

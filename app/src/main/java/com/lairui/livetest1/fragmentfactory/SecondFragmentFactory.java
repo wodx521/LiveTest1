@@ -2,13 +2,9 @@ package com.lairui.livetest1.fragmentfactory;
 
 import android.util.SparseArray;
 
-import com.lairui.livetest1.module.two_module.fragment.ConsumptionFragment;
 import com.lairui.livetest1.module.two_module.fragment.ConsumptionFragment1;
-import com.lairui.livetest1.module.two_module.fragment.IncomeFragment;
 import com.lairui.livetest1.module.two_module.fragment.IncomeFragment1;
 import com.wanou.framelibrary.base.BaseFragment;
-
-import java.util.HashMap;
 
 /**
  * @author wodx521

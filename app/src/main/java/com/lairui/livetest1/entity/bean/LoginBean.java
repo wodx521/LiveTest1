@@ -31,6 +31,7 @@ public class LoginBean {
     private String roomId;
     private String token;
     private String imtoken;
+
     /**
      * email : null
      * alipay : null

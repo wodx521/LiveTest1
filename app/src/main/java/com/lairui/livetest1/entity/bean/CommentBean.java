@@ -2,6 +2,7 @@ package com.lairui.livetest1.entity.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommentBean {
@@ -39,30 +40,6 @@ public class CommentBean {
         this.id = id;
     }
 
-    public UseridBean getUserid() {
-        return userid;
-    }
-
-    public void setUserid(UseridBean userid) {
-        this.userid = userid;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getPraise() {
-        return praise;
-    }
-
-    public void setPraise(String praise) {
-        this.praise = praise;
-    }
-
     public int getVideoId() {
         return videoId;
     }
@@ -71,20 +48,12 @@ public class CommentBean {
         this.videoId = videoId;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public UseridBean getUserid() {
+        return userid;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public List<CommentBean> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<CommentBean> children) {
-        this.children = children;
+    public void setUserid(UseridBean userid) {
+        this.userid = userid;
     }
 
     public UseridBean getAtuserid() {
@@ -95,11 +64,46 @@ public class CommentBean {
         this.atuserid = atuserid;
     }
 
+    public String getContent() {
+        return content == null ? "" : content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public String getParentId() {
-        return parentId;
+        return parentId == null ? "" : parentId;
     }
 
     public void setParentId(String parentId) {
         this.parentId = parentId;
+    }
+
+    public String getPraise() {
+        return praise == null ? "" : praise;
+    }
+
+    public void setPraise(String praise) {
+        this.praise = praise;
+    }
+
+    public String getCreateTime() {
+        return createTime == null ? "" : createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public List<CommentBean> getChildren() {
+        if (children == null) {
+            return new ArrayList<>();
+        }
+        return children;
+    }
+
+    public void setChildren(List<CommentBean> children) {
+        this.children = children;
     }
 }

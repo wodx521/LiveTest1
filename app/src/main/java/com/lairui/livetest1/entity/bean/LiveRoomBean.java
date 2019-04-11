@@ -4,6 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class LiveRoomBean implements Parcelable {
+    public static final Creator<LiveRoomBean> CREATOR = new Creator<LiveRoomBean>() {
+        @Override
+        public LiveRoomBean createFromParcel(Parcel in) {
+            return new LiveRoomBean(in);
+        }
+
+        @Override
+        public LiveRoomBean[] newArray(int size) {
+            return new LiveRoomBean[size];
+        }
+    };
     /**
      * id : 1
      * uid : 2
@@ -44,7 +55,6 @@ public class LiveRoomBean implements Parcelable {
     // 所在城市
     private String city;
 
-
     protected LiveRoomBean(Parcel in) {
         id = in.readString();
         uid = in.readString();
@@ -59,35 +69,9 @@ public class LiveRoomBean implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(uid);
-        dest.writeString(title);
-        dest.writeString(cover);
-        dest.writeString(notice);
-        dest.writeString(status);
-        dest.writeParcelable(pull, flags);
-        dest.writeString(portrait);
-        dest.writeString(userNum);
-        dest.writeString(city);
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<LiveRoomBean> CREATOR = new Creator<LiveRoomBean>() {
-        @Override
-        public LiveRoomBean createFromParcel(Parcel in) {
-            return new LiveRoomBean(in);
-        }
-
-        @Override
-        public LiveRoomBean[] newArray(int size) {
-            return new LiveRoomBean[size];
-        }
-    };
 
     public String getId() {
         return id;
@@ -170,6 +154,17 @@ public class LiveRoomBean implements Parcelable {
     }
 
     public static class PullBean implements Parcelable {
+        public static final Creator<PullBean> CREATOR = new Creator<PullBean>() {
+            @Override
+            public PullBean createFromParcel(Parcel in) {
+                return new PullBean(in);
+            }
+
+            @Override
+            public PullBean[] newArray(int size) {
+                return new PullBean[size];
+            }
+        };
         /**
          * rtmpurl : rtmp://heh.push.htcrm.net/lairui/2121?auth_key=1551696493-0-0-2e1389e5fbb18480c191e79fb506021a
          * flvurl : http://heh.push.htcrm.net/lairui/2121.flv?auth_key=1551696493-0-0-1884ff4408b2990c8254c554755a85e5
@@ -185,30 +180,6 @@ public class LiveRoomBean implements Parcelable {
             flvurl = in.readString();
             m398url = in.readString();
         }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(rtmpurl);
-            dest.writeString(flvurl);
-            dest.writeString(m398url);
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        public static final Creator<PullBean> CREATOR = new Creator<PullBean>() {
-            @Override
-            public PullBean createFromParcel(Parcel in) {
-                return new PullBean(in);
-            }
-
-            @Override
-            public PullBean[] newArray(int size) {
-                return new PullBean[size];
-            }
-        };
 
         public String getRtmpurl() {
             return rtmpurl;
@@ -233,5 +204,36 @@ public class LiveRoomBean implements Parcelable {
         public void setM398url(String m398url) {
             this.m398url = m398url;
         }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(rtmpurl);
+            dest.writeString(flvurl);
+            dest.writeString(m398url);
+        }
+
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(uid);
+        dest.writeString(title);
+        dest.writeString(cover);
+        dest.writeString(notice);
+        dest.writeString(status);
+        dest.writeParcelable(pull, flags);
+        dest.writeString(portrait);
+        dest.writeString(userNum);
+        dest.writeString(city);
+    }
+
+
 }

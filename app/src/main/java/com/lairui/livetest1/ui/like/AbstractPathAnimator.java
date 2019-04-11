@@ -27,10 +27,9 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-
 public abstract class AbstractPathAnimator {
-    private final Random mRandom;
     protected final Config mConfig;
+    private final Random mRandom;
 
 
     public AbstractPathAnimator(Config config) {

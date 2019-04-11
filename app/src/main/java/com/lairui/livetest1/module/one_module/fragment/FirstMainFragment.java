@@ -11,16 +11,13 @@ import android.widget.TextView;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.entity.bean.CategoryBean;
-import com.lairui.livetest1.fragmentfactory.ConsumptionFactory;
 import com.lairui.livetest1.fragmentfactory.HomeFragmentFactory;
-import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
 import com.lairui.livetest1.module.one_module.adapter.LiveClassificationAdapter;
 import com.lairui.livetest1.module.one_module.presenter.FirstPresenter;
 import com.lairui.livetest1.ui.activity.SearchActivity;
 import com.lzy.okgo.model.HttpParams;
 import com.wanou.framelibrary.base.BaseFragment;
 import com.wanou.framelibrary.base.BaseMvpFragment;
-import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.ArrayList;
@@ -130,19 +127,6 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
         tlClassification.getTabAt(0).select();
     }
 
-    public void setCategoryError() {
-        viewGone(clLoading, tlClassification);
-        viewVisible(clError);
-        clError.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewVisible(clLoading);
-                viewGone(clError, tlClassification);
-                initData();
-            }
-        });
-    }
-
     private void addFragment(int position, String title) {
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         Fragment fragmentByTag = getChildFragmentManager().findFragmentByTag(title);
@@ -161,5 +145,18 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
             fragmentTransaction.show(fragment);
         }
         fragmentTransaction.commit();
+    }
+
+    public void setCategoryError() {
+        viewGone(clLoading, tlClassification);
+        viewVisible(clError);
+        clError.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewVisible(clLoading);
+                viewGone(clError, tlClassification);
+                initData();
+            }
+        });
     }
 }

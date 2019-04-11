@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
-import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.LiveRoomBean;
 import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.wanou.framelibrary.base.BaseRecycleViewAdapter;

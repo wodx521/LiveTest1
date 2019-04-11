@@ -45,10 +45,10 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/bg_btn_gift_send"
             android:enabled="false"
-            android:paddingBottom="5dp"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp"
             android:text="发送"
             android:textColor="#ffffff" />
     </LinearLayout>

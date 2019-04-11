@@ -38,7 +38,7 @@ public class FourMainPresenter extends BasePresenterImpl<FourMainFragment> {
                 if (simpleResponse != null) {
                     if (simpleResponse.code == -1) {
                         mPresenterView.startActivity(mPresenterView, null, LoginActivity.class);
-                        SpUtils.put("token","");
+                        SpUtils.put("token", "");
                         ActivityManage.getInstance().finishAll();
                     }
                 } else {

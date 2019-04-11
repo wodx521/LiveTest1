@@ -30,31 +30,6 @@ public class EditNickActivity extends BaseMvpActivity<EditNickPresenter> impleme
     }
 
     @Override
-    protected int getResId() {
-        return R.layout.activity_edit_nick;
-    }
-
-    @Override
-    protected void initView() {
-        ivLeft = findViewById(R.id.ivLeft);
-        tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
-        tvOperate = findViewById(R.id.tvOperate);
-        etNickName = findViewById(R.id.etNickName);
-        ivClear = findViewById(R.id.ivClear);
-        tvInputCount = findViewById(R.id.tvInputCount);
-
-        tvToolbarTitle.setText(R.string.editNick);
-        viewVisible(ivLeft, tvOperate);
-        ivLeft.setImageResource(R.drawable.arrow_left_main_color);
-        tvOperate.setText(R.string.save);
-        tvOperate.setTextColor(UiTools.getColor(R.color.colorGray3));
-
-        ivLeft.setOnClickListener(this);
-        tvOperate.setOnClickListener(this);
-        ivClear.setOnClickListener(this);
-    }
-
-    @Override
     protected void initData() {
         if (mBundle != null) {
             String nickname = mBundle.getString("nickname", "");
@@ -84,6 +59,31 @@ public class EditNickActivity extends BaseMvpActivity<EditNickPresenter> impleme
 
             }
         });
+    }
+
+    @Override
+    protected int getResId() {
+        return R.layout.activity_edit_nick;
+    }
+
+    @Override
+    protected void initView() {
+        ivLeft = findViewById(R.id.ivLeft);
+        tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
+        tvOperate = findViewById(R.id.tvOperate);
+        etNickName = findViewById(R.id.etNickName);
+        ivClear = findViewById(R.id.ivClear);
+        tvInputCount = findViewById(R.id.tvInputCount);
+
+        tvToolbarTitle.setText(R.string.editNick);
+        viewVisible(ivLeft, tvOperate);
+        ivLeft.setImageResource(R.drawable.arrow_left_main_color);
+        tvOperate.setText(R.string.save);
+        tvOperate.setTextColor(UiTools.getColor(R.color.colorGray3));
+
+        ivLeft.setOnClickListener(this);
+        tvOperate.setOnClickListener(this);
+        ivClear.setOnClickListener(this);
     }
 
     @Override

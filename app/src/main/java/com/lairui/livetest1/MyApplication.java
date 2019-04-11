@@ -7,13 +7,11 @@ import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.utils.ChatroomKit;
 import com.wanou.framelibrary.GlobalApplication;
 
-import io.rong.imlib.RongIMClient;
-
 public class MyApplication extends GlobalApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(this) ;
+        MultiDex.install(this);
     }
 
     @Override

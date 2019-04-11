@@ -6,7 +6,7 @@ public class AppConstant {
     // 自测appkey
 //    public static final String RONG_CLOUD_APP_KEY = "82hegw5u8xypx";
 
-//    public static final String BASE_URL = "http://192.168.1.109:86";
+    //    public static final String BASE_URL = "http://192.168.1.109:86";
     public static final String BASE_URL = "http://live.qilinpz.com";
     public static final int REGISTER = 1;
     public static final int EDIT_INFO = 2;

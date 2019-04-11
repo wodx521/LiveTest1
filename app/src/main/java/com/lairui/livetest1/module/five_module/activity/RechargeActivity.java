@@ -33,37 +33,6 @@ public class RechargeActivity extends BaseMvpActivity<RechargePresenter> impleme
     }
 
     @Override
-    protected int getResId() {
-        return R.layout.activity_recharge;
-    }
-
-    @Override
-    protected void initView() {
-        ivLeft = findViewById(R.id.ivLeft);
-        tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
-        tvBalance = findViewById(R.id.tvBalance);
-        rgPayMethod = findViewById(R.id.rgPayMethod);
-        rbWechat = findViewById(R.id.rbWechat);
-        rbAlipay = findViewById(R.id.rbAlipay);
-        rvPayAmount = findViewById(R.id.rvPayAmount);
-        tvArrival1 = findViewById(R.id.tvArrival1);
-        tvPayAmount1 = findViewById(R.id.tvPayAmount1);
-        etCustomAmount = findViewById(R.id.etCustomAmount);
-        tvDiamondNumber = findViewById(R.id.tvDiamondNumber);
-        tvRecharge = findViewById(R.id.tvRecharge);
-
-
-        viewVisible(ivLeft);
-        ivLeft.setImageResource(R.drawable.arrow_left_main_color);
-        tvToolbarTitle.setText(R.string.recharge);
-
-        ivLeft.setOnClickListener(this);
-        rbWechat.setOnClickListener(this);
-        rbAlipay.setOnClickListener(this);
-        tvRecharge.setOnClickListener(this);
-    }
-
-    @Override
     protected void initData() {
         rbWechat.performClick();
         payAmountAdapter = new PayAmountAdapter(this);
@@ -93,6 +62,37 @@ public class RechargeActivity extends BaseMvpActivity<RechargePresenter> impleme
                 }
             }
         });
+    }
+
+    @Override
+    protected int getResId() {
+        return R.layout.activity_recharge;
+    }
+
+    @Override
+    protected void initView() {
+        ivLeft = findViewById(R.id.ivLeft);
+        tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
+        tvBalance = findViewById(R.id.tvBalance);
+        rgPayMethod = findViewById(R.id.rgPayMethod);
+        rbWechat = findViewById(R.id.rbWechat);
+        rbAlipay = findViewById(R.id.rbAlipay);
+        rvPayAmount = findViewById(R.id.rvPayAmount);
+        tvArrival1 = findViewById(R.id.tvArrival1);
+        tvPayAmount1 = findViewById(R.id.tvPayAmount1);
+        etCustomAmount = findViewById(R.id.etCustomAmount);
+        tvDiamondNumber = findViewById(R.id.tvDiamondNumber);
+        tvRecharge = findViewById(R.id.tvRecharge);
+
+
+        viewVisible(ivLeft);
+        ivLeft.setImageResource(R.drawable.arrow_left_main_color);
+        tvToolbarTitle.setText(R.string.recharge);
+
+        ivLeft.setOnClickListener(this);
+        rbWechat.setOnClickListener(this);
+        rbAlipay.setOnClickListener(this);
+        tvRecharge.setOnClickListener(this);
     }
 
     @Override

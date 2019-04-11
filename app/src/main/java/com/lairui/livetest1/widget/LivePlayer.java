@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import com.lairui.livetest1.R;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
-public class LivePlayer extends StandardGSYVideoPlayer{
+public class LivePlayer extends StandardGSYVideoPlayer {
     public LivePlayer(Context context) {
         super(context);
     }
@@ -36,7 +36,7 @@ public class LivePlayer extends StandardGSYVideoPlayer{
 
     @Override
     protected void updateStartImage() {
-        if(mStartButton instanceof ImageView) {
+        if (mStartButton instanceof ImageView) {
             ImageView imageView = (ImageView) mStartButton;
             if (mCurrentState == CURRENT_STATE_PLAYING) {
                 imageView.setImageResource(com.shuyu.gsyvideoplayer.R.drawable.video_click_pause_selector);

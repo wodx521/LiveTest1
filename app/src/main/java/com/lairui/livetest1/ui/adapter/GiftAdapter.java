@@ -28,10 +28,12 @@ public class GiftAdapter extends BaseAdapter {
         this.gifts = gifts;
     }
 
-
     @Override
-    public long getItemId(int i) {
-        return i;
+    public int getCount() {
+        if (gifts != null && gifts.size() > 0) {
+            return gifts.size();
+        }
+        return 0;
     }
 
     @Override
@@ -40,11 +42,8 @@ public class GiftAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getCount() {
-        if (gifts != null && gifts.size() > 0) {
-            return gifts.size();
-        }
-        return 0;
+    public long getItemId(int i) {
+        return i;
     }
 
     @Override

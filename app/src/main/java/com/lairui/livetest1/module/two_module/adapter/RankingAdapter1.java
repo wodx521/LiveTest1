@@ -36,14 +36,6 @@ public class RankingAdapter1 extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        if (position > 2) {
-            return ITEM_TYPE1;
-        }
-        return ITEM_TYPE2;
-    }
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -126,6 +118,14 @@ public class RankingAdapter1 extends RecyclerView.Adapter {
         }
 
 
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position > 2) {
+            return ITEM_TYPE1;
+        }
+        return ITEM_TYPE2;
     }
 
     @Override

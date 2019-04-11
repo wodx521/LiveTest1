@@ -2,12 +2,12 @@
 <resources>
 
     <!--<style name="HintTextInputAppTheme" parent="Base.TextAppearance.AppCompat.Caption">-->
-        <!--<item name="textColor">@color/colorGray1</item>-->
-        <!--<item name="textSize">@dimen/sp_13</item>-->
+    <!--<item name="textColor">@color/colorGray1</item>-->
+    <!--<item name="textSize">@dimen/sp_13</item>-->
     <!--</style>-->
 
     <!--<style name="ErrorTextInputAppTheme" parent="Base.TextAppearance.AppCompat.Caption">-->
-        <!--<item name="textColor">@color/red</item>-->
-        <!--<item name="textSize">@dimen/sp_13</item>-->
+    <!--<item name="textColor">@color/red</item>-->
+    <!--<item name="textSize">@dimen/sp_13</item>-->
     <!--</style>-->
 </resources>

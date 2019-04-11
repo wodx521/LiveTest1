@@ -2,6 +2,7 @@ package com.lairui.livetest1.entity.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LiveListBean {
@@ -60,6 +61,9 @@ public class LiveListBean {
     }
 
     public List<LiveRoomBean> getData() {
+        if (data == null) {
+            return new ArrayList<>();
+        }
         return data;
     }
 

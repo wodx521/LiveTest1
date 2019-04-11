@@ -31,8 +31,18 @@ public class MemberAdapter extends BaseAdapter {
     }
 
     @Override
+    public int getCount() {
+        return infos.size();
+    }
+
+    @Override
     public Object getItem(int i) {
         return infos.get(i);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
     }
 
     @Override
@@ -60,17 +70,6 @@ public class MemberAdapter extends BaseAdapter {
 
         return view;
     }
-
-    @Override
-    public int getCount() {
-        return infos.size();
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
 
     class ViewHolder {
         ImageView icon;

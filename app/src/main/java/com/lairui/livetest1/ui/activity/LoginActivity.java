@@ -18,6 +18,7 @@ import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
 public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements View.OnClickListener {
+    private static String TAG = "LoginActivity";
     private TextView tvToolbarTitle;
     private TextInputEditText etName;
     private TextInputEditText etPassword;
@@ -29,6 +30,22 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
     @Override
     protected LoginPresenter getPresenter() {
         return new LoginPresenter();
+    }
+
+    @Override
+    protected void initData() {
+        showSuccess();
+        String phone = (String) SpUtils.get("loginNumber", "");
+        if (UiTools.noEmpty(phone)) {
+            etName.setText(phone);
+        }
+
+        if (mBundle != null) {
+            int loginStatus = mBundle.getInt("loginStatus");
+//            if (loginStatus == 1) {
+//                ExitNoticeDialog.getDialog(LoginActivity.this, "", "");
+//            }
+        }
     }
 
     @Override
@@ -54,22 +71,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
     }
 
     @Override
-    protected void initData() {
-        showSuccess();
-        String phone = (String) SpUtils.get("loginNumber", "");
-        if (UiTools.noEmpty(phone)) {
-            etName.setText(phone);
-        }
-
-        if (mBundle != null) {
-            int loginStatus = mBundle.getInt("loginStatus");
-//            if (loginStatus == 1) {
-//                ExitNoticeDialog.getDialog(LoginActivity.this, "", "");
-//            }
-        }
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_login:
@@ -89,8 +90,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
             default:
         }
     }
-
-    private static String TAG = "LoginActivity";
 
     public void loginSuccess(LoginBean loginBean) {
         String phone = loginBean.getPhone();

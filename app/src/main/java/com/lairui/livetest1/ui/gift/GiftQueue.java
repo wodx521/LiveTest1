@@ -14,11 +14,6 @@ public class GiftQueue {
         queue = new LinkedHashMap<>();
     }
 
-
-    public List<GiftSendModel> getList(String key) {
-        return queue.get(key);
-    }
-
     /**
      * 获取当前队列的第一个的礼物
      *
@@ -83,6 +78,10 @@ public class GiftQueue {
                 mapList.add(model);
             }
         }
+    }
+
+    public List<GiftSendModel> getList(String key) {
+        return queue.get(key);
     }
 
     public boolean isEmpty() {

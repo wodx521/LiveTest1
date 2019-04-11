@@ -15,7 +15,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/clPreviewControl"
         android:layout_width="0dp"
@@ -186,6 +185,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="4dp" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"

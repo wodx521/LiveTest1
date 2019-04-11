@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
+
 import io.rong.imlib.model.UserInfo;
 
 /**
@@ -26,13 +27,10 @@ import io.rong.imlib.model.UserInfo;
  */
 
 /*数据接口
-*
-* 由于本demo没有App Server，用户信息，聊天室信息 等全部通过DataInterface的接口返回，目前都是写死的数据。 开发者可以修改这些接口，去自己的app server取数据。
-* */
+ *
+ * 由于本demo没有App Server，用户信息，聊天室信息 等全部通过DataInterface的接口返回，目前都是写死的数据。 开发者可以修改这些接口，去自己的app server取数据。
+ * */
 public class DataInterface {
-
-    /*appkey   需要改成开发者自己的appKey*/
-    public static String appKey = "e5t4ouvptkm2a";
 
     public static final int Avatar_1 = R.drawable.avatar_1;
     public static final int Avatar_2 = R.drawable.avatar_2;
@@ -44,9 +42,14 @@ public class DataInterface {
     public static final int Avatar_8 = R.drawable.avatar_8;
     public static final int Avatar_9 = R.drawable.avatar_9;
     public static final int Avatar_10 = R.drawable.avatar_10;
-
+    /*appkey   需要改成开发者自己的appKey*/
+    public static String appKey = "e5t4ouvptkm2a";
     /*是否登录*/
     private static boolean loginStatus = false;
+    /*是否禁言*/
+    private static boolean banStatus = false;
+    static private ArrayList<UserInfo> userInfoList;
+    static private ArrayList<UserMode> userModes;
 
     public static boolean isLoginStatus() {
         return loginStatus;
@@ -56,9 +59,6 @@ public class DataInterface {
         DataInterface.loginStatus = loginStatus;
     }
 
-    /*是否禁言*/
-    private static boolean banStatus = false;
-
     public static boolean isBanStatus() {
         return banStatus;
     }
@@ -66,10 +66,6 @@ public class DataInterface {
     public static void setBanStatus(boolean banStatus) {
         DataInterface.banStatus = banStatus;
     }
-
-    static private ArrayList<UserInfo> userInfoList;
-    static private ArrayList<UserMode> userModes;
-
 
     public static ArrayList<UserMode> getUserModes() {
         return userModes;
@@ -123,9 +119,37 @@ public class DataInterface {
 
     }
 
+    public static String getJson(String fileName, Context context) {
+        //将json数据变成字符串
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            //获取assets资源管理器
+            AssetManager assetManager = context.getAssets();
+            //通过管理器打开文件并读取
+            BufferedReader bf = new BufferedReader(new InputStreamReader(
+                    assetManager.open(fileName)));
+            String line;
+            while ((line = bf.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return stringBuilder.toString();
+    }
+
+    public static Uri getUri(Context context, int res) {
+        Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+                + context.getResources().getResourcePackageName(res) + "/"
+                + context.getResources().getResourceTypeName(res) + "/"
+                + context.getResources().getResourceEntryName(res));
+
+        return uri;
+    }
+
     /*
-    * 获取用户信息
-    * */
+     * 获取用户信息
+     * */
     public static UserInfo getUserInfo(String userid) {
         for (int i = 0; i < userInfoList.size(); i++) {
             if (userInfoList.get(i).getUserId().equals(userid)) {
@@ -135,7 +159,6 @@ public class DataInterface {
         return null;
     }
 
-
     /*根据roomId获取房间在线成员列表*/
     public static ArrayList<UserInfo> getUserList(String roomId) {
         ArrayList<UserInfo> userInfos = new ArrayList<>();
@@ -144,7 +167,6 @@ public class DataInterface {
         }
         return userInfos;
     }
-
 
     /*获取直播间列表信息*/
     public static ArrayList<ChatroomInfo> getChatroomList() {
@@ -161,6 +183,12 @@ public class DataInterface {
         chatroomInfos.add(new ChatroomInfo("ChatRoom8", "聊天室08", "直播中", getRandomNum(1000), getUri(MyApplication.getContext(), R.drawable.chatroom_02)));
 
         return chatroomInfos;
+    }
+
+    /*生成随机数*/
+    public static int getRandomNum(int max) {
+        Random r = new Random();
+        return r.nextInt(max);
     }
 
     /*根据roomId获取主播名*/
@@ -218,24 +246,6 @@ public class DataInterface {
         return info;
     }
 
-
-    /*获取礼物列表*/
-    public static ArrayList<Gift> getGiftList() {
-        ArrayList<Gift> gifts = new ArrayList<>();
-        String[] giftNames = new String[]{"蛋糕", "气球", "花儿", "项链", "戒指"};
-        int[] giftRes = new int[]{R.drawable.gift_cake, R.drawable.gift_ballon, R.drawable.gift_flower, R.drawable.gift_necklace, R.drawable.gift_ring};
-
-        for (int i = 0; i < giftNames.length; i++) {
-            Gift gift = new Gift();
-            gift.setGiftId("GiftId_" + (i + 1));
-            gift.setGiftName(giftNames[i]);
-            gift.setGiftRes(giftRes[i]);
-            gifts.add(gift);
-        }
-        return gifts;
-    }
-
-
     /*获取礼物名*/
     public static String getGiftNameById(String giftId) {
         switch (giftId) {
@@ -264,39 +274,19 @@ public class DataInterface {
         return null;
     }
 
+    /*获取礼物列表*/
+    public static ArrayList<Gift> getGiftList() {
+        ArrayList<Gift> gifts = new ArrayList<>();
+        String[] giftNames = new String[]{"蛋糕", "气球", "花儿", "项链", "戒指"};
+        int[] giftRes = new int[]{R.drawable.gift_cake, R.drawable.gift_ballon, R.drawable.gift_flower, R.drawable.gift_necklace, R.drawable.gift_ring};
 
-    /*生成随机数*/
-    public static int getRandomNum(int max) {
-        Random r = new Random();
-        return r.nextInt(max);
-    }
-
-    public static Uri getUri(Context context, int res) {
-        Uri uri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
-                + context.getResources().getResourcePackageName(res) + "/"
-                + context.getResources().getResourceTypeName(res) + "/"
-                + context.getResources().getResourceEntryName(res));
-
-        return uri;
-    }
-
-
-    public static String getJson(String fileName, Context context) {
-        //将json数据变成字符串
-        StringBuilder stringBuilder = new StringBuilder();
-        try {
-            //获取assets资源管理器
-            AssetManager assetManager = context.getAssets();
-            //通过管理器打开文件并读取
-            BufferedReader bf = new BufferedReader(new InputStreamReader(
-                    assetManager.open(fileName)));
-            String line;
-            while ((line = bf.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (int i = 0; i < giftNames.length; i++) {
+            Gift gift = new Gift();
+            gift.setGiftId("GiftId_" + (i + 1));
+            gift.setGiftName(giftNames[i]);
+            gift.setGiftRes(giftRes[i]);
+            gifts.add(gift);
         }
-        return stringBuilder.toString();
+        return gifts;
     }
 }

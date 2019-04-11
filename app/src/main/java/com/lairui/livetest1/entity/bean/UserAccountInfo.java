@@ -4,6 +4,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class UserAccountInfo implements Parcelable {
+    public static final Creator<UserAccountInfo> CREATOR = new Creator<UserAccountInfo>() {
+        @Override
+        public UserAccountInfo createFromParcel(Parcel in) {
+            return new UserAccountInfo(in);
+        }
+
+        @Override
+        public UserAccountInfo[] newArray(int size) {
+            return new UserAccountInfo[size];
+        }
+    };
     /**
      * id : 20
      * phone : 13200000005
@@ -47,6 +58,11 @@ public class UserAccountInfo implements Parcelable {
     }
 
     @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(phone);
@@ -58,23 +74,6 @@ public class UserAccountInfo implements Parcelable {
         dest.writeString(sex);
         dest.writeString(grade);
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<UserAccountInfo> CREATOR = new Creator<UserAccountInfo>() {
-        @Override
-        public UserAccountInfo createFromParcel(Parcel in) {
-            return new UserAccountInfo(in);
-        }
-
-        @Override
-        public UserAccountInfo[] newArray(int size) {
-            return new UserAccountInfo[size];
-        }
-    };
 
     public String getId() {
         return id;

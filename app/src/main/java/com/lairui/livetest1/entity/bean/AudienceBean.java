@@ -12,7 +12,7 @@ public class AudienceBean implements Serializable {
     String name;  //昵称
 
     public String getAnchorId() {
-        return anchorId;
+        return anchorId == null ? "" : anchorId;
     }
 
     public void setAnchorId(String anchorId) {
@@ -28,7 +28,7 @@ public class AudienceBean implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return name == null ? "" : name;
     }
 
     public void setName(String name) {

@@ -66,19 +66,6 @@ public class SecondMainFragment extends BaseMvpFragment<SecondMainPresenter> imp
         tlRanking.getTabAt(0).select();
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ivLeft:
-                startActivity(SecondMainFragment.this, null, SearchActivity.class);
-                break;
-            case R.id.ivRight:
-
-                break;
-            default:
-        }
-    }
-
     private void addFragment(int position, String title) {
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         Fragment fragmentByTag = getChildFragmentManager().findFragmentByTag(title);
@@ -97,6 +84,19 @@ public class SecondMainFragment extends BaseMvpFragment<SecondMainPresenter> imp
             fragmentTransaction.show(fragment);
         }
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ivLeft:
+                startActivity(SecondMainFragment.this, null, SearchActivity.class);
+                break;
+            case R.id.ivRight:
+
+                break;
+            default:
+        }
     }
 
 }

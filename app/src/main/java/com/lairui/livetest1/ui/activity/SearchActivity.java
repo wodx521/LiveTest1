@@ -2,8 +2,6 @@ package com.lairui.livetest1.ui.activity;
 
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,6 +48,24 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
     }
 
     @Override
+    protected void initData() {
+        searchListAdapter = new SearchListAdapter(this);
+        rvSearchList.setAdapter(searchListAdapter);
+        etSearchLive.addTextChangedListener(new CustomTextChange() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0 && UiTools.noEmpty(s.toString())) {
+                    viewVisible(ivClear);
+                    srlRefresh.setEnableRefresh(true);
+                } else {
+                    viewInvisible(ivClear);
+                    srlRefresh.setEnableRefresh(false);
+                }
+            }
+        });
+    }
+
+    @Override
     protected int getResId() {
         return R.layout.activity_search;
     }
@@ -66,24 +82,6 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
         ivBack.setOnClickListener(this);
         ivClear.setOnClickListener(this);
         ivSearch.setOnClickListener(this);
-    }
-
-    @Override
-    protected void initData() {
-        searchListAdapter = new SearchListAdapter(this);
-        rvSearchList.setAdapter(searchListAdapter);
-        etSearchLive.addTextChangedListener(new CustomTextChange() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0 && UiTools.noEmpty(s.toString())) {
-                    viewVisible(ivClear);
-                    srlRefresh.setEnableRefresh(true);
-                } else {
-                    viewInvisible(ivClear);
-                    srlRefresh.setEnableRefresh(false);
-                }
-            }
-        });
     }
 
     @Override

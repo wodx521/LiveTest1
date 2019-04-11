@@ -9,7 +9,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 import com.lairui.livetest1.R;
 
@@ -17,11 +16,11 @@ import com.lairui.livetest1.R;
 public class HeartView extends android.support.v7.widget.AppCompatImageView {
 
     private static final Paint sPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
-    private int mHeartResId = R.mipmap.anim_heart;
-    private int mHeartBorderResId = R.mipmap.anim_heart_border;
+    private static final Canvas sCanvas = new Canvas();
     private static Bitmap sHeart;
     private static Bitmap sHeartBorder;
-    private static final Canvas sCanvas = new Canvas();
+    private int mHeartResId = R.mipmap.anim_heart;
+    private int mHeartBorderResId = R.mipmap.anim_heart_border;
 
     public HeartView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -35,11 +34,6 @@ public class HeartView extends android.support.v7.widget.AppCompatImageView {
         super(context);
     }
 
-    public void setColor(int color) {
-        Bitmap heart = createHeart(color);
-        setImageDrawable(new BitmapDrawable(getResources(), heart));
-    }
-
     public void setColorAndDrawables(int color, int heartResId, int heartBorderResId) {
         if (heartResId != mHeartResId) {
             sHeart = null;
@@ -50,6 +44,11 @@ public class HeartView extends android.support.v7.widget.AppCompatImageView {
         mHeartResId = heartResId;
         mHeartBorderResId = heartBorderResId;
         setColor(color);
+    }
+
+    public void setColor(int color) {
+        Bitmap heart = createHeart(color);
+        setImageDrawable(new BitmapDrawable(getResources(), heart));
     }
 
     public Bitmap createHeart(int color) {

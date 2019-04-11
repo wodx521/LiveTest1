@@ -11,6 +11,10 @@ public class GiftSendModel {
     private int star;
     private boolean isPlay;
 
+    public GiftSendModel(int giftCount) {
+        this.giftCount = giftCount;
+    }
+
     public boolean isPlay() {
         return isPlay;
     }
@@ -19,8 +23,8 @@ public class GiftSendModel {
         isPlay = play;
     }
 
-    public GiftSendModel(int giftCount) {
-        this.giftCount = giftCount;
+    public void addGifCount(int gitCount) {
+        this.giftCount = getGiftCount() + gitCount;
     }
 
     public int getGiftCount() {
@@ -31,24 +35,12 @@ public class GiftSendModel {
         this.giftCount = giftCount;
     }
 
-    public void addGifCount(int gitCount) {
-        this.giftCount = getGiftCount() + gitCount;
-    }
-
     public String getUserAvatarRes() {
         return userAvatarRes;
     }
 
     public void setUserAvatarRes(String userAvatarRes) {
         this.userAvatarRes = userAvatarRes;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public String getSig() {
@@ -91,5 +83,13 @@ public class GiftSendModel {
             return equals;
         }
         return giftRes == giftSendModel.giftRes;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

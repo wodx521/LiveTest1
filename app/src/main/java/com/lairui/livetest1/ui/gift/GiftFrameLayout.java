@@ -25,33 +25,32 @@ import com.lairui.livetest1.R;
  */
 public class GiftFrameLayout extends FrameLayout {
 
-    private LayoutInflater mInflater;
-
     RelativeLayout anim_rl;
     ImageView anim_gift, /*anim_light,*/
             anim_header;
     TextView anim_nickname, anim_sign;
     StrokeTextView anim_num;
-
     //礼物数量的起始值
     int starNum = 1;
     int repeatCount = 0;
+    private LayoutInflater mInflater;
     private boolean isShowing = false;
 
     private String nick;
 
     private ObjectAnimator scaleGiftNum;
+    private GiftSendModel model;
 
     public GiftFrameLayout(Context context) {
         this(context, null);
     }
+
 
     public GiftFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         mInflater = LayoutInflater.from(context);
         initView();
     }
-
 
     private void initView() {
         View view = mInflater.inflate(R.layout.animation, this, false);
@@ -65,26 +64,13 @@ public class GiftFrameLayout extends FrameLayout {
         this.addView(view);
     }
 
-    public void hideView() {
-        anim_gift.setVisibility(INVISIBLE);
-        //   anim_light.setVisibility(INVISIBLE);
-        anim_num.setVisibility(INVISIBLE);
-    }
-
     public String getNick() {
         return nick;
     }
 
-    private GiftSendModel model;
-
     public GiftSendModel getModel() {
         return model;
     }
-
-    public boolean equalsCurrentModel(GiftSendModel model) {
-        return this.model.equals(model);
-    }
-
 
     public void setModel(GiftSendModel model) {
         this.model = model;
@@ -105,6 +91,10 @@ public class GiftFrameLayout extends FrameLayout {
             anim_header.setImageURI(Uri.parse(model.getUserAvatarRes()));
         }
         this.nick = anim_nickname.getText().toString();
+    }
+
+    public boolean equalsCurrentModel(GiftSendModel model) {
+        return this.model.equals(model);
     }
 
     public boolean isShowing() {
@@ -141,15 +131,15 @@ public class GiftFrameLayout extends FrameLayout {
         ObjectAnimator flyFromLtoR2 = GiftAnimationUtil.createFlyFromLtoR(anim_gift, -getWidth(), 0, 400, new DecelerateInterpolator());
         flyFromLtoR2.addListener(new AnimatorListenerAdapter() {
             @Override
+            public void onAnimationEnd(Animator animation) {
+                //  GiftAnimationUtil.startAnimationDrawable(anim_light);
+                anim_num.setVisibility(View.VISIBLE);
+            }            @Override
             public void onAnimationStart(Animator animation) {
                 anim_gift.setVisibility(View.VISIBLE);
             }
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                //  GiftAnimationUtil.startAnimationDrawable(anim_light);
-                anim_num.setVisibility(View.VISIBLE);
-            }
+
         });
         //数量增加-*+/
         scaleGiftNum = GiftAnimationUtil.scaleGiftNum(anim_num, repeatCount);
@@ -182,6 +172,12 @@ public class GiftFrameLayout extends FrameLayout {
 
         });
         return animatorSet;
+    }
+
+    public void hideView() {
+        anim_gift.setVisibility(INVISIBLE);
+        //   anim_light.setVisibility(INVISIBLE);
+        anim_num.setVisibility(INVISIBLE);
     }
 
 

@@ -126,7 +126,7 @@ public class FourMainFragment extends BaseMvpFragment<FourMainPresenter> impleme
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivLeft:
-                startActivity(FourMainFragment.this,null,SearchActivity.class);
+                startActivity(FourMainFragment.this, null, SearchActivity.class);
                 break;
             case R.id.ivRight1:
 

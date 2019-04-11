@@ -38,6 +38,10 @@ public class SearchListBean {
         return data;
     }
 
+    public void setData(List<DataBean> data) {
+        this.data = data;
+    }
+
     public int getPerPage() {
         return perPage;
     }
@@ -60,10 +64,6 @@ public class SearchListBean {
 
     public void setLastPage(int lastPage) {
         this.lastPage = lastPage;
-    }
-
-    public void setData(List<DataBean> data) {
-        this.data = data;
     }
 
     public static class DataBean {

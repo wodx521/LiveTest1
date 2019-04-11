@@ -12,7 +12,6 @@ import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
-import com.lairui.livetest1.module.two_module.adapter.RankingAdapter1;
 import com.lairui.livetest1.module.two_module.presenter.IncomeWeekPresenter;
 import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.ui.panel.CircleImageView;
@@ -24,7 +23,6 @@ import com.wanou.framelibrary.base.BaseMvpFragment;
 import com.wanou.framelibrary.bean.SimpleResponse;
 import com.wanou.framelibrary.glidetools.GlideApp;
 import com.wanou.framelibrary.manager.ActivityManage;
-import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.ArrayList;
@@ -78,7 +76,7 @@ public class IncomeWeekFragment extends BaseMvpFragment<IncomeWeekPresenter> {
         ivThirdLevel = view.findViewById(R.id.ivThirdLevel);
         tvThirdGet = view.findViewById(R.id.tvThirdGet);
 
-        viewGone(clError, clEmpty,constraintRankTitle);
+        viewGone(clError, clEmpty, constraintRankTitle);
         viewVisible(clLoading);
     }
 
@@ -182,7 +180,7 @@ public class IncomeWeekFragment extends BaseMvpFragment<IncomeWeekPresenter> {
             if (tempList.size() > 3) {
                 rankingAdapter.setList(tempList.subList(3, tempList.size()));
             }
-            viewVisible(rvRanking,constraintRankTitle);
+            viewVisible(rvRanking, constraintRankTitle);
             viewGone(clEmpty);
         } else {
             viewVisible(clEmpty);

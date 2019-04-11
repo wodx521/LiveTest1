@@ -11,8 +11,12 @@ import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.wanou.framelibrary.base.BaseMvpActivity;
+import com.wanou.framelibrary.utils.SpUtils;
 
-public class LivePushActivity extends BaseMvpActivity<LivePushPresenter> {
+/**
+ * 腾讯直播Sdk
+ */
+public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenter> {
     private TXCloudVideoView videoView;
     private TXLivePushConfig mLivePushConfig;
     private TextView tvStartPush;
@@ -25,6 +29,28 @@ public class LivePushActivity extends BaseMvpActivity<LivePushPresenter> {
     }
 
     @Override
+    protected void initData() {
+        String token = (String) SpUtils.get("token", "");
+        mLivePusher = new TXLivePusher(this);
+        mLivePushConfig = new TXLivePushConfig();
+        mLivePushConfig.enableNearestIP(false);
+        mLivePushConfig.setFrontCamera(false);
+        mLivePusher.setConfig(mLivePushConfig);
+        mLivePusher.startCameraPreview(videoView);
+        httpParams.put("operate", "roomGroup-liveAddress");
+        httpParams.put("token",token);
+        mPresenter.getPushAddress(httpParams);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLivePusher.stopCameraPreview(true); //停止摄像头预览
+        mLivePusher.stopPusher();            //停止推流
+        mLivePusher.setPushListener(null);   //解绑 listener
+    }
+
+    @Override
     protected int getResId() {
         return R.layout.activity_live_push;
     }
@@ -33,27 +59,6 @@ public class LivePushActivity extends BaseMvpActivity<LivePushPresenter> {
     protected void initView() {
         videoView = findViewById(R.id.video_view);
         tvStartPush = findViewById(R.id.tvStartPush);
-    }
-
-    @Override
-    protected void initData() {
-        mLivePusher = new TXLivePusher(this);
-        mLivePushConfig = new TXLivePushConfig();
-        mLivePushConfig.enableNearestIP(false);
-        mLivePushConfig.setFrontCamera(false);
-        mLivePusher.setConfig(mLivePushConfig);
-        mLivePusher.startCameraPreview(videoView);
-        httpParams.put("operate","roomGroup-liveAddress");
-        mPresenter.getPushAddress(httpParams);
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mLivePusher.stopCameraPreview(true); //停止摄像头预览
-        mLivePusher.stopPusher();            //停止推流
-        mLivePusher.setPushListener(null);   //解绑 listener
     }
 
     public void setPushAddress(LiveAddressBean liveAddressBean) {

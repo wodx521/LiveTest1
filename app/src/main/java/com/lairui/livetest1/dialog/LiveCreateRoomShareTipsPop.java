@@ -30,18 +30,15 @@ public class LiveCreateRoomShareTipsPop extends PopupWindow {
 
         ColorDrawable dw = new ColorDrawable(0x00ffffff);
         this.setBackgroundDrawable(dw);
-        contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        popupHeight = contentView.getMeasuredHeight();
-        popupWidth = contentView.getMeasuredWidth();
+
         setOutsideTouchable(true);
         setFocusable(false);
     }
 
-    private void setTips(String tips) {
-        textView.setText(tips);
-    }
-
     public void showPopTips(String shareTips, View parent) {
+        contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        popupHeight = contentView.getMeasuredHeight();
+        popupWidth = contentView.getMeasuredWidth();
         CountDownUtils.cancelTimer();
         if (isShowing()) {
             dismiss();
@@ -64,5 +61,9 @@ public class LiveCreateRoomShareTipsPop extends PopupWindow {
                 }
             }
         });
+    }
+
+    private void setTips(String tips) {
+        textView.setText(tips);
     }
 }

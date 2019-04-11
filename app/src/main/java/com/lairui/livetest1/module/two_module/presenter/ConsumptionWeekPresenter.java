@@ -5,7 +5,6 @@ import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.module.two_module.fragment.ConsumptionWeekFragment;
-import com.lairui.livetest1.module.two_module.fragment.IncomeWeekFragment;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.request.base.Request;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

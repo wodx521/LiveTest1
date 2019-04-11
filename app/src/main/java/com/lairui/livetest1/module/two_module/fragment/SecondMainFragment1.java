@@ -1,6 +1,5 @@
 package com.lairui.livetest1.module.two_module.fragment;
 
-import android.nfc.Tag;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,9 +9,6 @@ import android.widget.ImageView;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.fragmentfactory.SecondFragmentFactory;
-import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
-import com.lairui.livetest1.module.two_module.adapter.RankingPagerAdapter;
-import com.lairui.livetest1.module.two_module.presenter.SecondMainPresenter;
 import com.lairui.livetest1.module.two_module.presenter.SecondMainPresenter1;
 import com.lairui.livetest1.ui.activity.SearchActivity;
 import com.wanou.framelibrary.base.BaseFragment;
@@ -74,19 +70,6 @@ public class SecondMainFragment1 extends BaseMvpFragment<SecondMainPresenter1> i
         tlRanking.getTabAt(0).select();
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ivLeft:
-                startActivity(SecondMainFragment1.this, null, SearchActivity.class);
-                break;
-            case R.id.ivRight:
-
-                break;
-            default:
-        }
-    }
-
     private void addFragment(int position, String title) {
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         Fragment fragmentByTag = getChildFragmentManager().findFragmentByTag(title);
@@ -105,6 +88,19 @@ public class SecondMainFragment1 extends BaseMvpFragment<SecondMainPresenter1> i
             fragmentTransaction.show(fragment);
         }
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ivLeft:
+                startActivity(SecondMainFragment1.this, null, SearchActivity.class);
+                break;
+            case R.id.ivRight:
+
+                break;
+            default:
+        }
     }
 
 }

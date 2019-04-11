@@ -37,7 +37,7 @@ public class FiveMainPresenter1 extends BasePresenterImpl<FiveMainFragment1> {
                         mPresenterView.startActivity(mPresenterView, null, LoginActivity.class);
                         ActivityManage.getInstance().finishAll();
                     }
-                }else{
+                } else {
                     mPresenterView.setUserInfoError(json);
                 }
             }

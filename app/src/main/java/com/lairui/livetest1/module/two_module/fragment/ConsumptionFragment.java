@@ -36,7 +36,8 @@ public class ConsumptionFragment extends BaseMvpFragment<ConsumptionPresenter> {
     private int page = 0;
     private List<RankingBean.ListBean> tempList = new ArrayList<>();
     private RankingAdapter rankingAdapter;
-   private long mTime;;
+    private long mTime;
+    ;
 
     @Override
     protected ConsumptionPresenter getPresenter() {
@@ -64,7 +65,7 @@ public class ConsumptionFragment extends BaseMvpFragment<ConsumptionPresenter> {
     @Override
     protected void initData() {
         rankingAdapter = new RankingAdapter(getActivity());
-        rvRanking.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+        rvRanking.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         rvRanking.setAdapter(rankingAdapter);
         String[] stringArray = UiTools.getStringArray(R.array.RankingCategory);
         for (String tabContent : stringArray) {
@@ -158,7 +159,7 @@ public class ConsumptionFragment extends BaseMvpFragment<ConsumptionPresenter> {
         if (simpleResponse != null) {
             if (simpleResponse.code == -1) {
                 startActivity(ConsumptionFragment.this, null, LoginActivity.class);
-                SpUtils.put("token","");
+                SpUtils.put("token", "");
                 ActivityManage.getInstance().finishAll();
             }
         } else {

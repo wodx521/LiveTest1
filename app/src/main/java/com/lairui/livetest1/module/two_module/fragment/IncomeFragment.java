@@ -65,11 +65,6 @@ public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        UiTools.showToast("income"+getUserVisibleHint());
-    }
-
-    @Override
     protected void initData() {
         rankingAdapter = new RankingAdapter(getActivity());
         rvRanking.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
@@ -124,6 +119,11 @@ public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
             }
         });
 
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        UiTools.showToast("income" + getUserVisibleHint());
     }
 
     private void getIncomeList(int tabPosition, int page) {

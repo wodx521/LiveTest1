@@ -11,8 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.TransformationUtils;
-import com.lairui.livetest1.R;
 import com.lairui.livetest1.utils.AlphaFilter;
 
 import java.security.MessageDigest;
@@ -21,10 +19,10 @@ import jp.wasabeef.glide.transformations.BitmapTransformation;
 
 
 public class CustomerTransformation extends BitmapTransformation {
-    private int drawableRes;
     private static Paint paint;
     private static Canvas canvas;
     private static AlphaFilter alphaFilter;
+    private int drawableRes;
 
     public CustomerTransformation(Context context, int drawableRes) {
         this.drawableRes = drawableRes;

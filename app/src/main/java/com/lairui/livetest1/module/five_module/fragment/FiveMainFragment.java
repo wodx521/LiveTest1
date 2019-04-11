@@ -12,7 +12,7 @@ import com.wanou.framelibrary.manager.ActivityManage;
 import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
-public class FiveMainFragment extends BaseMvpFragment<FiveMainPresenter> implements View.OnClickListener{
+public class FiveMainFragment extends BaseMvpFragment<FiveMainPresenter> implements View.OnClickListener {
     private CircleImageView ivHead;
     private TextView tvUserName;
     private TextView tvAccountNumber;
@@ -22,6 +22,7 @@ public class FiveMainFragment extends BaseMvpFragment<FiveMainPresenter> impleme
     private TextView tvApprove;
     private TextView tvSetting;
     private TextView tvExit;
+
     @Override
     protected FiveMainPresenter getPresenter() {
         return new FiveMainPresenter();
@@ -69,7 +70,7 @@ public class FiveMainFragment extends BaseMvpFragment<FiveMainPresenter> impleme
         switch (v.getId()) {
             case R.id.tvExit:
                 startActivity(FiveMainFragment.this, null, LoginActivity.class);
-                SpUtils.put("token","");
+                SpUtils.put("token", "");
                 ActivityManage.getInstance().finishAll();
                 break;
             default:

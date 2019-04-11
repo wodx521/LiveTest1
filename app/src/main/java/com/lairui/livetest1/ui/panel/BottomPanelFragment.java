@@ -26,11 +26,6 @@ public class BottomPanelFragment extends Fragment {
     private ImageView btnBarrage;
     private BanListener banListener;
 
-
-    public interface BanListener {
-        void addBanWarn();
-    }
-
     public void setBanListener(BanListener banListener) {
         this.banListener = banListener;
     }
@@ -77,15 +72,6 @@ public class BottomPanelFragment extends Fragment {
         return view;
     }
 
-    public boolean isLogin() {
-        if (DataInterface.isLoginStatus()) {
-            return true;
-        } else {
-            EventBus.getDefault().post(new NeedLoginEvent(true));
-            return false;
-        }
-    }
-
     public boolean isLoginAndCanInput() {
         if (DataInterface.isLoginStatus()) {
             if (DataInterface.isBanStatus()) {
@@ -101,6 +87,14 @@ public class BottomPanelFragment extends Fragment {
         }
     }
 
+    public boolean isLogin() {
+        if (DataInterface.isLoginStatus()) {
+            return true;
+        } else {
+            EventBus.getDefault().post(new NeedLoginEvent(true));
+            return false;
+        }
+    }
 
     /**
      * back键或者空白区域点击事件处理
@@ -122,6 +116,10 @@ public class BottomPanelFragment extends Fragment {
 
     public void setInputPanelListener(InputPanel.InputPanelListener l) {
         inputPanel.setPanelListener(l);
+    }
+
+    public interface BanListener {
+        void addBanWarn();
     }
 
 

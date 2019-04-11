@@ -1,32 +1,21 @@
 package com.lairui.livetest1.module.two_module.fragment;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PorterDuffXfermode;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.resource.bitmap.BitmapDrawableTransformation;
-import com.bumptech.glide.request.RequestOptions;
 import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.entity.jsonparam.RankBeanParams;
 import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
-import com.lairui.livetest1.module.two_module.adapter.RankingAdapter1;
 import com.lairui.livetest1.module.two_module.presenter.IncomeDayPresenter;
 import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.ui.panel.CircleImageView;
-import com.lairui.livetest1.utils.AlphaFilter;
-import com.lzy.okgo.model.HttpParams;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
@@ -35,7 +24,6 @@ import com.wanou.framelibrary.bean.SimpleResponse;
 import com.wanou.framelibrary.glidetools.GlideApp;
 import com.wanou.framelibrary.manager.ActivityManage;
 import com.wanou.framelibrary.utils.GsonUtils;
-import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.ArrayList;
@@ -91,7 +79,7 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
         ivThirdLevel = view.findViewById(R.id.ivThirdLevel);
         tvThirdGet = view.findViewById(R.id.tvThirdGet);
 
-        viewGone(clError, clEmpty,constraintRankTitle);
+        viewGone(clError, clEmpty, constraintRankTitle);
         viewVisible(clLoading);
     }
 
@@ -193,7 +181,7 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
             if (tempList.size() > 3) {
                 rankingAdapter.setList(tempList.subList(3, tempList.size()));
             }
-            viewVisible(rvRanking,constraintRankTitle);
+            viewVisible(rvRanking, constraintRankTitle);
             viewGone(clEmpty);
         } else {
             viewVisible(clEmpty);

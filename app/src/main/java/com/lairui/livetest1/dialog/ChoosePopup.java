@@ -18,6 +18,7 @@ import java.util.List;
 
 public class ChoosePopup {
     private static long time = 0;
+    private static OnChooseContentListener mOnChooseContentListener;
 
     public static void getPopup(Activity activity, List<CategoryBean> coinBeans, TextView textView) {
         int deviceHeight = UiTools.getDeviceHeight(activity);
@@ -59,16 +60,13 @@ public class ChoosePopup {
                 }
             }
         });
-        chooseListAdapter.setSelect(0);
+    }
+
+    public static void setOnChooseContentListener(OnChooseContentListener onChooseContentListener) {
+        mOnChooseContentListener = onChooseContentListener;
     }
 
     public interface OnChooseContentListener {
         void onChooseClickListener(int position);
-    }
-
-    private static OnChooseContentListener mOnChooseContentListener;
-
-    public static void setOnChooseContentListener(OnChooseContentListener onChooseContentListener) {
-        mOnChooseContentListener = onChooseContentListener;
     }
 }

@@ -18,27 +18,16 @@ import com.lairui.livetest1.R;
 
 public class InputPanel extends LinearLayout {
 
+    public static final int TYPE_TEXTMESSAGE = 1;
+    public static final int TYPE_BARRAGE = 2;
     private final static String TAG = "InputPanel";
-
     private ViewGroup inputBar;
     private EditText textEditor;
     private ImageView emojiBtn;
     private TextView sendBtn;
     private EmojiBoard emojiBoard;
-
     private InputPanelListener listener;
-
     private int type;
-    public static final int TYPE_TEXTMESSAGE = 1;
-    public static final int TYPE_BARRAGE = 2;
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public interface InputPanelListener {
-        void onSendClick(String text, int msgType);
-    }
 
     public InputPanel(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -113,6 +102,10 @@ public class InputPanel extends LinearLayout {
         });
     }
 
+    public void setType(int type) {
+        this.type = type;
+    }
+
     public void setPanelListener(InputPanelListener l) {
         listener = l;
     }
@@ -134,5 +127,9 @@ public class InputPanel extends LinearLayout {
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindowToken(), 0);
+    }
+
+    public interface InputPanelListener {
+        void onSendClick(String text, int msgType);
     }
 }

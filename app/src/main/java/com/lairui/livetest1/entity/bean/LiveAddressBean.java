@@ -34,7 +34,7 @@ public class LiveAddressBean {
         private String rtmpurl;
 
         public String getRtmpurl() {
-            return rtmpurl;
+            return rtmpurl == null ? "" : rtmpurl;
         }
 
         public void setRtmpurl(String rtmpurl) {
@@ -54,7 +54,7 @@ public class LiveAddressBean {
         private String m398url;
 
         public String getRtmpurl() {
-            return rtmpurl;
+            return rtmpurl == null ? "" : rtmpurl;
         }
 
         public void setRtmpurl(String rtmpurl) {
@@ -62,7 +62,7 @@ public class LiveAddressBean {
         }
 
         public String getFlvurl() {
-            return flvurl;
+            return flvurl == null ? "" : flvurl;
         }
 
         public void setFlvurl(String flvurl) {
@@ -70,7 +70,7 @@ public class LiveAddressBean {
         }
 
         public String getM398url() {
-            return m398url;
+            return m398url == null ? "" : m398url;
         }
 
         public void setM398url(String m398url) {

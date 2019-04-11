@@ -32,6 +32,17 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
     }
 
     @Override
+    protected void initData() {
+        showSuccess();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CountDownUtils.cancelTimer();
+    }
+
+    @Override
     protected int getResId() {
         return R.layout.activity_register;
     }
@@ -56,12 +67,6 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
         btRegister.setOnClickListener(this);
     }
 
-    @Override
-    protected void initData() {
-        showSuccess();
-    }
-
-
     public void verificationCodeSuccess(String code) {
         etVerificationCode.setText(code);
         CountDownUtils.getTimer(30, tvSendVerCode, "重新发送");
@@ -69,7 +74,7 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
 
     public void registerSuccess() {
         String phone = UiTools.getText(etPhone);
-        SpUtils.put("loginNumber",phone);
+        SpUtils.put("loginNumber", phone);
         finish();
     }
 
@@ -106,11 +111,5 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter> impleme
                 break;
             default:
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        CountDownUtils.cancelTimer();
     }
 }

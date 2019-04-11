@@ -31,10 +31,6 @@ public class EmojiBoard extends LinearLayout {
 
     private OnEmojiItemClickListener listener;
 
-    public interface OnEmojiItemClickListener {
-        void onClick(String code);
-    }
-
     public EmojiBoard(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(getContext()).inflate(R.layout.input_emoji_board, this);
@@ -65,6 +61,10 @@ public class EmojiBoard extends LinearLayout {
 
     private int getPageSize() {
         return EmojiManager.getSize() / (ROW * COLUMN - 1);
+    }
+
+    public interface OnEmojiItemClickListener {
+        void onClick(String code);
     }
 
     private class EmojiPageAdapter extends PagerAdapter {
@@ -119,11 +119,6 @@ public class EmojiBoard extends LinearLayout {
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
         public Object instantiateItem(ViewGroup container, int position) {
             container.addView(viewContainer.get(position));
             return viewContainer.get(position);
@@ -132,6 +127,11 @@ public class EmojiBoard extends LinearLayout {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
         }
 
         private class EmojiGridAdapter extends BaseAdapter {

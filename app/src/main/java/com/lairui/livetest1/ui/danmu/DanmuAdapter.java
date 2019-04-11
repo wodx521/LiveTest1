@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.lairui.livetest1.R;
 import com.orzangleli.xdanmuku.XAdapter;
 

@@ -152,13 +152,6 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
         rvMine.setAdapter(mineAdapter);
     }
 
-    private void getUserInfo() {
-        String token = (String) SpUtils.get("token", "");
-        baseParams.operate = "userGroup-userInfo";
-        baseParams.token = token;
-        mPresenter.getUserInfo(GsonUtils.toJson(baseParams));
-    }
-
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -269,6 +262,13 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
     public void onResume() {
         getUserInfo();
         super.onResume();
+    }
+
+    private void getUserInfo() {
+        String token = (String) SpUtils.get("token", "");
+        baseParams.operate = "userGroup-userInfo";
+        baseParams.token = token;
+        mPresenter.getUserInfo(GsonUtils.toJson(baseParams));
     }
 
     public void setUserInfoError(String json) {

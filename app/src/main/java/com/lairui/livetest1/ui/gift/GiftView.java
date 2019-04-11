@@ -29,6 +29,12 @@ public class GiftView extends LinearLayout {
         this.viewCount = viewCount;
     }
 
+    public void init() {
+        gifManager1 = new GifManager();
+        setOrientation(VERTICAL);
+        addGiftView();
+    }
+
     private void addGiftView() {
         for (int i = 0; i < viewCount; i++) {
             GiftFrameLayout giftFrameLayout = new GiftFrameLayout(getContext());
@@ -36,13 +42,6 @@ public class GiftView extends LinearLayout {
             gifManager1.addView(giftFrameLayout);
             addView(giftFrameLayout);
         }
-    }
-
-
-    public void init() {
-        gifManager1 = new GifManager();
-        setOrientation(VERTICAL);
-        addGiftView();
     }
 
     public void addGift(GiftSendModel model) {

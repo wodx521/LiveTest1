@@ -18,6 +18,7 @@ public class StrokeTextView extends AppCompatTextView {
     TextPaint m_TextPaint;
     int mInnerColor;
     int mOuterColor;
+    private boolean m_bDrawSideLine = true; // 默认采用描边
 
     public StrokeTextView(Context context, int outerColor, int innnerColor) {
         super(context);
@@ -43,8 +44,6 @@ public class StrokeTextView extends AppCompatTextView {
         this.mOuterColor = outerColor;
 
     }
-
-    private boolean m_bDrawSideLine = true; // 默认采用描边
 
     /**
      *

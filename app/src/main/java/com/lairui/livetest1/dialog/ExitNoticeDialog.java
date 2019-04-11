@@ -37,7 +37,7 @@ public class ExitNoticeDialog {
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true);
         popupWindow.setBackgroundDrawable(UiTools.getDrawable(R.drawable.shape_choose_list));
-        popupWindow.showAtLocation(textView, Gravity.CENTER,0,0);
+        popupWindow.showAtLocation(textView, Gravity.CENTER, 0, 0);
         tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

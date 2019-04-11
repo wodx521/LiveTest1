@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.utils.KickBackAnimator;
-import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,6 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class LiveDialog extends AlertDialog implements OnClickListener {
     Context mContext;
+    ViewOnClickListener viewOnClickListener;
     private RelativeLayout rootView;
     private LinearLayout linearAction;
 
@@ -54,11 +54,6 @@ public class LiveDialog extends AlertDialog implements OnClickListener {
 
     }
 
-    public void showDialog() {
-        show();
-        showAnimation(linearAction);
-    }
-
     private void initView() {
         setCanceledOnTouchOutside(true);
         View view = View.inflate(mContext, R.layout.dialog_live, null);
@@ -70,27 +65,9 @@ public class LiveDialog extends AlertDialog implements OnClickListener {
         this.setContentView(view);
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.ll_close:
-                closeAnimation(linearAction);
-                break;
-            case R.id.rlLive:
-                if (viewOnClickListener != null) {
-                    viewOnClickListener.onLiveClick();
-                    closeAnimation(linearAction);
-                }
-                break;
-            case R.id.rlVideo:
-                if (viewOnClickListener != null) {
-                    viewOnClickListener.onVideoClick();
-                    closeAnimation(linearAction);
-                }
-                break;
-            default:
-        }
-
+    public void showDialog() {
+        show();
+        showAnimation(linearAction);
     }
 
     /**
@@ -126,6 +103,29 @@ public class LiveDialog extends AlertDialog implements OnClickListener {
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ll_close:
+                closeAnimation(linearAction);
+                break;
+            case R.id.rlLive:
+                if (viewOnClickListener != null) {
+                    viewOnClickListener.onLiveClick();
+                    closeAnimation(linearAction);
+                }
+                break;
+            case R.id.rlVideo:
+                if (viewOnClickListener != null) {
+                    viewOnClickListener.onVideoClick();
+                    closeAnimation(linearAction);
+                }
+                break;
+            default:
+        }
+
+    }
+
     /**
      * 关闭动画效果
      *
@@ -155,10 +155,6 @@ public class LiveDialog extends AlertDialog implements OnClickListener {
                             }
 
                             @Override
-                            public void onAnimationRepeat(Animator animation) {
-                            }
-
-                            @Override
                             public void onAnimationEnd(Animator animation) {
                                 child.setVisibility(View.INVISIBLE);
 
@@ -166,6 +162,10 @@ public class LiveDialog extends AlertDialog implements OnClickListener {
 
                             @Override
                             public void onAnimationCancel(Animator animation) {
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
                             }
                         });
                     });
@@ -176,15 +176,13 @@ public class LiveDialog extends AlertDialog implements OnClickListener {
         }
     }
 
+    public void setViewOnClickListener(ViewOnClickListener viewOnClickListener) {
+        this.viewOnClickListener = viewOnClickListener;
+    }
+
     public interface ViewOnClickListener {
         void onLiveClick();
 
         void onVideoClick();
-    }
-
-    ViewOnClickListener viewOnClickListener;
-
-    public void setViewOnClickListener(ViewOnClickListener viewOnClickListener) {
-        this.viewOnClickListener = viewOnClickListener;
     }
 }

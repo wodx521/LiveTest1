@@ -74,13 +74,6 @@ public class AttentionFragment extends BaseMvpFragment<AttentionPresenter> {
         DataInterface.setLoginStatus(true);
     }
 
-    private void getLiveRoom() {
-        httpParams.clear();
-        httpParams.put("operate", "roomGroup-categoryRoom");
-        httpParams.put("category", tabLayout.getSelectedTabPosition() + 1 + "");
-        mPresenter.getLiveList(httpParams);
-    }
-
     @Override
     public void onHiddenChanged(boolean hidden) {
         if (!hidden) {
@@ -94,6 +87,13 @@ public class AttentionFragment extends BaseMvpFragment<AttentionPresenter> {
         if (getUserVisibleHint()) {
             getLiveRoom();
         }
+    }
+
+    private void getLiveRoom() {
+        httpParams.clear();
+        httpParams.put("operate", "roomGroup-categoryRoom");
+        httpParams.put("category", tabLayout.getSelectedTabPosition() + 1 + "");
+        mPresenter.getLiveList(httpParams);
     }
 
     public void setLiveList(LiveListBean liveListBean) {

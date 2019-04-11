@@ -49,7 +49,7 @@ public class CommentListAdapter extends BaseRecycleViewAdapter {
         if (userid != null) {
             commentListViewHolder.tvCommentName.setText(userid.getNickname());
             GlideApp.with(MyApplication.getContext())
-                    .load(AppConstant.BASE_URL+userid.getPortrait())
+                    .load(AppConstant.BASE_URL + userid.getPortrait())
                     .placeholder(R.drawable.chatroom_02)
                     .error(R.drawable.chatroom_02)
                     .into(commentListViewHolder.ivUserIcon);

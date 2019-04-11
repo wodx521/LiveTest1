@@ -7,6 +7,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class VideoBean implements Parcelable {
 
+    public static final Creator<VideoBean> CREATOR = new Creator<VideoBean>() {
+        @Override
+        public VideoBean createFromParcel(Parcel in) {
+            return new VideoBean(in);
+        }
+
+        @Override
+        public VideoBean[] newArray(int size) {
+            return new VideoBean[size];
+        }
+    };
     /**
      * id : 1
      * userid : 1
@@ -39,7 +50,6 @@ public class VideoBean implements Parcelable {
     // 用户头像
     private String portrait;
 
-
     protected VideoBean(Parcel in) {
         id = in.readInt();
         userid = in.readInt();
@@ -50,6 +60,11 @@ public class VideoBean implements Parcelable {
         updateTime = in.readString();
         nickname = in.readString();
         portrait = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     @Override
@@ -64,23 +79,6 @@ public class VideoBean implements Parcelable {
         dest.writeString(nickname);
         dest.writeString(portrait);
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<VideoBean> CREATOR = new Creator<VideoBean>() {
-        @Override
-        public VideoBean createFromParcel(Parcel in) {
-            return new VideoBean(in);
-        }
-
-        @Override
-        public VideoBean[] newArray(int size) {
-            return new VideoBean[size];
-        }
-    };
 
     public int getId() {
         return id;

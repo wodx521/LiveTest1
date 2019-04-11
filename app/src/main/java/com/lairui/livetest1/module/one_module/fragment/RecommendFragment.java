@@ -42,6 +42,12 @@ public class RecommendFragment extends BaseMvpFragment<RecommendPresenter> {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ChatroomKit.logout();
+    }
+
+    @Override
     protected int getResId() {
         return R.layout.fragment_recommend;
     }
@@ -73,7 +79,6 @@ public class RecommendFragment extends BaseMvpFragment<RecommendPresenter> {
         mPresenter.getLiveList(httpParams);
     }
 
-
     public void setLiveList(LiveListBean liveListBean) {
         viewGone(clError);
         viewVisible(srlRefresh);
@@ -101,7 +106,7 @@ public class RecommendFragment extends BaseMvpFragment<RecommendPresenter> {
                 if (RongIMClient.getInstance().getCurrentConnectionStatus() == RongIMClient.ConnectionStatusListener.ConnectionStatus.CONNECTED) {
                     bundle.clear();
                     LiveRoomBean liveRoomBean = tempLiveRoom.get(position);
-                    bundle.putParcelable("liveInfo",liveRoomBean);
+                    bundle.putParcelable("liveInfo", liveRoomBean);
                     startActivity(RecommendFragment.this, bundle, LiveShowActivity.class);
                 } else {
                     UiTools.showToast("未连接");
@@ -114,11 +119,5 @@ public class RecommendFragment extends BaseMvpFragment<RecommendPresenter> {
         viewGone(srlRefresh);
         viewVisible(clError);
 
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        ChatroomKit.logout();
     }
 }

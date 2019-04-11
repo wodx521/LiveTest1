@@ -19,6 +19,7 @@ import com.wanou.framelibrary.utils.UiTools;
 import java.util.List;
 
 public class SearchListAdapter extends BaseRecycleViewAdapter {
+    FollowClickListener followClickListener;
     private List<SearchListBean.DataBean> searchListBeanList;
 
     public SearchListAdapter(Context context) {
@@ -81,6 +82,14 @@ public class SearchListAdapter extends BaseRecycleViewAdapter {
         return 0;
     }
 
+    public void setFollowClickListener(FollowClickListener followClickListener) {
+        this.followClickListener = followClickListener;
+    }
+
+    public interface FollowClickListener {
+        void onFollowClick(View v, int position);
+    }
+
     static class SearchListViewHolder extends RecyclerView.ViewHolder {
         private CircleImageView ivUserIcon;
         private TextView tvUserName;
@@ -96,16 +105,6 @@ public class SearchListAdapter extends BaseRecycleViewAdapter {
             ivFollow = itemView.findViewById(R.id.ivFollow);
             tvUserDes = itemView.findViewById(R.id.tvUserDes);
         }
-    }
-
-    public interface FollowClickListener {
-        void onFollowClick(View v, int position);
-    }
-
-    FollowClickListener followClickListener;
-
-    public void setFollowClickListener(FollowClickListener followClickListener) {
-        this.followClickListener = followClickListener;
     }
 }
 

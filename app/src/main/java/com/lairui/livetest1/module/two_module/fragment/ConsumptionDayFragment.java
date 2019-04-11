@@ -14,7 +14,6 @@ import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.entity.jsonparam.RankBeanParams;
 import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
 import com.lairui.livetest1.module.two_module.presenter.ConsumptionDayPresenter;
-import com.lairui.livetest1.module.two_module.presenter.IncomeDayPresenter;
 import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.lzy.okgo.model.HttpParams;
@@ -80,7 +79,7 @@ public class ConsumptionDayFragment extends BaseMvpFragment<ConsumptionDayPresen
         ivThirdLevel = view.findViewById(R.id.ivThirdLevel);
         tvThirdGet = view.findViewById(R.id.tvThirdGet);
 
-        viewGone(clError, clEmpty,constraintRankTitle);
+        viewGone(clError, clEmpty, constraintRankTitle);
         viewVisible(clLoading);
     }
 

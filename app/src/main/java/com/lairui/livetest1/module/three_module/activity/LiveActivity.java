@@ -1,4 +1,4 @@
-package com.lairui.livetest1.ui.activity;
+package com.lairui.livetest1.module.three_module.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -42,7 +42,7 @@ import com.lairui.livetest1.message.ChatroomUserBlock;
 import com.lairui.livetest1.message.ChatroomUserQuit;
 import com.lairui.livetest1.message.ChatroomUserUnBan;
 import com.lairui.livetest1.message.ChatroomWelcome;
-import com.lairui.livetest1.presenter.LivePresenter;
+import com.lairui.livetest1.module.three_module.presenter.LivePresenter;
 import com.lairui.livetest1.ui.adapter.ChatListAdapter;
 import com.lairui.livetest1.ui.adapter.MemberAdapter;
 import com.lairui.livetest1.ui.danmu.DanmuAdapter;
@@ -86,7 +86,13 @@ import io.rong.message.TextMessage;
 import static com.alivc.live.pusher.AlivcLivePushCameraTypeEnum.CAMERA_TYPE_BACK;
 import static com.alivc.live.pusher.AlivcLivePushCameraTypeEnum.CAMERA_TYPE_FRONT;
 
+/**
+ * 阿里云直播sdk 配置
+ */
 public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View.OnClickListener, Handler.Callback {
+    long banStartTime = 0;
+    long currentTime = 0;
+    int clickCount = 0;
     private EditText etLiveTitle;
     private TextView tvStartLive;
     private AlivcLivePushConfig mAlivcLivePushConfig;
@@ -127,61 +133,51 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
     private LiveRoomBean liveRoomBean;
     private int mCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
     private boolean flashState = true;
+    private boolean videoThreadOn = false;
+    SurfaceHolder.Callback mCallback = new SurfaceHolder.Callback() {
+        @Override
+        public void surfaceCreated(SurfaceHolder surfaceHolder) {
+            if (mSurfaceStatus == SurfaceStatus.UNINITED) {
+                mSurfaceStatus = SurfaceStatus.CREATED;
+                if (mAlivcLivePusher != null) {
+                    try {
+                        if (mAsync) {
+                            mAlivcLivePusher.startPreviewAysnc(mPreviewView);
+                        } else {
+                            mAlivcLivePusher.startPreview(mPreviewView);
+                        }
+                        if (mAlivcLivePushConfig.isExternMainStream()) {
+                            startYUV(getApplicationContext());
+                        }
+                    } catch (IllegalArgumentException e) {
+                        e.toString();
+                    } catch (IllegalStateException e) {
+                        e.toString();
+                    }
+                }
+            } else if (mSurfaceStatus == SurfaceStatus.DESTROYED) {
+                mSurfaceStatus = SurfaceStatus.RECREATED;
+            }
+        }
+
+        @Override
+        public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
+            mSurfaceStatus = SurfaceStatus.CHANGED;
+//            if(mLivePushFragment != null) {
+//                mLivePushFragment.setSurfaceView(mPreviewView);
+//            }
+        }
+
+        @Override
+        public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+            mSurfaceStatus = SurfaceStatus.DESTROYED;
+        }
+    };
+    private boolean audioThreadOn = false;
 
     @Override
     protected LivePresenter getPresenter() {
         return new LivePresenter();
-    }
-
-    @Override
-    protected int getResId() {
-        return R.layout.activity_live;
-    }
-
-    @Override
-    protected void initView() {
-        mPreviewView = findViewById(R.id.surfaceView);
-        etLiveTitle = findViewById(R.id.etLiveTitle);
-        tvStartLive = findViewById(R.id.tvStartLive);
-        mPreviewView.getHolder().addCallback(mCallback);
-        ivBeautyOnOff = findViewById(R.id.ivBeautyOnOff);
-        ivFlash0nOff = findViewById(R.id.ivFlash0nOff);
-        ivCameraFountBack = findViewById(R.id.ivCameraFountBack);
-        ivClose = findViewById(R.id.ivClose);
-        background = findViewById(R.id.background);
-        fake = findViewById(R.id.fake);
-        layoutHost = findViewById(R.id.layout_host);
-        ivHostHeader = findViewById(R.id.iv_host_header);
-        tvHolderName = findViewById(R.id.tv_holder_name);
-        tvOnlineNum = findViewById(R.id.tv_room_onlive_people);
-        hlvMember = findViewById(R.id.gv_room_member);
-        giftView = findViewById(R.id.giftView);
-        danmuContainerView = findViewById(R.id.danmuContainerView);
-        chatListView = findViewById(R.id.chat_listview);
-        bottomPanel = (BottomPanelFragment1) getSupportFragmentManager().findFragmentById(R.id.bottom_bar);
-        btnHeart = bottomPanel.getView().findViewById(R.id.btn_heart);
-        btnHeart = bottomPanel.getView().findViewById(R.id.btn_heart);
-        btnHeart = bottomPanel.getView().findViewById(R.id.btn_heart);
-        // 当前房间用户信息视图
-        hostPanel = findViewById(R.id.host_panel);
-        // 在线用户列表
-        onlineUserPanel = findViewById(R.id.online_user_panel);
-        // 如果未登录,登录视图
-        loginPanel = findViewById(R.id.login_panel);
-        // 点赞效果视图
-        heartLayout = findViewById(R.id.heart_layout);
-        // 当前用户信息点击事件
-        background.setOnClickListener(this);
-        // 点赞功能点击事件
-        btnHeart.setOnClickListener(this);
-        // 点击查看当前账户信息
-        layoutHost.setOnClickListener(this);
-
-        ivBeautyOnOff.setOnClickListener(this);
-        ivFlash0nOff.setOnClickListener(this);
-        ivCameraFountBack.setOnClickListener(this);
-        ivClose.setOnClickListener(this);
-        viewGone(background);
     }
 
     @Override
@@ -190,7 +186,7 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
 //        mAlivcLivePushConfig.setResolution(AlivcResolutionEnum.RESOLUTION_SELFDEFINE);
 //        mAlivcLivePushConfig.setPreviewDisplayMode(AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_SCALE_FILL);
         // 设置预览铺满屏幕(不会影响推流码率问题)
-        mAlivcLivePushConfig.setPreviewDisplayMode(AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_ASPECT_FILL );
+        mAlivcLivePushConfig.setPreviewDisplayMode(AlivcPreviewDisplayMode.ALIVC_LIVE_PUSHER_PREVIEW_ASPECT_FILL);
         mAlivcLivePushConfig.setCameraType(CAMERA_TYPE_BACK);
         mAlivcLivePusher = new AlivcLivePusher();
         try {
@@ -284,6 +280,50 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
     }
 
     @Override
+    protected void onDestroy() {
+        videoThreadOn = false;
+        audioThreadOn = false;
+        if (mAlivcLivePusher != null) {
+            try {
+                mAlivcLivePusher.destroy();
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            }
+        }
+        mPreviewView = null;
+        mAlivcLivePushConfig = null;
+        mAlivcLivePusher = null;
+        ChatroomKit.quitChatRoom(new RongIMClient.OperationCallback() {
+            @Override
+            public void onSuccess() {
+                ChatroomKit.removeEventHandler(handler);
+                if (DataInterface.isLoginStatus()) {
+                    Toast.makeText(LiveActivity.this, "退出聊天室成功", Toast.LENGTH_SHORT).show();
+                    ChatroomUserQuit userQuit = new ChatroomUserQuit();
+                    userQuit.setId(ChatroomKit.getCurrentUser().getUserId());
+                    ChatroomKit.sendMessage(userQuit);
+                }
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                ChatroomKit.removeEventHandler(handler);
+                Toast.makeText(LiveActivity.this, "退出聊天室失败! errorCode = " + errorCode, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+        GSYVideoManager.releaseAllVideos();
+        if (orientationUtils != null) {
+            orientationUtils.releaseListener();
+        }
+        super.onDestroy();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivBeautyOnOff:
@@ -357,48 +397,21 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
         }
     }
 
-    SurfaceHolder.Callback mCallback = new SurfaceHolder.Callback() {
-        @Override
-        public void surfaceCreated(SurfaceHolder surfaceHolder) {
-            if (mSurfaceStatus == SurfaceStatus.UNINITED) {
-                mSurfaceStatus = SurfaceStatus.CREATED;
-                if (mAlivcLivePusher != null) {
-                    try {
-                        if (mAsync) {
-                            mAlivcLivePusher.startPreviewAysnc(mPreviewView);
-                        } else {
-                            mAlivcLivePusher.startPreview(mPreviewView);
-                        }
-                        if (mAlivcLivePushConfig.isExternMainStream()) {
-                            startYUV(getApplicationContext());
-                        }
-                    } catch (IllegalArgumentException e) {
-                        e.toString();
-                    } catch (IllegalStateException e) {
-                        e.toString();
-                    }
+    //500毫秒后做检查，如果没有继续点击了，发消息
+    public void checkAfter(final long lastTime) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (lastTime == currentTime) {
+                    ChatroomLike likeMessage = new ChatroomLike();
+                    likeMessage.setCounts(clickCount);
+                    ChatroomKit.sendMessage(likeMessage);
+
+                    clickCount = 0;
                 }
-            } else if (mSurfaceStatus == SurfaceStatus.DESTROYED) {
-                mSurfaceStatus = SurfaceStatus.RECREATED;
             }
-        }
-
-        @Override
-        public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-            mSurfaceStatus = SurfaceStatus.CHANGED;
-//            if(mLivePushFragment != null) {
-//                mLivePushFragment.setSurfaceView(mPreviewView);
-//            }
-        }
-
-        @Override
-        public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-            mSurfaceStatus = SurfaceStatus.DESTROYED;
-        }
-    };
-
-    private boolean videoThreadOn = false;
-    private boolean audioThreadOn = false;
+        }, 500);
+    }
 
     public void startYUV(final Context context) {
         new ScheduledThreadPoolExecutor(1, new ThreadFactory() {
@@ -407,7 +420,7 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
             @Override
             public Thread newThread(Runnable r) {
                 Thread t = new Thread(r);
-                t.setName("LivePushActivity-readYUV-Thread" + atoInteger.getAndIncrement());
+                t.setName("LivePushActivityTX-readYUV-Thread" + atoInteger.getAndIncrement());
                 return t;
             }
         }).execute(new Runnable() {
@@ -451,50 +464,6 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        videoThreadOn = false;
-        audioThreadOn = false;
-        if (mAlivcLivePusher != null) {
-            try {
-                mAlivcLivePusher.destroy();
-            } catch (IllegalStateException e) {
-                e.printStackTrace();
-            }
-        }
-        mPreviewView = null;
-        mAlivcLivePushConfig = null;
-        mAlivcLivePusher = null;
-        ChatroomKit.quitChatRoom(new RongIMClient.OperationCallback() {
-            @Override
-            public void onSuccess() {
-                ChatroomKit.removeEventHandler(handler);
-                if (DataInterface.isLoginStatus()) {
-                    Toast.makeText(LiveActivity.this, "退出聊天室成功", Toast.LENGTH_SHORT).show();
-                    ChatroomUserQuit userQuit = new ChatroomUserQuit();
-                    userQuit.setId(ChatroomKit.getCurrentUser().getUserId());
-                    ChatroomKit.sendMessage(userQuit);
-                }
-            }
-
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                ChatroomKit.removeEventHandler(handler);
-                Toast.makeText(LiveActivity.this, "退出聊天室失败! errorCode = " + errorCode, Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
-        GSYVideoManager.releaseAllVideos();
-        if (orientationUtils != null) {
-            orientationUtils.releaseListener();
-        }
-        super.onDestroy();
-    }
-
     public void setPushAddress(LivePushBean livePushBean) {
         String rtmpurl = livePushBean.getRtmpurl();
 
@@ -508,8 +477,6 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
             }
         });
     }
-
-    long banStartTime = 0;
 
     @Override
     public boolean handleMessage(Message msg) {
@@ -609,9 +576,6 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
         return false;
     }
 
-    long currentTime = 0;
-    int clickCount = 0;
-
     public void startBan(final long thisBanStartTime, long duration) {
         DataInterface.setBanStatus(true);
 
@@ -623,22 +587,6 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
                 }
             }
         }, duration * 1000 * 60);
-    }
-
-    //500毫秒后做检查，如果没有继续点击了，发消息
-    public void checkAfter(final long lastTime) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (lastTime == currentTime) {
-                    ChatroomLike likeMessage = new ChatroomLike();
-                    likeMessage.setCounts(clickCount);
-                    ChatroomKit.sendMessage(likeMessage);
-
-                    clickCount = 0;
-                }
-            }
-        }, 500);
     }
 
     @Subscribe
@@ -656,6 +604,57 @@ public class LiveActivity extends BaseMvpActivity<LivePresenter> implements View
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected int getResId() {
+        return R.layout.activity_live;
+    }
+
+    @Override
+    protected void initView() {
+        mPreviewView = findViewById(R.id.surfaceView);
+        etLiveTitle = findViewById(R.id.etLiveTitle);
+        tvStartLive = findViewById(R.id.tvStartLive);
+        mPreviewView.getHolder().addCallback(mCallback);
+        ivBeautyOnOff = findViewById(R.id.ivBeautyOnOff);
+        ivFlash0nOff = findViewById(R.id.ivFlash0nOff);
+        ivCameraFountBack = findViewById(R.id.ivCameraFountBack);
+        ivClose = findViewById(R.id.ivClose);
+        background = findViewById(R.id.background);
+        fake = findViewById(R.id.fake);
+        layoutHost = findViewById(R.id.layout_host);
+        ivHostHeader = findViewById(R.id.iv_host_header);
+        tvHolderName = findViewById(R.id.tv_holder_name);
+        tvOnlineNum = findViewById(R.id.tv_room_onlive_people);
+        hlvMember = findViewById(R.id.gv_room_member);
+        giftView = findViewById(R.id.giftView);
+        danmuContainerView = findViewById(R.id.danmuContainerView);
+        chatListView = findViewById(R.id.chat_listview);
+        bottomPanel = (BottomPanelFragment1) getSupportFragmentManager().findFragmentById(R.id.bottom_bar);
+        btnHeart = bottomPanel.getView().findViewById(R.id.btn_heart);
+        btnHeart = bottomPanel.getView().findViewById(R.id.btn_heart);
+        btnHeart = bottomPanel.getView().findViewById(R.id.btn_heart);
+        // 当前房间用户信息视图
+        hostPanel = findViewById(R.id.host_panel);
+        // 在线用户列表
+        onlineUserPanel = findViewById(R.id.online_user_panel);
+        // 如果未登录,登录视图
+        loginPanel = findViewById(R.id.login_panel);
+        // 点赞效果视图
+        heartLayout = findViewById(R.id.heart_layout);
+        // 当前用户信息点击事件
+        background.setOnClickListener(this);
+        // 点赞功能点击事件
+        btnHeart.setOnClickListener(this);
+        // 点击查看当前账户信息
+        layoutHost.setOnClickListener(this);
+
+        ivBeautyOnOff.setOnClickListener(this);
+        ivFlash0nOff.setOnClickListener(this);
+        ivCameraFountBack.setOnClickListener(this);
+        ivClose.setOnClickListener(this);
+        viewGone(background);
     }
 
 }

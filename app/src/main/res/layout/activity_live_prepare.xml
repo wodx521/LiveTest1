@@ -102,45 +102,48 @@
             android:id="@+id/llAddImage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/textView11"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/hsvShareChoose"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etLiveTitle">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <com.wanou.framelibrary.weight.RatioImageView
-                android:id="@+id/ivAddImage"
-                android:layout_width="0dp"
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <com.wanou.framelibrary.weight.RatioImageView
+                    android:id="@+id/ivAddImage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_add_image"
+                    app:image_ratio="1" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:src="@drawable/ic_add_image"
-                app:image_ratio="1"
-                app:layout_constraintBottom_toTopOf="@id/textView11"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/choose_cover"
+                android:textColor="@color/color_white"
+                app:layout_constraintBottom_toTopOf="@id/hsvShareChoose"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/etLiveTitle" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                app:layout_constraintTop_toBottomOf="@id/llAddImage" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_cover"
-            android:textColor="@color/color_white"
-            app:layout_constraintBottom_toTopOf="@id/hsvShareChoose"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/llAddImage" />
 
         <HorizontalScrollView
             android:id="@+id/hsvShareChoose"
@@ -151,7 +154,7 @@
             app:layout_constraintBottom_toTopOf="@id/tvStartLive"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView11">
+            app:layout_constraintTop_toBottomOf="@id/llAddImage">
 
             <LinearLayout
                 android:id="@+id/llShareList"
@@ -217,7 +220,6 @@
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_share" />
             </LinearLayout>
-
 
         </HorizontalScrollView>
 

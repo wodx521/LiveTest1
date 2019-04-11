@@ -56,15 +56,6 @@ public class EmojiManager {
         return new ArrayList<>(emojiResourceList.subList(start, start + count));
     }
 
-    private static int getResourceByCode(int code) throws Resources.NotFoundException {
-        for (int i = 0; i < emojiCodeList.size(); i++) {
-            if (emojiCodeList.get(i) == code) {
-                return emojiResourceList.get(i);
-            }
-        }
-        throw new Resources.NotFoundException("Unsupported emoji code <" + code + ">, which is not in Emoji list.");
-    }
-
     public static CharSequence parse(String text, float textSize) {
         if (text == null) {
             return "";
@@ -99,6 +90,15 @@ public class EmojiManager {
             }
         }
         return ssb;
+    }
+
+    private static int getResourceByCode(int code) throws Resources.NotFoundException {
+        for (int i = 0; i < emojiCodeList.size(); i++) {
+            if (emojiCodeList.get(i) == code) {
+                return emojiResourceList.get(i);
+            }
+        }
+        throw new Resources.NotFoundException("Unsupported emoji code <" + code + ">, which is not in Emoji list.");
     }
 
     private static class CenterImageSpan extends ImageSpan {

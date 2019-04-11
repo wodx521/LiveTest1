@@ -32,16 +32,6 @@ public class HeartLayout extends RelativeLayout {
         init(null, 0);
     }
 
-    public HeartLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(attrs, 0);
-    }
-
-    public HeartLayout(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init(attrs, defStyleAttr);
-    }
-
     private void init(AttributeSet attrs, int defStyleAttr) {
 
         final TypedArray a = getContext().obtainStyledAttributes(
@@ -50,6 +40,16 @@ public class HeartLayout extends RelativeLayout {
         mAnimator = new PathAnimator(AbstractPathAnimator.Config.fromTypeArray(a));
 
         a.recycle();
+    }
+
+    public HeartLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(attrs, 0);
+    }
+
+    public HeartLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(attrs, defStyleAttr);
     }
 
     public AbstractPathAnimator getAnimator() {

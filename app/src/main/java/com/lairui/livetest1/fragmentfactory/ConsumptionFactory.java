@@ -5,9 +5,6 @@ import android.util.SparseArray;
 import com.lairui.livetest1.module.two_module.fragment.ConsumptionDayFragment;
 import com.lairui.livetest1.module.two_module.fragment.ConsumptionTotalFragment;
 import com.lairui.livetest1.module.two_module.fragment.ConsumptionWeekFragment;
-import com.lairui.livetest1.module.two_module.fragment.IncomeDayFragment;
-import com.lairui.livetest1.module.two_module.fragment.IncomeTotalFragment;
-import com.lairui.livetest1.module.two_module.fragment.IncomeWeekFragment;
 import com.wanou.framelibrary.base.BaseFragment;
 
 /**

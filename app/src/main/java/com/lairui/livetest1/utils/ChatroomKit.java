@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.lairui.livetest1.entity.bean.BanWarnMessage;
-import com.lairui.livetest1.messageview.BanWarnView;
 import com.lairui.livetest1.message.ChatroomAdminAdd;
 import com.lairui.livetest1.message.ChatroomAdminRemove;
 import com.lairui.livetest1.message.ChatroomBarrage;
@@ -21,6 +20,7 @@ import com.lairui.livetest1.message.ChatroomUserUnBlock;
 import com.lairui.livetest1.message.ChatroomWelcome;
 import com.lairui.livetest1.messageview.AdminAddView;
 import com.lairui.livetest1.messageview.AdminRemoveView;
+import com.lairui.livetest1.messageview.BanWarnView;
 import com.lairui.livetest1.messageview.BaseMsgView;
 import com.lairui.livetest1.messageview.EndView;
 import com.lairui.livetest1.messageview.FollowMsgView;
@@ -161,28 +161,6 @@ public class ChatroomKit {
     }
 
     /**
-     * 设置当前登录用户，通常由注册生成，通过应用服务器来返回。
-     *
-     * @param user 当前用户
-     */
-    public static void setCurrentUser(UserInfo user) {
-        currentUser = user;
-    }
-
-    /**
-     * 获得当前登录用户。
-     *
-     * @return
-     */
-    public static UserInfo getCurrentUser() {
-        return currentUser;
-    }
-
-    public static String getCurrentRoomId() {
-        return currentRoomId;
-    }
-
-    /**
      * 注册自定义消息。
      *
      * @param msgType 自定义消息类型
@@ -203,6 +181,28 @@ public class ChatroomKit {
      */
     public static void registerMessageView(Class<? extends MessageContent> msgContent, Class<? extends BaseMsgView> msgView) {
         msgViewMap.put(msgContent, msgView);
+    }
+
+    /**
+     * 获得当前登录用户。
+     *
+     * @return
+     */
+    public static UserInfo getCurrentUser() {
+        return currentUser;
+    }
+
+    /**
+     * 设置当前登录用户，通常由注册生成，通过应用服务器来返回。
+     *
+     * @param user 当前用户
+     */
+    public static void setCurrentUser(UserInfo user) {
+        currentUser = user;
+    }
+
+    public static String getCurrentRoomId() {
+        return currentRoomId;
     }
 
     /**
@@ -287,6 +287,26 @@ public class ChatroomKit {
         });
     }
 
+    private static void handleEvent(int what, Object obj) {
+        for (Handler handler : eventHandlerList) {
+            android.os.Message m = android.os.Message.obtain();
+            m.what = what;
+            m.obj = obj;
+            handler.sendMessage(m);
+        }
+    }
+
+    private static void handleEvent(int what, int arg1, int arg2, Object obj) {
+        for (Handler handler : eventHandlerList) {
+            android.os.Message m = android.os.Message.obtain();
+            m.what = what;
+            m.arg1 = arg1;
+            m.arg2 = arg2;
+            m.obj = obj;
+            handler.sendMessage(m);
+        }
+    }
+
     /**
      * 添加IMLib 事件接收者。
      *
@@ -311,26 +331,6 @@ public class ChatroomKit {
         for (Handler handler : eventHandlerList) {
             android.os.Message m = android.os.Message.obtain();
             m.what = what;
-            handler.sendMessage(m);
-        }
-    }
-
-    private static void handleEvent(int what, Object obj) {
-        for (Handler handler : eventHandlerList) {
-            android.os.Message m = android.os.Message.obtain();
-            m.what = what;
-            m.obj = obj;
-            handler.sendMessage(m);
-        }
-    }
-
-    private static void handleEvent(int what, int arg1, int arg2, Object obj) {
-        for (Handler handler : eventHandlerList) {
-            android.os.Message m = android.os.Message.obtain();
-            m.what = what;
-            m.arg1 = arg1;
-            m.arg2 = arg2;
-            m.obj = obj;
             handler.sendMessage(m);
         }
     }

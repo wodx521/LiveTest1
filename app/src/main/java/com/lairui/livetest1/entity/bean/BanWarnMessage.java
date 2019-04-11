@@ -17,6 +17,21 @@ import io.rong.imlib.model.MessageContent;
 @MessageTag(value = "app:user:ban:warn", flag = 3)
 public class BanWarnMessage extends MessageContent {
 
+    public static final Creator<BanWarnMessage> CREATOR = new Creator<BanWarnMessage>() {
+        @Override
+        public BanWarnMessage createFromParcel(Parcel source) {
+            return new BanWarnMessage(source);
+        }
+
+        @Override
+        public BanWarnMessage[] newArray(int size) {
+            return new BanWarnMessage[size];
+        }
+    };
+    private String id;
+    private int duration;
+    private String extra;
+
     public BanWarnMessage() {
     }
 
@@ -45,6 +60,20 @@ public class BanWarnMessage extends MessageContent {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    protected BanWarnMessage(Parcel in) {
+
+
+        id = ParcelUtils.readFromParcel(in);
+
+
+        duration = ParcelUtils.readIntFromParcel(in);
+
+
+        extra = ParcelUtils.readFromParcel(in);
+
+
     }
 
     @Override
@@ -89,60 +118,28 @@ public class BanWarnMessage extends MessageContent {
 
     }
 
-    protected BanWarnMessage(Parcel in) {
-
-
-        id = ParcelUtils.readFromParcel(in);
-
-
-        duration = ParcelUtils.readIntFromParcel(in);
-
-
-        extra = ParcelUtils.readFromParcel(in);
-
-
-    }
-
-    public static final Creator<BanWarnMessage> CREATOR = new Creator<BanWarnMessage>() {
-        @Override
-        public BanWarnMessage createFromParcel(Parcel source) {
-            return new BanWarnMessage(source);
-        }
-
-        @Override
-        public BanWarnMessage[] newArray(int size) {
-            return new BanWarnMessage[size];
-        }
-    };
-
-    private String id;
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getId() {
         return id;
     }
 
-    private int duration;
-
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getDuration() {
         return duration;
     }
 
-    private String extra;
-
-    public void setExtra(String extra) {
-        this.extra = extra;
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public String getExtra() {
         return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra;
     }
 
 }

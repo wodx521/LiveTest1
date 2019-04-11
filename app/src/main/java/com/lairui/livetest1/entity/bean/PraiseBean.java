@@ -6,26 +6,6 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 
 public class PraiseBean implements Parcelable {
-    @SerializedName("user_array")
-    private String userArray;
-    private String num;
-
-    protected PraiseBean(Parcel in) {
-        userArray = in.readString();
-        num = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(userArray);
-        dest.writeString(num);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
     public static final Creator<PraiseBean> CREATOR = new Creator<PraiseBean>() {
         @Override
         public PraiseBean createFromParcel(Parcel in) {
@@ -37,6 +17,25 @@ public class PraiseBean implements Parcelable {
             return new PraiseBean[size];
         }
     };
+    @SerializedName("user_array")
+    private String userArray;
+    private String num;
+
+    protected PraiseBean(Parcel in) {
+        userArray = in.readString();
+        num = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userArray);
+        dest.writeString(num);
+    }
 
     public String getUserArray() {
         return userArray;

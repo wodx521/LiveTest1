@@ -35,6 +35,33 @@ public class AccountInfoEditActivity extends BaseMvpActivity<AccountInfoEditPres
     }
 
     @Override
+    protected void initData() {
+        if (mBundle != null) {
+            UserAccountInfo userInfo = mBundle.getParcelable("userInfo");
+            portrait = userInfo.getPortrait();
+            GlideApp.with(MyApplication.getContext())
+                    .load(portrait)
+                    .placeholder(R.drawable.ic_head)
+                    .error(R.drawable.ic_head)
+                    .into(ivUserIcon);
+            nickname = userInfo.getNickname();
+            if (UiTools.noEmpty(nickname)) {
+                tvNickName.setText(nickname);
+            } else {
+                tvNickName.setText("");
+            }
+            String sex = userInfo.getSex();
+            if (UiTools.noEmpty(sex)) {
+                if ("男".equals(sex)) {
+                    ivGender.setImageResource(R.drawable.ic_male);
+                } else {
+                    ivGender.setImageResource(R.drawable.ic_female);
+                }
+            }
+        }
+    }
+
+    @Override
     protected int getResId() {
         return R.layout.activity_account_edit;
     }
@@ -80,34 +107,6 @@ public class AccountInfoEditActivity extends BaseMvpActivity<AccountInfoEditPres
         viewVisible(ivLeft);
         tvOperate.setText(R.string.save);
     }
-
-    @Override
-    protected void initData() {
-        if (mBundle != null) {
-            UserAccountInfo userInfo = mBundle.getParcelable("userInfo");
-            portrait = userInfo.getPortrait();
-            GlideApp.with(MyApplication.getContext())
-                    .load(portrait)
-                    .placeholder(R.drawable.ic_head)
-                    .error(R.drawable.ic_head)
-                    .into(ivUserIcon);
-            nickname = userInfo.getNickname();
-            if (UiTools.noEmpty(nickname)) {
-                tvNickName.setText(nickname);
-            } else {
-                tvNickName.setText("");
-            }
-            String sex = userInfo.getSex();
-            if (UiTools.noEmpty(sex)) {
-                if ("男".equals(sex)) {
-                    ivGender.setImageResource(R.drawable.ic_male);
-                } else {
-                    ivGender.setImageResource(R.drawable.ic_female);
-                }
-            }
-        }
-    }
-
 
     @Override
     public void onClick(View v) {

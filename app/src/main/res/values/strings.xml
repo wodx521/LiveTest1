@@ -80,4 +80,11 @@
     <string name="titleTips">给直播写个标题吧</string>
     <string name="choose_cover">修改封面</string>
     <string name="startLive">开始直播</string>
+    <string name="QQShare">QQ分享已开启</string>
+    <string name="wechatShare">微信分享已开启</string>
+    <string name="commentsShare">朋友圈分享已开启</string>
+    <string name="qqZoneShare">QQ空间分享已开启</string>
+    <string name="weiboShare">微博分享已开启</string>
+    <string name="chooseCategory">请选择分类</string>
+    <string name="inputLiveTitle">请输入直播标题</string>
 </resources>

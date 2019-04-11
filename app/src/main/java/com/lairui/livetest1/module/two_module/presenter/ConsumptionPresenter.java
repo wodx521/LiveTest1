@@ -18,6 +18,7 @@ import java.lang.reflect.Type;
 
 public class ConsumptionPresenter extends BasePresenterImpl<ConsumptionFragment> {
     private SmartRefreshLayout srlRefresh;
+
     public void getRankingList(HttpParams httpParams) {
         OkGoUtils.postRequest(AppConstant.BASE_URL, "RankingList", httpParams, new CustomizeStringCallback() {
             @Override

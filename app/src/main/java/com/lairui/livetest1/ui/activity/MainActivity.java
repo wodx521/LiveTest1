@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
+import com.lairui.livetest1.module.three_module.activity.LivePrepareActivity;
+import com.lairui.livetest1.module.three_module.activity.LiveProtocolActivity;
 import com.lairui.livetest1.presenter.MainPresenter;
 import com.lairui.livetest1.utils.ChatroomKit;
 import com.lairui.livetest1.widget.LiveDialog;
@@ -40,6 +42,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
     private ImageView ivMiddleMenu;
     private Bundle bundle = new Bundle();
     private double mTime;
+    private boolean isLive = true;
 
     @Override
     protected int getResId() {
@@ -151,7 +154,6 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
         Log.d("liteavsdk", "liteav sdk version is : " + sdkver);
     }
 
-
     private void addFragment(int position, String title) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Fragment fragmentByTag = getSupportFragmentManager().findFragmentByTag(title);
@@ -170,8 +172,6 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
         }
         fragmentTransaction.commitAllowingStateLoss();
     }
-
-    private boolean isLive = true;
 
     @Override
     public void onClick(View v) {

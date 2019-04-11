@@ -67,8 +67,8 @@
             android:id="@+id/tv_focus_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/tv_zan"
             android:layout_below="@id/tv_fans"
+            android:layout_alignLeft="@id/tv_zan"
             android:padding="10dp"
             android:text="关注：100"
             android:textColor="#fff" />

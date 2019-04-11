@@ -1,8 +1,6 @@
 package com.lairui.livetest1.fragmentfactory;
 
 import com.lairui.livetest1.module.one_module.fragment.AttentionFragment;
-import com.lairui.livetest1.module.one_module.fragment.RecommendFragment;
-import com.lairui.livetest1.module.one_module.fragment.VideoFragment;
 import com.wanou.framelibrary.base.BaseFragment;
 
 import java.util.HashMap;

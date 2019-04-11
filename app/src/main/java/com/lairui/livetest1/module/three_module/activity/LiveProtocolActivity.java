@@ -1,4 +1,4 @@
-package com.lairui.livetest1.ui.activity;
+package com.lairui.livetest1.module.three_module.activity;
 
 import android.annotation.SuppressLint;
 import android.view.KeyEvent;
@@ -25,23 +25,6 @@ public class LiveProtocolActivity extends BaseMvpActivity<LiveProtocolPresenter>
     @Override
     protected LiveProtocolPresenter getPresenter() {
         return new LiveProtocolPresenter();
-    }
-
-    @Override
-    protected int getResId() {
-        return R.layout.activity_live_protocol;
-    }
-
-    @Override
-    protected void initView() {
-        ivBack = findViewById(R.id.ivBack);
-        tvTitle = findViewById(R.id.tvTitle);
-        flWebContainer = findViewById(R.id.fl_web_container);
-        tvAgree = findViewById(R.id.tvAgree);
-
-        tvTitle.setText("主播协议");
-        ivBack.setOnClickListener(this);
-        tvAgree.setOnClickListener(this);
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -73,6 +56,29 @@ public class LiveProtocolActivity extends BaseMvpActivity<LiveProtocolPresenter>
     }
 
     @Override
+    protected void onDestroy() {
+        mAgentWeb.getWebLifeCycle().onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
+    protected int getResId() {
+        return R.layout.activity_live_protocol;
+    }
+
+    @Override
+    protected void initView() {
+        ivBack = findViewById(R.id.ivBack);
+        tvTitle = findViewById(R.id.tvTitle);
+        flWebContainer = findViewById(R.id.fl_web_container);
+        tvAgree = findViewById(R.id.tvAgree);
+
+        tvTitle.setText("主播协议");
+        ivBack.setOnClickListener(this);
+        tvAgree.setOnClickListener(this);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivBack:
@@ -81,7 +87,7 @@ public class LiveProtocolActivity extends BaseMvpActivity<LiveProtocolPresenter>
                 }
                 break;
             case R.id.tvAgree:
-                SpUtils.put("isAgreeProtocol",true);
+                SpUtils.put("isAgreeProtocol", true);
                 startActivity(LiveProtocolActivity.this, null, LivePrepareActivity.class);
                 finish();
                 break;
@@ -98,12 +104,6 @@ public class LiveProtocolActivity extends BaseMvpActivity<LiveProtocolPresenter>
     }
 
     @Override
-    protected void onResume() {
-        mAgentWeb.getWebLifeCycle().onResume();
-        super.onResume();
-    }
-
-    @Override
     protected void onPause() {
         mAgentWeb.getWebLifeCycle().onPause();
         super.onPause();
@@ -111,8 +111,8 @@ public class LiveProtocolActivity extends BaseMvpActivity<LiveProtocolPresenter>
     }
 
     @Override
-    protected void onDestroy() {
-        mAgentWeb.getWebLifeCycle().onDestroy();
-        super.onDestroy();
+    protected void onResume() {
+        mAgentWeb.getWebLifeCycle().onResume();
+        super.onResume();
     }
 }

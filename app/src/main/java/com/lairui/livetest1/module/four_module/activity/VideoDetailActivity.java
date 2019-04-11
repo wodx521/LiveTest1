@@ -50,33 +50,6 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailPresenter> i
     }
 
     @Override
-    protected int getResId() {
-        return R.layout.activity_video_detail;
-    }
-
-    @Override
-    protected void initView() {
-        ivLeft = findViewById(R.id.ivLeft);
-        tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
-        ivRight1 = findViewById(R.id.ivRight1);
-        gsyVideoPlayer = findViewById(R.id.gsyVideoPlayer);
-        ivAuthorIcon = findViewById(R.id.ivAuthorIcon);
-        tvAuthorName = findViewById(R.id.tvAuthorName);
-        tvVideoDes = findViewById(R.id.tvVideoDes);
-        tvVideoWatch = findViewById(R.id.tvVideoWatch);
-        cbVideoPraise = findViewById(R.id.cbVideoPraise);
-        etCommentContent = findViewById(R.id.etCommentContent);
-        tvSendComment = findViewById(R.id.tvSendComment);
-        rvCommentList = findViewById(R.id.rvCommentList);
-        ivLeft.setImageResource(R.drawable.arrow_left_main_color);
-        tvToolbarTitle.setText(R.string.videoDetail);
-        viewVisible(ivLeft);
-        ivLeft.setOnClickListener(this);
-        tvSendComment.setOnClickListener(this);
-        cbVideoPraise.setOnClickListener(this);
-    }
-
-    @Override
     protected void initData() {
         commentListAdapter = new CommentListAdapter(this);
         rvCommentList.setAdapter(commentListAdapter);
@@ -107,6 +80,33 @@ public class VideoDetailActivity extends BaseMvpActivity<VideoDetailPresenter> i
         commentParams.videoId = id + "";
         commentParams.token = (String) SpUtils.get("token", "");
         mPresenter.getComment(GsonUtils.toJson(commentParams));
+    }
+
+    @Override
+    protected int getResId() {
+        return R.layout.activity_video_detail;
+    }
+
+    @Override
+    protected void initView() {
+        ivLeft = findViewById(R.id.ivLeft);
+        tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
+        ivRight1 = findViewById(R.id.ivRight1);
+        gsyVideoPlayer = findViewById(R.id.gsyVideoPlayer);
+        ivAuthorIcon = findViewById(R.id.ivAuthorIcon);
+        tvAuthorName = findViewById(R.id.tvAuthorName);
+        tvVideoDes = findViewById(R.id.tvVideoDes);
+        tvVideoWatch = findViewById(R.id.tvVideoWatch);
+        cbVideoPraise = findViewById(R.id.cbVideoPraise);
+        etCommentContent = findViewById(R.id.etCommentContent);
+        tvSendComment = findViewById(R.id.tvSendComment);
+        rvCommentList = findViewById(R.id.rvCommentList);
+        ivLeft.setImageResource(R.drawable.arrow_left_main_color);
+        tvToolbarTitle.setText(R.string.videoDetail);
+        viewVisible(ivLeft);
+        ivLeft.setOnClickListener(this);
+        tvSendComment.setOnClickListener(this);
+        cbVideoPraise.setOnClickListener(this);
     }
 
     @Override

@@ -13,7 +13,6 @@ import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
 import com.lairui.livetest1.module.two_module.presenter.ConsumptionWeekPresenter;
-import com.lairui.livetest1.module.two_module.presenter.IncomeWeekPresenter;
 import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.lzy.okgo.model.HttpParams;

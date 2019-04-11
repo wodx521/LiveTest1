@@ -27,6 +27,7 @@ import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
 public class ChangeAvatarActivity extends BaseMvpActivity<ChangeAvatarPresenter> implements View.OnClickListener {
+    List<Uri> mSelected;
     private ImageView ivImage, ivBack;
     private TextView tvChooseAlbum;
     private TextView tvChooseCamera;
@@ -34,6 +35,18 @@ public class ChangeAvatarActivity extends BaseMvpActivity<ChangeAvatarPresenter>
     @Override
     protected ChangeAvatarPresenter getPresenter() {
         return new ChangeAvatarPresenter();
+    }
+
+    @Override
+    protected void initData() {
+        if (mBundle != null) {
+            String userIconUrl = mBundle.getString("userIconUrl", "");
+            GlideApp.with(MyApplication.getContext())
+                    .load(userIconUrl)
+                    .placeholder(R.drawable.ic_head)
+                    .error(R.drawable.ic_head)
+                    .into(ivImage);
+        }
     }
 
     @Override
@@ -53,18 +66,6 @@ public class ChangeAvatarActivity extends BaseMvpActivity<ChangeAvatarPresenter>
     }
 
     @Override
-    protected void initData() {
-        if (mBundle != null) {
-            String userIconUrl = mBundle.getString("userIconUrl", "");
-            GlideApp.with(MyApplication.getContext())
-                    .load(userIconUrl)
-                    .placeholder(R.drawable.ic_head)
-                    .error(R.drawable.ic_head)
-                    .into(ivImage);
-        }
-    }
-
-    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvChooseAlbum:
@@ -80,8 +81,6 @@ public class ChangeAvatarActivity extends BaseMvpActivity<ChangeAvatarPresenter>
         }
     }
 
-    List<Uri> mSelected;
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -94,15 +93,15 @@ public class ChangeAvatarActivity extends BaseMvpActivity<ChangeAvatarPresenter>
         }
     }
 
-    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
-    void requestStorage() {
-        ChoosePicture.choosePicture(ChangeAvatarActivity.this);
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         ChangeAvatarActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    void requestStorage() {
+        ChoosePicture.choosePicture(ChangeAvatarActivity.this);
     }
 
     @OnPermissionDenied({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})

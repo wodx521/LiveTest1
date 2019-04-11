@@ -9,7 +9,7 @@ public class LivePushBean {
     private String rtmpurl;
 
     public String getRtmpurl() {
-        return rtmpurl;
+        return rtmpurl == null ? "" : rtmpurl;
     }
 
     public void setRtmpurl(String rtmpurl) {

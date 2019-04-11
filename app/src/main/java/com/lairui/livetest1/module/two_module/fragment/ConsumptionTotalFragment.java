@@ -13,7 +13,6 @@ import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.RankingBean;
 import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
 import com.lairui.livetest1.module.two_module.presenter.ConsumptionTotalPresenter;
-import com.lairui.livetest1.module.two_module.presenter.IncomeTotalPresenter;
 import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.lzy.okgo.model.HttpParams;
@@ -76,7 +75,7 @@ public class ConsumptionTotalFragment extends BaseMvpFragment<ConsumptionTotalPr
         ivThirdGender = view.findViewById(R.id.ivThirdGender);
         ivThirdLevel = view.findViewById(R.id.ivThirdLevel);
         tvThirdGet = view.findViewById(R.id.tvThirdGet);
-        viewGone(clError, clEmpty,constraintRankTitle);
+        viewGone(clError, clEmpty, constraintRankTitle);
         viewVisible(clLoading);
     }
 

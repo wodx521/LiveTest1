@@ -52,22 +52,22 @@ public class VideoAdapter extends BaseRecycleViewAdapter {
         String num = praise.getNum();
         if (UiTools.noEmpty(nickname)) {
             videoViewHolder.tvVideoAuthor.setText(nickname);
-        }else{
+        } else {
             videoViewHolder.tvVideoAuthor.setText("");
         }
         if (UiTools.noEmpty(num)) {
             videoViewHolder.tvWatchNumber.setText(num);
-        }else{
+        } else {
             videoViewHolder.tvWatchNumber.setText("0");
         }
         GlideApp.with(MyApplication.getContext())
-                .load(AppConstant.BASE_URL+portrait)
+                .load(AppConstant.BASE_URL + portrait)
                 .placeholder(R.drawable.chatroom_01)
                 .error(R.drawable.chatroom_01)
                 .into(videoViewHolder.ivVideoAuthor);
 
         GlideApp.with(MyApplication.getContext())
-                .load(AppConstant.BASE_URL+"")
+                .load(AppConstant.BASE_URL + "")
                 .placeholder(R.drawable.chatroom_01)
                 .error(R.drawable.chatroom_01)
                 .into(videoViewHolder.ivVideoCover);
