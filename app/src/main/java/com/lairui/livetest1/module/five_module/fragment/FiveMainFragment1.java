@@ -239,9 +239,6 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
         viewGone(clError, clLoading);
         viewVisible(sclAllView);
         portrait = userInfo.getPortrait();
-        ivBg.measure(View.MeasureSpec.UNSPECIFIED,View.MeasureSpec.UNSPECIFIED);
-        int measuredWidth = ivBg.getMeasuredWidth();
-        int measuredHeight = ivBg.getMeasuredHeight();
         GlideApp.with(MyApplication.getContext())
                 .load(portrait)
                 .placeholder(R.drawable.shape_gray5_round5)

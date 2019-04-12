@@ -5,13 +5,9 @@
   "entities": [
     {
       "id": "1:804097840218367288",
-      "lastPropertyId": "13:3550681287405268439",
+      "lastPropertyId": "14:1985637129279937386",
       "name": "LoginBean",
       "properties": [
-        {
-          "id": "1:5062324748886589837",
-          "name": "id"
-        },
         {
           "id": "2:8441309832222130069",
           "name": "userId"
@@ -59,6 +55,10 @@
         {
           "id": "13:3550681287405268439",
           "name": "imtoken"
+        },
+        {
+          "id": "14:1985637129279937386",
+          "name": "mainId"
         }
       ],
       "relations": []
@@ -76,7 +76,8 @@
   "retiredIndexUids": [],
   "retiredPropertyUids": [
     77452209699518936,
-    6321603580289620374
+    6321603580289620374,
+    5062324748886589837
   ],
   "retiredRelationUids": [],
   "version": 1

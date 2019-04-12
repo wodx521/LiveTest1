@@ -13,6 +13,7 @@ import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.utils.ObjectBox;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.manager.ActivityManage;
+import com.wanou.framelibrary.utils.SpUtils;
 
 import io.objectbox.Box;
 
@@ -55,6 +56,15 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
         constraintLayout24 = findViewById(R.id.constraintLayout24);
 
         ivLeft.setImageResource(R.drawable.arrow_left_main_color);
+
+        ivLeft.setOnClickListener(this);
+        tvExit.setOnClickListener(this);
+        constraintLayout19.setOnClickListener(this);
+        constraintLayout20.setOnClickListener(this);
+        constraintLayout21.setOnClickListener(this);
+        constraintLayout22.setOnClickListener(this);
+        constraintLayout23.setOnClickListener(this);
+        constraintLayout24.setOnClickListener(this);
     }
 
     @Override
@@ -82,8 +92,14 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
 
                 break;
             case R.id.tvExit:
-                startActivity(SettingActivity.this, null, LoginActivity.class);
                 Box<LoginBean> loginBeanBox = ObjectBox.getBoxStore().boxFor(LoginBean.class);
+                long mainId = (long) SpUtils.get("mainId", -1L);
+                LoginBean loginBean = loginBeanBox.get(mainId);
+                loginBean.setEmptyData();
+                loginBeanBox.put(loginBean);
+                SpUtils.put("token", "");
+                SpUtils.put("imtoken", "");
+                startActivity(SettingActivity.this, null, LoginActivity.class);
                 ActivityManage.getInstance().finishAll();
                 break;
             default:

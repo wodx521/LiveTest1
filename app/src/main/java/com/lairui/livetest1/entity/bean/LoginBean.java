@@ -142,4 +142,34 @@ public class LoginBean {
     public void setImtoken(String imtoken) {
         this.imtoken = imtoken;
     }
+
+    public void setEmptyData(){
+        setAlipay("");
+        setEmail("");
+        setImtoken("");
+        setInvite("");
+        setNickname("");
+        setPhone("");
+        setPortrait("");
+        setRoomId("");
+        setSex("");
+        setToken("");
+        setUserId("");
+        setUsername("");
+    }
+
+    public void setUpdate(LoginBean loginBean){
+        setAlipay(loginBean.getAlipay());
+        setEmail(loginBean.getEmail());
+        setImtoken(loginBean.getImtoken());
+        setInvite(loginBean.getInvite());
+        setNickname(loginBean.getNickname());
+        setPhone(loginBean.getPhone());
+        setPortrait(loginBean.getPortrait());
+        setRoomId(loginBean.getRoomId());
+        setSex(loginBean.getSex());
+        setToken(loginBean.getToken());
+        setUserId(loginBean.getUserId());
+        setUsername(loginBean.getUsername());
+    }
 }

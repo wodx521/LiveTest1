@@ -11,12 +11,15 @@ import android.widget.TextView;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.LoginBean;
+import com.lairui.livetest1.entity.bean.LoginInfoBean;
 import com.lairui.livetest1.presenter.LoginPresenter;
 import com.lairui.livetest1.utils.ObjectBox;
 import com.lzy.okgo.model.HttpParams;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
+
+import java.util.List;
 
 import io.objectbox.Box;
 
@@ -41,13 +44,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
         String phone = (String) SpUtils.get("loginNumber", "");
         if (UiTools.noEmpty(phone)) {
             etName.setText(phone);
-        }
-
-        if (mBundle != null) {
-            int loginStatus = mBundle.getInt("loginStatus");
-//            if (loginStatus == 1) {
-//                ExitNoticeDialog.getDialog(LoginActivity.this, "", "");
-//            }
         }
     }
 
@@ -102,16 +98,52 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
         String id = loginBean.getUserId();
         SpUtils.put("phone", phone);
         SpUtils.put("userId", id);
-        SpUtils.put("loginNumber", UiTools.getText(etName));
         SpUtils.put("token", token);
         SpUtils.put("imtoken", imtoken);
         SpUtils.put("roomId", roomId);
         SpUtils.put("nickName", loginBean.getNickname());
         SpUtils.put("userName", loginBean.getUsername());
         SpUtils.put("sex", loginBean.getSex());
-        Box<LoginBean> loginBeanBox = ObjectBox.getBoxStore().boxFor(LoginBean.class);
-        long storeId = loginBeanBox.put(loginBean);
+        SpUtils.put("loginNumber", UiTools.getText(etName));
+        Box<LoginInfoBean> loginInfoBeanBox = ObjectBox.getBoxStore().boxFor(LoginInfoBean.class);
+        // 创建记录信息的对象
+        LoginInfoBean loginInfoBean = new LoginInfoBean();
+        loginInfoBean.setUserName(UiTools.getText(etName));
+        loginInfoBean.setPassword(UiTools.getText(etPassword));
 
+        if (loginInfoBeanBox.isEmpty()) {
+            // 如果数据库为空时
+            loginInfoBeanBox.put(loginInfoBean);
+        } else {
+            // 如果已经存有数据, 对象是否一样, 如果一样不存储, 不一样的对象存储(不一样的对象分密码不同, 账号和密码都不同)
+            List<LoginInfoBean> loginInfoBeanList = loginInfoBeanBox.getAll();
+            if (!loginInfoBeanList.contains(loginInfoBean)) {
+                // 如果不包含对象存储
+                // 判断不包含对象的类型
+                for (int i = 0; i < loginInfoBeanList.size(); i++) {
+                    LoginInfoBean loginInfoBean1 = loginInfoBeanList.get(i);
+                    if (loginInfoBean1.getUserName().equals(UiTools.getText(etName))) {
+                        // 如果时名称相同,密码不同,更新数据库
+                        LoginInfoBean loginInfoBean2 = loginInfoBeanBox.get(loginInfoBeanBox.getId(loginInfoBean1));
+                        loginInfoBean1.updateData(loginInfoBean);
+                        loginInfoBeanBox.put(loginInfoBean1);
+                    }
+                    if (i == loginInfoBeanList.size() - 1) {
+                        loginInfoBeanBox.put(loginInfoBean);
+                    }
+                }
+            }
+        }
+        long mainId = (long) SpUtils.get("mainId", -1L);
+        Box<LoginBean> loginBeanBox = ObjectBox.getBoxStore().boxFor(LoginBean.class);
+        if (mainId != -1) {
+            LoginBean loginBean1 = loginBeanBox.get(mainId);
+            loginBean1.setUpdate(loginBean);
+            loginBeanBox.put(loginBean1);
+        } else {
+            long storeId = loginBeanBox.put(loginBean);
+            SpUtils.put("mainId", storeId);
+        }
         startActivity(LoginActivity.this, null, MainActivity.class);
         finish();
     }

@@ -62,9 +62,29 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:5389930265201416895",
+      "lastPropertyId": "3:7050822020253976136",
+      "name": "LoginInfoBean",
+      "properties": [
+        {
+          "id": "1:7379064127818796290",
+          "name": "mainId"
+        },
+        {
+          "id": "2:1302044765775590469",
+          "name": "userName"
+        },
+        {
+          "id": "3:7050822020253976136",
+          "name": "password"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:4529763546896703490",
+  "lastEntityId": "3:5389930265201416895",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
