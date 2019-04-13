@@ -130,4 +130,13 @@
         <item>98</item>
         <item>298</item>
     </string-array>
+
+    <string-array name="settingList">
+        <item>账号与安全</item>
+        <item>黑名单</item>
+        <item>推送管理</item>
+        <item>帮助与反馈</item>
+        <item>检查更新</item>
+        <item>关于我们</item>
+    </string-array>
 </resources>

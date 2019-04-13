@@ -94,4 +94,6 @@
     <string name="update">检查更新</string>
     <string name="aboutUs">关于我们</string>
     <string name="exitLogin">退出登录</string>
+    <string name="safeLevel">安全等级:低</string>
+    <string name="safeTips">通过以下设置可提高安全等级</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.lairui.livetest1.module.five_module.activity;
 
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,15 +12,13 @@ import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.utils.ObjectBox;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.manager.ActivityManage;
+import com.wanou.framelibrary.utils.AppInfoUtils;
 import com.wanou.framelibrary.utils.SpUtils;
 
 import io.objectbox.Box;
 
 public class SettingActivity extends BaseMvpActivity<SettingPresenter> implements View.OnClickListener {
     private ImageView ivLeft;
-    private TextView tvToolbarTitle;
-    private TextView tvContent23;
-    private RecyclerView rvSetting;
     private TextView tvExit;
     private ConstraintLayout constraintLayout19, constraintLayout20, constraintLayout21,
             constraintLayout22, constraintLayout23, constraintLayout24;
@@ -33,7 +30,6 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
 
     @Override
     protected void initData() {
-
     }
 
     @Override
@@ -44,9 +40,8 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
     @Override
     protected void initView() {
         ivLeft = findViewById(R.id.ivLeft);
-        tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
-        tvContent23 = findViewById(R.id.tvContent23);
-        rvSetting = findViewById(R.id.rvSetting);
+        TextView tvToolbarTitle = findViewById(R.id.tvToolbarTitle);
+        TextView tvContent23 = findViewById(R.id.tvContent23);
         tvExit = findViewById(R.id.tvExit);
         constraintLayout19 = findViewById(R.id.constraintLayout19);
         constraintLayout20 = findViewById(R.id.constraintLayout20);
@@ -54,9 +49,14 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
         constraintLayout22 = findViewById(R.id.constraintLayout22);
         constraintLayout23 = findViewById(R.id.constraintLayout23);
         constraintLayout24 = findViewById(R.id.constraintLayout24);
-
+        tvContent23.setText(AppInfoUtils.getLocalVersionName());
+        tvToolbarTitle.setText(R.string.setting);
         ivLeft.setImageResource(R.drawable.arrow_left_main_color);
 
+        initListener();
+    }
+
+    private void initListener() {
         ivLeft.setOnClickListener(this);
         tvExit.setOnClickListener(this);
         constraintLayout19.setOnClickListener(this);
@@ -74,7 +74,7 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
                 finish();
                 break;
             case R.id.constraintLayout19:
-
+                startActivity(SettingActivity.this, null, AccountSafeActivity.class);
                 break;
             case R.id.constraintLayout20:
 

@@ -29,6 +29,7 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tlRanking"
             android:layout_width="0dp"
+            app:tabIndicatorFullWidth="false"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toStartOf="@id/ivRight"
             app:layout_constraintStart_toEndOf="@id/ivLeft"

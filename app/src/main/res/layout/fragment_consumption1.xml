@@ -8,6 +8,7 @@
         android:id="@+id/tlRankingDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabIndicatorFullWidth="false"
         android:background="@color/color_white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

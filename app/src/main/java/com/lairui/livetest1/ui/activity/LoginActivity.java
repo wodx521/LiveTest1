@@ -41,9 +41,16 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
     @Override
     protected void initData() {
         showSuccess();
-        String phone = (String) SpUtils.get("loginNumber", "");
-        if (UiTools.noEmpty(phone)) {
-            etName.setText(phone);
+        long currentID = (long) SpUtils.get("currentId", -1L);
+        Box<LoginInfoBean> loginInfoBeanBox = ObjectBox.getBoxStore().boxFor(LoginInfoBean.class);
+        if (currentID != -1) {
+            LoginInfoBean loginInfoBean = loginInfoBeanBox.get(currentID);
+            if (UiTools.noEmpty(loginInfoBean.getUserName())) {
+                etName.setText(loginInfoBean.getUserName());
+            }
+            if (UiTools.noEmpty(loginInfoBean.getPassword())) {
+                etPassword.setText(loginInfoBean.getPassword());
+            }
         }
     }
 
@@ -113,24 +120,28 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
 
         if (loginInfoBeanBox.isEmpty()) {
             // 如果数据库为空时
-            loginInfoBeanBox.put(loginInfoBean);
+            long currentId = loginInfoBeanBox.put(loginInfoBean);
+            SpUtils.put("currentId", currentId);
         } else {
-            // 如果已经存有数据, 对象是否一样, 如果一样不存储, 不一样的对象存储(不一样的对象分密码不同, 账号和密码都不同)
+            // 如果已经存有数据
             List<LoginInfoBean> loginInfoBeanList = loginInfoBeanBox.getAll();
-            if (!loginInfoBeanList.contains(loginInfoBean)) {
-                // 如果不包含对象存储
-                // 判断不包含对象的类型
-                for (int i = 0; i < loginInfoBeanList.size(); i++) {
-                    LoginInfoBean loginInfoBean1 = loginInfoBeanList.get(i);
-                    if (loginInfoBean1.getUserName().equals(UiTools.getText(etName))) {
-                        // 如果时名称相同,密码不同,更新数据库
-                        LoginInfoBean loginInfoBean2 = loginInfoBeanBox.get(loginInfoBeanBox.getId(loginInfoBean1));
-                        loginInfoBean1.updateData(loginInfoBean);
-                        loginInfoBeanBox.put(loginInfoBean1);
+            // 如果不包含对象存储
+            // 判断不包含对象的类型
+            for (int i = 0; i < loginInfoBeanList.size(); i++) {
+                LoginInfoBean loginInfoBean1 = loginInfoBeanList.get(i);
+                if (loginInfoBean1.getUserName().equals(UiTools.getText(etName))) {
+                    // 如果时名称相同,密码不同,更新数据库
+                    long currentId = loginInfoBeanBox.getId(loginInfoBean1);
+                    LoginInfoBean loginInfoBean2 = loginInfoBeanBox.get(currentId);
+                    if (!loginInfoBean2.equals(loginInfoBean)) {
+                        loginInfoBean2.updateData(loginInfoBean);
+                        loginInfoBeanBox.put(loginInfoBean2);
                     }
-                    if (i == loginInfoBeanList.size() - 1) {
-                        loginInfoBeanBox.put(loginInfoBean);
-                    }
+                    SpUtils.put("currentId", currentId);
+                }
+                if (i == loginInfoBeanList.size() - 1) {
+                    long currentId = loginInfoBeanBox.put(loginInfoBean);
+                    SpUtils.put("currentId", currentId);
                 }
             }
         }

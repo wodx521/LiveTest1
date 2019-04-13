@@ -65,7 +65,7 @@ public class RankingAdapter extends BaseRecycleViewAdapter {
         } else {
             rankingViewHolder.tvUserName.setText("");
         }
-        rankingViewHolder.tvRanking.setText(position + 1 + "");
+        rankingViewHolder.tvRanking.setText(position + 4 + "");
     }
 
     @Override

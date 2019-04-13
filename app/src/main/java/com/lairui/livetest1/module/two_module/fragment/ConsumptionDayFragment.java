@@ -180,7 +180,7 @@ public class ConsumptionDayFragment extends BaseMvpFragment<ConsumptionDayPresen
             if (tempList.size() > 3) {
                 rankingAdapter.setList(tempList.subList(3, tempList.size()));
             }
-            viewVisible(rvRanking);
+            viewVisible(rvRanking,constraintRankTitle);
             viewGone(clEmpty);
         } else {
             viewVisible(clEmpty);

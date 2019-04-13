@@ -84,6 +84,7 @@
         <activity android:name=".module.three_module.activity.LivePrepareActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity android:name=".module.five_module.activity.SettingActivity" />
+        <activity android:name=".module.five_module.activity.AccountSafeActivity" />
 
     </application>
 

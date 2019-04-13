@@ -269,7 +269,9 @@ public class FiveMainFragment1 extends BaseMvpFragment<FiveMainPresenter1> imple
 
     @Override
     public void onResume() {
-        getUserInfo();
+        if (getUserVisibleHint()) {
+            getUserInfo();
+        }
         super.onResume();
     }
 

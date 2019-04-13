@@ -38,7 +38,7 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
             ivFirstLevel, ivThirdLevel;
     private TextView tvSecondName, tvSecondGet, tvFirstName, tvFirstGet, tvThirdName,
             tvThirdGet;
-
+    private ConstraintLayout clFirst, clSecond, clThird;
 
     private int page = 1;
     private List<RankingBean.ListBean> tempList = new ArrayList<>();
@@ -78,8 +78,12 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
         ivThirdGender = view.findViewById(R.id.ivThirdGender);
         ivThirdLevel = view.findViewById(R.id.ivThirdLevel);
         tvThirdGet = view.findViewById(R.id.tvThirdGet);
+        clFirst = view.findViewById(R.id.clFirst);
+        clSecond = view.findViewById(R.id.clSecond);
+        clThird = view.findViewById(R.id.clThird);
 
-        viewGone(clError, clEmpty, constraintRankTitle);
+
+        viewGone(clError, clEmpty, constraintRankTitle,clFirst,clSecond,clThird);
         viewVisible(clLoading);
     }
 
@@ -113,7 +117,6 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
         mPresenter.getRankingList(GsonUtils.toJson(rankBeanParams));
     }
 
-
     public void setRankingBean(RankingBean rankingBean) {
         viewVisible(srlRefresh);
         viewGone(clEmpty, clError, clLoading);
@@ -141,6 +144,7 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
                     ivFirstGender.setImageResource(R.drawable.selected_female);
                 }
                 tvFirstGet.setText(UiTools.getString(R.string.earnings).replace("%s", total));
+                viewVisible(clFirst);
             }
 
             if (tempList.size() > 1) {
@@ -159,6 +163,7 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
                     ivSecondGender.setImageResource(R.drawable.selected_female);
                 }
                 tvSecondGet.setText(UiTools.getString(R.string.earnings).replace("%s", totalSecond));
+                viewVisible(clSecond);
             }
 
             if (tempList.size() > 2) {
@@ -177,6 +182,7 @@ public class IncomeDayFragment extends BaseMvpFragment<IncomeDayPresenter> {
                     ivThirdGender.setImageResource(R.drawable.selected_female);
                 }
                 tvThirdGet.setText(UiTools.getString(R.string.earnings).replace("%s", totalSecond));
+                viewVisible(clThird);
             }
             if (tempList.size() > 3) {
                 rankingAdapter.setList(tempList.subList(3, tempList.size()));

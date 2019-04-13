@@ -33,8 +33,6 @@ public class ConsumptionFragment1 extends BaseMvpFragment<ConsumptionPresenter> 
 
     @Override
     protected void initView(View view) {
-
-
         tlRankingDetail = view.findViewById(R.id.tlRankingDetail);
         flIncome = view.findViewById(R.id.flIncome);
     }

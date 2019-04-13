@@ -7,6 +7,7 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tlRankingDetail"
         android:layout_width="match_parent"
+        app:tabIndicatorFullWidth="false"
         android:layout_height="wrap_content"
         android:background="@color/color_white"
         app:layout_constraintStart_toStartOf="parent"

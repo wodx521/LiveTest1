@@ -98,16 +98,26 @@
             app:layout_constraintTop_toTopOf="@id/tv20" />
     </android.support.constraint.ConstraintLayout>
 
+    <View
+        android:id="@+id/view7"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/colorGray3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout20" />
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout21"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:background="@color/color_white"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout20">
+        app:layout_constraintTop_toBottomOf="@id/view7">
 
         <TextView
             android:id="@+id/tv21"
@@ -190,16 +200,26 @@
             app:layout_constraintTop_toTopOf="@id/tv22" />
     </android.support.constraint.ConstraintLayout>
 
+    <View
+        android:id="@+id/view8"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/colorGray3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout22" />
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout23"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:background="@color/color_white"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout22">
+        app:layout_constraintTop_toBottomOf="@id/view8">
 
         <TextView
             android:id="@+id/tv23"
@@ -236,16 +256,26 @@
             app:layout_constraintTop_toTopOf="@id/tv23" />
     </android.support.constraint.ConstraintLayout>
 
+    <View
+        android:id="@+id/view9"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/colorGray3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout23" />
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout24"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:background="@color/color_white"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout23">
+        app:layout_constraintTop_toBottomOf="@id/view9">
 
         <TextView
             android:id="@+id/tv24"
@@ -281,16 +311,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv24" />
     </android.support.constraint.ConstraintLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvSetting"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvExit" />
 
     <TextView
         android:id="@+id/tvExit"
