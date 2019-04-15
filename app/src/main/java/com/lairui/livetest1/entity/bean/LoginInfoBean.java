@@ -34,16 +34,16 @@ public class LoginInfoBean {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(userName, password);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LoginInfoBean that = (LoginInfoBean) o;
         return Objects.equals(userName, that.userName) &&
                 Objects.equals(password, that.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(userName, password);
     }
 }

@@ -136,12 +136,12 @@ public class ConsumptionTotalFragment extends BaseMvpFragment<ConsumptionTotalPr
                 } else {
                     ivFirstGender.setImageResource(R.drawable.selected_female);
                 }
-                tvFirstGet.setText(UiTools.getString(R.string.earnings).replace("%s", total));
+                tvFirstGet.setText(UiTools.getString(R.string.earnings).replace("%s", UiTools.formatNumber(total, UiTools.getString(R.string.patternTwoDigits))));
             }
 
             if (tempList.size() > 1) {
                 RankingBean.ListBean listBean = tempList.get(1);
-                String totalSecond = listBean.getTotal();
+                String total = listBean.getTotal();
                 RankingBean.ListBean.UidBean uidSecond = listBean.getUid();
                 tvSecondName.setText(uidSecond.getNickname());
                 GlideApp.with(MyApplication.getContext())
@@ -154,12 +154,12 @@ public class ConsumptionTotalFragment extends BaseMvpFragment<ConsumptionTotalPr
                 } else {
                     ivSecondGender.setImageResource(R.drawable.selected_female);
                 }
-                tvSecondGet.setText(UiTools.getString(R.string.earnings).replace("%s", totalSecond));
+                tvSecondGet.setText(UiTools.getString(R.string.earnings).replace("%s", UiTools.formatNumber(total, UiTools.getString(R.string.patternTwoDigits))));
             }
 
             if (tempList.size() > 2) {
                 RankingBean.ListBean listBean = tempList.get(2);
-                String totalSecond = listBean.getTotal();
+                String total = listBean.getTotal();
                 RankingBean.ListBean.UidBean uidSecond = listBean.getUid();
                 tvThirdName.setText(uidSecond.getNickname());
                 GlideApp.with(MyApplication.getContext())
@@ -172,12 +172,12 @@ public class ConsumptionTotalFragment extends BaseMvpFragment<ConsumptionTotalPr
                 } else {
                     ivThirdGender.setImageResource(R.drawable.selected_female);
                 }
-                tvThirdGet.setText(UiTools.getString(R.string.earnings).replace("%s", totalSecond));
+                tvThirdGet.setText(UiTools.getString(R.string.earnings).replace("%s", UiTools.formatNumber(total, UiTools.getString(R.string.patternTwoDigits))));
             }
             if (tempList.size() > 3) {
                 rankingAdapter.setList(tempList.subList(3, tempList.size()));
             }
-            viewVisible(rvRanking,constraintRankTitle);
+            viewVisible(rvRanking, constraintRankTitle);
             viewGone(clEmpty);
         } else {
             viewVisible(clEmpty);

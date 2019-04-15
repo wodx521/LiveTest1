@@ -205,7 +205,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
             boolean isAgreeProtocol = (boolean) SpUtils.get("isAgreeProtocol", false);
             if (!isAgreeProtocol) {
                 bundle.clear();
-                bundle.putString("url", "https://www.baidu.com");
+                bundle.putString("url", "http://ilvb.fanwe.net/wap/index.php?ctl=settings&act=article_show&cate_id=8");
                 startActivity(MainActivity.this, bundle, LiveProtocolActivity.class);
             } else {
                 startActivity(MainActivity.this, null, LivePrepareActivity.class);

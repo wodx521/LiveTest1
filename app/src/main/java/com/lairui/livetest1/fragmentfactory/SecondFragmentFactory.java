@@ -2,8 +2,8 @@ package com.lairui.livetest1.fragmentfactory;
 
 import android.util.SparseArray;
 
-import com.lairui.livetest1.module.two_module.fragment.ConsumptionFragment1;
-import com.lairui.livetest1.module.two_module.fragment.IncomeFragment1;
+import com.lairui.livetest1.module.two_module.fragment.ConsumptionFragment;
+import com.lairui.livetest1.module.two_module.fragment.IncomeFragment;
 import com.wanou.framelibrary.base.BaseFragment;
 
 /**
@@ -23,11 +23,11 @@ public class SecondFragmentFactory {
             switch (position) {
                 case 0:
                     // 收入榜
-                    baseFragment = new IncomeFragment1();
+                    baseFragment = new IncomeFragment();
                     break;
                 case 1:
                     // 消费榜
-                    baseFragment = new ConsumptionFragment1();
+                    baseFragment = new ConsumptionFragment();
                     break;
                 default:
             }

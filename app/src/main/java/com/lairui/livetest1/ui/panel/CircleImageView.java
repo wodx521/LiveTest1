@@ -114,9 +114,6 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
         float f1 = getPaddingLeft() + (i - k) / 2.0F;
         float f2 = getPaddingTop() + (j - k) / 2.0F;
         return new RectF(f1, f2, f1 + k, f2 + k);
-    }    @Override
-    public ScaleType getScaleType() {
-        return SCALE_TYPE;
     }
 
     private void updateShaderMatrix() {
@@ -139,28 +136,23 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
 
         mBitmapShader.setLocalMatrix(mShaderMatrix);
     }    @Override
-    public void setScaleType(ScaleType scaleType) {
-        if (scaleType != SCALE_TYPE) {
-            throw new IllegalArgumentException(String.format("ScaleType %s not supported.", scaleType));
-        }
+    public ScaleType getScaleType() {
+        return SCALE_TYPE;
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         setup();
-    }    @Override
-    protected void onDraw(Canvas canvas) {
-        if (getDrawable() == null) {
-            return;
-        }
-
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, mDrawableRadius, mBitmapPaint);
-        canvas.drawCircle(getWidth() / 2, getHeight() / 2, mBorderRadius, mBorderPaint);
     }
 
     public int getBorderColor() {
         return mBorderColor;
+    }    @Override
+    public void setScaleType(ScaleType scaleType) {
+        if (scaleType != SCALE_TYPE) {
+            throw new IllegalArgumentException(String.format("ScaleType %s not supported.", scaleType));
+        }
     }
 
     public void setBorderColor(int borderColor) {
@@ -175,6 +167,14 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
 
     public int getBorderWidth() {
         return mBorderWidth;
+    }    @Override
+    protected void onDraw(Canvas canvas) {
+        if (getDrawable() == null) {
+            return;
+        }
+
+        canvas.drawCircle(getWidth() / 2, getHeight() / 2, mDrawableRadius, mBitmapPaint);
+        canvas.drawCircle(getWidth() / 2, getHeight() / 2, mBorderRadius, mBorderPaint);
     }
 
     public void setBorderWidth(int borderWidth) {
@@ -233,6 +233,7 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
             return null;
         }
     }
+
 
 
 

@@ -2,7 +2,6 @@ package com.lairui.livetest1.module.five_module.activity;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.module.five_module.presenter.AccountSafePresenter;
-import com.wanou.framelibrary.base.BaseActivity;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 
 public class AccountSafeActivity extends BaseMvpActivity<AccountSafePresenter> {

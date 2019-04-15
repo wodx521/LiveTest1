@@ -38,7 +38,7 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenter> {
         mLivePusher.setConfig(mLivePushConfig);
         mLivePusher.startCameraPreview(videoView);
         httpParams.put("operate", "roomGroup-liveAddress");
-        httpParams.put("token",token);
+        httpParams.put("token", token);
         mPresenter.getPushAddress(httpParams);
     }
 

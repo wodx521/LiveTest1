@@ -3,6 +3,7 @@ package com.lairui.livetest1.module.two_module.fragment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -20,6 +21,7 @@ public class SecondMainFragment extends BaseMvpFragment<SecondMainPresenter> imp
     private ImageView ivLeft;
     private TabLayout tlRanking;
     private ImageView ivRight;
+    private ViewPager vpRanking;
     private String[] stringArray;
 
     @Override
@@ -29,7 +31,7 @@ public class SecondMainFragment extends BaseMvpFragment<SecondMainPresenter> imp
 
     @Override
     protected int getResId() {
-        return R.layout.fragment_second;
+        return R.layout.fragment_second_test;
     }
 
     @Override
@@ -37,6 +39,7 @@ public class SecondMainFragment extends BaseMvpFragment<SecondMainPresenter> imp
         ivLeft = view.findViewById(R.id.ivLeft);
         tlRanking = view.findViewById(R.id.tlRanking);
         ivRight = view.findViewById(R.id.ivRight);
+        vpRanking = view.findViewById(R.id.vpRanking);
         ivLeft.setOnClickListener(this);
         ivRight.setOnClickListener(this);
     }
@@ -44,9 +47,10 @@ public class SecondMainFragment extends BaseMvpFragment<SecondMainPresenter> imp
     @Override
     protected void initData() {
         stringArray = UiTools.getStringArray(R.array.Ranking);
-        for (String tabContent : stringArray) {
-            tlRanking.addTab(tlRanking.newTab().setText(tabContent));
+        for (String aStringArray : stringArray) {
+            tlRanking.addTab(tlRanking.newTab().setText(aStringArray));
         }
+
         tlRanking.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

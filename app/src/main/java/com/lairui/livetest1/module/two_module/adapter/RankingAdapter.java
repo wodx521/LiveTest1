@@ -54,7 +54,7 @@ public class RankingAdapter extends BaseRecycleViewAdapter {
         } else {
             rankingViewHolder.ivGender.setImageResource(R.drawable.selected_female);
         }
-        rankingViewHolder.tvUserDes.setText(UiTools.getString(R.string.earnings).replace("%s", total));
+        rankingViewHolder.tvUserDes.setText(UiTools.getString(R.string.earnings).replace("%s", UiTools.formatNumber(total, UiTools.getString(R.string.patternTwoDigits))));
         GlideApp.with(MyApplication.getContext())
                 .load(AppConstant.BASE_URL + portrait)
                 .placeholder(R.drawable.chatroom_01)

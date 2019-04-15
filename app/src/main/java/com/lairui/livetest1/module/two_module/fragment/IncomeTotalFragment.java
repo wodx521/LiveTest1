@@ -79,7 +79,7 @@ public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
         clFirst = view.findViewById(R.id.clFirst);
         clSecond = view.findViewById(R.id.clSecond);
         clThird = view.findViewById(R.id.clThird);
-        viewGone(clError, clEmpty, constraintRankTitle,clFirst,clSecond,clThird);
+        viewGone(clError, clEmpty, constraintRankTitle, clFirst, clSecond, clThird);
         viewVisible(clLoading);
     }
 
@@ -141,13 +141,13 @@ public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
                 } else {
                     ivFirstGender.setImageResource(R.drawable.selected_female);
                 }
-                tvFirstGet.setText(UiTools.getString(R.string.earnings).replace("%s", total));
+                tvFirstGet.setText(UiTools.getString(R.string.earnings).replace("%s", UiTools.formatNumber(total, UiTools.getString(R.string.patternTwoDigits))));
                 viewVisible(clFirst);
             }
 
             if (tempList.size() > 1) {
                 RankingBean.ListBean listBean = tempList.get(1);
-                String totalSecond = listBean.getTotal();
+                String total = listBean.getTotal();
                 RankingBean.ListBean.UidBean uidSecond = listBean.getUid();
                 tvSecondName.setText(uidSecond.getNickname());
                 GlideApp.with(MyApplication.getContext())
@@ -160,13 +160,13 @@ public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
                 } else {
                     ivSecondGender.setImageResource(R.drawable.selected_female);
                 }
-                tvSecondGet.setText(UiTools.getString(R.string.earnings).replace("%s", totalSecond));
+                tvSecondGet.setText(UiTools.getString(R.string.earnings).replace("%s", UiTools.formatNumber(total, UiTools.getString(R.string.patternTwoDigits))));
                 viewVisible(clSecond);
             }
 
             if (tempList.size() > 2) {
                 RankingBean.ListBean listBean = tempList.get(2);
-                String totalSecond = listBean.getTotal();
+                String total = listBean.getTotal();
                 RankingBean.ListBean.UidBean uidSecond = listBean.getUid();
                 tvThirdName.setText(uidSecond.getNickname());
                 GlideApp.with(MyApplication.getContext())
@@ -179,7 +179,7 @@ public class IncomeTotalFragment extends BaseMvpFragment<IncomeTotalPresenter> {
                 } else {
                     ivThirdGender.setImageResource(R.drawable.selected_female);
                 }
-                tvThirdGet.setText(UiTools.getString(R.string.earnings).replace("%s", totalSecond));
+                tvThirdGet.setText(UiTools.getString(R.string.earnings).replace("%s", UiTools.formatNumber(total, UiTools.getString(R.string.patternTwoDigits))));
                 viewVisible(clThird);
             }
             if (tempList.size() > 3) {

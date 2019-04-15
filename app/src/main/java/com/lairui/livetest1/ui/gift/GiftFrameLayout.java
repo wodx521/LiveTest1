@@ -134,7 +134,9 @@ public class GiftFrameLayout extends FrameLayout {
             public void onAnimationEnd(Animator animation) {
                 //  GiftAnimationUtil.startAnimationDrawable(anim_light);
                 anim_num.setVisibility(View.VISIBLE);
-            }            @Override
+            }
+
+            @Override
             public void onAnimationStart(Animator animation) {
                 anim_gift.setVisibility(View.VISIBLE);
             }

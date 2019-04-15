@@ -1,49 +1,20 @@
 package com.lairui.livetest1.module.two_module.fragment;
 
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.lairui.livetest1.R;
-import com.lairui.livetest1.app_constant.AppConstant;
-import com.lairui.livetest1.entity.bean.RankingBean;
-import com.lairui.livetest1.module.two_module.adapter.RankingAdapter;
-import com.lairui.livetest1.module.two_module.presenter.IncomePresenter;
-import com.lairui.livetest1.ui.activity.LoginActivity;
-import com.lzy.okgo.model.HttpParams;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
-import com.wanou.framelibrary.base.BaseMvpFragment;
-import com.wanou.framelibrary.bean.SimpleResponse;
-import com.wanou.framelibrary.manager.ActivityManage;
-import com.wanou.framelibrary.utils.SpUtils;
+import com.lairui.livetest1.fragmentfactory.IncomeRankingFragmentFactory;
+import com.wanou.framelibrary.base.BaseFragment;
 import com.wanou.framelibrary.utils.UiTools;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
+public class IncomeFragment extends BaseFragment {
     private TabLayout tlRankingDetail;
-    private SmartRefreshLayout srlRefresh;
-    private RecyclerView rvRanking;
-    private ConstraintLayout clLoading;
-    private ConstraintLayout clError;
-    private ViewPager vpIncome;
-    private ConstraintLayout clEmpty;
-    private HttpParams httpParams = new HttpParams();
-    private int page = 0;
-    private List<RankingBean.ListBean> tempList = new ArrayList<>();
-    private RankingAdapter rankingAdapter;
-    private long mTime;
-
-    @Override
-    protected IncomePresenter getPresenter() {
-        return new IncomePresenter();
-    }
+    private String[] stringArray;
 
     @Override
     protected int getResId() {
@@ -52,38 +23,20 @@ public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
 
     @Override
     protected void initView(View view) {
-        vpIncome = view.findViewById(R.id.vpIncome);
         tlRankingDetail = view.findViewById(R.id.tlRankingDetail);
-        srlRefresh = view.findViewById(R.id.srlRefresh);
-        rvRanking = view.findViewById(R.id.rvRanking);
-        clLoading = view.findViewById(R.id.clLoading);
-        clError = view.findViewById(R.id.clError);
-        clEmpty = view.findViewById(R.id.clEmpty);
-
-        viewVisible(clLoading);
-        viewGone(clEmpty, clError, srlRefresh);
     }
 
     @Override
     protected void initData() {
-        rankingAdapter = new RankingAdapter(getActivity());
-        rvRanking.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-        rvRanking.setAdapter(rankingAdapter);
-        String[] stringArray = UiTools.getStringArray(R.array.RankingCategory);
-        for (String tabContent : stringArray) {
-            tlRankingDetail.addTab(tlRankingDetail.newTab().setText(tabContent));
+        stringArray = UiTools.getStringArray(R.array.RankingCategory);
+        for (int i = 0; i < stringArray.length; i++) {
+            tlRankingDetail.addTab(tlRankingDetail.newTab().setText(stringArray[i]));
         }
 
         tlRankingDetail.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                long l = System.currentTimeMillis();
-                if ((l - mTime) > AppConstant.CLICK_TIME_OUT) {
-                    mTime = l;
-                    int position = tab.getPosition();
-                    tempList.clear();
-                    getIncomeList(position, 0);
-                }
+                addFragment(tab.getPosition(), tab.getText().toString());
             }
 
             @Override
@@ -93,93 +46,30 @@ public class IncomeFragment extends BaseMvpFragment<IncomePresenter> {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                long l = System.currentTimeMillis();
-                if ((l - mTime) > AppConstant.CLICK_TIME_OUT) {
-                    mTime = l;
-                    int position = tab.getPosition();
-                    tempList.clear();
-                    getIncomeList(position, 0);
-                }
-            }
-        });
-        tlRankingDetail.getTabAt(tlRankingDetail.getSelectedTabPosition()).select();
-
-        srlRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshLayout) {
-                page += 1;
-                getIncomeList(tlRankingDetail.getSelectedTabPosition(), page);
-            }
-
-            @Override
-            public void onRefresh(RefreshLayout refreshLayout) {
-                page = 0;
-                tempList.clear();
-                getIncomeList(tlRankingDetail.getSelectedTabPosition(), page);
+                addFragment(tab.getPosition(), tab.getText().toString());
             }
         });
 
+        tlRankingDetail.getTabAt(0).select();
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        UiTools.showToast("income" + getUserVisibleHint());
-    }
-
-    private void getIncomeList(int tabPosition, int page) {
-        httpParams.clear();
-        String token = (String) SpUtils.get("token", "");
-        httpParams.put("operate", "ranklistGroup-getList");
-        httpParams.put("type", tabPosition + 1);
-        httpParams.put("way", "1");
-        httpParams.put("page", page);
-        httpParams.put("token", token);
-        mPresenter.getRankingList(httpParams);
-    }
-
-    public void setRankingBean(RankingBean rankingBean) {
-        viewVisible(srlRefresh);
-        viewGone(clEmpty, clError, clLoading);
-        String pageNum = rankingBean.getPageNum();
-        int totalPage = Integer.parseInt(pageNum);
-        srlRefresh.setEnableLoadMore(page < totalPage);
-        List<RankingBean.ListBean> list = rankingBean.getList();
-        tempList.addAll(list);
-        rankingAdapter.setList(tempList);
-        if (tempList != null && tempList.size() > 0) {
-            viewVisible(rvRanking);
-            viewGone(clEmpty);
+    private void addFragment(int position, String title) {
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        Fragment fragmentByTag = getChildFragmentManager().findFragmentByTag(title);
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            fragment.setUserVisibleHint(false);
+            fragmentTransaction.hide(fragment);
+        }
+        if (fragmentByTag != null) {
+            fragmentByTag.setUserVisibleHint(true);
+            fragmentTransaction.show(fragmentByTag);
         } else {
-            viewVisible(clEmpty);
-            viewGone(rvRanking);
+            BaseFragment fragment = IncomeRankingFragmentFactory.getFragment(position);
+            fragment.setUserVisibleHint(true);
+            fragmentTransaction.add(R.id.flIncome, fragment, title);
+            fragmentTransaction.show(fragment);
         }
-    }
-
-    public void setRankingError(SimpleResponse simpleResponse, HttpParams httpParams) {
-        if (simpleResponse != null) {
-            if (simpleResponse.code == -1) {
-                startActivity(IncomeFragment.this, null, LoginActivity.class);
-                ActivityManage.getInstance().finishAll();
-            }
-        } else {
-            viewVisible(clError);
-            viewGone(clEmpty, srlRefresh, clLoading);
-            clError.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    viewVisible(clLoading);
-                    viewGone(clEmpty, srlRefresh, clError);
-                    mPresenter.getRankingList(httpParams);
-                }
-            });
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!isHidden() && getUserVisibleHint()) {
-            tlRankingDetail.getTabAt(tlRankingDetail.getSelectedTabPosition()).select();
-        }
+        fragmentTransaction.commit();
     }
 }
