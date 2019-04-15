@@ -4,24 +4,22 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lairui.livetest1.R;
-import com.lairui.livetest1.entity.bean.LiveAddressBean;
 import com.lairui.livetest1.module.three_module.presenter.LivePushPresenter;
-import com.lzy.okgo.model.HttpParams;
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.wanou.framelibrary.base.BaseMvpActivity;
-import com.wanou.framelibrary.utils.SpUtils;
+import com.wanou.framelibrary.utils.UiTools;
 
 /**
  * 腾讯直播Sdk
  */
-public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenter> {
+public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenter> implements View.OnClickListener {
     private TXCloudVideoView videoView;
     private TXLivePushConfig mLivePushConfig;
     private TextView tvStartPush;
     private TXLivePusher mLivePusher;
-    private HttpParams httpParams = new HttpParams();
+    private String pushUrl;
 
     @Override
     protected LivePushPresenter getPresenter() {
@@ -30,16 +28,15 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenter> {
 
     @Override
     protected void initData() {
-        String token = (String) SpUtils.get("token", "");
         mLivePusher = new TXLivePusher(this);
         mLivePushConfig = new TXLivePushConfig();
         mLivePushConfig.enableNearestIP(false);
         mLivePushConfig.setFrontCamera(false);
         mLivePusher.setConfig(mLivePushConfig);
         mLivePusher.startCameraPreview(videoView);
-        httpParams.put("operate", "roomGroup-liveAddress");
-        httpParams.put("token", token);
-        mPresenter.getPushAddress(httpParams);
+        if (mBundle != null) {
+            pushUrl = mBundle.getString("pushUrl", "");
+        }
     }
 
     @Override
@@ -59,17 +56,19 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenter> {
     protected void initView() {
         videoView = findViewById(R.id.video_view);
         tvStartPush = findViewById(R.id.tvStartPush);
+
+        tvStartPush.setOnClickListener(this);
     }
 
-    public void setPushAddress(LiveAddressBean liveAddressBean) {
-        LiveAddressBean.PushBean push = liveAddressBean.getPush();
-        String rtmpurl = push.getRtmpurl();
-
-        tvStartPush.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mLivePusher.startPusher(rtmpurl);
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvStartPush:
+                if (UiTools.noEmpty(pushUrl)) {
+                    mLivePusher.startPusher(pushUrl);
+                }
+                break;
+            default:
+        }
     }
 }

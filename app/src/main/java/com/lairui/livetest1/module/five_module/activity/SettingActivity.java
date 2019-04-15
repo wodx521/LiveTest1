@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lairui.livetest1.R;
-import com.lairui.livetest1.entity.bean.LoginBean;
+import com.lairui.livetest1.entity.bean.UserInfoBean;
 import com.lairui.livetest1.module.five_module.presenter.SettingPresenter;
 import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.utils.ObjectBox;
@@ -92,11 +92,11 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
 
                 break;
             case R.id.tvExit:
-                Box<LoginBean> loginBeanBox = ObjectBox.getBoxStore().boxFor(LoginBean.class);
+                Box<UserInfoBean> loginBeanBox = ObjectBox.getBoxStore().boxFor(UserInfoBean.class);
                 long mainId = (long) SpUtils.get("mainId", -1L);
-                LoginBean loginBean = loginBeanBox.get(mainId);
-                loginBean.setEmptyData();
-                loginBeanBox.put(loginBean);
+                UserInfoBean userInfoBean = loginBeanBox.get(mainId);
+                userInfoBean.setEmptyData();
+                loginBeanBox.put(userInfoBean);
                 SpUtils.put("token", "");
                 SpUtils.put("imtoken", "");
                 startActivity(SettingActivity.this, null, LoginActivity.class);

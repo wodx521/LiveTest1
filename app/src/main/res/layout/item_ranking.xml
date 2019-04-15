@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_white"
-    android:padding="5dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/tvRanking"
@@ -20,7 +20,7 @@
 
     <com.lairui.livetest1.ui.panel.CircleImageView
         android:id="@+id/ivUserIcon"
-        android:layout_width="50dp"
+        android:layout_width="45dp"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
         android:src="@drawable/chatroom_01"

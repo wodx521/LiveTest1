@@ -27,6 +27,7 @@ public class FirstPresenter extends BasePresenterImpl<FirstMainFragment> {
             @Override
             public void onRequestSuccess(GeneralResult generalResult) {
                 List<CategoryBean> categoryListBean = (List<CategoryBean>) generalResult.data;
+
                 mPresenterView.setCategory(categoryListBean);
             }
 

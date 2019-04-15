@@ -3,6 +3,7 @@ package com.lairui.livetest1.module.three_module.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,19 +20,26 @@ import com.lairui.livetest1.dialog.ChoosePopup;
 import com.lairui.livetest1.dialog.LiveCreateRoomShareTipsPop;
 import com.lairui.livetest1.entity.bean.CategoryBean;
 import com.lairui.livetest1.entity.bean.LiveAddressBean;
+import com.lairui.livetest1.entity.bean.UserInfoBean;
+import com.lairui.livetest1.entity.jsonparam.BaseParams;
 import com.lairui.livetest1.module.three_module.presenter.LivePreparePresenter;
+import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lairui.livetest1.ui.adapter.ShareListAdapter;
 import com.lairui.livetest1.utils.ChoosePicture;
-import com.lzy.okgo.model.HttpParams;
+import com.lairui.livetest1.utils.ObjectBox;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.base.BaseRecycleViewAdapter;
+import com.wanou.framelibrary.bean.SimpleResponse;
 import com.wanou.framelibrary.glidetools.GlideApp;
+import com.wanou.framelibrary.manager.ActivityManage;
+import com.wanou.framelibrary.utils.GsonUtils;
 import com.wanou.framelibrary.utils.UiTools;
 import com.wanou.framelibrary.weight.RatioImageView;
 import com.zhihu.matisse.Matisse;
 
 import java.util.List;
 
+import io.objectbox.Box;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.RuntimePermissions;
@@ -49,10 +57,12 @@ public class LivePrepareActivity extends BaseMvpActivity<LivePreparePresenter> i
     private ImageView ivClose, ivQQ, ivWechat, ivMoments, ivWeibo, ivQQZone;
     private ShareListAdapter shareListAdapter;
     private LiveCreateRoomShareTipsPop mPopTips;
-    private HttpParams httpParams = new HttpParams();
     private List<Uri> mSelected;
     private boolean isInAddVideo = false;//是否已经发起直播请
     private boolean isPrivate = false;//是否私密直播
+    private Bundle bundle = new Bundle();
+    private BaseParams baseParams = new BaseParams();
+    private long mTime = 0;
 
     @Override
     protected int getResId() {
@@ -148,9 +158,19 @@ public class LivePrepareActivity extends BaseMvpActivity<LivePreparePresenter> i
                 }
                 break;
             case R.id.tvChooseSort:
-                httpParams.clear();
-                httpParams.put("operate", "roomGroup-categoryList");
-                mPresenter.getCategoryList(httpParams);
+                Box<CategoryBean> categoryBeanBox = ObjectBox.getBoxStore().boxFor(CategoryBean.class);
+                List<CategoryBean> categoryListBean = categoryBeanBox.getAll();
+                if (categoryListBean != null && categoryListBean.size() > 0) {
+                    ChoosePopup.getPopup(LivePrepareActivity.this, categoryListBean, tvChooseSort);
+                    ChoosePopup.setOnChooseContentListener(new ChoosePopup.OnChooseContentListener() {
+                        @Override
+                        public void onChooseClickListener(int position) {
+                            isChooseCategory = true;
+                            CategoryBean categoryBean = categoryListBean.get(position);
+                            tvChooseSort.setText(categoryBean.getName());
+                        }
+                    });
+                }
                 break;
             case R.id.ivClose:
                 finish();
@@ -175,27 +195,38 @@ public class LivePrepareActivity extends BaseMvpActivity<LivePreparePresenter> i
                 ivQQZone.setSelected(!ivQQZone.isSelected());
                 break;
             case R.id.tvStartLive:
-                // 如果已经申请直播
-                if (isInAddVideo) {
-                    return;
+                long currentTimeMillis = System.currentTimeMillis();
+                if (currentTimeMillis - mTime > 1000) {
+                    mTime = currentTimeMillis;
+                    // 如果已经申请直播
+                    if (isInAddVideo) {
+                        return;
+                    }
+                    if (!isChooseCategory) {
+                        UiTools.showToast(R.string.chooseCategory);
+                        return;
+                    }
+                    if (!UiTools.noEmpty(UiTools.getText(etLiveTitle))) {
+                        UiTools.showToast(R.string.inputLiveTitle);
+                        return;
+                    }
+                    // 私密直播
+                    if (cbRoomLock.isChecked()) {
+                        isPrivate = true;
+                    } else {
+                        isPrivate = false;
+                    }
+                    UserInfoBean currentUserInfo = ObjectBox.getCurrentUserInfo();
+                    if (currentUserInfo != null) {
+                        String token = currentUserInfo.getToken();
+                        baseParams.operate = "roomGroup-start";
+                        baseParams.token = token;
+                        mPresenter.getPushAddress(GsonUtils.toJson(baseParams));
+                    } else {
+                        startActivity(LivePrepareActivity.this, null, LoginActivity.class);
+                        ActivityManage.getInstance().finishAll();
+                    }
                 }
-                if (!isChooseCategory) {
-                    UiTools.showToast(R.string.chooseCategory);
-                    return;
-                }
-                if (!UiTools.noEmpty(UiTools.getText(etLiveTitle))) {
-                    UiTools.showToast(R.string.inputLiveTitle);
-                    return;
-                }
-                // 私密直播
-                if (cbRoomLock.isChecked()) {
-                    isPrivate = true;
-                } else {
-                    isPrivate = false;
-                }
-
-                startActivity(LivePrepareActivity.this, null, LivePushActivityAli.class);
-                finish();
                 break;
             default:
         }
@@ -219,27 +250,9 @@ public class LivePrepareActivity extends BaseMvpActivity<LivePreparePresenter> i
         LivePrepareActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 
-    public void setCategorySuccess(List<CategoryBean> categoryListBean) {
-        if (categoryListBean != null && categoryListBean.size() > 0) {
-            ChoosePopup.getPopup(LivePrepareActivity.this, categoryListBean, tvChooseSort);
-            ChoosePopup.setOnChooseContentListener(new ChoosePopup.OnChooseContentListener() {
-                @Override
-                public void onChooseClickListener(int position) {
-                    isChooseCategory = true;
-                    CategoryBean categoryBean = categoryListBean.get(position);
-                    tvChooseSort.setText(categoryBean.getName());
-                }
-            });
-        }
-    }
-
-    public void setCategoryError() {
-
-    }
-
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void requestPermission() {
-        ChoosePicture.choosePicture(LivePrepareActivity.this);
+        ChoosePicture.choosePicture(LivePrepareActivity.this,AppConstant.REQUEST_CODE_CHOOSE_COVER);
     }
 
     @OnPermissionDenied({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
@@ -249,10 +262,23 @@ public class LivePrepareActivity extends BaseMvpActivity<LivePreparePresenter> i
 
 
     public void setPushAddress(LiveAddressBean liveAddressBean) {
-        // 获取直播推流地址
-        LiveAddressBean.PushBean push = liveAddressBean.getPush();
-        String rtmpurl = push.getRtmpurl();
+        String rtmpurl = liveAddressBean.getPull().getRtmpurl();
+        bundle.clear();
+        bundle.putString("pushUrl", rtmpurl);
+        startActivity(LivePrepareActivity.this, bundle, LivePushActivityTX.class);
+        finish();
+    }
 
-
+    public void setPushAddressError(SimpleResponse simpleResponse) {
+        if (simpleResponse != null) {
+            if (simpleResponse.code == -1) {
+                startActivity(LivePrepareActivity.this, null, LoginActivity.class);
+                ActivityManage.getInstance().finishAll();
+            } else {
+                startActivity(LivePrepareActivity.this, null, LiveApproveActivity.class);
+            }
+        } else {
+            UiTools.showToast("获取信息失败, 稍后重试");
+        }
     }
 }

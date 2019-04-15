@@ -4,7 +4,7 @@
     package="com.lairui.livetest1">
 
     <!-- Required to run keep-alive service when targeting API 28 or higher -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -24,6 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <meta-data
             android:name="design_width_in_dp"
             android:value="412" />
@@ -81,11 +82,12 @@
         <activity android:name=".module.five_module.activity.RechargeActivity" />
         <activity android:name=".module.three_module.activity.LiveProtocolActivity" />
         <activity android:name=".module.three_module.activity.LivePushActivityAli" />
-        <activity android:name=".module.three_module.activity.LivePrepareActivity"
+        <activity
+            android:name=".module.three_module.activity.LivePrepareActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity android:name=".module.five_module.activity.SettingActivity" />
         <activity android:name=".module.five_module.activity.AccountSafeActivity" />
-
+        <activity android:name=".module.three_module.activity.LiveApproveActivity" />
     </application>
 
 </manifest>

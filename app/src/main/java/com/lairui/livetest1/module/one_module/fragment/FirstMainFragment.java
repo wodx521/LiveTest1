@@ -15,6 +15,7 @@ import com.lairui.livetest1.fragmentfactory.HomeFragmentFactory;
 import com.lairui.livetest1.module.one_module.adapter.LiveClassificationAdapter;
 import com.lairui.livetest1.module.one_module.presenter.FirstPresenter;
 import com.lairui.livetest1.ui.activity.SearchActivity;
+import com.lairui.livetest1.utils.ObjectBox;
 import com.lzy.okgo.model.HttpParams;
 import com.wanou.framelibrary.base.BaseFragment;
 import com.wanou.framelibrary.base.BaseMvpFragment;
@@ -22,6 +23,8 @@ import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.objectbox.Box;
 
 public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implements View.OnClickListener {
     private TabLayout tlClassification;
@@ -93,6 +96,11 @@ public class FirstMainFragment extends BaseMvpFragment<FirstPresenter> implement
             categoryBean.setId(i + 1);
             categoryBean.setName(stringArray[i]);
             categoryTemp.add(categoryBean);
+        }
+        Box<CategoryBean> categoryBeanBox = ObjectBox.getBoxStore().boxFor(CategoryBean.class);
+        List<CategoryBean> all = categoryBeanBox.getAll();
+        if (!all.containsAll(categoryListBean)) {
+            categoryBeanBox.put(categoryListBean);
         }
         categoryTemp.addAll(categoryListBean);
         liveClassificationAdapter.setCategoryListBean(categoryTemp);

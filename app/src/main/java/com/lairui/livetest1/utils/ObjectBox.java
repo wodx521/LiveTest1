@@ -5,7 +5,10 @@ import android.util.Log;
 
 import com.lairui.livetest1.BuildConfig;
 import com.lairui.livetest1.entity.bean.MyObjectBox;
+import com.lairui.livetest1.entity.bean.UserInfoBean;
+import com.wanou.framelibrary.utils.SpUtils;
 
+import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.android.AndroidObjectBrowser;
 
@@ -24,5 +27,14 @@ public class ObjectBox {
 
     public static BoxStore getBoxStore() {
         return boxStore;
+    }
+
+    public static UserInfoBean getCurrentUserInfo() {
+        Box<UserInfoBean> userInfoBeanBox = boxStore.boxFor(UserInfoBean.class);
+        long mainId = (long) SpUtils.get("mainId", -1L);
+        if (mainId != -1) {
+            return userInfoBeanBox.get(mainId);
+        }
+        return null;
     }
 }

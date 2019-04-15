@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
-import com.lairui.livetest1.entity.bean.LoginBean;
+import com.lairui.livetest1.entity.bean.UserInfoBean;
 import com.lairui.livetest1.entity.bean.LoginInfoBean;
 import com.lairui.livetest1.presenter.LoginPresenter;
 import com.lairui.livetest1.utils.ObjectBox;
@@ -97,20 +97,20 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
         }
     }
 
-    public void loginSuccess(LoginBean loginBean) {
-        String phone = loginBean.getPhone();
-        String token = loginBean.getToken();
-        String roomId = loginBean.getRoomId();
-        String imtoken = loginBean.getImtoken();
-        String id = loginBean.getUserId();
+    public void loginSuccess(UserInfoBean userInfoBean) {
+        String phone = userInfoBean.getPhone();
+        String token = userInfoBean.getToken();
+        String roomId = userInfoBean.getRoomId();
+        String imtoken = userInfoBean.getImtoken();
+        String id = userInfoBean.getUserId();
         SpUtils.put("phone", phone);
         SpUtils.put("userId", id);
         SpUtils.put("token", token);
         SpUtils.put("imtoken", imtoken);
         SpUtils.put("roomId", roomId);
-        SpUtils.put("nickName", loginBean.getNickname());
-        SpUtils.put("userName", loginBean.getUsername());
-        SpUtils.put("sex", loginBean.getSex());
+        SpUtils.put("nickName", userInfoBean.getNickname());
+        SpUtils.put("userName", userInfoBean.getUsername());
+        SpUtils.put("sex", userInfoBean.getSex());
         SpUtils.put("loginNumber", UiTools.getText(etName));
         Box<LoginInfoBean> loginInfoBeanBox = ObjectBox.getBoxStore().boxFor(LoginInfoBean.class);
         // 创建记录信息的对象
@@ -146,13 +146,13 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Vi
             }
         }
         long mainId = (long) SpUtils.get("mainId", -1L);
-        Box<LoginBean> loginBeanBox = ObjectBox.getBoxStore().boxFor(LoginBean.class);
+        Box<UserInfoBean> loginBeanBox = ObjectBox.getBoxStore().boxFor(UserInfoBean.class);
         if (mainId != -1) {
-            LoginBean loginBean1 = loginBeanBox.get(mainId);
-            loginBean1.setUpdate(loginBean);
-            loginBeanBox.put(loginBean1);
+            UserInfoBean userInfoBean1 = loginBeanBox.get(mainId);
+            userInfoBean1.setUpdate(userInfoBean);
+            loginBeanBox.put(userInfoBean1);
         } else {
-            long storeId = loginBeanBox.put(loginBean);
+            long storeId = loginBeanBox.put(userInfoBean);
             SpUtils.put("mainId", storeId);
         }
         startActivity(LoginActivity.this, null, MainActivity.class);

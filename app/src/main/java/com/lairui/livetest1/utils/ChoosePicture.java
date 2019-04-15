@@ -9,7 +9,7 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.filter.Filter;
 
 public class ChoosePicture {
-    public static void choosePicture(Activity activity) {
+    public static void choosePicture(Activity activity,int requestCode) {
         Matisse.from(activity)
                 .choose(MimeType.ofAll())
                 // 计数
@@ -23,6 +23,6 @@ public class ChoosePicture {
                 .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
                 .thumbnailScale(0.85f)
                 .imageEngine(new Glide4Engine())
-                .forResult(AppConstant.REQUEST_CODE_CHOOSE);
+                .forResult(requestCode);
     }
 }

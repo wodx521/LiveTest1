@@ -2,7 +2,7 @@ package com.lairui.livetest1.presenter;
 
 import com.google.gson.reflect.TypeToken;
 import com.lairui.livetest1.app_constant.AppConstant;
-import com.lairui.livetest1.entity.bean.LoginBean;
+import com.lairui.livetest1.entity.bean.UserInfoBean;
 import com.lairui.livetest1.ui.activity.LoginActivity;
 import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.request.base.Request;
@@ -21,7 +21,7 @@ public class LoginPresenter extends BasePresenterImpl<LoginActivity> {
         OkGoUtils.postRequest(AppConstant.BASE_URL, "login", httpParams, new CustomizeStringCallback() {
             @Override
             public Type getResultType() {
-                return new TypeToken<GeneralResult<LoginBean>>() {
+                return new TypeToken<GeneralResult<UserInfoBean>>() {
                 }.getType();
             }
 
@@ -30,8 +30,8 @@ public class LoginPresenter extends BasePresenterImpl<LoginActivity> {
                 if (UiTools.noEmpty(generalResult.msg)) {
                     UiTools.showToast(generalResult.msg);
                 }
-                LoginBean loginBean = (LoginBean) generalResult.data;
-                mPresenterView.loginSuccess(loginBean);
+                UserInfoBean userInfoBean = (UserInfoBean) generalResult.data;
+                mPresenterView.loginSuccess(userInfoBean);
             }
 
             @Override

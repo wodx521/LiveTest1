@@ -31,7 +31,7 @@ public class SecondMainFragment extends BaseMvpFragment<SecondMainPresenter> imp
 
     @Override
     protected int getResId() {
-        return R.layout.fragment_second_test;
+        return R.layout.fragment_second;
     }
 
     @Override

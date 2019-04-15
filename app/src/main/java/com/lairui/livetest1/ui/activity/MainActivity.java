@@ -15,11 +15,13 @@ import android.widget.ImageView;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
+import com.lairui.livetest1.entity.bean.UserInfoBean;
 import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
 import com.lairui.livetest1.module.three_module.activity.LivePrepareActivity;
 import com.lairui.livetest1.module.three_module.activity.LiveProtocolActivity;
 import com.lairui.livetest1.presenter.MainPresenter;
 import com.lairui.livetest1.utils.ChatroomKit;
+import com.lairui.livetest1.utils.ObjectBox;
 import com.lairui.livetest1.widget.LiveDialog;
 import com.tencent.rtmp.TXLiveBase;
 import com.wanou.framelibrary.base.BaseMvpActivity;
@@ -30,6 +32,7 @@ import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.List;
 
+import io.objectbox.Box;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.UserInfo;
 import permissions.dispatcher.NeedsPermission;
@@ -42,6 +45,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
     private ImageView ivMiddleMenu;
     private Bundle bundle = new Bundle();
     private double mTime;
+    // 是否选择的直播
     private boolean isLive = true;
 
     @Override
@@ -202,6 +206,14 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void applyPermissions() {
         if (isLive) {
+            Box<UserInfoBean> userInfoBeanBox = ObjectBox.getBoxStore().boxFor(UserInfoBean.class);
+            long mainId = (long) SpUtils.get("mainId", -1L);
+            UserInfoBean userInfoBean = userInfoBeanBox.get(mainId);
+            String roomId = userInfoBean.getRoomId();
+            if (UiTools.noEmpty(roomId)) {
+
+            }
+
             boolean isAgreeProtocol = (boolean) SpUtils.get("isAgreeProtocol", false);
             if (!isAgreeProtocol) {
                 bundle.clear();
@@ -223,7 +235,7 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
 
     @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void deniedPermission() {
-        // todo 这个方法只有在全部权限被拒绝时才调用,
+        // todo 这个方法只有在全部权限被拒绝时才调用
         UiTools.showToast("权限被拒绝,无法正常使用");
     }
 

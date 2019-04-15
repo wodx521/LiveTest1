@@ -27,7 +27,7 @@ import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
 public class ChangeAvatarActivity extends BaseMvpActivity<ChangeAvatarPresenter> implements View.OnClickListener {
-    List<Uri> mSelected;
+    private List<Uri> mSelected;
     private ImageView ivImage, ivBack;
     private TextView tvChooseAlbum;
     private TextView tvChooseCamera;
@@ -101,7 +101,7 @@ public class ChangeAvatarActivity extends BaseMvpActivity<ChangeAvatarPresenter>
 
     @NeedsPermission({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void requestStorage() {
-        ChoosePicture.choosePicture(ChangeAvatarActivity.this);
+        ChoosePicture.choosePicture(ChangeAvatarActivity.this,AppConstant.REQUEST_CODE_CHOOSE);
     }
 
     @OnPermissionDenied({Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})

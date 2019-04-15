@@ -11,9 +11,13 @@ import android.widget.TextView;
 
 import com.just.agentweb.AgentWeb;
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.entity.bean.UserInfoBean;
 import com.lairui.livetest1.module.two_module.presenter.LiveProtocolPresenter;
+import com.lairui.livetest1.utils.ObjectBox;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.utils.SpUtils;
+
+import io.objectbox.Box;
 
 public class LiveProtocolActivity extends BaseMvpActivity<LiveProtocolPresenter> implements View.OnClickListener {
     private ImageView ivBack;
@@ -87,7 +91,9 @@ public class LiveProtocolActivity extends BaseMvpActivity<LiveProtocolPresenter>
                 }
                 break;
             case R.id.tvAgree:
+                // 协议阅读状态应该由后台存储返回,
                 SpUtils.put("isAgreeProtocol", true);
+                Box<UserInfoBean> loginInfoBeanBox = ObjectBox.getBoxStore().boxFor(UserInfoBean.class);
                 startActivity(LiveProtocolActivity.this, null, LivePrepareActivity.class);
                 finish();
                 break;
