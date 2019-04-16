@@ -20,6 +20,7 @@ import com.lairui.livetest1.dialog.ChoosePopup;
 import com.lairui.livetest1.dialog.LiveCreateRoomShareTipsPop;
 import com.lairui.livetest1.entity.bean.CategoryBean;
 import com.lairui.livetest1.entity.bean.LiveAddressBean;
+import com.lairui.livetest1.entity.bean.PushAddressBean;
 import com.lairui.livetest1.entity.bean.UserInfoBean;
 import com.lairui.livetest1.entity.jsonparam.BaseParams;
 import com.lairui.livetest1.module.three_module.presenter.LivePreparePresenter;
@@ -261,8 +262,8 @@ public class LivePrepareActivity extends BaseMvpActivity<LivePreparePresenter> i
     }
 
 
-    public void setPushAddress(LiveAddressBean liveAddressBean) {
-        String rtmpurl = liveAddressBean.getPull().getRtmpurl();
+    public void setPushAddress(PushAddressBean pushAddress) {
+        String rtmpurl = pushAddress.getRtmpurl();
         bundle.clear();
         bundle.putString("pushUrl", rtmpurl);
         startActivity(LivePrepareActivity.this, bundle, LivePushActivityTX.class);

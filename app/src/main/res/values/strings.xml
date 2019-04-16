@@ -106,5 +106,15 @@
     <string name="idCardBack">身份证背面</string>
     <string name="idHandCard">手持身份证</string>
     <string name="confirm">确认</string>
+    <string name="uploadFront">请上传身份证正面图</string>
+    <string name="uploadBack">请上传身份证背面图</string>
+    <string name="uploadHand">请上传手持身份证图</string>
+    <string name="approveLiveAuthor">认证主播</string>
+    <string name="share">分享</string>
+    <string name="backHome">返回首页</string>
+    <string name="liveFinish">直播已结束</string>
+    <string name="scanNum">观看人数</string>
+    <string name="defaultNum">0</string>
+    <string name="getNum">获得印票</string>
 
 </resources>

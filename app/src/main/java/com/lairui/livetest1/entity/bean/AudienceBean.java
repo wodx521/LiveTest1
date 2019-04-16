@@ -7,9 +7,9 @@ import java.io.Serializable;
  */
 public class AudienceBean implements Serializable {
 
-    String anchorId; //主播id
-    int cover;//用户头像地址url
-    String name;  //昵称
+    private String anchorId; //主播id
+    private String cover;//用户头像地址url
+    private String name;  //昵称
 
     public String getAnchorId() {
         return anchorId == null ? "" : anchorId;
@@ -19,11 +19,11 @@ public class AudienceBean implements Serializable {
         this.anchorId = anchorId;
     }
 
-    public int getCover() {
+    public String getCover() {
         return cover;
     }
 
-    public void setCover(int cover) {
+    public void setCover(String cover) {
         this.cover = cover;
     }
 

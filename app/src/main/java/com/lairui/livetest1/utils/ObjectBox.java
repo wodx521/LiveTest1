@@ -37,4 +37,19 @@ public class ObjectBox {
         }
         return null;
     }
+
+    public static String getToken() {
+        try {
+            Box<UserInfoBean> userInfoBeanBox = boxStore.boxFor(UserInfoBean.class);
+            long mainId = (long) SpUtils.get("mainId", -1L);
+            if (mainId != -1) {
+                UserInfoBean userInfoBean = userInfoBeanBox.get(mainId);
+                return userInfoBean.getToken();
+            }
+            return "";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 }

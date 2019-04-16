@@ -2,7 +2,6 @@ package com.lairui.livetest1.module.three_module.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.view.View;
@@ -13,15 +12,22 @@ import android.widget.TextView;
 import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
+import com.lairui.livetest1.entity.bean.UploadResultBean;
+import com.lairui.livetest1.entity.jsonparam.ApproveParamsBean;
 import com.lairui.livetest1.module.three_module.presenter.LiveApprovePresenter;
 import com.lairui.livetest1.utils.ChoosePicture;
+import com.lairui.livetest1.utils.ObjectBox;
+import com.lzy.okgo.model.HttpParams;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.glidetools.GlideApp;
+import com.wanou.framelibrary.utils.GsonUtils;
 import com.wanou.framelibrary.utils.UiTools;
 import com.zhihu.matisse.Matisse;
 
+import java.io.File;
 import java.util.List;
 
+import okhttp3.MediaType;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -33,7 +39,12 @@ public class LiveApproveActivity extends BaseMvpActivity<LiveApprovePresenter> i
     private EditText etRealName, etPhone;
     private ConstraintLayout clCardFront, clCardBack, clHandCard;
     private ImageView ivLeft, ivCardFront, ivCardBack, ivHandCard;
-    private List<Uri> mSelected;
+    private HttpParams httpParams = new HttpParams();
+    private String frontPath;
+    private String backPath;
+    private String handPath;
+    private List<String> strings;
+    private ApproveParamsBean approveParamsBean = new ApproveParamsBean();
 
     @Override
     protected LiveApprovePresenter getPresenter() {
@@ -64,6 +75,7 @@ public class LiveApproveActivity extends BaseMvpActivity<LiveApprovePresenter> i
         ivHandCard = findViewById(R.id.ivHandCard);
         tvConfirm = findViewById(R.id.tvConfirm);
 
+        tvToolbarTitle.setText(R.string.approveLiveAuthor);
         ivLeft.setImageResource(R.drawable.arrow_left_main_color);
 
         initClick();
@@ -102,7 +114,34 @@ public class LiveApproveActivity extends BaseMvpActivity<LiveApprovePresenter> i
                 LiveApproveActivityPermissionsDispatcher.requestStorageWithPermissionCheck(LiveApproveActivity.this);
                 break;
             case R.id.tvConfirm:
-
+                String realName = UiTools.getText(etRealName);
+                String phone = UiTools.getText(etPhone);
+                String token = ObjectBox.getToken();
+                if (UiTools.noEmpty(realName, phone, frontPath, backPath, handPath)) {
+                    approveParamsBean.name = realName;
+                    approveParamsBean.phone = phone;
+                    approveParamsBean.token = token;
+                    approveParamsBean.cardPositive = frontPath;
+                    approveParamsBean.cardOpposite = backPath;
+                    approveParamsBean.handCard = handPath;
+                    mPresenter.applyApprove(GsonUtils.toJson(approveParamsBean));
+                } else {
+                    if (!UiTools.noEmpty(realName)) {
+                        UiTools.showToast(R.string.inputRealName);
+                    }
+                    if (!UiTools.noEmpty(phone)) {
+                        UiTools.showToast(R.string.inputPhoneNumber);
+                    }
+                    if (!UiTools.noEmpty(frontPath)) {
+                        UiTools.showToast(R.string.uploadFront);
+                    }
+                    if (!UiTools.noEmpty(backPath)) {
+                        UiTools.showToast(R.string.uploadBack);
+                    }
+                    if (!UiTools.noEmpty(handPath)) {
+                        UiTools.showToast(R.string.uploadHand);
+                    }
+                }
                 break;
             default:
         }
@@ -138,31 +177,15 @@ public class LiveApproveActivity extends BaseMvpActivity<LiveApprovePresenter> i
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            Uri uri;
-            switch (requestCode) {
-                case AppConstant.REQUEST_CODE_CHOOSE_FRONT:
-                    mSelected = Matisse.obtainResult(data);
-                    uri = mSelected.get(0);
-                    GlideApp.with(MyApplication.getContext())
-                            .load(uri)
-                            .into(ivCardFront);
-                    break;
-                case AppConstant.REQUEST_CODE_CHOOSE_BACK:
-                    mSelected = Matisse.obtainResult(data);
-                    uri = mSelected.get(0);
-                    GlideApp.with(MyApplication.getContext())
-                            .load(uri)
-                            .into(ivCardBack);
-                    break;
-                case AppConstant.REQUEST_CODE_CHOOSE_HAND:
-                    mSelected = Matisse.obtainResult(data);
-                    uri = mSelected.get(0);
-                    GlideApp.with(MyApplication.getContext())
-                            .load(uri)
-                            .into(ivHandCard);
-                    break;
-                default:
-            }
+            httpParams.clear();
+            strings = Matisse.obtainPathResult(data);
+            File file = new File(strings.get(0));
+            String token = ObjectBox.getToken();
+            httpParams.put("operate", "uploadGroup-aloneUpload");
+            httpParams.put("token", token);
+            httpParams.put("file", new HttpParams.FileWrapper(file, file.getName(), MediaType.parse("image/*")));
+            httpParams.put("type", "2");
+            mPresenter.uploadImage(httpParams, requestCode);
         }
     }
 
@@ -170,5 +193,30 @@ public class LiveApproveActivity extends BaseMvpActivity<LiveApprovePresenter> i
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         LiveApproveActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+    }
+
+    public void setUploadSuccess(UploadResultBean uploadResultBean, int requestCode) {
+        String savename = uploadResultBean.getGetSaveName();
+        switch (requestCode) {
+            case AppConstant.REQUEST_CODE_CHOOSE_FRONT:
+                frontPath = savename;
+                GlideApp.with(MyApplication.getContext())
+                        .load(AppConstant.BASE_URL + savename)
+                        .into(ivCardFront);
+                break;
+            case AppConstant.REQUEST_CODE_CHOOSE_BACK:
+                backPath = savename;
+                GlideApp.with(MyApplication.getContext())
+                        .load(AppConstant.BASE_URL + savename)
+                        .into(ivCardBack);
+                break;
+            case AppConstant.REQUEST_CODE_CHOOSE_HAND:
+                handPath = savename;
+                GlideApp.with(MyApplication.getContext())
+                        .load(AppConstant.BASE_URL + savename)
+                        .into(ivHandCard);
+                break;
+            default:
+        }
     }
 }
