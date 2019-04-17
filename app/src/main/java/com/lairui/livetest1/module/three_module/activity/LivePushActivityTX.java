@@ -27,6 +27,7 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
     private TextView tvCountDownTime;
     private String pushUrl;
     private BaseParams baseParams = new BaseParams();
+    private CountDownTimerUtils countDownTimerUtils;
 
     @Override
     protected LivePushPresenterTX getPresenter() {
@@ -44,11 +45,13 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
         if (mBundle != null) {
             pushUrl = mBundle.getString("pushUrl", "");
         }
+        countDownTimerUtils = new CountDownTimerUtils(3, tvCountDownTime);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        countDownTimerUtils.cancel();
         mLivePusher.stopCameraPreview(true); //停止摄像头预览
         mLivePusher.stopPusher();            //停止推流
         mLivePusher.setPushListener(null);   //解绑 listener
@@ -74,7 +77,6 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvStartPush:
-                CountDownTimerUtils countDownTimerUtils = new CountDownTimerUtils(3, tvCountDownTime);
                 countDownTimerUtils.start();
                 countDownTimerUtils.setOnCountDownFinish(new CountDownTimerUtils.OnCountDownFinish() {
                     @Override
@@ -105,4 +107,6 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
         startActivity(LivePushActivityTX.this, null, LiveFinishActivity.class);
         finish();
     }
+
+
 }
