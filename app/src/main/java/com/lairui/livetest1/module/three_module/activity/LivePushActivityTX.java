@@ -40,6 +40,8 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
         mLivePushConfig = new TXLivePushConfig();
         mLivePushConfig.enableNearestIP(false);
         mLivePushConfig.setFrontCamera(false);
+        mLivePushConfig.setTouchFocus(false);
+
         mLivePusher.setConfig(mLivePushConfig);
         mLivePusher.startCameraPreview(videoView);
         if (mBundle != null) {
@@ -81,9 +83,9 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
                 countDownTimerUtils.setOnCountDownFinish(new CountDownTimerUtils.OnCountDownFinish() {
                     @Override
                     public void finish() {
-//                        if (UiTools.noEmpty(pushUrl)) {
-//                            mLivePusher.startPusher(pushUrl);
-//                        }
+                        if (UiTools.noEmpty(pushUrl)) {
+                            mLivePusher.startPusher(pushUrl);
+                        }
                     }
                 });
                 break;
