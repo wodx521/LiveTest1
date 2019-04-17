@@ -51,11 +51,10 @@ public class LivePrepareActivity extends BaseMvpActivity<LivePreparePresenter> i
     private CheckBox cbRoomLock;
     private TextView tvChooseSort, tvStartLive;
     private EditText etLiveTitle;
-    private ImageView ivRoomLock;
+    private ImageView ivRoomLock,ivClose;
     private LinearLayout llAddImage;
     private RecyclerView rvShareList;
     private RatioImageView ivAddImage;
-    private ImageView ivClose, ivQQ, ivWechat, ivMoments, ivWeibo, ivQQZone;
     private ShareListAdapter shareListAdapter;
     private LiveCreateRoomShareTipsPop mPopTips;
     private List<Uri> mSelected;
@@ -79,11 +78,6 @@ public class LivePrepareActivity extends BaseMvpActivity<LivePreparePresenter> i
         llAddImage = findViewById(R.id.llAddImage);
         ivClose = findViewById(R.id.ivClose);
         ivAddImage = findViewById(R.id.ivAddImage);
-        ivQQ = findViewById(R.id.ivQQ);
-        ivWechat = findViewById(R.id.ivWechat);
-        ivMoments = findViewById(R.id.ivMoments);
-        ivWeibo = findViewById(R.id.ivWeibo);
-        ivQQZone = findViewById(R.id.ivQQZone);
         rvShareList = findViewById(R.id.rvShareList);
         tvStartLive = findViewById(R.id.tvStartLive);
         mPopTips = new LiveCreateRoomShareTipsPop(this);
@@ -96,11 +90,6 @@ public class LivePrepareActivity extends BaseMvpActivity<LivePreparePresenter> i
         ivClose.setOnClickListener(this);
         tvChooseSort.setOnClickListener(this);
         llAddImage.setOnClickListener(this);
-        ivQQ.setOnClickListener(this);
-        ivWechat.setOnClickListener(this);
-        ivMoments.setOnClickListener(this);
-        ivWeibo.setOnClickListener(this);
-        ivQQZone.setOnClickListener(this);
         tvStartLive.setOnClickListener(this);
     }
 
@@ -179,21 +168,6 @@ public class LivePrepareActivity extends BaseMvpActivity<LivePreparePresenter> i
             case R.id.llAddImage:
                 // 检查权限
                 LivePrepareActivityPermissionsDispatcher.requestPermissionWithPermissionCheck(LivePrepareActivity.this);
-                break;
-            case R.id.ivQQ:
-                ivQQ.setSelected(!ivQQ.isSelected());
-                break;
-            case R.id.ivWechat:
-                ivWechat.setSelected(!ivWechat.isSelected());
-                break;
-            case R.id.ivMoments:
-                ivMoments.setSelected(!ivMoments.isSelected());
-                break;
-            case R.id.ivWeibo:
-                ivWeibo.setSelected(!ivWeibo.isSelected());
-                break;
-            case R.id.ivQQZone:
-                ivQQZone.setSelected(!ivQQZone.isSelected());
                 break;
             case R.id.tvStartLive:
                 long currentTimeMillis = System.currentTimeMillis();

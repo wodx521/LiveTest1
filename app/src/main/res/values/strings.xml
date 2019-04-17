@@ -116,5 +116,7 @@
     <string name="scanNum">观看人数</string>
     <string name="defaultNum">0</string>
     <string name="getNum">获得印票</string>
+    <string name="cancel">取消</string>
+    <string name="define">确定</string>
 
 </resources>

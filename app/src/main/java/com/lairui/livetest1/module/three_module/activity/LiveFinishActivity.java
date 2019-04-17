@@ -9,19 +9,28 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.lairui.livetest1.MyApplication;
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.dialog.ShareDialog;
+import com.lairui.livetest1.entity.bean.ShareBean;
 import com.lairui.livetest1.entity.bean.UserInfoBean;
 import com.lairui.livetest1.module.three_module.presenter.LiveFinishPresenter;
 import com.lairui.livetest1.ui.panel.CircleImageView;
 import com.lairui.livetest1.utils.ObjectBox;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.glidetools.GlideApp;
+import com.wanou.framelibrary.utils.UiTools;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class LiveFinishActivity extends BaseMvpActivity<LiveFinishPresenter> implements View.OnClickListener {
     private CircleImageView ivUserIcon;
     private ImageView ivBackground;
-    private TextView tvUserName, tvScanNumber, tvGetNum, tvShare, tvBackHome;
+    private TextView tvUserName, tvScanNumber, tvGetNum;
+    private List<ShareBean> shareBeanList = new ArrayList<>();
+    private int[] shareImageResArr = {R.drawable.umeng_socialize_wechat, R.drawable.umeng_socialize_wxcircle
+            , R.drawable.umeng_socialize_qq, R.drawable.umeng_socialize_qzone, R.drawable.umeng_socialize_sina};
 
     @Override
     protected LiveFinishPresenter getPresenter() {
@@ -36,7 +45,9 @@ public class LiveFinishActivity extends BaseMvpActivity<LiveFinishPresenter> imp
         tvUserName.setText(nickname);
         GlideApp.with(MyApplication.getContext())
                 .load(portrait)
-                .apply(RequestOptions.bitmapTransform(new MultiTransformation<>(new CenterCrop(), new BlurTransformation(25))))
+                .placeholder(R.drawable.shape_gray5_round5)
+                .error(R.drawable.shape_gray5_round5)
+                .apply(RequestOptions.bitmapTransform(new MultiTransformation<>(new CenterCrop(), new BlurTransformation(50))))
                 .into(ivBackground);
 
         GlideApp.with(MyApplication.getContext())
@@ -44,6 +55,14 @@ public class LiveFinishActivity extends BaseMvpActivity<LiveFinishPresenter> imp
                 .placeholder(R.drawable.ic_head)
                 .error(R.drawable.ic_head)
                 .into(ivUserIcon);
+        shareBeanList.clear();
+        String[] stringArray = UiTools.getStringArray(R.array.shareList);
+        for (int i = 0; i < stringArray.length; i++) {
+            shareBeanList.add(new ShareBean(stringArray[i], shareImageResArr[i]));
+        }
+
+        tvScanNumber.setText(UiTools.formatNumber(Math.random() * 100, "0"));
+        tvGetNum.setText(UiTools.formatNumber(Math.random() * 100, "0"));
     }
 
     @Override
@@ -58,19 +77,28 @@ public class LiveFinishActivity extends BaseMvpActivity<LiveFinishPresenter> imp
         tvUserName = findViewById(R.id.tvUserName);
         tvScanNumber = findViewById(R.id.tvScanNumber);
         tvGetNum = findViewById(R.id.tvGetNum);
-        tvShare = findViewById(R.id.tvShare);
-        tvBackHome = findViewById(R.id.tvBackHome);
+        TextView tvShare = findViewById(R.id.tvShare);
+        TextView tvBackHome = findViewById(R.id.tvBackHome);
 
+        tvShare.setOnClickListener(this);
+        tvBackHome.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvShare:
-
+                ShareDialog.getDialog(LiveFinishActivity.this, shareBeanList);
+                ShareDialog.setOnItemClickListener(new ShareDialog.OnItemClickListener() {
+                    @Override
+                    public void itemClickListener(int position) {
+                        ShareBean shareBean = shareBeanList.get(position);
+                        UiTools.showToast(shareBean.shareName);
+                    }
+                });
                 break;
             case R.id.tvBackHome:
-
+                finish();
                 break;
             default:
         }

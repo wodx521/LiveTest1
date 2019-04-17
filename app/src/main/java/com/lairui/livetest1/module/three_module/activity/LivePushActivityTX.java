@@ -9,6 +9,7 @@ import com.lairui.livetest1.dialog.ExitLiveDialog;
 import com.lairui.livetest1.entity.jsonparam.BaseParams;
 import com.lairui.livetest1.module.three_module.presenter.LivePushPresenterTX;
 import com.lairui.livetest1.utils.ObjectBox;
+import com.lairui.livetest1.widget.CountDownTimerUtils;
 import com.tencent.rtmp.TXLivePushConfig;
 import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
@@ -23,6 +24,7 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
     private TXCloudVideoView videoView;
     private TXLivePushConfig mLivePushConfig;
     private TXLivePusher mLivePusher;
+    private TextView tvCountDownTime;
     private String pushUrl;
     private BaseParams baseParams = new BaseParams();
 
@@ -62,6 +64,7 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
         videoView = findViewById(R.id.video_view);
         TextView tvStartPush = findViewById(R.id.tvStartPush);
         ImageView ivCloseLive = findViewById(R.id.ivCloseLive);
+        tvCountDownTime = findViewById(R.id.tvCountDownTime);
 
         tvStartPush.setOnClickListener(this);
         ivCloseLive.setOnClickListener(this);
@@ -71,9 +74,16 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvStartPush:
-                if (UiTools.noEmpty(pushUrl)) {
-                    mLivePusher.startPusher(pushUrl);
-                }
+                CountDownTimerUtils countDownTimerUtils = new CountDownTimerUtils(3, tvCountDownTime);
+                countDownTimerUtils.start();
+                countDownTimerUtils.setOnCountDownFinish(new CountDownTimerUtils.OnCountDownFinish() {
+                    @Override
+                    public void finish() {
+//                        if (UiTools.noEmpty(pushUrl)) {
+//                            mLivePusher.startPusher(pushUrl);
+//                        }
+                    }
+                });
                 break;
             case R.id.ivCloseLive:
                 ExitLiveDialog.getDialog(LivePushActivityTX.this, "提示", "确定要结束直播吗?");
@@ -92,7 +102,7 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
     }
 
     public void exitSuccess() {
-        startActivity(LivePushActivityTX.this,null,LiveFinishActivity.class);
-
+        startActivity(LivePushActivityTX.this, null, LiveFinishActivity.class);
+        finish();
     }
 }

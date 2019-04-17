@@ -139,4 +139,12 @@
         <item>检查更新</item>
         <item>关于我们</item>
     </string-array>
+
+    <string-array name="shareList">
+        <item>微信</item>
+        <item>微信朋友圈</item>
+        <item>QQ</item>
+        <item>QQ空间</item>
+        <item>新浪</item>
+    </string-array>
 </resources>

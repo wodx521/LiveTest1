@@ -27,11 +27,13 @@ public class ExitLiveDialog {
         TextView tvConfirm = view.findViewById(R.id.tvConfirm);
         if (UiTools.noEmpty(title)) {
             textView.setText(title);
+            textView.setVisibility(View.VISIBLE);
         } else {
             textView.setVisibility(View.GONE);
         }
         if (UiTools.noEmpty(content)) {
             textView1.setText(content);
+            textView1.setVisibility(View.VISIBLE);
         } else {
             textView1.setVisibility(View.GONE);
         }
@@ -46,6 +48,7 @@ public class ExitLiveDialog {
             @Override
             public void onClick(View v) {
                 if (mOnConfirmClickListener != null) {
+                    dialog.dismiss();
                     mOnConfirmClickListener.confirmClickListener();
                 }
             }
@@ -56,7 +59,7 @@ public class ExitLiveDialog {
         dialog.show();
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
         int deviceWidth = UiTools.getDeviceWidth(activity);
-        attributes.width = deviceWidth * 2 / 3;
+        attributes.width = deviceWidth * 3 / 4;
         dialog.getWindow().setAttributes(attributes);
     }
 

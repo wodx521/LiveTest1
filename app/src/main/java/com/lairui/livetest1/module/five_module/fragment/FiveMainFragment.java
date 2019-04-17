@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.request.RequestOptions;
 import com.lairui.livetest1.MyApplication;
@@ -237,7 +238,7 @@ public class FiveMainFragment extends BaseMvpFragment<FiveMainPresenter> impleme
                 .load(portrait)
                 .placeholder(R.drawable.shape_gray5_round5)
                 .error(R.drawable.shape_gray5_round5)
-                .apply(RequestOptions.bitmapTransform(new MultiTransformation<>(new FitCenter(), new BlurTransformation(25))))
+                .apply(RequestOptions.bitmapTransform(new MultiTransformation<>(new CenterCrop(), new BlurTransformation(50))))
                 .into(ivBg);
 
         GlideApp.with(MyApplication.getContext())
