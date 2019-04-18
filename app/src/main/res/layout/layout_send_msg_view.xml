@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <Switch
+        android:id="@+id/switchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:thumb="@drawable/selector_msg_type"
+        android:track="@drawable/selector_msg_bg"
+        app:layout_constraintEnd_toStartOf="@id/etMsgContent"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etMsgContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/shape_white_bg_fillet5"
+        android:hint="@string/sayContent"
+        android:textColorHint="@color/colorGray"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/switchView"
+        app:layout_constraintEnd_toStartOf="@id/tvSend"
+        app:layout_constraintStart_toEndOf="@id/switchView"
+        app:layout_constraintTop_toTopOf="@id/switchView" />
+
+    <TextView
+        android:id="@+id/tvSend"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/shape_black_bg_round5"
+        android:gravity="center"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/send"
+        android:textColor="@color/color_white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/switchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/etMsgContent"
+        app:layout_constraintTop_toTopOf="@id/switchView" />
+
+</android.support.constraint.ConstraintLayout>

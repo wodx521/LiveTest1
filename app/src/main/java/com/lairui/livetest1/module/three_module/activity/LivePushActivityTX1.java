@@ -20,7 +20,7 @@ import com.wanou.framelibrary.utils.UiTools;
 /**
  * 腾讯直播Sdk
  */
-public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> implements View.OnClickListener {
+public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX> implements View.OnClickListener {
     private TXCloudVideoView videoView;
     private TXLivePushConfig mLivePushConfig;
     private TXLivePusher mLivePusher;
@@ -71,7 +71,7 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
 
     @Override
     protected int getResId() {
-        return R.layout.activity_live_push;
+        return R.layout.activity_live_push1;
     }
 
     @Override
@@ -92,7 +92,7 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
 
                 break;
             case R.id.ivCloseLive:
-                ExitLiveDialog.getDialog(LivePushActivityTX.this, "提示", "确定要结束直播吗?");
+                ExitLiveDialog.getDialog(LivePushActivityTX1.this, "提示", "确定要结束直播吗?");
                 ExitLiveDialog.setOnConfirmClickListener(new ExitLiveDialog.OnConfirmClickListener() {
                     @Override
                     public void confirmClickListener() {
@@ -108,7 +108,7 @@ public class LivePushActivityTX extends BaseMvpActivity<LivePushPresenterTX> imp
     }
 
     public void exitSuccess() {
-        startActivity(LivePushActivityTX.this, null, LiveFinishActivity.class);
+        startActivity(LivePushActivityTX1.this, null, LiveFinishActivity.class);
         finish();
     }
 

@@ -19,6 +19,7 @@
     <color name="red">#ff0000</color>
     <color name="color_black">#000000</color>
     <color name="color_black1">#686868</color>
+    <color name="color_black2">#B2000000</color>
     <color name="color_white">#FFFFFF</color>
     <color name="color_yellow">#FEE207</color>
     <color name="backgroundColor">#F8F8F8</color>
