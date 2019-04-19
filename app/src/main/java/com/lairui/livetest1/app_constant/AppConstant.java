@@ -18,4 +18,23 @@ public class AppConstant {
     public static final int REQUEST_CODE_CHOOSE_COVER = 8;
 
     public static final int CLICK_TIME_OUT = 1000;
+
+    /**
+     * 推流视频质量
+     */
+    public static final class VideoQualityType {
+        /**
+         * 标清
+         */
+        public static final int VIDEO_QUALITY_STANDARD = 0;
+        /**
+         * 高清
+         */
+        public static final int VIDEO_QUALITY_HIGH = 1;
+        /**
+         * 超清
+         */
+        public static final int VIDEO_QUALITY_SUPER = 2;
+    }
+
 }

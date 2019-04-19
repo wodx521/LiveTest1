@@ -147,4 +147,38 @@
         <item>QQ空间</item>
         <item>新浪</item>
     </string-array>
+
+    <string-array name="tabTitle">
+        <item>交易</item>
+        <item>好友</item>
+        <item>未关注</item>
+    </string-array>
+
+    <string-array name="baseToolList">
+        <item>音乐</item>
+        <item>美颜</item>
+        <item>麦克风</item>
+        <item>切换</item>
+        <item>镜像</item>
+    </string-array>
+
+    <string-array name="baseToolList1">
+        <item>音乐</item>
+        <item>美颜</item>
+        <item>麦克风</item>
+        <item>切换</item>
+        <item>闪光灯</item>
+    </string-array>
+    <string-array name="beautyType">
+        <item>无滤镜</item>
+        <item>浪漫</item>
+        <item>清新</item>
+        <item>唯美</item>
+        <item>粉嫩</item>
+        <item>怀旧</item>
+        <item>蓝调</item>
+        <item>清凉</item>
+        <item>日系</item>
+    </string-array>
+
 </resources>

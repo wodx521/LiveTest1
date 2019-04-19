@@ -91,6 +91,7 @@
             android:name=".module.three_module.activity.LiveApproveActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity android:name=".module.three_module.activity.LiveFinishActivity" />
+        <activity android:name=".module.three_module.activity.LivePushActivityTX1" />
     </application>
 
 </manifest>

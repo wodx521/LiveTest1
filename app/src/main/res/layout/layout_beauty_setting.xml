@@ -7,6 +7,44 @@
     android:background="@drawable/shape_white_bg_fillet5"
     android:padding="10dp">
 
+    <RadioGroup
+        android:id="@+id/rgStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/rbSmooth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:padding="10dp"
+            android:text="@string/smooth"
+            android:textColor="@drawable/selector_black_gray_text_color" />
+
+        <RadioButton
+            android:id="@+id/rbNatural"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:padding="10dp"
+            android:text="@string/natural"
+            android:textColor="@drawable/selector_black_gray_text_color" />
+
+        <RadioButton
+            android:id="@+id/rbHazy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:padding="10dp"
+            android:text="@string/hazy"
+            android:textColor="@drawable/selector_black_gray_text_color" />
+
+    </RadioGroup>
+
     <LinearLayout
         android:id="@+id/llGlamorous"
         android:layout_width="0dp"
@@ -15,7 +53,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/rgStyle">
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +80,7 @@
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="100%"
+            android:text="@string/defaultPercent"
             android:textColor="@color/color_black"
             android:textSize="13sp" />
 
@@ -63,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="@string/beautyGlamorous"
+            android:text="@string/beautyWhiten"
             android:textColor="@color/color_black"
             android:textSize="13sp"
             android:visibility="visible" />
@@ -84,7 +122,49 @@
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="100%"
+            android:text="@string/defaultPercent"
+            android:textColor="@color/color_black"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llRuddy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/llWhitening">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/beautyRuddy"
+            android:textColor="@color/color_black"
+            android:textSize="13sp"
+            android:visibility="visible" />
+
+        <SeekBar
+            android:id="@+id/sbRuddy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:max="100"
+            android:maxHeight="3dp"
+            android:minHeight="3dp"
+            android:progressDrawable="@drawable/bg_seekbar_main_color"
+            android:thumb="@drawable/ic_seekbar_thumb_main_color" />
+
+        <TextView
+            android:id="@+id/tvRuddyPercent"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/defaultPercent"
             android:textColor="@color/color_black"
             android:textSize="13sp" />
 
@@ -98,7 +178,7 @@
         app:layoutManager="android.support.v7.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/llWhitening"
+        app:layout_constraintTop_toBottomOf="@id/llRuddy"
         app:spanCount="3"
         tools:listitem="@layout/item_beauty_type" />
 </android.support.constraint.ConstraintLayout>

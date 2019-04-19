@@ -33,7 +33,7 @@ public class UiTools {
     @SuppressLint("StaticFieldLeak")
     public static Context context = GlobalApplication.getContext();
     private static DecimalFormat decimalFormat = new DecimalFormat();
-    private static Resources resources = context.getResources();
+    public static Resources resources = context.getResources();
 
     /**
      * 获取屏幕宽

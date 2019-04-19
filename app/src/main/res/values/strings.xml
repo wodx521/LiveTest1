@@ -124,6 +124,12 @@
     <string name="gameList">游戏与功能列表</string>
     <string name="ignoreMsg">忽略未读</string>
     <string name="beautyGlamorous">美颜:</string>
+    <string name="beautyWhiten">美白:</string>
+    <string name="beautyRuddy">红润:</string>
     <string name="isMsgNull">发送消息不能为空</string>
+    <string name="defaultPercent">100%</string>
+    <string name="natural">自然</string>
+    <string name="smooth">光滑</string>
+    <string name="hazy">朦胧</string>
 
 </resources>

@@ -79,7 +79,7 @@ public class BaseToolDialog {
         dialog.getWindow().setAttributes(attributes);
     }
 
-    interface ItemClickListener {
+    public interface ItemClickListener {
         void baseToolItemListener(int position);
 
         void featuresItemListener(int position);
@@ -87,7 +87,7 @@ public class BaseToolDialog {
 
     static ItemClickListener mItemClickListener;
 
-    public void setItemClickListener(ItemClickListener itemClickListener) {
+    public static void setItemClickListener(ItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;
     }
 }

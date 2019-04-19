@@ -240,7 +240,8 @@ public class LivePrepareActivity extends BaseMvpActivity<LivePreparePresenter> i
         String rtmpurl = pushAddress.getRtmpurl();
         bundle.clear();
         bundle.putString("pushUrl", rtmpurl);
-        startActivity(LivePrepareActivity.this, bundle, LivePushActivityTX.class);
+//        startActivity(LivePrepareActivity.this, bundle, LivePushActivityTX.class);
+        startActivity(LivePrepareActivity.this, bundle, LivePushActivityTX1.class);
         finish();
     }
 
