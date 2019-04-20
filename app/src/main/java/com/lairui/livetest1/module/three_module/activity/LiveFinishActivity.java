@@ -40,27 +40,28 @@ public class LiveFinishActivity extends BaseMvpActivity<LiveFinishPresenter> imp
     @Override
     protected void initData() {
         UserInfoBean currentUserInfo = ObjectBox.getCurrentUserInfo();
-        String portrait = currentUserInfo.getPortrait();
-        String nickname = currentUserInfo.getNickname();
-        tvUserName.setText(nickname);
-        GlideApp.with(MyApplication.getContext())
-                .load(portrait)
-                .placeholder(R.drawable.shape_gray5_round5)
-                .error(R.drawable.shape_gray5_round5)
-                .apply(RequestOptions.bitmapTransform(new MultiTransformation<>(new CenterCrop(), new BlurTransformation(50))))
-                .into(ivBackground);
+        if (currentUserInfo != null) {
+            String portrait = currentUserInfo.getPortrait();
+            String nickname = currentUserInfo.getNickname();
+            tvUserName.setText(nickname);
+            GlideApp.with(MyApplication.getContext())
+                    .load(portrait)
+                    .placeholder(R.drawable.shape_gray5_round5)
+                    .error(R.drawable.shape_gray5_round5)
+                    .apply(RequestOptions.bitmapTransform(new MultiTransformation<>(new CenterCrop(), new BlurTransformation(50))))
+                    .into(ivBackground);
 
-        GlideApp.with(MyApplication.getContext())
-                .load(portrait)
-                .placeholder(R.drawable.ic_head)
-                .error(R.drawable.ic_head)
-                .into(ivUserIcon);
+            GlideApp.with(MyApplication.getContext())
+                    .load(portrait)
+                    .placeholder(R.drawable.ic_head)
+                    .error(R.drawable.ic_head)
+                    .into(ivUserIcon);
+        }
         shareBeanList.clear();
         String[] stringArray = UiTools.getStringArray(R.array.shareList);
         for (int i = 0; i < stringArray.length; i++) {
             shareBeanList.add(new ShareBean(stringArray[i], shareImageResArr[i]));
         }
-
         tvScanNumber.setText(UiTools.formatNumber(Math.random() * 100, "0"));
         tvGetNum.setText(UiTools.formatNumber(Math.random() * 100, "0"));
     }

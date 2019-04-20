@@ -92,6 +92,7 @@
             android:windowSoftInputMode="stateHidden|stateUnchanged" />
         <activity android:name=".module.three_module.activity.LiveFinishActivity" />
         <activity android:name=".module.three_module.activity.LivePushActivityTX1" />
+        <activity android:name=".module.two_module.activity.MsgListActivity" />
     </application>
 
 </manifest>

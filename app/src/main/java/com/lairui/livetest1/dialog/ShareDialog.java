@@ -50,7 +50,7 @@ public class ShareDialog {
         window.setWindowAnimations(R.style.anim_menu_bottombar);
         WindowManager.LayoutParams attributes = window.getAttributes();
         int deviceWidth = UiTools.getDeviceWidth(activity);
-
+        attributes.dimAmount = 0f;
         attributes.width = deviceWidth;
         window.setAttributes(attributes);
     }

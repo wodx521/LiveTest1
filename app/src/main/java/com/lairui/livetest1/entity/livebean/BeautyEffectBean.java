@@ -8,13 +8,28 @@ import android.util.TypedValue;
 import com.lairui.livetest1.R;
 import com.wanou.framelibrary.utils.UiTools;
 
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+
+import static com.tencent.rtmp.TXLiveConstants.BEAUTY_STYLE_SMOOTH;
+
+@Entity
 public class BeautyEffectBean {
+    @Id
+    public long mainId;
     private int style;
     private int beautyLevel;
     private int whiteningLevel;
     private int ruddyLevel;
     private int filterType;
 
+    public BeautyEffectBean() {
+        style = BEAUTY_STYLE_SMOOTH;
+        beautyLevel = 5;
+        whiteningLevel = 3;
+        ruddyLevel = 2;
+        filterType = 0;
+    }
 
     public int getStyle() {
         return style;

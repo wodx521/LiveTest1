@@ -2,6 +2,7 @@ package com.lairui.livetest1.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -17,6 +18,8 @@ import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class BaseToolDialog {
 
@@ -63,19 +66,25 @@ public class BaseToolDialog {
                 }
             }
         });
-
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (mItemClickListener != null) {
+                    mItemClickListener.dismissListener();
+                }
+            }
+        });
         dialog.setView(view);
         dialog.setCancelable(true);
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.shape_black_trans_bg_round5);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.shape_white_transparent_round20);
         dialog.show();
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         dialog.getWindow().setWindowAnimations(R.style.anim_menu_bottombar);
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
         int deviceWidth = UiTools.getDeviceWidth(activity);
-        int deviceHeight = UiTools.getDeviceHeight(activity);
-
+        attributes.dimAmount = 0f;
         attributes.width = deviceWidth * 9 / 10;
-        attributes.height = deviceHeight / 2;
+        attributes.height = WRAP_CONTENT;
         dialog.getWindow().setAttributes(attributes);
     }
 
@@ -83,9 +92,11 @@ public class BaseToolDialog {
         void baseToolItemListener(int position);
 
         void featuresItemListener(int position);
+
+        void dismissListener();
     }
 
-    static ItemClickListener mItemClickListener;
+   private static ItemClickListener mItemClickListener;
 
     public static void setItemClickListener(ItemClickListener itemClickListener) {
         mItemClickListener = itemClickListener;

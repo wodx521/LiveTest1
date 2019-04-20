@@ -102,9 +102,41 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "6:5407618138085941727",
+      "lastPropertyId": "6:2362118416299315549",
+      "name": "BeautyEffectBean",
+      "properties": [
+        {
+          "id": "1:7055572796095197400",
+          "name": "mainId"
+        },
+        {
+          "id": "2:5930752559740393065",
+          "name": "style"
+        },
+        {
+          "id": "3:4054706991686483837",
+          "name": "beautyLevel"
+        },
+        {
+          "id": "4:3786759315156271246",
+          "name": "whiteningLevel"
+        },
+        {
+          "id": "5:7646672283760943446",
+          "name": "ruddyLevel"
+        },
+        {
+          "id": "6:2362118416299315549",
+          "name": "filterType"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "5:7367895084477730558",
+  "lastEntityId": "6:5407618138085941727",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

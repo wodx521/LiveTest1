@@ -15,6 +15,8 @@ import com.wanou.framelibrary.manager.ActivityManage;
 import com.wanou.framelibrary.utils.AppInfoUtils;
 import com.wanou.framelibrary.utils.SpUtils;
 
+import java.util.List;
+
 import io.objectbox.Box;
 
 public class SettingActivity extends BaseMvpActivity<SettingPresenter> implements View.OnClickListener {
@@ -92,13 +94,13 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
 
                 break;
             case R.id.tvExit:
-                Box<UserInfoBean> loginBeanBox = ObjectBox.getBoxStore().boxFor(UserInfoBean.class);
-                long mainId = (long) SpUtils.get("mainId", -1L);
-                UserInfoBean userInfoBean = loginBeanBox.get(mainId);
-                userInfoBean.setEmptyData();
-                loginBeanBox.put(userInfoBean);
-                SpUtils.put("token", "");
-                SpUtils.put("imtoken", "");
+                Box<UserInfoBean> userInfoBeanBox = ObjectBox.getBoxStore().boxFor(UserInfoBean.class);
+                List<UserInfoBean> all = userInfoBeanBox.getAll();
+                for (UserInfoBean userInfoBean : all) {
+                    userInfoBean.setToken("");
+                    userInfoBean.setImtoken("");
+                    userInfoBeanBox.put(userInfoBean);
+                }
                 startActivity(SettingActivity.this, null, LoginActivity.class);
                 ActivityManage.getInstance().finishAll();
                 break;

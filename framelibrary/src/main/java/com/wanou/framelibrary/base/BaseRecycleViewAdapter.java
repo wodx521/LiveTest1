@@ -66,6 +66,7 @@ public abstract class BaseRecycleViewAdapter extends RecyclerView.Adapter<Recycl
     public void onClick(View v) {
         if (onItemClickListener != null) {
             //注意这里使用getTag方法获取数据
+            setSelect((Integer) v.getTag());
             onItemClickListener.onItemClickListener(v, (Integer) v.getTag());
         }
     }

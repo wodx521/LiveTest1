@@ -171,6 +171,15 @@
     </string-array>
     <string-array name="beautyType">
         <item>无滤镜</item>
+        <item>标准</item>
+        <item>樱红</item>
+        <item>云裳</item>
+        <item>纯真</item>
+        <item>白兰</item>
+        <item>元气</item>
+        <item>超脱</item>
+        <item>香氛</item>
+        <item>美白</item>
         <item>浪漫</item>
         <item>清新</item>
         <item>唯美</item>

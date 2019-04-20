@@ -171,4 +171,19 @@ public class UserInfoBean {
     public void setAlipay(String alipay) {
         this.alipay = alipay;
     }
+
+    public void updateUserInfo(UserInfoBean userInfoBean) {
+        userId = userInfoBean.userId;
+        phone = userInfoBean.phone;
+        email = userInfoBean.email;
+        invite = userInfoBean.invite;
+        nickname = userInfoBean.nickname;
+        username = userInfoBean.username;
+        portrait = userInfoBean.portrait;
+        alipay = userInfoBean.alipay;
+        sex = userInfoBean.sex;
+        roomId = userInfoBean.roomId;
+        token = userInfoBean.token;
+        imtoken = userInfoBean.imtoken;
+    }
 }

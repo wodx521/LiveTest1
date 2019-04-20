@@ -1,5 +1,7 @@
 package com.lairui.livetest1.module.three_module.activity;
 
+import android.graphics.Bitmap;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import com.lairui.livetest1.dialog.MsgListDialog;
 import com.lairui.livetest1.dialog.ShareDialog;
 import com.lairui.livetest1.entity.bean.ShareBean;
 import com.lairui.livetest1.entity.jsonparam.BaseParams;
+import com.lairui.livetest1.entity.livebean.BeautyEffectBean;
 import com.lairui.livetest1.module.three_module.presenter.LivePushPresenterTX;
 import com.lairui.livetest1.module.three_module.presenter.LivePushPresenterTX1;
 import com.lairui.livetest1.utils.ObjectBox;
@@ -24,11 +27,14 @@ import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.utils.GsonUtils;
+import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import io.objectbox.Box;
 
 import static com.tencent.rtmp.TXLiveConstants.PAUSE_FLAG_PAUSE_VIDEO;
 
@@ -45,9 +51,12 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
     private ImageView ivOperate;
     private ImageView ivMessageList;
     private ImageView ivShare;
+    private ConstraintLayout clBottomView;
     private String pushUrl;
     private boolean frontCamera = true;
+    //
     private boolean isFlashLightOn = false;
+    // true 为观众与主播同视角,  false 反视角
     private boolean isMirrorOn = false;
     private boolean isMicOn = false;
     private BaseParams baseParams = new BaseParams();
@@ -79,6 +88,10 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
     private List<Integer> baseToolImageList;
     private List<Integer> baseToolImageList1;
     private List<String> beautyTypeList;
+    private int mBeautyLevel = 5;
+    private int mWhiteningLevel = 3;
+    private int mRuddyLevel = 2;
+    private BeautyEffectBean beautyEffectBean;
 
     @Override
     protected LivePushPresenterTX1 getPresenter() {
@@ -106,6 +119,18 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
         // 基础设置图片
         baseToolImageList = Arrays.asList(baseToolImageArr);
         baseToolImageList1 = Arrays.asList(baseToolImageArr1);
+        Box<BeautyEffectBean> beautyEffectBeanBox = ObjectBox.getBoxStore().boxFor(BeautyEffectBean.class);
+        if (beautyEffectBeanBox.isEmpty()) {
+            beautyEffectBean = new BeautyEffectBean();
+            long beautyId = beautyEffectBeanBox.put(beautyEffectBean);
+            SpUtils.put("beautyId", beautyId);
+        } else {
+            long beautyId = (long) SpUtils.get("beautyId", -1L);
+            if (beautyId != -1) {
+                beautyEffectBean = beautyEffectBeanBox.get(beautyId);
+            }
+        }
+
 
         mLivePusher = new TXLivePusher(this);
         // 设置推流视频质量
@@ -129,6 +154,7 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
         });
     }
 
+
     private void setVideoQuality() {
         mLivePushConfig = new TXLivePushConfig();
         mLivePushConfig.enableNearestIP(false);
@@ -136,6 +162,7 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
         mLivePushConfig.setPauseFlag(PAUSE_FLAG_PAUSE_VIDEO);
         mLivePushConfig.setFrontCamera(frontCamera);
         mLivePushConfig.setTouchFocus(false);
+        mLivePushConfig.setBeautyFilter(mBeautyLevel, mWhiteningLevel, mRuddyLevel);
         mLivePusher.setVideoQuality(TXLiveConstants.VIDEO_QUALITY_HIGH_DEFINITION, false, false);
         mLivePushConfig.setVideoBitrate(1000); // 初始码率
         mLivePushConfig.setHardwareAcceleration(TXLiveConstants.ENCODE_VIDEO_SOFTWARE); // 软硬解码
@@ -156,6 +183,7 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
         return R.layout.activity_live_push1;
     }
 
+
     @Override
     protected void initView() {
         videoView = findViewById(R.id.video_view);
@@ -165,7 +193,12 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
         ivOperate = findViewById(R.id.ivOperate);
         ivMessageList = findViewById(R.id.ivMessageList);
         ivShare = findViewById(R.id.ivShare);
+        clBottomView = findViewById(R.id.clBottomView);
 
+        initClick();
+    }
+
+    private void initClick() {
         ivCloseLive.setOnClickListener(this);
         ivSendMsg.setOnClickListener(this);
         ivOperate.setOnClickListener(this);
@@ -177,9 +210,26 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivSendMsg:
+                clBottomView.setVisibility(View.INVISIBLE);
+                MsgDialog.getDialog(LivePushActivityTX1.this, false);
+                MsgDialog.setmSendClickListener(new MsgDialog.SendClickListener() {
+                    @Override
+                    public void onSendClickListener(String content, boolean isNormalMsg) {
+                        if (isNormalMsg) {
+                            UiTools.showToast("弹幕消息" + content);
+                        } else {
+                            UiTools.showToast("普通消息" + content);
+                        }
+                    }
 
+                    @Override
+                    public void onDismissChange() {
+                        clBottomView.setVisibility(View.VISIBLE);
+                    }
+                });
                 break;
             case R.id.ivOperate:
+                clBottomView.setVisibility(View.INVISIBLE);
                 if (frontCamera) {
                     BaseToolDialog.getDialog(LivePushActivityTX1.this, baseToolList, baseToolImageList, null, null, false);
                 } else {
@@ -193,25 +243,23 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
 
                                 break;
                             case 1:
-                                BeautySettingDialog.getDialog(LivePushActivityTX1.this, beautyTypeList, 40, 49);
+                                clBottomView.setVisibility(View.INVISIBLE);
+                                BeautySettingDialog.getDialog(LivePushActivityTX1.this, beautyTypeList);
                                 BeautySettingDialog.setmItemClickListener(new BeautySettingDialog.ItemClickListener() {
-
                                     @Override
-                                    public void beautyItemClickListener(int position) {
-
-//                                        mLivePusher.setFilter(0);
-                                    }
-                                });
-                                BeautySettingDialog.setmSeekBarChangeListener(new BeautySettingDialog.SeekBarChangeListener() {
-                                    @Override
-                                    public void beautySeekBarChange(int progress) {
-
-//                                        mLivePusher.setBeautyFilter();
+                                    public void beautyItemClickListener(int position, Bitmap filterBitmap) {
+                                        // 滤镜设置, 根据不同选择设置不同滤镜
+                                        mLivePusher.setFilter(filterBitmap);
                                     }
 
                                     @Override
-                                    public void whitenSeekBarChange(int progress) {
+                                    public void dismissListener() {
+                                        clBottomView.setVisibility(View.VISIBLE);
+                                    }
 
+                                    @Override
+                                    public void beautyEffectChangeListener(int style, int beautyProgress, int whiteningProgress, int ruddyProgress) {
+                                        mLivePusher.setBeautyFilter(style, beautyProgress, whiteningProgress, ruddyProgress);
                                     }
                                 });
                                 break;
@@ -230,8 +278,15 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
                                     if (!mLivePusher.turnOnFlashLight(!isFlashLightOn)) {
                                         UiTools.showToast("打开闪光灯失败:绝大部分手机不支持前置闪光灯!");
                                     }
+                                    isFlashLightOn = !isFlashLightOn;
                                 } else {
                                     mLivePusher.setMirror(!isMirrorOn);
+                                    isMirrorOn = !isMirrorOn;
+                                    if (isMirrorOn) {
+                                        UiTools.showToast("观众与你看到的是一样的");
+                                    } else {
+                                        UiTools.showToast("观众与你看到的是相反的");
+                                    }
                                 }
                                 break;
                             default:
@@ -241,6 +296,11 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
                     @Override
                     public void featuresItemListener(int position) {
 
+                    }
+
+                    @Override
+                    public void dismissListener() {
+                        clBottomView.setVisibility(View.VISIBLE);
                     }
                 });
                 break;

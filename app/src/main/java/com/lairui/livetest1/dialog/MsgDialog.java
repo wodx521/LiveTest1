@@ -1,6 +1,7 @@
 package com.lairui.livetest1.dialog;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.View;
@@ -30,19 +31,20 @@ public class MsgDialog {
                 if (mSendClickListener != null) {
                     String msgContent = UiTools.getText(etMsgContent);
                     if (UiTools.noEmpty(msgContent)) {
-                        mSendClickListener.onSendClickListener(msgContent);
+
+                        mSendClickListener.onSendClickListener(msgContent, switchView.isChecked());
                     } else {
                         UiTools.showToast(R.string.isMsgNull);
                     }
                 }
             }
         });
-        // 开关切换监听
-        switchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (mSwitchChangeListener != null) {
-                    mSwitchChangeListener.onSwitchChange(isChecked);
+            public void onDismiss(DialogInterface dialog) {
+                if (mSendClickListener != null) {
+                    mSendClickListener.onDismissChange();
                 }
             }
         });
@@ -54,25 +56,21 @@ public class MsgDialog {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         dialog.getWindow().setWindowAnimations(R.style.anim_menu_bottombar);
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
+        attributes.dimAmount = 0f;
         attributes.width = UiTools.getDeviceWidth(activity);
         attributes.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(attributes);
     }
 
-    interface SendClickListener {
-        void onSendClickListener(String content);
+    public interface SendClickListener {
+        void onSendClickListener(String content, boolean isNormalMsg);
+
+        void onDismissChange();
     }
 
-    interface SwitchChangeListener {
-        void onSwitchChange(boolean isChecked);
-    }
+    private static SendClickListener mSendClickListener;
 
-    static SendClickListener mSendClickListener;
-    static SwitchChangeListener mSwitchChangeListener;
 
-    public static void setmSwitchChangeListener(SwitchChangeListener mSwitchChangeListener) {
-        MsgDialog.mSwitchChangeListener = mSwitchChangeListener;
-    }
 
     public static void setmSendClickListener(SendClickListener mSendClickListener) {
         MsgDialog.mSendClickListener = mSendClickListener;

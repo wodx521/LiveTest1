@@ -7,12 +7,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.lairui.livetest1.R;
@@ -29,7 +25,7 @@ public class MsgListDialog {
     public static void getDialog(Activity activity, List<String> tabTitle, List<String> trade,
                                  List<String> friend, List<String> noAttentionList) {
         AlertDialog dialog = new AlertDialog.Builder(activity).create();
-        View view = View.inflate(UiTools.context, R.layout.layout_msg_list, null);
+        View view = UiTools.parseLayout(R.layout.layout_msg_list);
         ImageView ivCloseList = view.findViewById(R.id.ivCloseList);
         TabLayout tlListTab = view.findViewById(R.id.tlListTab);
         TextView tvIgnore = view.findViewById(R.id.tvIgnore);
@@ -81,6 +77,7 @@ public class MsgListDialog {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         dialog.getWindow().setWindowAnimations(R.style.anim_menu_bottombar);
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
+        attributes.dimAmount = 0f;
         attributes.width = UiTools.getDeviceWidth(activity);
         attributes.height = UiTools.getDeviceHeight(activity) / 2;
         dialog.getWindow().setAttributes(attributes);

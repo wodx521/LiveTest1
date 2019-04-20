@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.entity.bean.UserInfoBean;
+import com.lairui.livetest1.entity.bean.UserInfoBean_;
 import com.lairui.livetest1.fragmentfactory.MainFragmentFactory;
 import com.lairui.livetest1.module.three_module.activity.LivePrepareActivity;
 import com.lairui.livetest1.module.three_module.activity.LiveProtocolActivity;
@@ -207,13 +208,14 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements View
     void applyPermissions() {
         if (isLive) {
             Box<UserInfoBean> userInfoBeanBox = ObjectBox.getBoxStore().boxFor(UserInfoBean.class);
-            long mainId = (long) SpUtils.get("mainId", -1L);
-            UserInfoBean userInfoBean = userInfoBeanBox.get(mainId);
-            String roomId = userInfoBean.getRoomId();
-            if (UiTools.noEmpty(roomId)) {
+            String userId = (String) SpUtils.get("userId", "");
+            if (UiTools.noEmpty(userId)) {
+                UserInfoBean userInfoBean = userInfoBeanBox.query().equal(UserInfoBean_.userId, userId).build().findFirst();
+                if (userInfoBean != null) {
+                    String roomId = userInfoBean.getRoomId();
 
+                }
             }
-
             boolean isAgreeProtocol = (boolean) SpUtils.get("isAgreeProtocol", false);
             if (!isAgreeProtocol) {
                 bundle.clear();

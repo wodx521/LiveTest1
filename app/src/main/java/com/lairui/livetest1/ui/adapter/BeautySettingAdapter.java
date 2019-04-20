@@ -35,6 +35,7 @@ public class BeautySettingAdapter extends BaseRecycleViewAdapter {
 
     @Override
     protected void bindClickListener(RecyclerView.ViewHolder viewHolder, int position) {
+
         BeautySettingViewHolder beautySettingViewHolder = (BeautySettingViewHolder) viewHolder;
         String beautyType = beautyTypeList.get(position);
         beautySettingViewHolder.tvBeautyType.setText(beautyType);

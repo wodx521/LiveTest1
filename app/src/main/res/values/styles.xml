@@ -42,4 +42,8 @@
         <item name="android:textColor">@drawable/selector_switch_text_color</item>
     </style>
 
+    <style name="msgTablayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorFullWidth">false</item>
+    </style>
+
 </resources>

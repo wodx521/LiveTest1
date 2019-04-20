@@ -4,16 +4,20 @@ import android.content.Context;
 import android.util.Log;
 
 import com.lairui.livetest1.BuildConfig;
-import com.lairui.livetest1.entity.bean.MyObjectBox;
+import com.lairui.livetest1.entity.MyObjectBox;
 import com.lairui.livetest1.entity.bean.UserInfoBean;
+import com.lairui.livetest1.entity.bean.UserInfoBean_;
 import com.wanou.framelibrary.utils.SpUtils;
+import com.wanou.framelibrary.utils.UiTools;
 
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.android.AndroidObjectBrowser;
+import io.objectbox.query.Query;
 
 public class ObjectBox {
     private static BoxStore boxStore;
+    private static Query<UserInfoBean> userInfoBeanQuery;
 
     public static void initObjectBox(Context context) {
         boxStore = MyObjectBox.builder()
@@ -23,6 +27,8 @@ public class ObjectBox {
             boolean started = new AndroidObjectBrowser(boxStore).start(context.getApplicationContext());
             Log.i("ObjectBrowser", "Started: " + started);
         }
+        Box<UserInfoBean> userInfoBeanBox = boxStore.boxFor(UserInfoBean.class);
+        userInfoBeanQuery = userInfoBeanBox.query().equal(UserInfoBean_.userId, "").build();
     }
 
     public static BoxStore getBoxStore() {
@@ -30,25 +36,27 @@ public class ObjectBox {
     }
 
     public static UserInfoBean getCurrentUserInfo() {
-        Box<UserInfoBean> userInfoBeanBox = boxStore.boxFor(UserInfoBean.class);
-        long mainId = (long) SpUtils.get("mainId", -1L);
-        if (mainId != -1) {
-            return userInfoBeanBox.get(mainId);
+        String userId = (String) SpUtils.get("userId", "");
+        if (UiTools.noEmpty(userId)) {
+            return userInfoBeanQuery.setParameter(UserInfoBean_.userId, userId).findFirst();
         }
         return null;
     }
 
     public static String getToken() {
-        try {
-            Box<UserInfoBean> userInfoBeanBox = boxStore.boxFor(UserInfoBean.class);
-            long mainId = (long) SpUtils.get("mainId", -1L);
-            if (mainId != -1) {
-                UserInfoBean userInfoBean = userInfoBeanBox.get(mainId);
-                return userInfoBean.getToken();
-            }
+        UserInfoBean currentUserInfo = getCurrentUserInfo();
+        if (currentUserInfo != null && UiTools.noEmpty(currentUserInfo.getToken())) {
+            return currentUserInfo.getToken();
+        } else {
             return "";
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+    }
+
+    public static String getIMToken() {
+        UserInfoBean currentUserInfo = getCurrentUserInfo();
+        if (currentUserInfo != null && UiTools.noEmpty(currentUserInfo.getImtoken())) {
+            return currentUserInfo.getImtoken();
+        } else {
             return "";
         }
     }

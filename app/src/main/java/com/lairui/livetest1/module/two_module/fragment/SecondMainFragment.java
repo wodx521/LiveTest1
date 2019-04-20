@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.lairui.livetest1.R;
 import com.lairui.livetest1.fragmentfactory.SecondFragmentFactory;
+import com.lairui.livetest1.module.two_module.activity.MsgListActivity;
 import com.lairui.livetest1.module.two_module.presenter.SecondMainPresenter;
 import com.lairui.livetest1.ui.activity.SearchActivity;
 import com.wanou.framelibrary.base.BaseFragment;
@@ -97,7 +98,7 @@ public class SecondMainFragment extends BaseMvpFragment<SecondMainPresenter> imp
                 startActivity(SecondMainFragment.this, null, SearchActivity.class);
                 break;
             case R.id.ivRight:
-
+                startActivity(SecondMainFragment.this, null, MsgListActivity.class);
                 break;
             default:
         }
