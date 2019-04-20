@@ -16,14 +16,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tlListTab"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        app:layout_constraintEnd_toStartOf="@id/tvIgnore"
-        app:layout_constraintStart_toEndOf="@id/ivCloseList"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorFullWidth="false" />
+    <!--<android.support.design.widget.TabLayout-->
+        <!--android:id="@+id/tlListTab"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--app:layout_constraintEnd_toStartOf="@id/tvIgnore"-->
+        <!--app:layout_constraintStart_toEndOf="@id/ivCloseList"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:tabIndicatorFullWidth="false" />-->
 
     <TextView
         android:id="@+id/tvIgnore"
@@ -35,8 +35,9 @@
         android:textColor="@color/color_black"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tlListTab"
+
         app:layout_constraintTop_toTopOf="parent" />
+    <!--app:layout_constraintStart_toEndOf="@id/tlListTab"-->
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/clList"
@@ -45,7 +46,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tlListTab">
+        app:layout_constraintTop_toBottomOf="@id/ivCloseList"
+   >
+        <!--app:layout_constraintTop_toBottomOf="@id/tlListTab"-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvList"

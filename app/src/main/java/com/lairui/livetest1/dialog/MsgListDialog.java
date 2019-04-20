@@ -27,7 +27,7 @@ public class MsgListDialog {
         AlertDialog dialog = new AlertDialog.Builder(activity).create();
         View view = UiTools.parseLayout(R.layout.layout_msg_list);
         ImageView ivCloseList = view.findViewById(R.id.ivCloseList);
-        TabLayout tlListTab = view.findViewById(R.id.tlListTab);
+//        TabLayout tlListTab = view.findViewById(R.id.tlListTab);
         TextView tvIgnore = view.findViewById(R.id.tvIgnore);
         rvList = view.findViewById(R.id.rvList);
         clEmpty = view.findViewById(R.id.clEmpty);
@@ -41,9 +41,9 @@ public class MsgListDialog {
                 dialog.dismiss();
             }
         });
-        for (String tabContent : tabTitle) {
-            tlListTab.addTab(tlListTab.newTab().setText(tabContent));
-        }
+//        for (String tabContent : tabTitle) {
+//            tlListTab.addTab(tlListTab.newTab().setText(tabContent));
+//        }
         // TODO: 2019/4/18 消息的弹窗设置
         tvIgnore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,23 +53,23 @@ public class MsgListDialog {
                 }
             }
         });
-        tlListTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                exchangeList(tab, listInfoAdapter, trade, friend, noAttentionList);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                exchangeList(tab, listInfoAdapter, trade, friend, noAttentionList);
-            }
-        });
+//        tlListTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//
+//                exchangeList(tab, listInfoAdapter, trade, friend, noAttentionList);
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//                exchangeList(tab, listInfoAdapter, trade, friend, noAttentionList);
+//            }
+//        });
         dialog.setView(view);
         dialog.setCancelable(true);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
