@@ -23,6 +23,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:networkSecurityConfig="@xml/network_security_config"
         tools:ignore="GoogleAppIndexingWarning">
 
         <meta-data
@@ -93,6 +94,7 @@
         <activity android:name=".module.three_module.activity.LiveFinishActivity" />
         <activity android:name=".module.three_module.activity.LivePushActivityTX1" />
         <activity android:name=".module.two_module.activity.MsgListActivity" />
+        <activity android:name=".module.three_module.activity.MusicBgmActivity" />
     </application>
 
 </manifest>

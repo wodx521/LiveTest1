@@ -12,6 +12,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
+            // 专业版
             abiFilters "armeabi", "armeabi-v7a"
             // 如果您使用的是商业版，只能使用 armeabi 架构，即：
             // abiFilters "armeabi",
@@ -30,6 +31,7 @@ android {
 }
 
 dependencies {
+    // 引入arr文件,腾讯直播SDK
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <!--直播预览控件,腾讯已封装-->
     <com.tencent.rtmp.ui.TXCloudVideoView
         android:id="@+id/video_view"
         android:layout_width="0dp"
@@ -13,6 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--外部控件, 包括头像,消息, 弹幕, 礼物等-->
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -26,11 +27,13 @@
             android:id="@+id/ivCloseLive"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginTop="8dp"
             android:contentDescription="@null"
             android:src="@drawable/ic_live_bottom_close"
+            app:layout_constraintBottom_toBottomOf="@id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="@id/constraintLayout" />
+        <!--倒计时展示-->
         <TextView
             android:id="@+id/tvCountDownTime"
             android:layout_width="0dp"
@@ -43,6 +46,99 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_black_transparent_round30"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.lairui.livetest1.ui.panel.CircleImageView
+                android:id="@+id/ivUserIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/chatroom_01"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout10"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="@id/ivUserIcon"
+                app:layout_constraintStart_toEndOf="@id/ivUserIcon"
+                app:layout_constraintTop_toTopOf="@id/ivUserIcon">
+
+                <TextView
+                    android:id="@+id/tvLiveStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="测试文字"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toEndOf="@id/ivUserIcon"
+                    app:layout_constraintTop_toTopOf="@id/ivUserIcon" />
+
+                <TextView
+                    android:id="@+id/tvScanNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="120"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toBottomOf="@id/ivUserIcon"
+                    app:layout_constraintStart_toEndOf="@id/ivUserIcon" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/shape_yellow_bg20"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:text="@string/attention"
+                android:textColor="@color/color_black"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/linearLayout10"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvScanList"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="@id/constraintLayout"
+            app:layout_constraintEnd_toStartOf="@id/ivCloseLive"
+            app:layout_constraintStart_toEndOf="@id/constraintLayout"
+            app:layout_constraintTop_toTopOf="@id/constraintLayout" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvMessage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/clBottomView"
+            app:layout_constraintHeight_percent="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.5" />
+
+        <!--底部工具栏,消息发送, 礼物, 弹幕分享, 美艳等设置按钮-->
         <include
             layout="@layout/layout_live_botton_view"
             android:layout_width="0dp"

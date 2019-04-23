@@ -6,6 +6,7 @@
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhite1">#9FFFFFFF</color>
+    <color name="colorWhite1_1">#dFFFFFFF</color>
     <color name="colorGreen">#2CC2AE</color>
     <color name="colorGreen1">#3FBDDD</color>
     <color name="colorGray">#848484</color>
@@ -26,4 +27,5 @@
     <color name="color_yellow">#FEE207</color>
     <color name="backgroundColor">#F8F8F8</color>
     <color name="shareBgColor">#E9EFF2</color>
+    <color name="light_red">#EC1A1A</color>
 </resources>

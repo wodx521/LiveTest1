@@ -22,6 +22,7 @@ allprojects {
         jcenter()
         maven { url 'https://jitpack.io' }
         maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+        // 指定本地仓库
         flatDir {
             dirs 'libs'
         }

@@ -16,6 +16,7 @@ public class AppConstant {
     public static final int REQUEST_CODE_CHOOSE_BACK = 6;
     public static final int REQUEST_CODE_CHOOSE_HAND = 7;
     public static final int REQUEST_CODE_CHOOSE_COVER = 8;
+    public static final int REQUEST_CODE_CHOOSE_MUSIC = 9;
 
     public static final int CLICK_TIME_OUT = 1000;
 

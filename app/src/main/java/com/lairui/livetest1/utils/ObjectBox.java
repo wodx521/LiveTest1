@@ -18,6 +18,7 @@ import io.objectbox.query.Query;
 public class ObjectBox {
     private static BoxStore boxStore;
     private static Query<UserInfoBean> userInfoBeanQuery;
+    private static Box<UserInfoBean> userInfoBeanBox;
 
     public static void initObjectBox(Context context) {
         boxStore = MyObjectBox.builder()
@@ -27,7 +28,7 @@ public class ObjectBox {
             boolean started = new AndroidObjectBrowser(boxStore).start(context.getApplicationContext());
             Log.i("ObjectBrowser", "Started: " + started);
         }
-        Box<UserInfoBean> userInfoBeanBox = boxStore.boxFor(UserInfoBean.class);
+        userInfoBeanBox = boxStore.boxFor(UserInfoBean.class);
         userInfoBeanQuery = userInfoBeanBox.query().equal(UserInfoBean_.userId, "").build();
     }
 
@@ -41,6 +42,10 @@ public class ObjectBox {
             return userInfoBeanQuery.setParameter(UserInfoBean_.userId, userId).findFirst();
         }
         return null;
+    }
+
+    public static Box<UserInfoBean> getUserInfoBeanBox() {
+        return userInfoBeanBox;
     }
 
     public static String getToken() {

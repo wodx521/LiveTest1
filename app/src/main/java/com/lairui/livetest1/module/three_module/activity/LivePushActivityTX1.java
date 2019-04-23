@@ -5,9 +5,9 @@ import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lairui.livetest1.R;
+import com.lairui.livetest1.app_constant.AppConstant;
 import com.lairui.livetest1.dialog.BaseToolDialog;
 import com.lairui.livetest1.dialog.BeautySettingDialog;
 import com.lairui.livetest1.dialog.ExitLiveDialog;
@@ -15,10 +15,11 @@ import com.lairui.livetest1.dialog.MsgDialog;
 import com.lairui.livetest1.dialog.MsgListDialog;
 import com.lairui.livetest1.dialog.ShareDialog;
 import com.lairui.livetest1.entity.bean.ShareBean;
+import com.lairui.livetest1.entity.bean.UserInfoBean;
 import com.lairui.livetest1.entity.jsonparam.BaseParams;
 import com.lairui.livetest1.entity.livebean.BeautyEffectBean;
-import com.lairui.livetest1.module.three_module.presenter.LivePushPresenterTX;
 import com.lairui.livetest1.module.three_module.presenter.LivePushPresenterTX1;
+import com.lairui.livetest1.utils.ChatroomKit;
 import com.lairui.livetest1.utils.ObjectBox;
 import com.lairui.livetest1.widget.CountDownTimerUtils;
 import com.tencent.rtmp.TXLiveConstants;
@@ -27,6 +28,7 @@ import com.tencent.rtmp.TXLivePusher;
 import com.tencent.rtmp.ui.TXCloudVideoView;
 import com.wanou.framelibrary.base.BaseMvpActivity;
 import com.wanou.framelibrary.utils.GsonUtils;
+import com.wanou.framelibrary.utils.LogUtils;
 import com.wanou.framelibrary.utils.SpUtils;
 import com.wanou.framelibrary.utils.UiTools;
 
@@ -35,6 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.objectbox.Box;
+import io.rong.imlib.RongIMClient;
 
 import static com.tencent.rtmp.TXLiveConstants.PAUSE_FLAG_PAUSE_VIDEO;
 
@@ -45,16 +48,12 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
     private TXCloudVideoView videoView;
     private TXLivePushConfig mLivePushConfig;
     private TXLivePusher mLivePusher;
-    private ImageView ivCloseLive;
     private TextView tvCountDownTime;
-    private ImageView ivSendMsg;
-    private ImageView ivOperate;
-    private ImageView ivMessageList;
-    private ImageView ivShare;
+    private ImageView ivCloseLive, ivSendMsg, ivOperate, ivMessageList, ivGift, ivShare;
     private ConstraintLayout clBottomView;
     private String pushUrl;
     private boolean frontCamera = true;
-    //
+    // 闪光灯是否开启
     private boolean isFlashLightOn = false;
     // true 为观众与主播同视角,  false 反视角
     private boolean isMirrorOn = false;
@@ -92,6 +91,7 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
     private int mWhiteningLevel = 3;
     private int mRuddyLevel = 2;
     private BeautyEffectBean beautyEffectBean;
+    private Box<BeautyEffectBean> beautyEffectBeanBox;
 
     @Override
     protected LivePushPresenterTX1 getPresenter() {
@@ -100,6 +100,49 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
 
     @Override
     protected void initData() {
+        // 初始化底部view弹窗类等信息
+        initBottomViewData();
+        // 初始化设置直播推流
+        initLivePusher();
+        // 倒计时View显示动画
+        countDownView();
+        // 初始化聊天室,处理创建聊天室等操作
+        initChatRoom();
+    }
+
+    private void initChatRoom() {
+        UserInfoBean currentUserInfo = ObjectBox.getCurrentUserInfo();
+        if (currentUserInfo != null) {
+            String roomId = currentUserInfo.getRoomId();
+            ChatroomKit.joinChatRoom(roomId, -1, new RongIMClient.OperationCallback() {
+                @Override
+                public void onSuccess() {
+                    LogUtils.d("创建聊天室成功");
+                }
+
+                @Override
+                public void onError(RongIMClient.ErrorCode errorCode) {
+                    LogUtils.d("创建聊天室失败");
+                }
+            });
+
+        }
+    }
+
+    private void countDownView() {
+        countDownTimerUtils = new CountDownTimerUtils(3, tvCountDownTime);
+        countDownTimerUtils.start();
+        countDownTimerUtils.setOnCountDownFinish(new CountDownTimerUtils.OnCountDownFinish() {
+            @Override
+            public void finish() {
+                if (UiTools.noEmpty(pushUrl)) {
+                    mLivePusher.startPusher(pushUrl);
+                }
+            }
+        });
+    }
+
+    private void initBottomViewData() {
         shareBeanList.clear();
         String[] stringArray = UiTools.getStringArray(R.array.shareList);
         for (int i = 0; i < stringArray.length; i++) {
@@ -119,7 +162,24 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
         // 基础设置图片
         baseToolImageList = Arrays.asList(baseToolImageArr);
         baseToolImageList1 = Arrays.asList(baseToolImageArr1);
-        Box<BeautyEffectBean> beautyEffectBeanBox = ObjectBox.getBoxStore().boxFor(BeautyEffectBean.class);
+
+    }
+
+    private void initLivePusher() {
+        mLivePusher = new TXLivePusher(this);
+        // 设置推流视频质量
+        setVideoQuality();
+        mLivePusher.setConfig(mLivePushConfig);
+        mLivePusher.startCameraPreview(videoView);
+        if (mBundle != null) {
+            pushUrl = mBundle.getString("pushUrl", "");
+        }
+    }
+
+    private void setVideoQuality() {
+        mLivePushConfig = new TXLivePushConfig();
+        mLivePushConfig.enableNearestIP(false);
+        beautyEffectBeanBox = ObjectBox.getBoxStore().boxFor(BeautyEffectBean.class);
         if (beautyEffectBeanBox.isEmpty()) {
             beautyEffectBean = new BeautyEffectBean();
             long beautyId = beautyEffectBeanBox.put(beautyEffectBean);
@@ -130,39 +190,11 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
                 beautyEffectBean = beautyEffectBeanBox.get(beautyId);
             }
         }
-
-
-        mLivePusher = new TXLivePusher(this);
-        // 设置推流视频质量
-        setVideoQuality();
-
-        mLivePusher.setConfig(mLivePushConfig);
-        mLivePusher.startCameraPreview(videoView);
-        if (mBundle != null) {
-            pushUrl = mBundle.getString("pushUrl", "");
-        }
-
-        countDownTimerUtils = new CountDownTimerUtils(3, tvCountDownTime);
-        countDownTimerUtils.start();
-        countDownTimerUtils.setOnCountDownFinish(new CountDownTimerUtils.OnCountDownFinish() {
-            @Override
-            public void finish() {
-                if (UiTools.noEmpty(pushUrl)) {
-                    mLivePusher.startPusher(pushUrl);
-                }
-            }
-        });
-    }
-
-
-    private void setVideoQuality() {
-        mLivePushConfig = new TXLivePushConfig();
-        mLivePushConfig.enableNearestIP(false);
         // 后台时只采集音频
         mLivePushConfig.setPauseFlag(PAUSE_FLAG_PAUSE_VIDEO);
         mLivePushConfig.setFrontCamera(frontCamera);
         mLivePushConfig.setTouchFocus(false);
-        mLivePushConfig.setBeautyFilter(mBeautyLevel, mWhiteningLevel, mRuddyLevel);
+        mLivePushConfig.setBeautyFilter(beautyEffectBean.getBeautyLevel(), beautyEffectBean.getWhiteningLevel(), beautyEffectBean.getRuddyLevel());
         mLivePusher.setVideoQuality(TXLiveConstants.VIDEO_QUALITY_HIGH_DEFINITION, false, false);
         mLivePushConfig.setVideoBitrate(1000); // 初始码率
         mLivePushConfig.setHardwareAcceleration(TXLiveConstants.ENCODE_VIDEO_SOFTWARE); // 软硬解码
@@ -183,7 +215,6 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
         return R.layout.activity_live_push1;
     }
 
-
     @Override
     protected void initView() {
         videoView = findViewById(R.id.video_view);
@@ -194,7 +225,8 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
         ivMessageList = findViewById(R.id.ivMessageList);
         ivShare = findViewById(R.id.ivShare);
         clBottomView = findViewById(R.id.clBottomView);
-
+        ivGift = findViewById(R.id.ivGift);
+        viewGone(ivGift);
         initClick();
     }
 
@@ -210,7 +242,7 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivSendMsg:
-                clBottomView.setVisibility(View.INVISIBLE);
+                clBottomView.setVisibility(View.GONE);
                 MsgDialog.getDialog(LivePushActivityTX1.this, false);
                 MsgDialog.setmSendClickListener(new MsgDialog.SendClickListener() {
                     @Override
@@ -229,7 +261,7 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
                 });
                 break;
             case R.id.ivOperate:
-                clBottomView.setVisibility(View.INVISIBLE);
+                clBottomView.setVisibility(View.GONE);
                 if (frontCamera) {
                     BaseToolDialog.getDialog(LivePushActivityTX1.this, baseToolList, baseToolImageList, null, null, false);
                 } else {
@@ -240,25 +272,30 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
                     public void baseToolItemListener(int position) {
                         switch (position) {
                             case 0:
-
+                                startActivityForResult(LivePushActivityTX1.this, null, AppConstant.REQUEST_CODE_CHOOSE_MUSIC, MusicBgmActivity.class);
                                 break;
                             case 1:
-                                clBottomView.setVisibility(View.INVISIBLE);
                                 BeautySettingDialog.getDialog(LivePushActivityTX1.this, beautyTypeList);
                                 BeautySettingDialog.setmItemClickListener(new BeautySettingDialog.ItemClickListener() {
                                     @Override
                                     public void beautyItemClickListener(int position, Bitmap filterBitmap) {
                                         // 滤镜设置, 根据不同选择设置不同滤镜
+                                        beautyEffectBean.setFilterType(position);
+                                        beautyEffectBeanBox.put(beautyEffectBean);
                                         mLivePusher.setFilter(filterBitmap);
                                     }
 
                                     @Override
                                     public void dismissListener() {
-                                        clBottomView.setVisibility(View.VISIBLE);
                                     }
 
                                     @Override
                                     public void beautyEffectChangeListener(int style, int beautyProgress, int whiteningProgress, int ruddyProgress) {
+                                        beautyEffectBean.setStyle(style);
+                                        beautyEffectBean.setBeautyLevel(beautyProgress);
+                                        beautyEffectBean.setWhiteningLevel(whiteningProgress);
+                                        beautyEffectBean.setRuddyLevel(ruddyProgress);
+                                        beautyEffectBeanBox.put(beautyEffectBean);
                                         mLivePusher.setBeautyFilter(style, beautyProgress, whiteningProgress, ruddyProgress);
                                     }
                                 });
@@ -340,6 +377,19 @@ public class LivePushActivityTX1 extends BaseMvpActivity<LivePushPresenterTX1> i
     }
 
     public void exitSuccess() {
+        // 推出直播成功, 同时也推出聊天室
+        ChatroomKit.quitChatRoom(new RongIMClient.OperationCallback() {
+            @Override
+            public void onSuccess() {
+                LogUtils.d("退出聊天室成功");
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                LogUtils.d("退出聊天室失败");
+            }
+        });
+        ChatroomKit.logout();
         startActivity(LivePushActivityTX1.this, null, LiveFinishActivity.class);
         finish();
     }

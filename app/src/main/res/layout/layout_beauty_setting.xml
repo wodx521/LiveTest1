@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_white_transparent_fillet5"
+    android:background="@drawable/shape_white_bg_fillet5"
     android:padding="10dp">
 
     <RadioGroup

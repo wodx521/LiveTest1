@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.lairui.livetest1.R;
@@ -16,6 +17,8 @@ import com.lairui.livetest1.ui.adapter.ListInfoAdapter;
 import com.wanou.framelibrary.utils.UiTools;
 
 import java.util.List;
+
+import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 public class MsgListDialog {
 
@@ -27,8 +30,11 @@ public class MsgListDialog {
         AlertDialog dialog = new AlertDialog.Builder(activity).create();
         View view = UiTools.parseLayout(R.layout.layout_msg_list);
         ImageView ivCloseList = view.findViewById(R.id.ivCloseList);
-        TabLayout tlListTab = view.findViewById(R.id.tlListTab);
         TextView tvIgnore = view.findViewById(R.id.tvIgnore);
+        RadioButton rbTrade = view.findViewById(R.id.rbTrade);
+        RadioButton rbFriend = view.findViewById(R.id.rbFriend);
+        RadioButton rbNoAttention = view.findViewById(R.id.rbNoAttention);
+
         rvList = view.findViewById(R.id.rvList);
         clEmpty = view.findViewById(R.id.clEmpty);
 
@@ -41,9 +47,6 @@ public class MsgListDialog {
                 dialog.dismiss();
             }
         });
-        for (String tabContent : tabTitle) {
-            tlListTab.addTab(tlListTab.newTab().setText(tabContent));
-        }
         // TODO: 2019/4/18 消息的弹窗设置
         tvIgnore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,23 +56,47 @@ public class MsgListDialog {
                 }
             }
         });
-        tlListTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        rbTrade.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                exchangeList(tab, listInfoAdapter, trade, friend, noAttentionList);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                exchangeList(tab, listInfoAdapter, trade, friend, noAttentionList);
+            public void onClick(View v) {
+                listInfoAdapter.setData(trade);
+                if (trade != null && trade.size() > 0) {
+                    rvList.setVisibility(View.VISIBLE);
+                    clEmpty.setVisibility(View.GONE);
+                } else {
+                    rvList.setVisibility(View.GONE);
+                    clEmpty.setVisibility(View.VISIBLE);
+                }
             }
         });
+        rbFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listInfoAdapter.setData(friend);
+                if (friend != null && friend.size() > 0) {
+                    rvList.setVisibility(View.VISIBLE);
+                    clEmpty.setVisibility(View.GONE);
+                } else {
+                    rvList.setVisibility(View.GONE);
+                    clEmpty.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        rbNoAttention.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listInfoAdapter.setData(noAttentionList);
+                if (noAttentionList != null && noAttentionList.size() > 0) {
+                    rvList.setVisibility(View.VISIBLE);
+                    clEmpty.setVisibility(View.GONE);
+                } else {
+                    rvList.setVisibility(View.GONE);
+                    clEmpty.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        rbTrade.performClick();
         dialog.setView(view);
         dialog.setCancelable(true);
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -77,50 +104,14 @@ public class MsgListDialog {
         dialog.getWindow().setGravity(Gravity.BOTTOM);
         dialog.getWindow().setWindowAnimations(R.style.anim_menu_bottombar);
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
+        // dialog显示时背景的昏暗程度
         attributes.dimAmount = 0f;
         attributes.width = UiTools.getDeviceWidth(activity);
-        attributes.height = UiTools.getDeviceHeight(activity) / 2;
+        attributes.height = UiTools.getDeviceWidth(activity) / 3;
         dialog.getWindow().setAttributes(attributes);
     }
 
-    private static void exchangeList(TabLayout.Tab tab, ListInfoAdapter listInfoAdapter, List<String> trade, List<String> friend, List<String> noAttentionList) {
-        int position = tab.getPosition();
-        switch (position) {
-            case 0:
-                listInfoAdapter.setData(trade);
-                if (trade != null && trade.size() > 0) {
-                    rvList.setVisibility(View.VISIBLE);
-                    clEmpty.setVisibility(View.GONE);
-                } else {
-                    clEmpty.setVisibility(View.VISIBLE);
-                    rvList.setVisibility(View.GONE);
-                }
-                break;
-            case 1:
-                listInfoAdapter.setData(friend);
-                if (friend != null && friend.size() > 0) {
-                    rvList.setVisibility(View.VISIBLE);
-                    clEmpty.setVisibility(View.GONE);
-                } else {
-                    clEmpty.setVisibility(View.VISIBLE);
-                    rvList.setVisibility(View.GONE);
-                }
-                break;
-            case 2:
-                listInfoAdapter.setData(noAttentionList);
-                if (noAttentionList != null && noAttentionList.size() > 0) {
-                    rvList.setVisibility(View.VISIBLE);
-                    clEmpty.setVisibility(View.GONE);
-                } else {
-                    clEmpty.setVisibility(View.VISIBLE);
-                    rvList.setVisibility(View.GONE);
-                }
-                break;
-            default:
-        }
-    }
-
-    public  interface IgnoreClickListener {
+    public interface IgnoreClickListener {
         void onIgnoreClickListener();
     }
 
